@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ฟอร์มสัญญารีไฟแนนซ์ออนไลน์</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        @font-face {
+            font-family: 'LINESeedSansTH';
+            src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff');
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'LINESeedSansTH', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff3366, #ff6b6b);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .header span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            color: #ff3366;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ff3366;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #ff3366;
+            outline: none;
+        }
+        
+        .form-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: #ff3366;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        
+        /* Signature canvas */
+        #signature-pad {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        
+        /* File upload styling */
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        
+        .file-upload-label {
+            display: block;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px dashed #ddd;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .file-upload-label:hover {
+            background: #f0f0f0;
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .form-row {
+                display: flex;
+                gap: 15px;
+            }
+            
+            .form-row .form-group {
+                flex: 1;
+            }
+        }
+        
+        /* Custom select arrow */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+        
+        /* Checkbox styling */
+        .checkbox-group {
+            margin: 20px 0;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .checkbox-label input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        /* Tooltip styling */
+        .info-tooltip {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #ff3366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 18px;
+            margin-left: 5px;
+            cursor: help;
+            position: relative;
+        }
+        
+        .info-tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        
+        .info-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Address dropdowns styling */
+        .address-fields {
+            display: none;
+        }
+        
+        .show-address-fields {
+            display: block;
+            margin-bottom: 15px;
+            color: #ff3366;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        /* Current step indicator */
+        .current-step {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff3366;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="menu.html" class="back-button">←</a>
+        <img src="https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/1729495746901.jpg?v=1729613467316" alt="NO1Money+ logo">
+        <span>สัญญารีไฟแนนซ์</span>
+    </div>
+    
+    <div class="container">
+        <div class="current-step" id="current-step-indicator">ส่วนที่ 1: ข้อมูลส่วนตัว</div>
+        
+        <form id="refinance-form">
+            <!-- ส่วนที่ 1: ข้อมูลส่วนตัว -->
+            <div class="form-section active" id="section-1">
+                <h3 class="section-title">ข้อมูลส่วนตัว</h3>
+                
+                <div class="form-group">
+                    <label for="branch">สาขาที่ทำสัญญา</label>
+                    <select id="branch" name="branch" required>
+                        <option value="">-- เลือกสาขา --</option>
+                        <option value="ออนไลน์">ออนไลน์</option>
+                        <option value="เซ็นเตอร์วัน">เซ็นเตอร์วัน</option>
+                        <option value="สุขสวัสดิ์ 52">สุขสวัสดิ์ 52</option>
+                        <option value="คู้บอน 27">กุดปลาดุก</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name-title">คำนำหน้า</label>
+                        <select id="name-title" name="name-title" required>
+                            <option value="">-- เลือก --</option>
+                            <option value="นาย">นาย</option>
+                            <option value="นาง">นาง</option>
+                            <option value="นางสาว">นางสาว</option>
+                            <option value="อื่นๆ">อื่นๆ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="custom-title-group" style="display:none;">
+                        <label for="name-title-custom">ระบุคำนำหน้า</label>
+                        <input type="text" id="name-title-custom" name="name-title-custom">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fullname">ชื่อ-นามสกุล</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dob">วันเกิด</label>
+                        <input type="text" id="dob" name="dob" required placeholder="เลือกวันที่">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">อายุ</label>
+                        <input type="number" id="age" name="age" required readonly>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id-card">เลขบัตรประชาชน</label>
+                    <input type="text" id="id-card" name="id-card" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="b-id-card">เลขหลังบัตรประชาชน <span class="info-tooltip">?<span class="tooltip-text">รูปแบบ: XX1-2345678-90</span></span></label>
+                    <input type="text" id="b-id-card" name="b-id-card" required placeholder="XX1-2345678-90">
+                </div>
+                
+                <div class="form-group">
+                    <label for="current-address">ที่อยู่ปัจจุบัน</label>
+                    <textarea id="current-address" name="current-address" rows="2" required></textarea>
+                </div>
+                
+                <a href="#" class="show-address-fields">แสดงรายละเอียดที่อยู่เพิ่มเติม</a>
+                
+                <div class="address-fields" id="address-details">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="house-number">บ้านเลขที่</label>
+                            <input type="text" id="house-number" name="house-number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="moo">หมู่</label>
+                            <input type="text" id="moo" name="moo">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="street">ถนน</label>
+                            <input type="text" id="street" name="street">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="soi">ตรอก/ซอย</label>
+                            <input type="text" id="soi" name="soi">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="current-province">จังหวัด</label>
+                            <select id="current-province" name="current-province"></select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="current-district">อำเภอ/เขต</label>
+                            <select id="current-district" name="current-district"></select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="current-subdistrict">ตำบล/แขวง</label>
+                            <select id="current-subdistrict" name="current-subdistrict"></select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="current-postal-code">รหัสไปรษณีย์</label>
+                            <select id="current-postal-code" name="current-postal-code" readonly></select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn" disabled>ก่อนหน้า</button>
+                    <button type="button" class="btn btn-primary next-btn">ถัดไป</button>
+                </div>
+            </div>
+            
+            <!-- ส่วนที่ 2: ข้อมูลติดต่อ -->
+            <div class="form-section" id="section-2">
+                <h3 class="section-title">ข้อมูลติดต่อ</h3>
+                
+                <div class="form-group">
+                    <label for="phone">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">อีเมล</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="form-note">ใช้สำหรับรับเอกสารสัญญา</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="apple-id">Apple ID / Google Account</label>
+                    <input type="text" id="apple-id" name="apple-id" required>
+                    <div class="form-note">สำหรับผู้ใช้ iOS กรอก Apple ID, ผู้ใช้ Android กรอก Gmail</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apple-password">รหัสผ่าน Apple ID/Gmail</label>
+                        <input type="text" id="apple-password" name="apple-password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="screen-password">รหัสผ่านหน้าจอ</label>
+                        <input type="text" id="screen-password" name="screen-password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="facebook">ลิงก์ Facebook</label>
+                    <input type="text" id="facebook" name="facebook">
+                    <div class="form-note">ตัวอย่าง: https://www.facebook.com/username</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="line-id">LINE ID</label>
+                    <input type="text" id="line-id" name="line-id" required>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">ก่อนหน้า</button>
+                    <button type="button" class="btn btn-primary next-btn">ถัดไป</button>
+                </div>
+            </div>
+            
+            <!-- ส่วนที่ 3: อาชีพและบุคคลอ้างอิง -->
+            <div class="form-section" id="section-3">
+                <h3 class="section-title">ข้อมูลอาชีพและบุคคลอ้างอิง</h3>
+                
+                <div class="form-group">
+                    <label for="company">บริษัทที่ทำงาน</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company-address">ที่อยู่บริษัท</label>
+                    <textarea id="company-address" name="company-address" rows="2" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company-province">จังหวัด</label>
+                        <select id="company-province" name="company-province" required></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-district">อำเภอ/เขต</label>
+                        <select id="company-district" name="company-district" required></select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company-subdistrict">ตำบล/แขวง</label>
+                        <select id="company-subdistrict" name="company-subdistrict" required></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-postal-code">รหัสไปรษณีย์</label>
+                        <select id="company-postal-code" name="company-postal-code" required readonly></select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company-phone">เบอร์โทรบริษัท</label>
+                    <input type="tel" id="company-phone" name="company-phone" required>
+                </div>
+                
+                <h4 style="margin-top: 25px; color: #ff3366; border-bottom: 1px solid #eee; padding-bottom: 8px;">บุคคลอ้างอิง</h4>
+                
+                <div class="form-group">
+                    <label for="reference-name">ชื่อ-นามสกุล</label>
+                    <input type="text" id="reference-name" name="reference-name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reference-relation">เกี่ยวข้องเป็น</label>
+                        <select id="reference-relation" name="reference-relation" required>
+                            <option value="">-- เลือก --</option>
+                            <option value="พ่อแม่">พ่อแม่</option>
+                            <option value="พี่น้อง">พี่น้อง</option>
+                            <option value="สามี/ภรรยา/แฟน">สามี/ภรรยา/แฟน</option>
+                            <option value="ลูก">ลูก</option>
+                            <option value="เพื่อน/หัวหน้างาน">เพื่อน/หัวหน้างาน</option>
+                            <option value="ญาติ">ญาติ</option>
+                            <option value="อื่นๆ">อื่นๆ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="custom-relation-group" style="display:none;">
+                        <label for="reference-relation-custom">ระบุความสัมพันธ์</label>
+                        <input type="text" id="reference-relation-custom" name="reference-relation-custom">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reference-phone">เบอร์โทร</label>
+                    <input type="tel" id="reference-phone" name="reference-phone" required>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">ก่อนหน้า</button>
+                    <button type="button" class="btn btn-primary next-btn">ถัดไป</button>
+                </div>
+            </div>
+            
+            <!-- ส่วนที่ 4: สินค้า -->
+            <div class="form-section" id="section-4">
+                <h3 class="section-title">ข้อมูลสินค้า</h3>
+                
+                <div class="form-group">
+                    <label for="product-type">ยี่ห้อ</label>
+                    <select id="product-type" name="product-type" required>
+                        <option value="">-- เลือกยี่ห้อ --</option>
+                        <option value="iphone">iPhone</option>
+                        <option value="samsung">Samsung</option>
+                        <option value="oppo">Oppo</option>
+                        <option value="vivo">Vivo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-model">รุ่น</label>
+                    <select id="product-model" name="product-model" required>
+                        <option value="">-- เลือกรุ่น --</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="storage">ความจุ</label>
+                        <select id="storage" name="storage" required>
+                            <option value="">-- เลือกความจุ --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="color">สี</label>
+                        <select id="color" name="color" required>
+                            <option value="">-- เลือกสี --</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imei">หมายเลข IMEI <span class="info-tooltip">?<span class="tooltip-text">กด *#06# บนโทรศัพท์เพื่อดูหมายเลข IMEI</span></span></label>
+                    <input type="text" id="imei" name="imei" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="serial-number">หมายเลข SN</label>
+                    <input type="text" id="serial-number" name="serial-number" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="refinance-price">ราคารีไฟแนนซ์ (บาท)</label>
+                        <input type="number" id="refinance-price" name="refinance-price" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="installments">จำนวนงวด</label>
+                        <select id="installments" name="installments" required>
+                            <option value="">-- เลือกงวด --</option>
+                            <option value="6">6 งวด</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="first-payment-date">เริ่มชำระวันที่</label>
+                    <input type="text" id="first-payment-date" name="first-payment-date" required placeholder="เลือกวันที่">
+                </div>
+                
+                <div class="form-group">
+                    <label for="monthly-payment">ผ่อนส่งงวดละ (บาท)</label>
+                    <input type="number" id="monthly-payment" name="monthly-payment" required readonly>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">ก่อนหน้า</button>
+                    <button type="button" class="btn btn-primary next-btn">ถัดไป</button>
+                </div>
+            </div>
+            
+            <!-- ส่วนที่ 5: หลักฐานและลายเซ็น -->
+            <div class="form-section" id="section-5">
+                <h3 class="section-title">หลักฐานประกอบและลายเซ็น</h3>
+                
+                <div class="form-group">
+                    <label>รูปถ่ายผู้กู้พร้อมบัตรประชาชน</label>
+                    <div class="file-upload">
+                        <label for="borrower-image" class="file-upload-label">คลิกเพื่ออัปโหลดรูปภาพ</label>
+                        <input type="file" id="borrower-image" name="borrower-image" accept="image/*" required>
+                    </div>
+                    <div class="form-note">ถ่ายภาพผู้กู้พร้อมถือบัตรประชาชน</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>รูปถ่ายบัตรประชาชน</label>
+                    <div class="file-upload">
+                        <label for="id-card-image" class="file-upload-label">คลิกเพื่ออัปโหลดรูปภาพ</label>
+                        <input type="file" id="id-card-image" name="id-card-image" accept="image/*" required>
+                    </div>
+                    <div class="form-note">ถ่ายภาพบัตรประชาชนทั้งด้านหน้าและด้านหลัง</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>ภาพบันทึกหน้าจอโปรไฟล์ Facebook</label>
+                    <div class="file-upload">
+                        <label for="facebook-profile-image" class="file-upload-label">คลิกเพื่ออัปโหลดรูปภาพ</label>
+                        <input type="file" id="facebook-profile-image" name="facebook-profile-image" accept="image/*" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>สลิปเงินเดือน (ถ้ามี)</label>
+                        <div class="file-upload">
+                            <label for="salary-slip" class="file-upload-label">คลิกเพื่ออัปโหลดไฟล์</label>
+                            <input type="file" id="salary-slip" name="salary-slip" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Statement (ถ้ามี)</label>
+                        <div class="file-upload">
+                            <label for="bank-statement" class="file-upload-label">คลิกเพื่ออัปโหลดไฟล์</label>
+                            <input type="file" id="bank-statement" name="bank-statement" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="file-access-code">รหัสเข้าไฟล์ (ถ้ามี)</label>
+                    <input type="text" id="file-access-code" name="file-access-code">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signature">ลายเซ็นผู้ทำสัญญา</label>
+                    <canvas id="signature-pad"></canvas>
+                    <button type="button" id="clear-signature" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">ล้างลายเซ็น</button>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agree-terms" required> ข้าพเจ้ายอมรับข้อกำหนดและเงื่อนไขการทำสัญญารีไฟแนนซ์
+                    </label>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">ก่อนหน้า</button>
+                    <button type="submit" class="btn btn-primary">ส่งข้อมูล</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/plugin/customParseFormat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/locale/th.min.js"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // Initialize form navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize date pickers
+            flatpickr("#dob", {
+                dateFormat: "d/m/Y",
+                locale: "th",
+                onChange: function(selectedDates, dateStr, instance) {
+                    calculateAge(dateStr);
+                }
+            });
+            
+            flatpickr("#first-payment-date", {
+                dateFormat: "d/m/Y",
+                locale: "th",
+                minDate: "today"
+            });
+            
+            // Initialize signature pad
+            const canvas = document.getElementById("signature-pad");
+            const signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgb(255, 255, 255)'
+            });
+            
+            document.getElementById('clear-signature').addEventListener('click', function() {
+                signaturePad.clear();
+            });
+            
+            // Form navigation
+            const sections = document.querySelectorAll('.form-section');
+            const stepIndicator = document.getElementById('current-step-indicator');
+            const stepTitles = [
+                "ส่วนที่ 1: ข้อมูลส่วนตัว",
+                "ส่วนที่ 2: ข้อมูลติดต่อ",
+                "ส่วนที่ 3: อาชีพและบุคคลอ้างอิง",
+                "ส่วนที่ 4: ข้อมูลสินค้า",
+                "ส่วนที่ 5: หลักฐานและลายเซ็น"
+            ];
+            
+            let currentSection = 0;
+            
+            function showSection(index) {
+                sections.forEach((section, i) => {
+                    if (i === index) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                
+                // Update step indicator
+                stepIndicator.textContent = stepTitles[index];
+                
+                // Update button states
+                document.querySelectorAll('.prev-btn').forEach(btn => {
+                    btn.disabled = index === 0;
+                });
+            }
+            
+            document.querySelectorAll('.next-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (validateSection(currentSection)) {
+                        currentSection++;
+                        showSection(currentSection);
+                        
+                        // Scroll to top
+                        window.scrollTo(0, 0);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.prev-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentSection--;
+                    showSection(currentSection);
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            function validateSection(index) {
+                // Simple validation - check required fields
+                const section = sections[index];
+                const inputs = section.querySelectorAll('input[required], select[required], textarea[required]');
+                
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        input.style.borderColor = '#ddd';
+                    }
+                });
+                
+                // Special validation for last section
+                if (index === sections.length - 1) {
+                    if (signaturePad.isEmpty()) {
+                        document.getElementById('signature-pad').style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        document.getElementById('signature-pad').style.borderColor = '#ddd';
+                    }
+                    
+                    if (!document.getElementById('agree-terms').checked) {
+                        document.getElementById('agree-terms').parentElement.style.color = 'red';
+                        isValid = false;
+                    } else {
+                        document.getElementById('agree-terms').parentElement.style.color = '';
+                    }
+                }
+                
+                if (!isValid) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                        text: 'โปรดตรวจสอบข้อมูลในช่องที่ทำเครื่องหมายสีแดง'
+                    });
+                }
+                
+                return isValid;
+            }
+            
+            // Calculate age from date of birth
+            function calculateAge(dateStr) {
+                if (dateStr) {
+                    const dob = dayjs(dateStr, 'D/M/YYYY');
+                    const age = dayjs().diff(dob, 'year');
+                    document.getElementById('age').value = age;
+                }
+            }
+            
+            // Toggle custom title input
+            document.getElementById('name-title').addEventListener('change', function() {
+                const customGroup = document.getElementById('custom-title-group');
+                customGroup.style.display = this.value === 'อื่นๆ' ? 'block' : 'none';
+            });
+            
+            // Toggle custom relation input
+            document.getElementById('reference-relation').addEventListener('change', function() {
+                const customGroup = document.getElementById('custom-relation-group');
+                customGroup.style.display = this.value === 'อื่นๆ' ? 'block' : 'none';
+            });
+            
+            // Toggle address details
+            document.querySelector('.show-address-fields').addEventListener('click', function(e) {
+                e.preventDefault();
+                const addressDetails = document.getElementById('address-details');
+                addressDetails.style.display = addressDetails.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // Calculate monthly payment
+            document.getElementById('refinance-price').addEventListener('input', calculatePayment);
+            document.getElementById('installments').addEventListener('change', calculatePayment);
+            
+            function calculatePayment() {
+                const price = parseFloat(document.getElementById('refinance-price').value) || 0;
+                const installments = parseInt(document.getElementById('installments').value) || 1;
+                
+                if (price > 0 && installments > 0) {
+                    const monthly = price / installments;
+                    document.getElementById('monthly-payment').value = monthly.toFixed(2);
+                }
+            }
+            
+            // Dynamic model selection based on product type
+            document.getElementById('product-type').addEventListener('change', function() {
+                const modelSelect = document.getElementById('product-model');
+                const storageSelect = document.getElementById('storage');
+                const colorSelect = document.getElementById('color');
+                
+                // Clear existing options
+                modelSelect.innerHTML = '<option value="">-- เลือกรุ่น --</option>';
+                storageSelect.innerHTML = '<option value="">-- เลือกความจุ --</option>';
+                colorSelect.innerHTML = '<option value="">-- เลือกสี --</option>';
+                
+                if (this.value === 'iphone') {
+                    addOptions(modelSelect, [
+                        'iPhone 15 Pro Max',
+                        'iPhone 15 Pro',
+                        'iPhone 15',
+                        'iPhone 14 Pro Max',
+                        'iPhone 14 Pro',
+                        'iPhone 14'
+                    ]);
+                    
+                    addOptions(storageSelect, [
+                        '128GB',
+                        '256GB',
+                        '512GB',
+                        '1TB'
+                    ]);
+                    
+                    addOptions(colorSelect, [
+                        'สีดำ',
+                        'สีขาว',
+                        'สีทอง',
+                        'สีฟ้า',
+                        'สีม่วง'
+                    ]);
+                } else if (this.value === 'samsung') {
+                    addOptions(modelSelect, [
+                        'Galaxy S23 Ultra',
+                        'Galaxy S23+',
+                        'Galaxy S23',
+                        'Galaxy Z Fold5',
+                        'Galaxy Z Flip5'
+                    ]);
+                    
+                    addOptions(storageSelect, [
+                        '256GB',
+                        '512GB',
+                        '1TB'
+                    ]);
+                    
+                    addOptions(colorSelect, [
+                        'สีดำ',
+                        'สีครีม',
+                        'สีเขียว',
+                        'สีลาเวนเดอร์'
+                    ]);
+                } else if (this.value === 'oppo') {
+                    addOptions(modelSelect, [
+                        'Oppo Find N3',
+                        'Oppo Find X6 Pro',
+                        'Oppo Reno10 Pro+'
+                    ]);
+                    
+                    addOptions(storageSelect, [
+                        '256GB',
+                        '512GB'
+                    ]);
+                    
+                    addOptions(colorSelect, [
+                        'สีดำ',
+                        'สีเขียว',
+                        'สีทอง'
+                    ]);
+                } else if (this.value === 'vivo') {
+                    addOptions(modelSelect, [
+                        'Vivo X90 Pro',
+                        'Vivo X80 Pro',
+                        'Vivo V29 Pro'
+                    ]);
+                    
+                    addOptions(storageSelect, [
+                        '128GB',
+                        '256GB',
+                        '512GB'
+                    ]);
+                    
+                    addOptions(colorSelect, [
+                        'สีดำ',
+                        'สีแดง',
+                        'สีฟ้า'
+                    ]);
+                }
+            });
+            
+            function addOptions(selectElement, options) {
+                options.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    selectElement.appendChild(opt);
+                });
+            }
+            
+            // Load province data (simplified example)
+            function loadProvinces() {
+                const provinces = ['กรุงเทพมหานคร', 'นนทบุรี', 'ปทุมธานี', 'สมุทรปราการ', 'ชลบุรี'];
+                const provinceSelects = document.querySelectorAll('select[id$="province"]');
+                
+                provinceSelects.forEach(select => {
+                    provinces.forEach(province => {
+                        const option = document.createElement('option');
+                        option.value = province;
+                        option.textContent = province;
+                        select.appendChild(option);
+                    });
+                });
+            }
+            
+            // Form submission
+            document.getElementById('refinance-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateSection(currentSection)) {
+                    Swal.fire({
+                        title: 'ยืนยันการส่งข้อมูล',
+                        text: 'คุณแน่ใจว่าต้องการส่งข้อมูลสัญญานี้หรือไม่?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'ยืนยัน',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Here you would typically send the form data to the server
+                            const formData = new FormData(this);
+                            
+                            // Convert signature to image and add to form data
+                            if (!signaturePad.isEmpty()) {
+                                const signatureImage = signaturePad.toDataURL();
+                                formData.append('signature-image', signatureImage);
+                            }
+                            
+                            // Simulate form submission
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: 'ส่งข้อมูลสำเร็จ!',
+                                    text: 'ระบบกำลังประมวลผลสัญญาของคุณ',
+                                    icon: 'success'
+                                }).then(() => {
+                                    // Redirect or do something after successful submission
+                                    window.location.href = 'success.html';
+                                });
+                            }, 1500);
+                        }
+                    });
+                }
+            });
+            
+            // Initialize form data
+            loadProvinces();
+        });
+    </script>
+</body>
+</html>
