@@ -1,0 +1,2764 @@
+
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ระบบลงสมัครสมาชิก | NO1Money+</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="icon" href="https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/1729495746901.jpg?v=1729613467316" type="image/x-icon">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <style>
+      /* นำเข้าและกำหนดฟอนต์ */
+      @font-face {
+          font-family: 'LINESeedSansTH';
+          src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff');
+          font-weight: normal;
+      }
+
+      @font-face {
+          font-family: 'LINESeedSansTH';
+          src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Bd.woff?v=1731156180172') format('woff');
+          font-weight: bold;
+      }
+      /* สำหรับเบราว์เซอร์ที่รองรับ ::placeholder */
+      input::placeholder,
+      textarea::placeholder,
+      select::placeholder {
+          font-family: 'LINESeedSansTH', sans-serif;
+      }
+
+      /* สำหรับ WebKit (Chrome, Safari, Opera) */
+      ::-webkit-input-placeholder {
+          font-family: 'LINESeedSansTH', sans-serif;
+      }
+
+      /* สำหรับ Firefox */
+      ::-moz-placeholder {
+          font-family: 'LINESeedSansTH', sans-serif;
+      }
+
+      /* สำหรับ Internet Explorer 10+ */
+      :-ms-input-placeholder {
+          font-family: 'LINESeedSansTH', sans-serif;
+      }
+
+      /* สำหรับ Firefox รุ่นเก่า */
+      :-moz-placeholder {
+          font-family: 'LINESeedSansTH', sans-serif;
+      }
+
+
+        :root {
+            --primary-color: #FF6B9E;
+            --secondary-color: #FF8FAB;
+            --accent-color: #FFC2D1;
+            --dark-color: #5A2A40;
+            --light-color: #FFF0F3;
+            --error-color: #FF3B30;
+            --success-color: #34C759;
+            --warning-color: #FF9500;
+            --border-radius: 16px;
+            --box-shadow: 0 8px 20px rgba(90, 42, 64, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: none;
+            touch-action: manipulation;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'LINESeedSansTH', sans-serif;
+        }
+        button,
+        .btn ,input,select,option,placeholder, textarea { /* Added textarea */
+            font-family: 'LINESeedSansTH', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF0F3 0%, #FFE5EC 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+             /* --- Loading Overlay Styles (Updated Pink-White Background) --- */
+      #loadingOverlay {
+            position: fixed; /* Cover the viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* New Pink-White Gradient Background */
+            background: linear-gradient(
+                135deg,            /* Angle of the gradient (diagonal) */
+                var(--secondary-color), /* Start with light Pink (theme color #FF8FAB) */
+                #FFFFFF             /* End with White */
+            );
+            /* You could also try reversing it: */
+            /* background: linear-gradient(135deg, #FFFFFF, var(--secondary-color)); */
+            /* Or a slightly deeper pink start: */
+            /* background: linear-gradient(135deg, var(--primary-color), #FFFFFF); */
+
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            z-index: 2000; /* Ensure it's on top */
+            opacity: 1; /* Start fully visible */
+            transition: opacity 0.5s ease-out; /* Smooth fade-out */
+            font-family: 'LINESeedSansTH', sans-serif; /* Ensure font is applied */
+      }
+
+          /* --- Shimmer Button Styles (Dark Magenta Option) --- */
+     .btn-shine {
+          position: relative;
+          padding: 12px 48px;
+          /* Base Color: Theme Dark Color */
+          color: var(--dark-color); /* #5A2A40 */
+          /* Gradient: Dark Magenta + White Highlight */
+          background: linear-gradient(
+              to left,
+              var(--dark-color) 0%,
+              var(--dark-color) 35%,
+              #ffffff 50%, /* White highlight really pops */
+              var(--dark-color) 65%,
+              var(--dark-color) 100%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shine 3s infinite linear; /* Reset speed slightly */
+          font-weight: bold;
+          font-size: 34px;
+          text-decoration: none;
+          white-space: nowrap;
+          font-family: 'LINESeedSansTH', sans-serif;
+          cursor: default;
+          overflow: hidden;
+          /* Optional: Subtle Lighter Glow or Minimal Shadow */
+          /* text-shadow: 0 0 5px rgba(255, 107, 158, 0.3); */ /* Pink Glow */
+           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);   /* Very minimal dark shadow */
+        }
+
+        /* Keep the existing @keyframes shine rule */
+        @keyframes shine {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+
+        /* Keep the existing media query */
+        @media (max-width: 600px) {
+          .btn-shine {
+            padding: 10px 20px;
+            font-size: 34px;
+          }
+        }
+        /* Initially hide the main container */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+            margin: 20px;
+            border: 1px solid rgba(255, 107, 158, 0.2);
+            max-height: 95vh;
+            display: none; /* Hide initially */
+            flex-direction: column;
+        }
+
+        .logo-container {
+            text-align: center;
+            padding: 20px 0 10px;
+            background-color: white;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 20px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(90, 42, 64, 0.2);
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 1px 2px rgba(90, 42, 64, 0.2);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-container {
+            padding: 25px;
+            overflow-y: auto; /* Allow scrolling for form content */
+            flex-grow: 1; /* Allow form container to take available space */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--dark-color);
+        }
+
+        .form-control, textarea.form-control /* Added textarea */ {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #FFC2D1;
+            border-radius: var(--border-radius);
+            /* font-family: 'Prompt', sans-serif; */ /* Use LINESeedSansTH from body */
+            font-size: 14px;
+            transition: var(--transition);
+            background-color: var(--light-color);
+        }
+
+        textarea.form-control { /* Specific styles for textarea */
+             min-height: 80px;
+             resize: vertical;
+        }
+
+        .form-control:focus, textarea.form-control:focus /* Added textarea */ {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.2);
+            background-color: white;
+        }
+
+        .form-control::placeholder {
+            color: #D4A5B5;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: var(--border-radius);
+            /* font-family: 'Prompt', sans-serif; */ /* Use LINESeedSansTH from body */
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 107, 158, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 158, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            transition: var(--transition);
+        }
+
+        .btn:hover::after {
+            transform: scale(1);
+        }
+
+        .btn-otp {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 10px 15px;
+            font-size: 13px;
+            border-radius: var(--border-radius);
+            position: absolute;
+            right: 5px;
+            top: 35px; /* Adjusted for phone input */
+            width: auto;
+            box-shadow: none;
+            transition: var(--transition);
+        }
+
+        .btn-otp:hover {
+            background: var(--light-color);
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Style for Get Location Button */
+        .btn-location {
+            display: block;
+            width: 100%;
+            background: var(--accent-color);
+            color: var(--dark-color);
+            border: 1px solid var(--secondary-color);
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: var(--border-radius);
+            margin-top: 10px; /* Space above the button */
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn-location:hover {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .btn-location:disabled {
+             background: #eee;
+             color: #aaa;
+             cursor: not-allowed;
+             border-color: #ddd;
+        }
+
+        .otp-container {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            border: 2px solid #FFC2D1;
+            border-radius: 12px;
+            transition: var(--transition);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.2);
+            outline: none;
+            background-color: white;
+        }
+
+        .countdown {
+            text-align: center;
+            font-size: 13px;
+            color: #D4A5B5;
+            margin-bottom: 20px;
+        }
+
+        .resend-otp {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .resend-otp a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .resend-otp a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #D4A5B5;
+            border-top: 1px solid #FFE5EC;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: var(--success-color);
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .warning-message {
+            color: var(--warning-color);
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .pdpa-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(90, 42, 64, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .pdpa-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pdpa-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(90, 42, 64, 0.3);
+            border: 1px solid #FFC2D1;
+        }
+
+        .pdpa-overlay.active .pdpa-container {
+            transform: translateY(0);
+        }
+
+        .pdpa-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            position: relative;
+        }
+
+        .pdpa-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .pdpa-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pdpa-close:hover {
+            transform: scale(1.1);
+        }
+
+        .pdpa-content {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            border-bottom: 1px solid #FFE5EC;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .pdpa-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .pdpa-content th,
+        .pdpa-content td {
+            border: 1px solid #FFC2D1;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .pdpa-content th {
+            background-color: var(--primary-color); /* Consistent with theme */
+            color: white;
+            font-weight: 500;
+        }
+
+        .pdpa-content tr:nth-child(even) {
+            background-color: #FFF0F3;
+        }
+
+        .pdpa-content tr:hover {
+            background-color: #FFE5EC;
+        }
+
+        .pdpa-footer {
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .pdpa-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            /* font-family: 'Prompt', sans-serif; */ /* Use LINESeedSansTH */
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pdpa-btn-accept {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(255, 107, 158, 0.3);
+        }
+
+        .pdpa-btn-accept:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .pdpa-btn-decline {
+            background-color: white;
+            color: var(--dark-color);
+            border: 1px solid #FFC2D1;
+            box-shadow: 0 2px 5px rgba(90, 42, 64, 0.1);
+        }
+
+        .pdpa-btn-decline:hover {
+            background-color: #FFE5EC;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-color);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        .birthday-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .birthday-select {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #FFC2D1;
+            border-radius: var(--border-radius);
+            /* font-family: 'Prompt', sans-serif; */ /* Use LINESeedSansTH */
+            font-size: 14px;
+            background-color: var(--light-color);
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235A2A40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+
+        .birthday-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.2);
+            background-color: white;
+        }
+
+        .id-type-selector {
+            display: flex;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid #FFC2D1;
+        }
+
+        .id-type-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--light-color);
+            font-size: 14px; /* Added font size */
+        }
+
+        .id-type-option.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .close-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            /* font-family: 'Prompt', sans-serif; */ /* Use LINESeedSansTH */
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .close-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .approval-container {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .approval-icon {
+            font-size: 80px;
+            color: var(--warning-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .approval-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--warning-color);
+            margin-bottom: 15px;
+        }
+
+        .approval-message {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+        }
+
+        .approval-details {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .approval-details p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .approval-details strong {
+            color: var(--primary-color);
+        }
+
+        #submitBtn {
+            display: none; /* Initially hidden */
+        }
+
+        .otp-reference {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .otp-reference span {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Map container style */
+        #map {
+            height: 200px; /* Adjust height as needed */
+            width: 100%;
+            border-radius: var(--border-radius);
+            border: 1px solid #FFC2D1;
+            margin-top: 15px; /* Space between address field and map */
+            z-index: 1; /* Ensure map is clickable */
+            display: none; /* Initially hidden */
+        }
+
+        .location-status-message { /* Style for location status */
+             color: var(--dark-color);
+             font-size: 12px;
+             margin-top: 5px;
+             display: none;
+        }
+
+        @media (max-width: 480px) {
+            /* Keep existing mobile styles for container */
+            .container {
+                border-radius: 0;
+                margin: 0;
+                height: 100%; /* Use 100% for mobile */
+                max-height: none; /* Remove max-height for mobile */
+                 /* Keep display: flex for main container */
+            }
+
+            body {
+                /* Keep existing mobile body styles */
+                padding: 0;
+                background: white;
+                 position: relative;
+                 height: auto;
+                 overflow-y: auto;
+            }
+
+             html, body {
+                 /* Keep existing mobile html, body styles */
+                 overflow: auto;
+             }
+
+             .container {
+                  /* Keep existing mobile container styles */
+                  overflow: visible;
+             }
+
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .form-container {
+                padding: 20px 15px;
+                 overflow-y: visible; /* Remove internal scroll */
+            }
+
+            .otp-input {
+                width: calc((100% / 6) - 8px); /* Adjusted for smaller screens */
+                height: 50px;
+                font-size: 20px;
+            }
+
+             .otp-inputs {
+                gap: 8px; /* Reduce gap */
+             }
+
+
+            .pdpa-container {
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .pdpa-header {
+                padding: 15px;
+            }
+
+            .pdpa-content {
+                padding: 15px;
+            }
+
+            .birthday-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        } /* End Media Query */
+
+        input, select, textarea {
+            font-size: 16px !important; /* Ensure readability on mobile */
+        }
+
+        .pdpa-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .pdpa-content::-webkit-scrollbar-track {
+            background: #FFE5EC;
+        }
+
+        .pdpa-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .pdpa-content::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .checking-message {
+            color: var(--dark-color);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .status-message {
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .swal2-popup {
+            border-radius: var(--border-radius) !important;
+            border: 1px solid #FFC2D1 !important;
+            font-family: 'LINESeedSansTH', sans-serif !important; /* Use correct font */
+        }
+
+        .swal2-title {
+            color: var(--dark-color) !important;
+            font-family: 'LINESeedSansTH', sans-serif !important; /* Use correct font */
+            font-weight: 600 !important;
+        }
+
+        .swal2-content {
+            color: var(--dark-color) !important;
+            font-family: 'LINESeedSansTH', sans-serif !important; /* Use correct font */
+        }
+
+        .swal2-confirm {
+            background-color: var(--primary-color) !important;
+            font-family: 'LINESeedSansTH', sans-serif !important; /* Use correct font */
+            border-radius: var(--border-radius) !important;
+            border: none !important;
+        }
+
+        .swal2-cancel {
+            font-family: 'LINESeedSansTH', sans-serif !important; /* Use correct font */
+            border-radius: var(--border-radius) !important;
+            background-color: white !important;
+            color: var(--dark-color) !important;
+            border: 1px solid #FFC2D1 !important;
+        }
+
+        .swal2-icon {
+            color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+        }
+
+        .swal2-styled:focus {
+            box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <a href="#" class="btn-shine">NO1Money+</a>
+    </div>
+
+    <!-- PDPA Popup -->
+    <div class="pdpa-overlay" id="pdpaOverlay">
+        <div class="pdpa-container">
+            <div class="pdpa-header">
+                <h2>นโยบายการรักษาความมั่นคงปลอดภัยข้อมูลส่วนบุคคล (Privacy Policy)</h2>
+                <button class="pdpa-close" id="pdpaClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="pdpa-content">
+                 <!-- START: Content replaced from PDPA 2025 file -->
+                <p><strong>นโยบายการรักษาความมั่นคงปลอดภัยข้อมูลส่วนบุคคล</strong><br>
+                และ ความเป็นส่วนตัวสำหรับลูกค้า (Privacy Policy)<br>
+                <strong>กลุ่มบริษัท โอเค นัมเบอร์ วัน และบริษัทในเครือ โอเค นัมเบอร์ วัน จำกัด</strong></p>
+                <hr style="border: none; border-top: 1px solid #FFC2D1; margin: 15px 0;">
+
+                <p>
+                    กลุ่มบริษัท โอเค นัมเบอร์ วัน จำกัด และบริษัทในเครือ โอเค นัมเบอร์ วัน จำกัด (ต่อไปนี้จะเรียกรวมว่า "บริษัทฯ") ตระหนักถึงความสำคัญและหน้าที่ภายใต้ พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ.2562 โดยให้ความสำคัญในการเคารพสิทธิความเป็นส่วนตัว และมุ่งมั่นเป็นอย่างยิ่งที่จะคุ้มครองข้อมูลส่วนบุคคลของทุกท่านให้มีความปลอดภัย นโยบายคุ้มครองข้อมูลส่วนบุคคลฉบับนี้ ให้ใช้กับข้อมูลส่วนบุคคลของลูกค้า หรือผู้รับบริการต่างๆ ของบริษัทฯ เพื่อแจ้งและอธิบายให้ทราบว่า บริษัทฯ เก็บรวบรวมข้อมูลส่วนบุคคลของท่านอย่างไร ข้อมูลใดบ้างที่บริษัทฯ จัดเก็บ มีวัตถุประสงค์ใดในการประมวลผลข้อมูล มีการเปิดเผยข้อมูลของท่านอย่างไร มีมาตรการในการรักษาปกป้องข้อมูลของท่านอย่างไร รวมถึงสิทธิของท่านในฐานะเจ้าของข้อมูลส่วนบุคคล โดยมีรายละเอียดดังต่อไปนี้
+                </p>
+
+                <h3>1. กลุ่มหรือประเภทของบุคคลที่บริษัทฯ ทำการเก็บรวบรวมข้อมูลส่วนบุคคล</h3>
+                <p>
+                    ภายใต้นโยบายคุ้มครองข้อมูลสวนบุคคลฉบับนี้กลุ่มหรือประเภทของบุคคลที่บริษัทฯ ทำการเก็บรวบรวมและประมวลผลข้อมูลส่วนบุคคลประกอบด้วย<br>
+                    <strong>ลูกค้า</strong> หมายถึง บุคคลที่ซื้อสินค้าและ/หรือใช้บริการจากบริษัทฯ และ/หรืออาจจะซื้อสินค้าและ/หรือใช้บริการจากบริษัทฯ หรือบุคคลอื่นใดที่มีลักษณะคล้าย เช่น ผู้เข้าร่วมกิจกรรม ผู้ใช้บริการเว็บไซต์ ผู้ใช้บริการแอปพลิเคชัน หรือ ผู้ที่ติดต่อเพื่อขอรับข้อมูลหรือขอรับบริการจากบริษัทฯ และบริษัทในเครือ เป็นต้น<br>
+                    <strong>ผู้ที่เกี่ยวข้องกับลูกค้า</strong> หมายถึง บุคคลที่เกี่ยวข้องหรือเป็นตัวแทนของลูกค้า เช่น ผู้บริหาร กรรมการ พนักงาน ตัวแทน หรือบุคลากรใด ๆ ของลูกค้าซึ่งเป็นนิติบุคคล และรวมถึง ผู้ที่ข้อมูลส่วนบุคคลปรากฎในเอกสารต่าง ๆ ที่เกี่ยวข้องกับกระบวนการที่เกี่ยวข้อง อาทิ ผู้จัดการ ผู้สั่งซื้อ ผู้รับสินค้า และผู้สั่งจ่ายเช็ค เป็นต้น
+                </p>
+
+                <h3>2. คำนิยามและความหมายของข้อมูลส่วนบุคคล</h3>
+                <p>นโยบายคุ้มครองข้อมูลส่วนบุคคลฉบับนี้ คำหรือข้อความว่า</p>
+                <p>"<strong>กลุ่มบริษัท โอเค นัมเบอร์ วัน และบริษัทในเครือ โอเค นัมเบอร์ วัน จำกัด (OK Number One Group of Companies or OK Number One Group)</strong>" หมายถึง บริษัท โอเค นัมเบอร์ วัน จำกัด และบริษัทซึ่งบริษัท โอเค นัมเบอร์ วัน จำกัด ถือหุ้นไม่ว่าโดยทางตรงหรือทางอ้อม</p>
+                <p>"<strong>บริษัทในเครือโอเค นัมเบอร์ วันหรือ บริษัท (Companies in OK Number One Group or OK Number One Group company/ companies or company)</strong>" หมายถึง บริษัทซึ่งบริษัท โอเค นัมเบอร์ วัน จำกัด ถือหุ้น ไม่ว่าโดย ทางตรงหรือทางอ้อม</p>
+                <p>"<strong>เจ้าของข้อมูลส่วนบุคคล</strong>" หมายถึง บุคคลธรรมดาที่เป็นลูกค้าหรือผู้ที่เกี่ยวข้องกับลูกค้า ของบริษัทฯ โดยต่อไปในนโยบายนี้จะเรียกย่อว่า "เจ้าของข้อมูล"</p>
+                <p>"<strong>ผู้ควบคุมข้อมูลส่วนบุคคล</strong>" หมายถึง บริษัทฯ ซึ่งมีอำนาจตัดสินใจเกี่ยวกับข้อมูลส่วนบุคคลนั้น ซึ่งได้รับข้อมูลส่วนบุคคลจากเจ้าของข้อมูลหรือให้บริการแก่เจ้าของข้อมูล หรือต้องทำหรือปฏิบัติตามสัญญากับเจ้าของข้อมูล ไม่ว่าจะทางตรงหรือทางอ้อมก็ตาม</p>
+                <p>"<strong>ข้อมูลส่วนบุคคล</strong>" (Personal Data) หมายถึง ข้อมูลเกี่ยวกับบุคคลซึ่งทำให้สามารถระบุตัวบุคคลนั้นได้ ไม่ว่าทางตรงหรือทางอ้อม แต่ไม่รวมถึงข้อมูลของผู้ถึงแก่กรรม ตัวอย่างเช่น ชื่อ นามสกุล หมายเลขโทรศัพท์ ที่อยู่ อีเมล หมายเลขบัตรประจำตัวประชาชน เป็นต้น</p>
+                <p>"<strong>ข้อมูลส่วนบุคคลที่มีความอ่อนไหว</strong>" (Sensitive Personal Data) หมายถึง ข้อมูลส่วนบุคคลที่กฎหมายกำหนดเป็นการเฉพาะ เช่น เชื้อชาติ ความคิดเห็นทางการเมือง ความเชื่อในลัทธิ ศาสนา หรือปรัชญา พฤติกรรมทางเพศ ประวัติอาชญากรรม ข้อมูลสุขภาพ ความพิการ ข้อมูลสหภาพแรงงาน ข้อมูลพันธุกรรม ข้อมูลชีวภาพ (Biometric) หรือข้อมูลอื่นใดในทำนองเดียวกันที่กฎหมายกำหนด ซึ่งบริษัทฯ ต้องดำเนินการด้วยความระมัดระวังเป็นพิเศษ โดยบริษัทฯ จะเก็บรวบรวม ใช้ และ/หรือเปิดเผยข้อมูลส่วนบุคคลที่มีความอ่อนไหว ต่อเมื่อได้รับความยินยอมโดยชัดแจ้งจากท่าน หรือในกรณีที่บริษัทฯ มีความจำเป็นต้องดำเนินการตามที่กฎหมายอนุญาต</p>
+                <p>กรณีบริษัทฯ ได้รับสำเนาบัตรประจำตัวประชาชนของลูกค้า หรือบริษัทฯ นำข้อมูลของลูกค้าออกจากบัตรประจำตัวประชาชนด้วยวิธีการทางอิเล็กทรอนิกส์ เพื่อวัตถุประสงค์ในการพิสูจน์ตัวตนของลูกค้าที่สมัครใช้บริการ และ/หรือทำธุรกรรมใดๆ กับบริษัทฯ ข้อมูลที่ได้รับจะมีข้อมูลศาสนาด้วย ซึ่งถือว่าเป็นข้อมูลส่วนบุคคลที่มีความอ่อนไหว (Sensitive Personal Data) บริษัทฯ ไม่มีนโยบายจัดเก็บข้อมูลส่วนบุคคลที่มีความอ่อนไหวจากลูกค้า ยกเว้นในกรณีที่บริษัทฯ ได้รับความยินยอมจากลูกค้า ทั้งนี้บริษัทฯ จะกำหนดวิธีการจัดการตามแนวทางปฏิบัติ และเป็นไปตามที่กฎหมายอนุญาต</p>
+
+                <h3>3. วิธีที่บริษัทฯ เก็บรวบรวมและรับข้อมูลส่วนบุคคลของท่าน</h3>
+                <p><strong>3.1 บริษัทฯ เก็บรวบรวมและรับข้อมูลส่วนบุคคลของท่านผ่านช่องทางต่าง ๆ ดังนี้</strong></p>
+                    <p><strong>3.1.1 ข้อมูลส่วนบุคคลที่ท่านให้ไว้กับบริษัทฯ โดยตรง</strong><br>
+                    ท่านอาจให้ข้อมูลส่วนบุคคลแก่บริษัทฯ โดยตรง เช่น</p>
+                    <ul>
+                    <li>เมื่อท่านติดต่อสื่อสาร สอบถามข้อมูล ให้ความเห็นหรือคำติชมแก่บริษัทฯ ไม่ว่าจะเป็นการสื่อสารเป็นในรูปแบบลายลักษณ์อักษรหรือวาจา ผ่านทางเว็บไซต์ แอปพลิเคชัน โทรศัพท์ อีเมล โทรสาร ไปรษณีย์ การพบปะกันโดยตรง หรือโดยวิธีการอื่นใด</li>
+                    <li>เมื่อท่านแสดงเจตนาเพื่อซื้อสินค้าหรือใช้บริการจากบริษัทฯ เข้าทำสัญญาค้าขายกับบริษัทฯ หรือส่งมอบเอกสารต่าง ๆ ซึ่งมีข้อมูลส่วนบุคคลปรากฎอยู่มาให้แก่บริษัทฯ</li>
+                    <li>เมื่อท่านเข้าร่วมกิจกรรมทางการตลาด การจับสลากชิงโชค งานอีเว้นท์ หรือกิจกรรมอื่น ๆ ที่จัดขึ้นโดยหรือในนามของบริษัทฯ เป็นต้น</li>
+                    </ul>
+                    <p>ทั้งนี้ ท่านจำเป็นต้องให้ข้อมูลที่ถูกต้อง ครบถ้วนตามความเป็นจริงแก่บริษัทฯ หรือตัวแทนของบริษัทที่ได้รับอนุญาตเพื่อประโยชน์ของท่านในการเข้าทำนิติกรรมใด ๆ กับบริษัทฯ ในกรณีเป็นที่สงสัยว่าข้อมูลที่บริษัทฯ ได้รับมาไม่ว่าจากท่านโดยตรงหรือจากบุคคลภายนอก บริษัทขอสงวนสิทธิ์ในการร้องขอเอกสารใด ๆ เพื่อตรวจสอบข้อมูลที่บริษัทฯ ได้รับ</p>
+                    <p>ในกรณีที่ท่านไม่ประสงค์จะให้ข้อมูลส่วนบุคคลของท่านกับบริษัทฯ หรือไม่อนุญาตให้บริษัทใช้ข้อมูลส่วนบุคคลของท่านไม่ว่าจะเป็นการไม่อนุญาตให้ใช้ข้อมูลตั้งแต่ครั้งแรกหรือเป็นการเพิกถอนความยินยอมในภายหลังก็ตาม บริษัทอาจไม่สามารถให้บริการท่านได้อย่างเต็มประสิทธิภาพอย่างที่พึงจะเป็น</p>
+
+                    <p><strong>3.1.2 ข้อมูลส่วนบุคคลที่บริษัทฯ ได้รับมาจากบุคคลภายนอก</strong><br>
+                    บริษัทฯ อาจได้รับข้อมูลส่วนบุคคลของท่านมาจากบุคคลภายนอก เช่น</p>
+                    <ul>
+                    <li>การเก็บข้อมูลจากผู้ให้บริการต่าง ๆ ของบริษัทฯ เช่น ผู้ให้บริการเว็บไซต์ ผู้ให้บริการแอปพลิเคชัน ผู้ให้บริการพื้นที่พาณิชย์อิเล็กทรอนิกส์ (E- Commerce) ผู้ให้บริการศูนย์บริการข้อมูลลูกค้า (Call Center) ผู้ให้บริการประชาสัมพันธ์และแนะนำสินค้า/บริการ หรือผู้ให้บริการรวบรวมข้อมูล ซึ่งท่านอนุญาตให้ผู้ให้บริการนั้น ๆ เก็บรวบรวมและเปิดเผยข้อมูลของท่านได้</li>
+                    <li>บางกรณีบริษัทฯ อาจเก็บรวบรวมข้อมูลส่วนบุคคลของท่านจากแหล่งข้อมูลสาธารณะ แหล่งข้อมูลเกี่ยวกับธุรกิจของท่าน หรือแหล่งข้อมูลทางการค้า ไม่ว่าท่านจะเป็นผู้เปิดเผยข้อมูลส่วนบุคคลด้วยตนเองหรือได้ให้ความยินยอมแก่ผู้ใดในการเปิดเผยข้อมูลส่วนบุคคลของท่านดังกล่าว</li>
+                    </ul>
+
+                <p><strong>3.2.</strong> ในการเก็บรวบรวมข้อมูลส่วนบุคคลของท่าน ท่านจะได้รับการแจ้งถึงรายละเอียดต่าง ๆ ตามที่ระบุในประกาศฯ ฉบับนี้ซึ่งรวมถึงวัตถุประสงค์และฐานทางกฎหมายในการเก็บรวบรวม ใช้ เปิดเผย และ/หรือ ประมวลผลข้อมูลส่วนบุคคล ที่ได้กำหนดให้การประมวลผลข้อมูลส่วนบุคคลใดต้องได้รับความยินยอมจากท่าน บริษัทฯ จะขอความยินยอมโดยชัดแจ้งจากท่าน</p>
+                <p><strong>3.3.</strong> กรณีที่บริษัทฯ เก็บรวบรวมข้อมูลส่วนบุคคลของท่านไว้ก่อนวันที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลในส่วนที่เกี่ยวข้องกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลมีผลใช้บังคับ บริษัทฯ จะเก็บรวบรวมและใช้ข้อมูลส่วนบุคคลของท่านต่อไปตามวัตถุประสงค์เดิมที่บริษัทฯ ได้แจ้งไว้แก่ท่านในการเก็บรวบรวมข้อมูลส่วนบุคคล ซึ่งท่านมีสิทธิที่จะยกเลิกความยินยอมได้ โดยติดต่อมายังบริษัทฯ ตามรายละเอียดการติดต่อที่ระบุไว้ในท้ายของประกาศฯ ฉบับนี้ ทั้งนี้บริษัทฯ ขอสงวนสิทธิในการพิจารณาคำขอยกเลิกความยินยอมของท่าน และดำเนินการตามฐานประมวลผลที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</p>
+
+                <h3>4. ข้อมูลส่วนบุคคลที่ถูกเก็บรวบรวม</h3>
+                <p>
+                    ข้อมูลส่วนบุคคลของท่านที่ถูกเก็บรวบรวมและประมวลผลภายใต้นโยบายฯ ฉบับนี้ ไม่ว่าจะเป็นข้อมูลส่วนบุคคลที่ท่านให้ไว้กับบริษัทฯ โดยตรง หรือข้อมูลส่วนบุคคลที่บริษัทฯ เก็บรวบรวมจากท่านโดยอัตโนมัติ หรือข้อมูลส่วนบุคคลที่บริษัทฯ ได้รับมาจากบุคคลภายนอก ได้แก่
+                </p>
+                <ul>
+                    <li>4.1. <strong>ข้อมูลส่วนบุคคล</strong> เช่น ชื่อ นามสกุล ชื่อเล่น วัน/เดือน/ปีเกิด อายุ เพศ หมายเลขบัตรประจำตัวประชาชน รูปถ่าย ลายมือชื่อ เชื้อชาติ สัญชาติ รายได้ เป็นต้น</li>
+                    <li>4.2. <strong>ข้อมูลการติดต่อ</strong> เช่น ที่อยู่ตามบัตรประจำตัวประชาชน ที่อยู่ตามทะเบียนบ้าน สถานที่จัดส่งสินค้า สถานที่จัดส่งใบแจ้งหนี้ หมายเลขโทรศัพท์ โทรสาร อีเมล ไอดีผู้ใช้สำหรับไลน์แอปพลิเคชัน (Line ID) และข้อมูลผู้ที่สามารถติดต่อได้ เป็นต้น</li>
+                    <li>4.3. <strong>ข้อมูลเกี่ยวกับธุรกิจของลูกค้า</strong> เช่น รายละเอียดเกี่ยวกับร้านค้า หรือสถานประกอบการของลูกค้า (เช่น ชื่อ เลขทะเบียนสถานที่ตั้ง และข้อมูลการติดต่อ) เป็นต้น</li>
+                    <li>4.4. <strong>ข้อมูลเกี่ยวกับธุรกรรมการซื้อขาย</strong> เช่น รหัสลูกค้า รายละเอียดการสั่งซื้อ (เช่น สินค้าที่ต้องการ จำนวน และคุณภาพ) และรายละเอียดการร้องเรียนเกี่ยวกับสินค้า (เช่น วันที่สั่งซื้อสินค้า ประเภทสินค้า สาขาที่เกี่ยวข้อง และปัญหาที่พบ) เป็นต้น</li>
+                    <li>4.5. <strong>ข้อมูลเกี่ยวกับการชำระเงิน</strong> เช่น จำนวนเงิน วงเงินสินเชื่อ เงื่อนไขการชำระเงิน เลขที่บัญชี ข้อมูลส่วนบุคคลที่ปรากฎในใบแจ้งหนี้ ใบกำกับภาษี ใบเสร็จรับเงิน และใบหักบัญชีเงินฝาก เป็นต้น</li>
+                    <li>4.6. <strong>ข้อมูลที่ใช้ประกอบเป็นหลักฐานในการลงทะเบียนเป็นลูกค้ากับบริษัทฯ หรือในการทำธุรกรรมต่าง ๆ</strong> เช่น ข้อมูลส่วนบุคคลที่ปรากฏในสำเนาบัตรประชาชน สำเนาทะเบียนบ้าน สำเนาใบเปลี่ยนชื่อนามสกุล สำเนาทะเบียนการค้า เอกสารเดินบัญชีธนาคาร สลิปเงินเดือน สำเนาใบอนุญาตประกอบกิจการโรงงาน แบบฟอร์มลงทะเบียน สำเนาเอกสารสิทธิที่ดิน ใบขอเปิดหน้าบัญชีลูกค้า หนังสือมอบอำนาจ สำเนาหนังสือรับรองบริษัท สำเนาภพ. 09/20 แผนที่ เอกสารที่เป็นหลักประกัน (ถ้ามี) (เช่น หนังสือค้ำประกันโดยธนาคาร (Bank Guarantee) และหนังสือค้ำประกันโดยบุคคล สัญญาซื้อขายหรือสัญญาอื่นใดที่เกี่ยวข้องกับธุรกรรม และใบส่งสินค้า เป็นต้น</li>
+                    <li>4.7. <strong>ข้อมูลคอมพิวเตอร์</strong> โดยบริษัทฯ หรือผู้ให้บริการที่ได้รับอนุญาตจากบริษัทฯ อาจมีการใช้คุกกี้ เว็บบีคอนส์ หรือ เทคโนโลยีอื่นใดในการเก็บข้อมูลเพื่อช่วยเหลือท่านให้สามารถใช้บริการและเข้าถึงการบริการได้รวดเร็วและปลอดภัยมากยิ่งขึ้น ซึ่งข้อมูลดังกล่าวนี้ รวมถึง IP address เว็บไซต์ที่นำท่านมาสู่เว็บไซต์ของบริษัท ระยะเวลาในการเยี่ยมชมเว็บไซต์ ข้อมูลการค้นหา ช่วงเวลาที่เยี่ยมชม หรือข้อมูลทางสถิติอื่นๆ</li>
+                    <li>4.8. <strong>ข้อมูลอื่น ๆ</strong> เช่น พฤติกรรมหรือแนวโน้มในการซื้อสินค้าและ/หรือบริการ บันทึกเสียงการสนทนา และบันทึกภาพนิ่งและภาพเคลื่อนไหว เป็นต้น</li>
+                </ul>
+
+                <h3>5. วัตถุประสงค์ในการเก็บรวบรวม ใช้ เปิดเผยข้อมูลส่วนบุคคล</h3>
+                <p>
+                    บริษัทฯ ดำเนินการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของท่าน โดยมีวัตถุประสงค์ภายใต้ฐานในการประมวลผลข้อมูล ดังต่อไปนี้
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>วัตถุประสงค์</th>
+                            <th>ฐานประมวลผลตามกฎหมาย</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>เพื่อวัตถุประสงค์ในการลงทะเบียนการสมัครเป็นลูกค้าหรือเพื่อเปิดบัญชีลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน</td>
+                            <td>
+                                <strong>ฐานสัญญา</strong> เป็นการประมวลผลข้อมูลส่วนบุคคลของลูกค้าหรือ บุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน บริษัทฯ จำเป็นต้องดำเนินการเพื่อใช้ตามคำขอของลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน สำหรับการลงทะเบียนเป็นลูกค้ารายใหม่หรือการเปิดบัญชี ลูกค้า ผ่านช่องทางที่บริษัทฯ กำหนด เป็นต้น<br>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> ในกรณีที่ลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันเป็นนิติบุคคล บริษัทฯ จะประมวลผลข้อมูลส่วนบุคคลของผู้ที่เกี่ยวข้องกับลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันตามความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการดำเนินธุรกิจของบริษัทฯ เช่น การจัดการบัญชี และการตรวจสอบเพื่อยืนยันตัวตนของ ลูกค้า เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>เพื่อวัตถุประสงค์ในการวิเคราะห์ข้อมูลและสำรวจพฤติกรรมของลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน</td>
+                            <td>
+                                <strong>ฐานความยินยอม</strong> การที่บริษัทฯ เป็นฝ่ายเข้าขอสัมภาษณ์ สำรวจ และสังเกตพฤติกรรมของลูกค้า เพื่อขอเก็บรวบรวมข้อมูลส่วนบุคคล หรือการซื้อข้อมูลส่วนบุคคลของลูกค้ามาจากบุคคลภายนอก เพื่อนำมาวิเคราะห์ข้อมูลและสำรวจพฤติกรรมของลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน บริษัทฯ จะ ดำเนินการโดยอาศัยความยินยอมที่ได้รับจากลูกค้า หรือบุคคล อื่นใดที่มีลักษณะคล้ายคลึงกันก่อนหรือในขณะที่เก็บข้อมูล
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>เพื่อวัตถุประสงค์ในการทำสัญญา และการวาง หลักประกัน</td>
+                            <td>
+                                <strong>ฐานสัญญา</strong> การประมวลผลข้อมูลส่วนบุคคลของลูกค้า หรือ บุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อการเข้าทำสัญญา และกระบวนการอื่นๆ ที่เกี่ยวข้องกับการเข้าทำสัญญา เช่น การตรวจสอบหลักฐานประกอบการทำสัญญา และการวางหลักประกัน เป็นต้น<br>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> ในกรณีที่ลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันเป็นนิติบุคคล การประมวลผลข้อมูลส่วนบุคคลของผู้ที่เกี่ยวข้องกับลูกค้าหรือของบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการดำเนินธุรกิจของบริษัทฯ เช่น การบริหารจัดการสัญญา การตรวจสอบยืนยันตัวตนของลูกค้า และการพิจารณาคุณสมบัติลูกค้า เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>เพื่อวัตถุประสงค์ในการบริหารจัดการคำสั่งซื้อจากลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน</td>
+                            <td>
+                                <strong>ฐานสัญญา</strong> การประมวลผลข้อมูลส่วนบุคคลของลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นความจำเป็นเพื่อปฏิบัติหน้าที่ตามสัญญาซื้อขายและบริการ ซึ่งลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันเป็นคู่สัญญา เช่น การสั่งซื้อผ่านช่องทางใด ๆ ไม่ว่าจะเป็นช่องทางของบริษัทฯ โดยตรง หรือช่องทางของบุคคลที่สาม เช่น การสั่งซื้อ ณ จุดขาย ผ่านเว็บไซต์ หรือแอปพลิเคชัน หรือช่องทางอื่น ๆ เป็นต้น<br>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> ในกรณีที่ลูกค้า หรือบุคคล อื่นในลักษณะคล้ายคลึงกันเป็นนิติบุคคล การประมวลผลข้อมูลส่วนบุคคลของผู้ที่เกี่ยวข้องกับลูกค้าหรือของบุคคลอื่นในลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการดำเนินธุรกิจของบริษัทฯ เช่น การบริหารจัดการคำสั่งซื้อจากลูกค้า และการตรวจสอบยืนยันตัวตนของลูกค้า เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>เพื่อวัตถุประสงค์ในการจัดเตรียมสินค้าและ/ หรือบริการ และดำเนินการอื่นใดที่เกี่ยวข้อง</td>
+                            <td>
+                                <strong>ฐานสัญญา</strong> การประมวลผลข้อมูลส่วนบุคคลของลูกค้า หรือ บุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อปฏิบัติตามสัญญาซึ่งลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันเป็นคู่สัญญา เช่น การจัดส่งสินค้า การวางบิล การยืนยันยอดหนี้ค้างชำระ และการจัดส่งใบเสร็จรับเงินให้แก่ลูกค้า หรือบุคคลอื่น ใดที่มีลักษณะคล้ายคลึงกัน เป็นต้น<br>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> ในกรณีที่ลูกค้า หรือบุคคล อื่นใดที่มีลักษณะคล้ายคลึงกันเป็นนิติบุคคล การประมวลผล ข้อมูลส่วนบุคคลของผู้ที่เกี่ยวข้องกับลูกค้าหรือของบุคคลอื่นใดที่ มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการดำเนินธุรกิจของบริษัทฯ เช่น การ ติดต่อสื่อสารกับลูกค้า เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>เพื่อวัตถุประสงค์ในการดำเนินการแก้ไขเปลี่ยนแปลงรายละเอียดเกี่ยวกับลูกค้าใน ระบบของบริษัทฯ</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลของลูกค้า ผู้ที่เกี่ยวข้องกับลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการอำนวยความสะดวกแก่ลูกค้า ผู้ที่เกี่ยวข้องกับลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกันในการแก้ไข เปลี่ยนแปลงรายละเอียดเกี่ยวกับลูกค้าหรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน ในระบบของบริษัทฯ ให้มีความถูกต้อง เป็นปัจจุบัน สมบูรณ์ และไม่ก่อให้เกิดความเข้าใจผิด
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>เพื่อวัตถุประสงค์ในการรับเรื่องร้องเรียนจากลูกค้า ผู้ที่เกี่ยวข้องกับลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลของลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายในการอำนวยความสะดวกแก่ลูกค้า ผู้ที่เกี่ยวข้องกับลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน ในการร้องเรียนหรือส่งข้อเสนอแนะจาก ลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน เพื่อเป็นการพัฒนาคุณภาพการให้บริการของบริษัทฯ
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>เพื่อวัตถุประสงค์ในการประชาสัมพันธ์ เสนอสินค้าและบริการ รวมถึงเพื่อกิจกรรมทางการตลาดของบริษัทฯ</td>
+                            <td>
+                                <strong>ฐานความยินยอม</strong> บริษัทฯ อาจดำเนินกิจกรรมทางการตลาดใด ๆ เพื่อการประชาสัมพันธ์มายังท่านหรือเป็นสาธารณะ เช่น การส่งข้อความเกี่ยวกับการสื่อสารทางการตลาด หรือการนำเสนอสินค้าและบริการให้แก่ลูกค้า การขอถ่ายภาพนิ่งหรือภาพเคลื่อนไหวของลูกค้า เพื่อนำไปประมวลภาพและประชาสัมพันธ์กิจกรรมการตลาดตามช่องทางสื่อต่าง ๆ บริษัทฯ จะดำเนินการโดยขอความยินยอม จากท่านก่อนหรือขณะที่ดำเนินกิจกรรม
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>เพื่อวัตถุประสงค์ในการวิเคราะห์การใช้งาน เว็บไซต์ แอปพลิเคชัน หรือช่องทางอื่น ๆ ของท่าน เพื่อพัฒนาคุณภาพการให้บริการของ บริษัทฯ หรือเพื่อวัตถุประสงค์ทางการตลาด</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลของท่านจากการใช้งานเว็บไซต์ แอปพลิเคชัน หรือช่องทางอื่น ๆ เป็นการจำเป็นเพื่อประโยชน์ชอบด้วยกฎหมายของบริษัทฯ เพื่อดำเนินธุรกิจและการพัฒนาคุณภาพการให้บริการของบริษัทฯ เช่น การปรับปรุงเว็บไซต์ แอปพลิเคชัน หรือช่องทางอื่น ๆ การพัฒนาคุณภาพสินค้าและบริการ ตลอดจนการแก้ไขข้อบกพร่องและปัญหาต่าง ๆ ที่เกี่ยวข้องกับ สินค้าและบริการ<br>
+                                <strong>ฐานความยินยอม</strong> ในกรณีที่บริษัทฯ เก็บรวบรวมและ ประมวลผลข้อมูลส่วนบุคคลของท่านเพื่อนำมาวิเคราะห์พฤติกรรมและทำโฆษณาแบบเจาะจงตามพฤติกรรมของท่าน หรือทำการตลาดแบบตรง หรือในกรณีที่กฎหมายว่าด้วยการ คุ้มครองข้อมูลส่วนบุคคลกำหนดให้ต้องได้รับความยินยอมจากท่าน บริษัทฯ จะดำเนินการโดยอาศัยความยินยอมที่ได้รับจากท่านก่อนหรือขณะที่ดำเนินการ
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>เพื่อวัตถุประสงค์ในการติดต่อสื่อสารกับลูกค้า หรือบุคคลอื่นใดที่มีลักษณะคล้ายคลึงกัน</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลเป็นการจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมาย ในการติดต่อสื่อสารกับท่านเกี่ยวกับการให้บริการต่าง ๆ ของบริษัทฯ เช่น การดำเนินการตามคำขอใช้บริการ การตอบข้อซักถาม หรือข้อเสนอแนะของท่าน เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>เพื่อวัตถุประสงค์ในการปฏิบัติตามกฎหมายที่ เกี่ยวข้องกับธุรกิจของบริษัทฯ และคำสั่งโดยชอบด้วยกฎหมายของหน่วยงานของรัฐและเจ้าหน้าที่ที่เกี่ยวข้อง</td>
+                            <td>
+                                <strong>ฐานกฎหมาย</strong> เพื่อการปฏิบัติตามกฎหมายซึ่งบังคับใช้กับบริษัทฯ เช่น กฎหมายว่าด้วยภาษีอากร กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคล และคำสั่งโดยชอบด้วยกฎหมายของหน่วยงานของรัฐและเจ้าหน้าที่ที่เกี่ยวข้อง เช่น สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคล เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>เพื่อวัตถุประสงค์ในการเรียกร้องสิทธิตาม กฎหมาย การปฏิบัติตามหรือการใช้สิทธิเรียกร้องตามกฎหมาย หรือการยกขึ้นต่อสู้ซึ่งสิทธิเรียกร้องของบริษัทฯ</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลเป็นการจำเป็นเพื่อการปฏิบัติตาม หรือการใช้สิทธิเรียกร้องตามกฎหมาย หรือการยกขึ้นต่อสู้ซึ่งสิทธิเรียกร้องของบริษัทฯ ในขั้นตอนต่าง ๆ ตามกฎหมาย เช่น การสอบสวนและ/หรือการไต่สวนโดยเจ้าหน้าที่รัฐ การเตรียมคดี การดำเนินคดี และ/หรือการต่อสู้คดีในชั้นศาล เป็นต้น
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>เพื่อการดำเนินการใด ๆ ที่จำเป็นและเป็นประโยชน์ต่อท่าน หรือเกี่ยวข้องโดยตรงกับ วัตถุประสงค์ที่กำหนดใด ๆ ข้างต้น</td>
+                            <td>
+                                <strong>ฐานประโยชน์อันชอบด้วยกฎหมาย</strong> การประมวลผลข้อมูลส่วนบุคคลเป็นการจำเป็นเพื่อประโยชน์อันชอบด้วยกฎหมายของบริษัทฯ ในการดำเนินการใด ๆ ที่จำเป็นของบริษัทฯ และ/หรือเป็นประโยชน์ต่อท่าน หรือเกี่ยวข้องโดยตรงกับวัตถุประสงค์ที่กำหนดข้างต้น หากเป็นกรณีที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนดให้การประมวลผลข้อมูลส่วนบุคคลใด ต้องได้รับความยินยอมจากท่าน บริษัทฯ จะขอความยินยอมโดยชัดแจ้งจากท่านก่อนหรือระหว่างการดำเนินการ
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>เพื่อวัตถุประสงค์อื่น ๆ ที่บริษัทฯ จะแจ้งให้ ท่านทราบ</td>
+                            <td>
+                                บริษัทฯ จะแจ้งให้ท่านทราบถึงวัตถุประสงค์อื่นใดอันเป็นเหตุให้บริษัทฯ ต้องประมวลผลข้อมูลส่วนบุคคลของท่าน นอกเหนือไปจากวัตถุประสงค์ตามที่ระบุไว้ข้างต้นหรือเมื่อบริษัทฯ มีการเปลี่ยนแปลงวัตถุประสงค์เดิมที่กำหนดไว้<br>
+                                ทั้งนี้ หากเป็นกรณีที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนดให้การประมวลผลข้อมูลส่วนบุคคลใดต้องได้รับความยินยอมจากท่าน บริษัทฯ จะขอความยินยอมโดยชัดแจ้งจากท่านก่อนหรือระหว่างการดำเนินการ
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    ทั้งนี้ บริษัทฯอาจเปิดเผยข้อมูลของท่านให้กับบุคคลภายนอกหรือบริษัทที่เกี่ยวข้องเพื่อให้ธุรกรรมของท่านสำเร็จลุล่วง และเพื่อให้เป็นไปตามข้อกำหนดทางกฎเกณฑ์และกฎหมายและคำร้องขอตามที่ทางบริษัทฯเห็นว่าจำเป็น นอกเหนือจากวัตถุประสงค์ในข้างต้นด้วย
+                </p>
+                <p>
+                    เนื่องจากข้อมูลส่วนบุคคลของท่านที่บริษัทฯ จะดำเนินการประมวลผลเพื่อวัตถุประสงค์ที่กำหนดข้างต้น ในส่วนที่มีความเกี่ยวเนื่องกับการปฏิบัติตามกฎหมายหรือสัญญาหรือมีความจำเป็นเพื่อเข้าทำสัญญากับท่าน เป็นข้อมูลที่จำเป็นต่อการบรรลุวัตถุประสงค์ดังกล่าว หากท่านไม่ประสงค์ที่จะให้ข้อมูลส่วนบุคคลดังกล่าวแก่บริษัทฯ อาจมีผลกระทบทางกฎหมายหรืออาจทำให้บริษัทฯ ไม่สามารถปฏิบัติหน้าที่ภายใต้สัญญาที่ได้เข้าทำกับท่าน หรือไม่สามารถข้าทำสัญญากับท่านได้ตามแต่กรณีที่อาจเกิดขึ้นนั้น
+                </p>
+                <p>
+                    ในกรณีดังกล่าวนี้ บริษัทฯ อาจมีความจำเป็นต้องปฏิเสธการเข้าทำสัญญากับท่าน หรือยกเลิกการซื้อขายหรือการให้บริการที่เกี่ยวข้องกับท่าน ไม่ว่าทั้งหมดหรือบางส่วน
+                </p>
+
+                <h3>6. การเปิดเผยข้อมูลส่วนบุคคลของท่าน</h3>
+                <p>
+                    บริษัทฯ อาจเปิดเผยข้อมูลส่วนบุคคลของท่าน ภายใต้วัตถุประสงค์ที่กำหนดและตามหลักเกณฑ์ที่กฎหมายกำหนดให้แก่บุคคลและหน่วยงานดังต่อไปนี้
+                </p>
+                <ol>
+                    <li>6.1. เพื่อการประมวลผลข้อมูลส่วนบุคคลของท่าน กลุ่มบริษัท โอเค นัมเบอร์ วัน จำกัดหรือบริษัทในเครือบริษัท โอเค นัมเบอร์ วัน จำกัด หมายถึง ผู้บริหาร กรรมการ พนักงาน ลูกจ้าง และ/หรือบุคลากรภายในของบริษัทดังกล่าวเท่าที่เกี่ยวข้องและตามความจำเป็น</li>
+                    <li>6.2. คู่ค้าทางธุรกิจ ผู้ให้บริการ และผู้ประมวลผลข้อมูลส่วนบุคคลที่บริษัทฯ มอบหมายหรือว่าจ้างให้ทำหน้าที่บริหารจัดการประมวลผลข้อมูลส่วนบุคคลให้แก่บริษัทฯ ในการให้บริการต่าง ๆ เช่น การให้บริการด้านเทคโนโลยีสารสนเทศ บริการเก็บบันทึกข้อมูล บริการชำระเงิน บริการวิเคราะห์ข้อมูล บริการทำการตลาด หรือบริการอื่น ใดที่อาจเป็นประโยชน์ต่อท่าน หรือเกี่ยวข้องกับการดำเนินธุรกิจของบริษัทฯ</li>
+                    <li>6.3. บุคคลที่เกี่ยวข้องเป็นที่ปรึกษาของบริษัทฯ เช่น ที่ปรึกษากฎหมาย ผู้ตรวจสอบบัญชี หรือผู้เชี่ยวชาญอื่นใด ทั้งภายในและภายนอกของบริษัทฯ</li>
+                    <li>6.4. หน่วยงานของรัฐที่มีหน้าที่กำกับดูแลตามกฎหมาย หรือที่ร้องขอให้เปิดเผยข้อมูลส่วนบุคคลโดยอาศัยอำนาจตามกฎหมาย หรือที่เกี่ยวข้องกับกระบวนการทางกฎหมาย หรือที่ได้รับอนุญาตตามกฎหมายที่เกี่ยวข้อง เช่น กรมสรรพากร กระทรวงพาณิชย์ คณะกรรมการอาหารและยา สำนักงานคุ้มครองผู้บริโภค สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคล เป็นต้น</li>
+                    <li>6.5. บุคคลหรือหน่วยงานอื่นใดที่ท่านให้ความยินยอมให้เปิดเผยข้อมูลส่วนบุคคลของท่านต่อบุคคลหรือหน่วยงานนั้น ๆ เช่น การเปิดเผยการประมวลภาพกิจกรรมตามช่องทางสื่อต่าง ๆ ของบริษัทฯ ให้แก่ประชาชนทั่วไป</li>
+                    <li>6.6. การเปิดเผยข้อมูลส่วนบุคคลของท่านให้กับบุคคลอื่น จะดำเนินการภายใต้วัตถุประสงค์ที่กำหนดหรือวัตถุประสงค์อื่นที่กฎหมายกำหนดให้กระทำได้เท่านั้น ในกรณีที่กฎหมายกำหนดว่าต้องได้รับความยินยอมจากท่าน บริษัทฯ จะขอความยินยอมจากท่านก่อนหรือระหว่างการดำเนินการ</li>
+                    <li>6.7. ในการเปิดเผยข้อมูลส่วนบุคคลของท่านให้กับบุคคลอื่น บริษัทฯ จะจัดให้มีมาตรการที่เหมาะสมเพื่อคุ้มครองข้อมูลส่วนบุคคลที่ได้เปิดเผย และเพื่อปฏิบัติตามมาตรฐานและหน้าที่การคุ้มครองข้อมูลส่วนบุคคลตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด ทั้งนี้ ในกรณีที่บริษัทฯ ส่งหรือโอนข้อมูลส่วนบุคคลของท่านไปต่างประเทศ บริษัทฯ จะดำเนินการเพื่อทำให้แน่ใจว่าประเทศปลายทาง องค์การระหว่างประเทศ หรือผู้รับข้อมูลในต่างประเทศนั้นมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอหรือเพื่อทำให้แน่ใจว่าการส่งหรือโอนข้อมูลส่วนบุคคลของท่านไปต่างประเทศเป็นไปตามหลักเกณฑ์ที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด โดยบริษัทฯ จะขอความยินยอมของท่านสำหรับการส่งหรือโอนข้อมูลส่วนบุคคลของท่านไปยังต่างประเทศดังกล่าว</li>
+                </ol>
+
+                <h3>7. การส่งหรือโอนข้อมูลส่วนบุคคลไปต่างประเทศ</h3>
+                <ul>
+                    <li>บริษัทฯ อาจส่งหรือโอนข้อมูลส่วนบุคคลของท่านไปยังบริษัทในเครือหรือบุคคลอื่นในต่างประเทศในกรณีที่จำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งท่านเป็นคู่สัญญา หรือเป็นการกระทำตามสัญญาระหว่างบริษัทฯกับบุคคลหรือนิติบุคคลอื่นเพื่อประโยชน์ของท่านหรือเพื่อใช้ในการดำเนินการตามคำขอของท่านก่อนเข้าทำสัญญา</li>
+                    <li>บริษัทฯ อาจเก็บข้อมูลของท่านบนคอมพิวเตอร์เซิร์ฟเวอร์ หรือคลาวด์ ที่ให้บริการโดยบุคคลอื่น และอาจใช้โปรแกรมหรือแอปพลิเคชันของบุคคลอื่นในรูปแบบของ Software as a Service (SaaS) และ Platform as a Service (PaaS) ในการประมวลผลข้อมูลส่วนบุคคลของท่าน แต่บริษัทฯ จะไม่อนุญาตให้บุคคลที่ไม่เกี่ยวข้องสามารถเข้าถึงข้อมูลส่วนบุคคลได้ และจะกำหนดให้บุคคลอื่นเหล่านั้นต้องมีมาตรการคุ้มครองความมั่นคงปลอดภัยที่เหมาะสม</li>
+                    <li>ในกรณีที่มีการส่งข้อมูลส่วนบุคคลของท่านไปยังต่างประเทศ บริษัทฯ จะใช้มาตรการที่เหมาะสมเพื่อทำให้มั่นใจได้ว่าข้อมูลส่วนบุคคลของท่านจะได้รับการคุ้มครองและท่านสามารถใช้สิทธิที่เกี่ยวข้องกับข้อมูลส่วนบุคคลของท่านได้ตามกฎหมาย รวมถึงบริษัทฯ จะกำหนดให้ผู้ที่ได้รับข้อมูลมีมาตรการปกป้องข้อมูลของท่านอย่างเหมาะสมและประมวลผลข้อมูลส่วนบุคคลดังกล่าวเท่าที่จำเป็นเท่านั้น และดำเนินการเพื่อป้องกันไม่ให้บุคคลอื่นใช้หรือเปิดเผยข้อมูลส่วนบุคคลโดยปราศจากอำนาจโดยมิชอบ</li>
+                </ul>
+
+                <h3>8. การเก็บรักษาและระยะเวลาในการเก็บรักษาข้อมูลส่วนบุคคลของท่าน</h3>
+                <p>
+                    บริษัทฯ จะเก็บรักษาข้อมูลส่วนบุคคลของท่านตามระยะเวลาที่จำเป็น ตามวัตถุประสงค์ที่กำหนดในการประมวลผลข้อมูลส่วนบุคคลนั้น โดยระยะเวลาก็บรักษาข้อมูลส่วนบุคคลจะเปลี่ยนแปลงไปโดยขึ้นอยู่กับวัตถุประสงค์ที่กำหนดในการประมวลผลข้อมูลส่วนบุคคลนั้น ๆ
+                </p>
+                <p>
+                    นอกจากนี้ บริษัทฯ จะเก็บรักษาข้อมูลส่วนบุคคลเป็นระยะเวลาตามที่กฎหมายที่เกี่ยวข้องกำหนด (ถ้ามี) โดยคำนึงถึงอายุความตามกฎหมายสำหรับการดำเนินคดีที่อาจเกิดขึ้นจากหรือที่เกี่ยวข้องกับเอกสารหรือข้อมูลส่วนบุคคลที่บริษัทฯ เก็บรวบรวมไว้ในแต่ละรายการ และคำนึงถึงแนวปฏิบัติของบริษัทฯ และของภาคธุรกิจที่เกี่ยวข้องสำหรับข้อมูลส่วนบุคคลแต่ละประเภทเป็นสำคัญ
+                </p>
+                <p>
+                    ในเบื้องต้นบริษัทฯ จะเก็บรักษาข้อมูลส่วนบุคคลของท่านเป็นระยะเวลาไม่เกิน 10 ปี นับแต่วันที่นิติสัมพันธ์ระหว่างท่านกับบริษัทฯ สิ้นสุดลง อย่างไรก็ดี บริษัทฯ อาจเก็บรักษาข้อมูลส่วนบุคคลของท่านเป็นระยะเวลาเกินกว่าระยะเวลาดังกล่าว หากกฎหมายอนุญาตหรือการเก็บรักษาข้อมูลส่วนบุคคลดังกล่าวจำเป็นต่อการก่อตั้งสิทธิเรียกร้องทางกฎหมายของบริษัทฯ
+                </p>
+                <p>
+                    หลังจากครบกำหนดระยะเวลาดังกล่าวข้างต้น บริษัทฯ จะลบหรือทำลายข้อมูลส่วนบุคคลดังกล่าว จากการจัดเก็บหรือระบบของบริษัทฯ และของบุคคลอื่นซึ่งให้บริการแก่บริษัทฯ (ถ้ามี) หรือทำให้ข้อมูลส่วนบุคคลของท่านเป็นข้อมูลที่ไม่สามารถระบุตัวท่านได้ เว้นแต่จะเป็นกรณีที่บริษัทฯ สามารถเก็บรักษาข้อมูลส่วนบุคคลดังกล่าวได้ต่อไปตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลหรือกฎหมายอื่นที่เกี่ยวข้องกำหนด
+                </p>
+
+                <h3>9. บริษัทฯ คุ้มครองข้อมูลส่วนบุคคลของท่านอย่างไร</h3>
+                <p>
+                    บริษัทฯ จะเก็บรักษาข้อมูลส่วนบุคคลของท่านไว้เป็นอย่างดีตามมาตรการเชิงเทคนิค (Technical Measure) และมาตรการเชิงบริหารจัดการ (Organizational Measure) เพื่อรักษาความปลอดภัยในการประมวลผลข้อมูลส่วนบุคคลที่เหมาะสม และเพื่อป้องกันการละเมิดข้อมูลส่วนบุคคล โดยบริษัทฯ ได้กำหนดนโยบาย ระเบียบ และหลักเกณฑ์ในการคุ้มครองข้อมูลส่วนบุคคล รวมถึงมาตรการเพื่อป้องกันไม่ให้ผู้รับข้อมูลไปจากบริษัทฯ ใช้ หรือเปิดเผยข้อมูลนอกวัตถุประสงค์ หรือโดยไม่มีอำนาจหรือโดยมิชอบ และบริษัทฯ ได้มีการปรับปรุงนโยบาย ระเบียบและหลักเกณฑ์ดังกล่าวเป็นระยะตามความจำเป็น และเหมาะสม นอกจากนี้ผู้บริหาร พนักงาน ผู้รับจ้าง ตัวแทน ที่ปรึกษา และผู้รับข้อมูลจากบริษัทฯ มีหน้าที่ต้องรักษาความลับของข้อมูลส่วนบุคคลตามมาตรการรักษาความลับที่บริษัทฯ กำหนด
+                </p>
+
+                <h3>10. สิทธิของเจ้าของข้อมูล</h3>
+                <p>
+                    สิทธิในส่วนนี้หมายถึงสิทธิตามกฎหมายที่เกี่ยวกับข้อมูลส่วนบุคคลของท่าน ซึ่งท่านอาจขอใช้สิทธิเหล่านี้กับบริษัทฯ ภายใต้เงื่อนไขที่กฎหมายกำหนดและกระบวนการจัดการสิทธิของบริษัทฯ
+                </p>
+                <table>
+                    <thead>
+                        <tr><th>สิทธิที่เกี่ยวกับข้อมูลส่วนบุคคล</th><th>คำอธิบาย</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1. สิทธิในการเข้าถึงข้อมูลส่วนบุคคล</td><td>ท่านมีสิทธิในการเข้าถึงข้อมูลส่วนบุคคลของท่านและขอให้บริษัทฯ ทำสำเนาข้อมูลส่วนบุคคลดังกล่าวให้แก่ท่าน ทั้งนี้ ตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                        <tr><td>2. สิทธิในการโอนย้ายข้อมูลส่วนบุคคล</td><td>ท่านมีสิทธิที่จะขอรับข้อมูลส่วนบุคคลเกี่ยวกับท่าน รวมถึงมีสิทธิขอให้ส่งหรือโอนข้อมูลส่วนบุคคลของท่านไปยังผู้ควบคุมข้อมูลส่วนบุคคลรายอื่น หรือตัวท่านเอง เว้นแต่โดยสภาพไม่สามารถทำได้ ทั้งนี้ ตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                        <tr><td>3. สิทธิในการคัดค้านการประมวลผลข้อมูลส่วนบุคคล</td><td>ท่านมีสิทธิขอคัดค้านการประมวลผลข้อมูลส่วนบุคคลของท่านได้ ในกรณีที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                        <tr><td>4. สิทธิในการลบข้อมูลส่วนบุคคล</td><td>ท่านอาจขอให้บริษัทฯ ลบ ทำลาย หรือทำให้ข้อมูลส่วนบุคคลของท่านเป็นข้อมูลที่ไม่สามารถระบุตัวบุคคลได้ในกรณีที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                        <tr><td>5. สิทธิในการระงับการใช้ข้อมูลส่วนบุคคล</td><td>ท่านมีสิทธิขอให้บริษัทฯ ระงับการประมวลผลข้อมูลส่วนบุคคลของท่านในกรณีที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                        <tr><td>6. สิทธิในการแก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง</td><td>ท่านมีสิทธิขอแก้ไขข้อมูลส่วนบุคคลของท่านให้ถูกต้อง หากข้อมูลส่วนบุคคลของท่านนั้นไม่ถูกต้อง ไม่เป็นปัจจุบัน ไม่ครบถ้วนสมบูรณ์ หรือก่อให้เกิดความเข้าใจผิด</td></tr>
+                        <tr><td>7. สิทธิที่จะเพิกถอนความยินยอม</td><td>ในกรณีที่บริษัทฯ อาศัยความยินยอมของท่านในการประมวลผลข้อมูลส่วนบุคคลฯ ของท่าน ท่านมีสิทธิในการเพิกถอนความยินยอมในการประมวลผลข้อมูลส่วนบุคคลที่ท่านได้ให้ความยินยอมกับบริษัทฯ ได้</td></tr>
+                        <tr><td>8. สิทธิในการยื่นข้อร้องเรียน</td><td>หากท่านมีความกังวลหรือมีข้อสงสัยเกี่ยวกับแนวทางการปฏิบัติของบริษัทฯ เกี่ยวกับข้อมูลส่วนบุคคลของท่าน โปรดติดต่อบริษัทฯ โดยใช้รายละเอียดการติดต่อตามข้อ 13 ของประกาศฯ ฉบับนี้ ทั้งนี้ ในกรณีที่มีเหตุให้เชื่อได้ว่าบริษัทฯ ได้ทำการฝ่าฝืนกฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคล ท่านมีสิทธิยื่นข้อร้องเรียน ต่อคณะกรรมการผู้เชี่ยวชาญที่ได้รับการแต่งตั้งโดยคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลตามระเบียบและวิธีการตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด</td></tr>
+                    </tbody>
+                </table>
+                <p>
+                    ทั้งนี้บริษัทฯ ขอสงวนสิทธิในการพิจารณาคำร้องขอใช้สิทธิของท่าน โดยบริษัทฯ จะดำเนินการตามที่กฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนดไว้
+                </p>
+                <p>
+                    การใช้สิทธิของท่านตามข้างต้นอาจถูกจำกัดภายใต้กฎหมายที่เกี่ยวข้อง และมีบางกรณีที่มีเหตุจำเป็นที่บริษัทฯ อาจปฏิเสธหรือไม่สามารถดำเนินการตามคำขอใช้สิทธิของท่านได้ เช่น บริษัทฯ จำเป็นต้องปฏิบัติตามกฎหมายหรือคำสั่งศาล หรือการใช้สิทธินั้นๆ อาจละเมิดสิทธิหรือเสรีภาพของบุคคลอื่น หรือบริษัทฯ จำเป็นต้องใช้สิทธิเรียกร้องตามกฎหมายที่เกี่ยวข้องในการเก็บรักษาข้อมูลดังกล่าว โดยบริษัทฯ จะแจ้งเหตุผลของการปฏิเสธให้ท่านทราบ
+                </p>
+                <p>หากท่านต้องการใช้สิทธิตามข้างต้น ท่านสามารถยื่นคำขอมายังบริษัทฯ</p>
+                <p>
+                    ในกรณีที่มีการละเมิดข้อมูลส่วนบุคคล ให้ผู้ควบคุมข้อมูลนั้นแจ้งต่อ หัวหน้าหน่วยงาน ภายใน 24 ชั่วโมง โดยให้ทำการสรุปสาเหตุ ร่วมกับส่วนงานที่เกี่ยวข้อง ภายใน 24 ชม. และ ส่งข้อมูลต่อเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (Data Protection Officer: DPO) ภายใน 24 ชั่วโมง เพื่อแจ้งและประสาน หน่วยงานกำกับ PDPA ที่เกี่ยวข้อง (โดยทั้งหมดไม่เกิน 72 ชั่วโมง นับตั้งแต่ทราบเรื่อง)
+                </p>
+
+                <h3>11. ขอบเขตของประกาศเกี่ยวกับคุ้มครองข้อมูลส่วนบุคคล</h3>
+                <p>
+                    ประกาศเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคลฉบับนี้ ใช้เฉพาะการให้บริการของบริษัทฯ เท่านั้น ในกรณีที่ท่านเชื่อมต่อไปยังแพลตฟอร์มของบริษัทอื่น แม้จะเป็นการเชื่อมต่อผ่านลิงก์ที่อยู่ในเว็บไซต์ของบริษัทฯ ก็ตาม นโยบายคุ้มครองข้อมูลส่วนบุคคลฉบับนี้จะไม่มีผลผูกพัน ท่านจำเป็นต้องศึกษาและปฏิบัติตามนโยบายคุ้มครองข้อมูลส่วนบุคคลที่ปรากฏบนแพลตฟอร์มเหล่านั้น และบริษัทฯ จะไม่รับผิดชอบเกี่ยวกับการดำเนินการต่าง ๆ ของแพลตฟอร์มอื่นนั้นทั้งสิ้น
+                </p>
+
+                <h3>12. การเปลี่ยนแปลงนโยบายคุ้มครองข้อมูลส่วนบุคคล</h3>
+                <p>
+                    บริษัทฯ จะทำการพิจารณาทบทวนนโยบายคุ้มครองข้อมูลส่วนบุคคลเป็นประจำเพื่อให้สอดคล้องกับแนวทางปฏิบัติ และกฎหมาย ข้อบังคับที่เกี่ยวข้อง ทั้งนี้ หากมีการเปลี่ยนแปลงนโยบายคุ้มครองข้อมูลส่วนบุคคล บริษัทฯ จะแจ้งให้ท่านทราบโดยการประกาศข้อมูลลงในเว็บไซต์ของบริษัทฯ
+                </p>
+
+                <h3>13. ช่องทางการติดต่อบริษัทฯ และเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล</h3>
+                <p>ท่านสามารถติดต่อบริษัทฯ เพื่อเสนอแนะ หรือสอบถามรายละเอียดเพิ่มเติมเกี่ยวกับนโยบายคุ้มครองข้อมูลส่วนบุคคลได้ที่</p>
+                <p><strong>บริษัท โอเค นัมเบอร์ วัน จำกัด</strong></p>
+                <p><strong>13.1 เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล DPO (Data Protection Officer)</strong><br>
+                เลขที่1อาคารศูนย์การค้าเซ็นเตอร์วัน ซอย เลิศปัญญา ถนนราชวิถี แขวงถนนพญาไท เขตราชเทวี กรุงเทพมหานคร 10400<br>
+                E-mail: dpo@no1.email Tel: 02-127-0010
+                </p>
+                <p><strong>13.2 ผู้ควบคุมข้อมูลส่วนบุคคล (Data Controller)</strong><br>
+                บริษัท โอเค นัมเบอร์ วัน จำกัด เลขที่1อาคารศูนย์การค้าเซ็นเตอร์วัน ซอย เลิศปัญญา ถนนราชวิถี<br>
+                แขวงถนนพญาไท เขตราชเทวี กรุงเทพมหานคร 10400<br>
+                E-mail: pdpa@no1.email Tel: 02-127-0010
+                </p>
+
+                <!-- END: Content replaced from PDPA 2025 file -->
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="acceptPDPA" required checked>
+                    <label for="acceptPDPA">ฉันได้อ่านและยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA) ข้างต้น</label>
+                </div>
+
+                <div class="scroll-down" id="scrollDown">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <div class="pdpa-footer">
+                <button class="pdpa-btn pdpa-btn-decline" id="pdpaDecline">ไม่ยอมรับ</button>
+                <button class="pdpa-btn pdpa-btn-accept" id="pdpaAccept">ยอมรับ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://lh3.googleusercontent.com/d/1Aoj_LFAtjUjfilbWpOq7Jx-IRPJ11XZT" alt="NO1Money+" class="logo">
+        </div>
+
+        <!-- Header -->
+        <div class="header" id="header">
+            <h1><i class="fas fa-user-plus" style="margin-right: 10px;"></i>สมัครสมาชิก</h1>
+            <p>กรุณากรอกข้อมูลให้ครบถ้วน</p>
+        </div>
+
+        <!-- Form Container (Scrollable) -->
+        <div class="form-container">
+            <!-- Approval Message (hidden initially) -->
+            <div class="approval-container" id="approvalContainer">
+                <div class="approval-icon">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+                <h2 class="approval-title">รอการอนุมัติ</h2>
+                <p class="approval-message">อยู่ระหว่างการตรวจสอบและอนุมัติ</p>
+                <div class="approval-details">
+                    <!-- ข้อมูลสมาชิกจะถูกแสดงที่นี่หลังสมัครเสร็จ -->
+                </div>
+                <button class="close-btn" id="approvalCloseBtn"><i class="fas fa-times"></i> ปิดหน้าต่าง</button>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registrationForm">
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="fullName"><i class="fas fa-user" style="margin-right: 5px;"></i>ชื่อ-สกุล</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="กรุณากรอกชื่อ-สกุล" required>
+                    <div class="error-message" id="nameError"><i class="fas fa-exclamation-circle"></i> กรุณากรอกชื่อ-สกุลให้ถูกต้อง</div>
+                </div>
+
+                <!-- ID Type Selector -->
+                <div class="id-type-selector">
+                    <div class="id-type-option active" data-type="idCard">บัตรประชาชน</div>
+                    <div class="id-type-option" data-type="passport">พาสปอร์ต</div>
+                </div>
+
+                <!-- ID Card -->
+                <div class="form-group" id="idCardGroup">
+                    <label for="idCard"><i class="fas fa-id-card" style="margin-right: 5px;"></i>รหัสบัตรประชาชน</label>
+                    <input type="text" id="idCard" class="form-control" placeholder="กรุณากรอกรหัสบัตรประชาชน 13 หลัก" maxlength="13" inputmode="numeric">
+                    <div class="error-message" id="idCardError"><i class="fas fa-exclamation-circle"></i> กรุณากรอกรหัสบัตรประชาชน 13 หลัก</div>
+                    <div class="checking-message" id="idCardChecking"><i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบรหัสบัตรประชาชน...</div>
+                    <div class="status-message" id="idCardStatus"></div>
+                </div>
+
+                <!-- Passport -->
+                <div class="form-group" id="passportGroup" style="display: none;">
+                    <label for="passport"><i class="fas fa-passport" style="margin-right: 5px;"></i>เลขพาสปอร์ต</label>
+                    <input type="text" id="passport" class="form-control" placeholder="กรุณากรอกเลขพาสปอร์ต">
+                    <div class="error-message" id="passportError"><i class="fas fa-exclamation-circle"></i> กรุณากรอกเลขพาสปอร์ต</div>
+                    <div class="checking-message" id="passportChecking"><i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบเลขพาสปอร์ต...</div>
+                    <div class="status-message" id="passportStatus"></div>
+                </div>
+
+                <!-- Birthday -->
+                <div class="form-group">
+                    <label for="birthDate"><i class="fas fa-birthday-cake" style="margin-right: 5px;"></i>วันเดือนปีเกิด (พ.ศ.)</label>
+                    <div class="birthday-container">
+                        <select id="birthDay" class="birthday-select" required>
+                            <option value="" disabled selected>วัน</option>
+                        </select>
+                        <select id="birthMonth" class="birthday-select" required>
+                            <option value="" disabled selected>เดือน</option>
+                            <option value="1">มกราคม</option>
+                            <option value="2">กุมภาพันธ์</option>
+                            <option value="3">มีนาคม</option>
+                            <option value="4">เมษายน</option>
+                            <option value="5">พฤษภาคม</option>
+                            <option value="6">มิถุนายน</option>
+                            <option value="7">กรกฎาคม</option>
+                            <option value="8">สิงหาคม</option>
+                            <option value="9">กันยายน</option>
+                            <option value="10">ตุลาคม</option>
+                            <option value="11">พฤศจิกายน</option>
+                            <option value="12">ธันวาคม</option>
+                        </select>
+                        <select id="birthYear" class="birthday-select" required>
+                            <option value="" disabled selected>ปี พ.ศ.</option>
+                        </select>
+                    </div>
+                    <div class="error-message" id="birthDateError"><i class="fas fa-exclamation-circle"></i> กรุณาเลือกวันเดือนปีเกิดให้ครบถ้วน</div>
+                    <div class="error-message" id="ageError" style="display: none;"><i class="fas fa-exclamation-circle"></i> คุณต้องมีอายุ 18 ปีขึ้นไปจึงจะสมัครได้</div>
+                </div>
+
+                <!-- Current Address (GPS) -->
+                <div class="form-group">
+                    <label for="currentAddress"><i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i>ที่อยู่ปัจจุบัน (จาก GPS)</label>
+                    <textarea id="currentAddress" class="form-control" placeholder="กดปุ่ม 'ขอตำแหน่งปัจจุบัน' เพื่อดึงที่อยู่" readonly required></textarea>
+                    <button type="button" class="btn-location" id="getLocationBtn">
+                        <i class="fas fa-location-arrow" style="margin-right: 5px;"></i> ขอตำแหน่งปัจจุบัน
+                    </button>
+                    <div id="map"></div> <!-- Map container -->
+                    <div class="error-message" id="locationError"><i class="fas fa-exclamation-circle"></i> ไม่สามารถดึงตำแหน่งได้</div>
+                    <div class="location-status-message" id="locationStatus"><i class="fas fa-spinner fa-spin"></i> กำลังดึงตำแหน่ง...</div>
+                    <!-- Hidden fields for Lat/Lon -->
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phoneNumber"><i class="fas fa-phone" style="margin-right: 5px;"></i>เบอร์โทรศัพท์</label>
+                    <input type="tel" id="phoneNumber" class="form-control" placeholder="กรุณากรอกเบอร์โทรศัพท์ 10 หลัก" required maxlength="10" inputmode="tel">
+                    <button type="button" class="btn-otp" id="sendOtpBtn"><i class="fas fa-paper-plane" style="margin-right: 5px;"></i>ขอ OTP</button>
+                    <div class="error-message" id="phoneError"><i class="fas fa-exclamation-circle"></i> กรุณากรอกเบอร์โทรศัพท์ 10 หลัก</div>
+                    <div class="checking-message" id="phoneChecking"><i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบเบอร์โทรศัพท์...</div>
+                    <div class="status-message" id="phoneStatus"></div>
+                </div>
+
+                <!-- OTP Container -->
+                <div class="otp-container" id="otpContainer">
+                    <div class="form-group">
+                        <label><i class="fas fa-shield-alt" style="margin-right: 5px;"></i>รหัส OTP</label>
+                        <div class="otp-inputs">
+                            <input type="text" class="otp-input" maxlength="1" data-index="1" inputmode="numeric" pattern="[0-9]*">
+                            <input type="text" class="otp-input" maxlength="1" data-index="2" inputmode="numeric" pattern="[0-9]*">
+                            <input type="text" class="otp-input" maxlength="1" data-index="3" inputmode="numeric" pattern="[0-9]*">
+                            <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric" pattern="[0-9]*">
+                            <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric" pattern="[0-9]*">
+                            <input type="text" class="otp-input" maxlength="1" data-index="6" inputmode="numeric" pattern="[0-9]*">
+                        </div>
+                        <div class="countdown" id="countdown"><i class="fas fa-clock"></i> รหัส OTP จะหมดอายุใน 3:00 นาที</div>
+                        <div class="error-message" id="otpError"><i class="fas fa-exclamation-circle"></i> รหัส OTP ไม่ถูกต้อง</div>
+                        <div class="otp-reference" id="otpReference">เลขอ้างอิง OTP: <span id="otpRefNumber"></span></div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn" id="submitBtn">
+                    <span id="btnText"><i class="fas fa-user-plus" style="margin-right: 8px;"></i>สมัครสมาชิก</span>
+                    <div class="spinner" id="spinner"></div>
+                </button>
+
+                <!-- Resend OTP Link -->
+                <div class="resend-otp" id="resendOtp" style="display: none;">
+                    <i class="fas fa-redo" style="margin-right: 5px;"></i>ไม่ได้รับรหัส OTP? <a id="resendOtpLink">ส่งรหัสอีกครั้ง</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <i class="fas fa-copyright"></i> 2025 NO1Money+ All Rights Reserved
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Prevent Zoom ---
+    document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) { event.preventDefault(); }
+        lastTouchEnd = now;
+    }, false);
+
+    // --- API Endpoints ---
+    const OTP_REQUEST_URL = 'https://us-central1-no1-money.cloudfunctions.net/requestOTP';
+    const OTP_VERIFY_URL = 'https://us-central1-no1-money.cloudfunctions.net/verifyOTP';
+    const REGISTER_API_URL = 'https://mg-no1member.vercel.app/';
+    const CHECK_MEMBER_API = 'https://okmember-check.vercel.app/user/';
+    const CHECK_DUPLICATE_API = 'https://okmember-check.vercel.app/check-duplicate';
+    const REVERSE_GEOCODE_API = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2'; // Using Nominatim
+
+    // --- LIFF Initialization ---
+    const loadingOverlay = document.getElementById('loadingOverlay'); // Get overlay element
+    const mainContainer = document.querySelector('.container'); // Get main container
+
+    // Function to hide the loading overlay
+    function hideLoadingOverlay() {
+        if (loadingOverlay) {
+            loadingOverlay.style.opacity = '0';
+            // Remove from DOM or hide completely after transition
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500); // Match CSS transition duration (0.5s)
+        }
+    }
+
+    // Function to show the main container (form or approval)
+    function showMainContainer() {
+         if (mainContainer) {
+             mainContainer.style.display = 'flex'; // Use flex as defined in CSS
+         }
+    }
+
+    liff.init({ liffId: '2006703040-MdneWnen' }) // Replace with your LIFF ID
+    .then(async () => {
+        if (!liff.isLoggedIn()) {
+             hideLoadingOverlay(); // Hide loader before login redirect
+            liff.login();
+        } else {
+            try {
+                const profile = await liff.getProfile();
+                window.userProfile = profile;
+                // Check member status *after* getting profile
+                await checkMemberStatus(profile.userId);
+            } catch (err) {
+                console.error('Error getting profile:', err);
+                 hideLoadingOverlay(); // Hide loader on error
+                 showMainContainer(); // Show container
+                 showRegistrationPage(); // Fallback to registration
+            }
+        }
+    }).catch((err) => {
+        console.error('LIFF Initialization failed', err);
+         hideLoadingOverlay(); // Hide loader on LIFF init error
+         showMainContainer(); // Show container
+         showRegistrationPage(); // Fallback to registration
+    });
+
+    // --- DOM Elements ---
+    const registrationForm = document.getElementById('registrationForm');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpContainer = document.getElementById('otpContainer');
+    const resendOtp = document.getElementById('resendOtp');
+    const resendOtpLink = document.getElementById('resendOtpLink');
+    const countdown = document.getElementById('countdown');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    const approvalContainer = document.getElementById('approvalContainer');
+    const approvalCloseBtn = document.getElementById('approvalCloseBtn');
+    const otpReference = document.getElementById('otpReference');
+    const otpRefNumber = document.getElementById('otpRefNumber');
+
+    // ID Type elements
+    const idTypeOptions = document.querySelectorAll('.id-type-option');
+    const idCardGroup = document.getElementById('idCardGroup');
+    const passportGroup = document.getElementById('passportGroup');
+    const idCardInput = document.getElementById('idCard');
+    const passportInput = document.getElementById('passport');
+
+    // Birthday elements
+    const birthDaySelect = document.getElementById('birthDay');
+    const birthMonthSelect = document.getElementById('birthMonth');
+    const birthYearSelect = document.getElementById('birthYear');
+
+    // PDPA Popup elements
+    const pdpaOverlay = document.getElementById('pdpaOverlay');
+    const pdpaClose = document.getElementById('pdpaClose');
+    const pdpaAccept = document.getElementById('pdpaAccept');
+    const pdpaDecline = document.getElementById('pdpaDecline');
+    const acceptPDPA = document.getElementById('acceptPDPA');
+    const scrollDown = document.getElementById('scrollDown');
+
+    // Location Elements
+    const getLocationBtn = document.getElementById('getLocationBtn');
+    const currentAddressTextarea = document.getElementById('currentAddress');
+    const mapContainer = document.getElementById('map');
+    const locationError = document.getElementById('locationError');
+    const locationStatus = document.getElementById('locationStatus');
+    // Hidden Lat/Lon fields
+    const latitudeInput = document.getElementById('latitude');
+    const longitudeInput = document.getElementById('longitude');
+
+    // --- Variables ---
+    let otpSent = false;
+    let otpVerified = false;
+    let timer;
+    let timeLeft = 180;
+    let pdpaAccepted = false;
+    let requestToken = '';
+    let otpReferenceNumber = '';
+    let currentIdType = 'idCard';
+    let isRegistrationComplete = false;
+    let map = null; // Leaflet map instance
+    let marker = null; // Leaflet marker instance
+
+    // --- Helper Functions (Error/Status Display) ---
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorElement.style.display = 'block';
+        }
+    }
+
+    function hideError(elementId) {
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.style.display = 'none';
+        }
+    }
+
+     function showStatus(elementId, message, showSpinner = true) {
+        const statusElement = document.getElementById(elementId);
+        if (statusElement) {
+            statusElement.innerHTML = showSpinner
+                ? `<i class="fas fa-spinner fa-spin"></i> ${message}`
+                : `<i class="fas fa-info-circle"></i> ${message}`;
+            statusElement.style.display = 'block';
+        }
+    }
+
+    function hideStatus(elementId) {
+        const statusElement = document.getElementById(elementId);
+        if (statusElement) {
+            statusElement.style.display = 'none';
+        }
+    }
+
+    // --- Duplicate Check API Call ---
+    async function checkDuplicateFromAPI(citizenId, passport, phone) {
+        try {
+            let url = `${CHECK_DUPLICATE_API}?`;
+            if (citizenId) url += `citizenId=${encodeURIComponent(citizenId)}&`;
+            if (passport) url += `passport=${encodeURIComponent(passport)}&`;
+            if (phone) url += `phone=${encodeURIComponent(phone)}`;
+            url = url.replace(/&$/, ''); // Remove trailing '&' if any
+
+            console.log("Checking duplicate with URL:", url); // Log the URL being used
+
+            const response = await fetch(url);
+            console.log("Duplicate Check Response Status:", response.status); // Log status
+
+            if (!response.ok) {
+                 let errorBody = 'Unknown error';
+                 try {
+                     errorBody = await response.text(); // Try to get error body text
+                     console.error("Duplicate Check Error Body:", errorBody);
+                 } catch (e) {
+                     console.error("Could not read duplicate check error body", e);
+                 }
+                 throw new Error(`HTTP error! status: ${response.status}, Body: ${errorBody}`);
+            }
+
+            const data = await response.json();
+             console.log("Duplicate Check Response Data:", data); // Log successful data
+            // Adjust logic based on *actual* API response structure
+            // Example: Assuming the API returns { isDuplicate: true/false, message: "..." }
+            // return { isDuplicate: data.isDuplicate, message: data.message };
+            // OR if it returns { message: "ข้อมูลซ้ำ" / "ไม่พบข้อมูลซ้ำ" }
+            return { isDuplicate: data.message === "ข้อมูลซ้ำ", message: data.message };
+
+        } catch (error) {
+            console.error('Error checking duplicate:', error);
+            // Return a structured error object
+            return { error: true, message: `ไม่สามารถตรวจสอบข้อมูลซ้ำได้: ${error.message}` };
+        }
+    }
+
+
+    // --- Member Status Check ---
+    async function checkMemberStatus(userId) {
+        // Loading is handled by the overlay, no Swal needed here
+        try {
+            const response = await fetch(`${CHECK_MEMBER_API}${userId}`);
+            const data = await response.json();
+            console.log("Member Status Response:", data);
+
+            hideLoadingOverlay(); // Hide loader *after* getting response
+            showMainContainer(); // Show the main container area
+
+            if (data.error === 'ไม่พบข้อมูลผู้ใช้งาน' || (data && Object.keys(data).length === 0)) {
+                 // If error says not found, or if data is empty object
+                showRegistrationPage();
+            } else if (data && data.status === "Approve") {
+                window.location.href = "menu.html"; // Redirect if approved
+            } else if (data && data.userId) { // Check if some user data exists (even if pending/other status)
+                showApprovalPage(data); // Show pending/other status page
+            } else {
+                 // Fallback if response structure is unexpected but not an error
+                 console.warn("Unexpected member status response structure:", data);
+                 showRegistrationPage();
+            }
+        } catch (error) {
+            console.error("Error checking member status:", error);
+            hideLoadingOverlay(); // Hide loader on error
+            showMainContainer(); // Show container even on error
+            showRegistrationPage(); // Fallback to registration
+        }
+    }
+
+    // --- Page Display Functions ---
+    function showRegistrationPage() {
+        showMainContainer(); // Ensure main container is visible FIRST
+        registrationForm.style.display = 'block';
+        approvalContainer.style.display = 'none';
+        if (!pdpaAccepted) { // Show PDPA only if not accepted yet
+             showPDPAPopup();
+        }
+    }
+
+      function showApprovalPage(memberData) {
+        showMainContainer(); // Ensure main container is visible FIRST
+        hidePDPAPopup(); // Ensure PDPA is hidden
+        registrationForm.style.display = 'none';
+        approvalContainer.style.display = 'block';
+
+        if (memberData) {
+            const detailsContainer = approvalContainer.querySelector('.approval-details');
+            // Display Lat/Lon on approval page only if they exist in the data
+            let latLonHtml = '';
+            if (memberData.latitude && memberData.longitude) {
+                // Ensure coordinates are numbers before formatting
+                const lat = parseFloat(memberData.latitude);
+                const lon = parseFloat(memberData.longitude);
+                if (!isNaN(lat) && !isNaN(lon)) {
+                   latLonHtml = `<p><strong>พิกัด:</strong> ${lat.toFixed(6)}, ${lon.toFixed(6)}</p>`;
+                } else {
+                   latLonHtml = `<p><strong>พิกัด:</strong> (ข้อมูลไม่ถูกต้อง)</p>`;
+                }
+            }
+
+            // --- Format timestamp ---
+            let registrationDate = '-'; // Default value
+            // Check if registrationTimestamp exists and is not null/undefined
+            if (memberData.timestamp) {
+                try {
+                    const dateObject = new Date(memberData.timestamp);
+                     // Check if the dateObject is valid after parsing
+                    if (!isNaN(dateObject.getTime())) {
+                        registrationDate = dateObject.toLocaleString('th-TH', {
+                            year: 'numeric', // Automatically uses Buddhist Era (พ.ศ.) for 'th-TH'
+                            month: 'long',   // e.g., เมษายน
+                            day: 'numeric',    // e.g., 22
+                            hour: '2-digit',   // e.g., 10 (adjusts for timezone)
+                            minute: '2-digit', // e.g., 59
+                            // Optional: Add timeZoneName if needed, but usually not required as it converts to local time
+                            // timeZoneName: 'short'
+                            // Note: The time will be converted from UTC (Z) to the user's local timezone (e.g., Asia/Bangkok UTC+7)
+                        });
+                    } else {
+                        console.error("Invalid date string received for timestamp:", memberData.timestamp);
+                        registrationDate = 'รูปแบบวันที่ไม่ถูกต้อง'; // Provide feedback for invalid date
+                    }
+                } catch (e) {
+                    console.error("Error formatting registration timestamp:", e);
+                    // Keep registrationDate as '-' or set an error message
+                    registrationDate = 'เกิดข้อผิดพลาดในการแสดงวันที่';
+                }
+            }
+             // --- End Format timestamp ---
+
+            // --- Format Birth Date (DOB) ---
+            let formattedDob = '-';
+            if (memberData.dob) {
+                 try {
+                     const dobObject = new Date(memberData.dob);
+                     if (!isNaN(dobObject.getTime())) {
+                          formattedDob = dobObject.toLocaleDateString('th-TH', {
+                               year: 'numeric', // BE year
+                               month: 'long',
+                               day: 'numeric',
+                          });
+                     } else {
+                          console.error("Invalid date string received for dob:", memberData.dob);
+                          formattedDob = 'รูปแบบวันที่ไม่ถูกต้อง';
+                     }
+                 } catch(e) {
+                      console.error("Error formatting dob:", e);
+                      formattedDob = 'เกิดข้อผิดพลาดในการแสดงวันเกิด';
+                 }
+            } else if (memberData.birthDate) { // Fallback if 'dob' is missing but old 'birthDate' exists
+                 formattedDob = memberData.birthDate; // Assume it's already formatted DD/MM/YYYY (BE)
+            }
+            // --- End Format Birth Date ---
+
+
+            let statusText = 'รอการอนุมัติ';
+            if(memberData.status === 'Approve') statusText = 'อนุมัติแล้ว';
+            else if(memberData.status === 'Reject') statusText = 'ถูกปฏิเสธ';
+            // Add more statuses if needed
+
+            detailsContainer.innerHTML = `
+                <p><strong>Line Name:</strong> ${memberData.displayName || window.userProfile?.displayName || '-'}</p>
+                <p><strong>ชื่อ-สกุล:</strong> ${memberData.fullname || memberData.fullName || '-'}</p>
+                <p><strong>วันเกิด:</strong> ${formattedDob}</p>  <!-- Use formatted DOB -->
+                <p><strong>${memberData.idType === 'passport' ? 'พาสปอร์ต' : 'เลขบัตรประชาชน'}:</strong> ${memberData.citizenId || memberData.passport || '-'}</p>
+                <p><strong>โทรศัพท์:</strong> ${memberData.phone || '-'}</p>
+                <p><strong>ที่อยู่:</strong> ${memberData.address || '-'}</p>
+                ${latLonHtml} <!-- Display coordinates if available -->
+                <p><strong>วันที่สมัคร:</strong> ${registrationDate}</p> <!-- Use the formatted date here -->
+                <p><strong>สถานะ:</strong> ${statusText}</p>
+            `;
+        }
+        pdpaAccepted = true; // Mark PDPA as implicitly accepted if showing approval
+        submitBtn.style.display = 'none';
+        otpContainer.style.display = 'none';
+        resendOtp.style.display = 'none';
+    }
+    // --- PDPA Popup Logic ---
+    function showPDPAPopup() { pdpaOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function hidePDPAPopup() { pdpaOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    function showPDPAAlert() {
+        Swal.fire({
+            title: 'กรุณายอมรับนโยบาย PDPA', text: 'คุณต้องยอมรับนโยบาย PDPA ก่อนดำเนินการ', icon: 'info',
+            confirmButtonText: 'ไปยอมรับ', confirmButtonColor: '#FF6B9E', background: '#FFF0F3',
+            showCancelButton: true, cancelButtonText: 'ยกเลิก', cancelButtonColor: '#FFC2D1'
+        }).then((result) => { if (result.isConfirmed) { showPDPAPopup(); } });
+    }
+    pdpaAccept.addEventListener('click', () => { acceptPDPA.checked = true; pdpaAccepted = true; hidePDPAPopup(); });
+    pdpaDecline.addEventListener('click', () => {
+        Swal.fire({ title: 'จำเป็นต้องยอมรับนโยบาย PDPA', text: 'คุณต้องยอมรับนโยบาย PDPA เพื่อใช้งานบริการ', icon: 'warning', confirmButtonText: 'เข้าใจแล้ว', confirmButtonColor: '#FF6B9E', background: '#FFF0F3'})
+        .then(() => liff.closeWindow());
+    });
+    pdpaClose.addEventListener('click', () => {
+         // Don't close window, just hide popup and maybe show alert again? Or just hide.
+         hidePDPAPopup();
+         // Optionally re-prompt:
+         // if (!pdpaAccepted) { showPDPAAlert(); }
+    });
+    approvalCloseBtn.addEventListener('click', () => liff.closeWindow());
+
+    // --- ID Type Selector Logic ---
+    idTypeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            idTypeOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            currentIdType = this.dataset.type;
+            if (currentIdType === 'idCard') {
+                idCardGroup.style.display = 'block';
+                passportGroup.style.display = 'none';
+                passportInput.value = '';
+                hideError('passportError');
+                 hideStatus('passportChecking');
+                 hideStatus('passportStatus');
+            } else {
+                idCardGroup.style.display = 'none';
+                passportGroup.style.display = 'block';
+                idCardInput.value = '';
+                hideError('idCardError');
+                 hideStatus('idCardChecking');
+                 hideStatus('idCardStatus');
+            }
+             // Reset OTP verification state if ID type changes after OTP request
+             if (otpSent && !otpVerified) {
+                 resetOtpState();
+             }
+        });
+    });
+
+     function resetOtpState() {
+         otpSent = false;
+         otpVerified = false;
+         otpContainer.style.display = 'none';
+         resendOtp.style.display = 'none';
+         submitBtn.style.display = 'none';
+         sendOtpBtn.style.display = 'block'; // Show 'Send OTP' button again
+         sendOtpBtn.disabled = false;
+         sendOtpBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 5px;"></i>ขอ OTP';
+         otpInputs.forEach(inp => { inp.value = ''; inp.disabled = false; });
+         clearInterval(timer);
+         countdown.innerHTML = '<i class="fas fa-clock"></i> รหัส OTP จะหมดอายุใน 3:00 นาที';
+         hideError('otpError');
+         otpReference.style.display = 'none';
+     }
+
+
+    // --- Birthday & Age Logic ---
+    function initializeBirthdayDropdowns() {
+        // Populate days 1-31
+        birthDaySelect.innerHTML = '<option value="" disabled selected>วัน</option>'; // Reset
+        for (let i = 1; i <= 31; i++) {
+            birthDaySelect.add(new Option(i, i));
+        }
+        // Populate years (e.g., 100 years back from current BE year)
+        const currentYearBE = new Date().getFullYear() + 543;
+        birthYearSelect.innerHTML = '<option value="" disabled selected>ปี พ.ศ.</option>'; // Reset
+        for (let i = currentYearBE; i >= currentYearBE - 100; i--) {
+            birthYearSelect.add(new Option(i, i));
+        }
+        [birthDaySelect, birthMonthSelect, birthYearSelect].forEach(select => {
+            select.addEventListener('change', () => { validateBirthday(); checkAge(); });
+        });
+    }
+
+    function checkAge() {
+        const day = birthDaySelect.value, month = birthMonthSelect.value, year = birthYearSelect.value;
+        if (!day || !month || !year) { hideError('ageError'); return false; } // Not enough info yet
+        const yearCE = parseInt(year) - 543;
+        // Note: Month is 0-indexed in JS Date (0=Jan, 1=Feb, ...)
+        const birthDate = new Date(yearCE, parseInt(month) - 1, parseInt(day));
+        // Basic validation: Check if the date created is valid for the selected day/month/year
+        if (birthDate.getFullYear() !== yearCE || birthDate.getMonth() !== (parseInt(month) - 1) || birthDate.getDate() !== parseInt(day)) {
+             showError('birthDateError', 'วันที่เลือกไม่ถูกต้อง (เช่น 31 ก.พ.)');
+             hideError('ageError');
+             return false;
+        } else {
+             hideError('birthDateError'); // Date itself is valid
+        }
+
+        const today = new Date();
+        // Set hours to 0 to compare dates only
+        today.setHours(0, 0, 0, 0);
+        birthDate.setHours(0, 0, 0, 0);
+
+        if (birthDate >= today) {
+             showError('ageError', 'วันเกิดต้องเป็นวันในอดีต');
+             return false;
+        }
+
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        if (age < 18) {
+            showError('ageError', 'คุณต้องมีอายุ 18 ปีขึ้นไปจึงจะสมัครได้');
+            return false;
+        } else {
+            hideError('ageError');
+            return true;
+        }
+    }
+
+
+    function validateBirthday() {
+        if (birthDaySelect.value && birthMonthSelect.value && birthYearSelect.value) {
+            // Further check if date is valid (e.g., Feb 30) is handled in checkAge now
+            hideError('birthDateError');
+            return true;
+        } else {
+            showError('birthDateError', 'กรุณาเลือกวันเดือนปีเกิดให้ครบถ้วน');
+            return false;
+        }
+    }
+
+    function getBirthdayString() {
+        const day = birthDaySelect.value, month = birthMonthSelect.value, year = birthYearSelect.value;
+        return (day && month && year) ? `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}` : '';
+    }
+
+    // --- Geolocation and Map Logic ---
+    getLocationBtn.addEventListener('click', getLocation);
+
+    function getLocation() {
+        if (!navigator.geolocation) {
+            showError('locationError', 'เบราว์เซอร์ของคุณไม่รองรับ Geolocation');
+            getLocationBtn.disabled = false;
+            getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> ขอตำแหน่งปัจจุบัน';
+            return;
+        }
+
+        hideError('locationError');
+        showStatus('locationStatus', 'กำลังขออนุญาตเข้าถึงตำแหน่ง...', true);
+        getLocationBtn.disabled = true;
+        getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังโหลด...';
+        currentAddressTextarea.value = ''; // Clear previous address
+        latitudeInput.value = '';
+        longitudeInput.value = '';
+        if(map) map.remove(); // Remove previous map instance if exists
+        map = null;
+        marker = null;
+        mapContainer.style.display = 'none'; // Hide map container
+
+
+        navigator.geolocation.getCurrentPosition(handleGeoSuccess, handleGeoError, {
+            enableHighAccuracy: true,
+            timeout: 20000, // Increased timeout to 20 seconds
+            maximumAge: 0 // Force fresh location
+        });
+    }
+
+    function handleGeoSuccess(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        console.log(`Location found: Lat: ${lat}, Lon: ${lon}`);
+
+        // Store coordinates in hidden fields FIRST
+        latitudeInput.value = lat;
+        longitudeInput.value = lon;
+
+        showStatus('locationStatus', 'พบตำแหน่งแล้ว กำลังดึงข้อมูลที่อยู่...', true);
+        reverseGeocode(lat, lon); // Get display address
+        updateMap(lat, lon); // Update map display
+        getLocationBtn.disabled = false; // Re-enable button after all steps
+        getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> ขอตำแหน่งปัจจุบัน';
+        hideError('locationError'); // Hide errors if successful
+    }
+
+    function handleGeoError(error) {
+        console.error("Geolocation Error:", error);
+        hideStatus('locationStatus');
+        let message = 'เกิดข้อผิดพลาดในการดึงตำแหน่ง';
+        switch(error.code) {
+            case error.PERMISSION_DENIED: message = "คุณปฏิเสธการเข้าถึงตำแหน่ง กรุณาอนุญาตในการตั้งค่าเบราว์เซอร์"; break;
+            case error.POSITION_UNAVAILABLE: message = "ข้อมูลตำแหน่งไม่พร้อมใช้งาน"; break;
+            case error.TIMEOUT: message = "หมดเวลาในการค้นหาตำแหน่ง"; break;
+        }
+        showError('locationError', message);
+        getLocationBtn.disabled = false; // Re-enable button
+        getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> ขอตำแหน่งปัจจุบัน';
+
+        // Clear hidden fields on error
+        latitudeInput.value = '';
+        longitudeInput.value = '';
+        currentAddressTextarea.value = ''; // Clear textarea
+        currentAddressTextarea.readOnly = true; // Make readonly again
+        if(map) map.remove(); // Remove map on error
+        map = null;
+        marker = null;
+        mapContainer.style.display = 'none';
+    }
+
+    async function reverseGeocode(lat, lon) {
+        try {
+            const response = await fetch(`${REVERSE_GEOCODE_API}&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1&accept-language=th,en`); // Request Thai/English
+            if (!response.ok) throw new Error(`Nominatim error! status: ${response.status}`);
+            const data = await response.json();
+            console.log("Reverse Geocode Response:", data);
+
+            if (data && data.display_name) {
+                currentAddressTextarea.value = data.display_name; // Set display address
+                hideStatus('locationStatus');
+                currentAddressTextarea.readOnly = false; // Allow editing
+                hideError('locationError'); // Ensure error is hidden
+            } else {
+                 throw new Error('ไม่พบข้อมูลที่อยู่ในตำแหน่งนี้จาก Nominatim');
+            }
+        } catch (error) {
+            console.error('Reverse Geocoding Error:', error);
+            // Don't show locationError here if coords are set, just log and maybe use coords as fallback
+            hideStatus('locationStatus');
+            // Fallback display, but keep coords
+            currentAddressTextarea.value = `พิกัด: ${lat.toFixed(6)}, ${lon.toFixed(6)} (ไม่สามารถดึงชื่อที่อยู่ได้)`;
+            currentAddressTextarea.readOnly = false; // Allow editing even on fallback
+        }
+    }
+
+    function updateMap(lat, lon) {
+        const zoomLevel = 17; // Slightly more zoomed in
+        mapContainer.style.display = 'block'; // Make sure map container is visible BEFORE initializing
+         mapContainer.innerHTML = ''; // Clear previous map if any
+
+        try {
+            if (!map) { // Initialize map if it doesn't exist or was removed
+                map = L.map(mapContainer, { scrollWheelZoom: false }).setView([lat, lon], zoomLevel); // Disable scroll zoom
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                marker = L.marker([lat, lon], { draggable: true }).addTo(map); // Make marker draggable
+
+                 // Update lat/lon and address when marker is dragged
+                 marker.on('dragend', function(event){
+                    var position = marker.getLatLng();
+                    marker.setLatLng(position, {draggable: 'true'}).bindPopup(position).update();
+                    latitudeInput.value = position.lat;
+                    longitudeInput.value = position.lng;
+                     map.panTo(position); // Center map on new marker position
+                     // Optionally, re-run reverse geocode for the new position
+                     showStatus('locationStatus', 'กำลังอัปเดตที่อยู่จากหมุด...', true);
+                     reverseGeocode(position.lat, position.lng);
+                 });
+
+            } else { // Just update view and marker if map exists
+                map.setView([lat, lon], zoomLevel);
+                marker.setLatLng([lat, lon]);
+            }
+
+            // Invalidate size after map operations ensure proper rendering
+            setTimeout(() => {
+                if (map) map.invalidateSize();
+            }, 100);
+
+        } catch (e) {
+             console.error("Error initializing or updating map:", e);
+             showError('locationError', 'เกิดข้อผิดพลาดในการแสดงแผนที่');
+             mapContainer.style.display = 'none';
+             map = null; // Reset map instance on error
+             marker = null;
+        }
+    }
+
+
+    // --- OTP Logic ---
+    sendOtpBtn.addEventListener('click', function() {
+        // Check basic phone validity first
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        if (!validatePhoneNumber(phoneNumber)) {
+             showError('phoneError', 'กรุณากรอกเบอร์โทรศัพท์ 10 หลักให้ถูกต้อง');
+             return;
+        } else {
+             hideError('phoneError');
+        }
+        // Proceed with full validation and OTP request
+        requestOTP(phoneNumber);
+    });
+
+    async function requestOTP(phoneNumber) {
+        if (isRegistrationComplete) {
+             Swal.fire('สำเร็จแล้ว', 'คุณได้ลงทะเบียนเรียบร้อยแล้ว', 'success');
+             return;
+        }
+        // Validate other required fields BEFORE checking duplicates and sending OTP
+        if (!validateForm(true)) { // Validate form fields except OTP and phone (already checked)
+             Swal.fire({ icon:'warning', title:'ข้อมูลไม่ครบถ้วน', text:'กรุณากรอกข้อมูลที่จำเป็นอื่นๆ ให้ครบถ้วนก่อนขอ OTP', confirmButtonColor: '#FF6B9E'});
+             return;
+        }
+        if (!checkAge()) { return; } // Double check age
+
+        sendOtpBtn.disabled = true;
+        sendOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบ...';
+        showStatus('phoneChecking', 'กำลังตรวจสอบข้อมูลซ้ำ...', true);
+        hideError('phoneError'); // Hide general phone error
+        hideStatus('phoneStatus'); // Hide previous status
+
+        try {
+            // --- Duplicate Check ---
+            const idValue = currentIdType === 'idCard' ? idCardInput.value : passportInput.value;
+            const checkResult = await checkDuplicateFromAPI(
+                currentIdType === 'idCard' ? idValue : null,
+                currentIdType === 'passport' ? idValue : null,
+                phoneNumber
+            );
+
+            hideStatus('phoneChecking'); // Hide checking status
+
+            if (checkResult.error) { // Check if the helper returned an error structure
+                 throw new Error(checkResult.message); // Throw the specific error message
+             }
+             if (checkResult.isDuplicate) {
+                 // Determine which field caused the duplicate based on the message from API
+                 let duplicateFieldMessage = 'ข้อมูล'; // Generic default
+                 if (checkResult.message.includes('citizenId') || checkResult.message.includes('บัตรประชาชน')) {
+                     duplicateFieldMessage = 'รหัสบัตรประชาชน';
+                     showError('idCardError', 'รหัสบัตรประชาชนนี้ถูกใช้ลงทะเบียนแล้ว');
+                 } else if (checkResult.message.includes('passport') || checkResult.message.includes('พาสปอร์ต')) {
+                     duplicateFieldMessage = 'เลขพาสปอร์ต';
+                     showError('passportError', 'เลขพาสปอร์ตนี้ถูกใช้ลงทะเบียนแล้ว');
+                 } else if (checkResult.message.includes('phone') || checkResult.message.includes('โทรศัพท์')) {
+                     duplicateFieldMessage = 'เบอร์โทรศัพท์';
+                     showError('phoneError', 'เบอร์โทรศัพท์นี้ถูกใช้ลงทะเบียนแล้ว');
+                 }
+                 throw new Error(`${duplicateFieldMessage}นี้ถูกใช้ลงทะเบียนแล้ว`); // Throw specific error
+             }
+             // If no duplicate, clear potential previous duplicate errors
+             hideError('idCardError');
+             hideError('passportError');
+             hideError('phoneError');
+
+
+            // --- Proceed to Send OTP ---
+            sendOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังส่ง OTP...';
+            showStatus('phoneStatus', 'กำลังส่ง OTP...', true);
+
+            const formattedPhone = `66${phoneNumber.slice(1)}`;
+            const response = await fetch(OTP_REQUEST_URL, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to: formattedPhone })
+            });
+            const data = await response.json();
+            console.log("OTP Request Response:", data);
+
+            hideStatus('phoneStatus'); // Hide sending status
+
+             // Adjust success check based on *actual* expected successful response from YOUR API
+            if (response.ok && data.result && data.result.token) { // Example structure
+                requestToken = data.result.token;
+                otpReferenceNumber = data.result.ref || 'N/A'; // Get reference number
+                otpRefNumber.textContent = otpReferenceNumber;
+                otpReference.style.display = 'block';
+
+                otpContainer.style.display = 'block';
+                sendOtpBtn.style.display = 'none'; // Hide 'Send OTP' button
+                resendOtp.style.display = 'none'; // Hide resend link initially
+                otpSent = true;
+                 otpVerified = false; // Reset verification status on new OTP request
+                 submitBtn.style.display = 'none'; // Hide submit btn until verified
+                 otpInputs.forEach(inp => { inp.value = ''; inp.disabled = false; }); // Clear and enable inputs
+                 otpInputs[0].focus();
+                startCountdown();
+                 hideError('otpError'); // Clear previous OTP errors
+            } else {
+                 // Handle potential API error messages
+                 let errorMessage = 'การขอ OTP ล้มเหลว';
+                 if (data && data.msg) errorMessage = data.msg;
+                 else if (data && data.message) errorMessage = data.message;
+                 else if (!response.ok) errorMessage = `การขอ OTP ล้มเหลว (HTTP ${response.status})`;
+                throw new Error(errorMessage);
+            }
+        } catch (error) {
+            console.error('Error during OTP request or duplicate check:', error);
+            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: error.message, confirmButtonColor: '#FF6B9E' });
+             hideStatus('phoneChecking'); // Hide any leftover status messages
+             hideStatus('phoneStatus');
+              // Don't reset the button here, let the finally block do it
+        } finally {
+            // Ensure button is always re-enabled unless OTP was successfully sent
+            if (!otpSent) {
+                 sendOtpBtn.disabled = false;
+                 sendOtpBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 5px;"></i>ขอ OTP';
+            }
+        }
+    }
+
+
+    resendOtpLink.addEventListener('click', async (e) => {
+         e.preventDefault(); // Prevent default link behavior
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        if (!validatePhoneNumber(phoneNumber)) { showError('phoneError', 'กรุณากรอกเบอร์โทรศัพท์ 10 หลัก'); return; }
+        if (!checkAge()) return;
+
+        // Temporarily disable the link
+        resendOtpLink.style.pointerEvents = 'none';
+        resendOtpLink.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังส่ง...';
+
+
+         // --- Duplicate Check Before Resend ---
+         // (Optional but recommended to prevent spamming used numbers)
+         showStatus('phoneChecking', 'กำลังตรวจสอบข้อมูลซ้ำ...', true);
+         let isDuplicate = false;
+         try {
+             const idValue = currentIdType === 'idCard' ? idCardInput.value : passportInput.value;
+             const checkResult = await checkDuplicateFromAPI(
+                 currentIdType === 'idCard' ? idValue : null,
+                 currentIdType === 'passport' ? idValue : null,
+                 phoneNumber
+             );
+             hideStatus('phoneChecking');
+             if (checkResult.error) throw new Error(checkResult.message);
+             if (checkResult.isDuplicate) {
+                  isDuplicate = true;
+                  let duplicateFieldMessage = 'ข้อมูล';
+                  if (checkResult.message.includes('phone')) duplicateFieldMessage = 'เบอร์โทรศัพท์';
+                   // Add checks for ID/Passport if needed
+                  showError('phoneError', `${duplicateFieldMessage}นี้ถูกใช้ลงทะเบียนแล้ว`);
+                  throw new Error(`${duplicateFieldMessage}นี้ถูกใช้ลงทะเบียนแล้ว`);
+             }
+             hideError('phoneError'); // Clear error if not duplicate
+         } catch (error) {
+             console.error('Duplicate check before resend failed:', error);
+             Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: error.message, confirmButtonColor: '#FF6B9E' });
+             // Re-enable the link in finally block
+             isDuplicate = true; // Treat check error as potential duplicate to prevent sending
+         } finally {
+              hideStatus('phoneChecking');
+         }
+
+         if (isDuplicate) {
+              resendOtpLink.style.pointerEvents = 'auto'; // Re-enable link
+              resendOtpLink.innerHTML = '<i class="fas fa-redo" style="margin-right: 5px;"></i>ส่งรหัสอีกครั้ง';
+              return; // Stop if duplicate found or check failed
+         }
+         // --- End Duplicate Check ---
+
+
+        try {
+             // Re-request OTP using the existing function
+             // requestOTP handles UI updates (spinner, status messages, etc.)
+             await requestOTP(phoneNumber);
+              // If requestOTP succeeds, it will hide the resend link and start countdown
+        } catch (error) {
+             // requestOTP already shows a Swal error, just log it here
+             console.error('Resend OTP Error:', error);
+        } finally {
+             // Ensure link is re-enabled if requestOTP didn't hide it (e.g., on failure)
+             if (resendOtp.style.display !== 'none') { // Check if it's still visible
+                 resendOtpLink.style.pointerEvents = 'auto';
+                 resendOtpLink.innerHTML = '<i class="fas fa-redo" style="margin-right: 5px;"></i>ส่งรหัสอีกครั้ง';
+             }
+        }
+    });
+
+    function startCountdown() {
+        clearInterval(timer);
+        timeLeft = 180; // 3 minutes
+        updateCountdown();
+        timer = setInterval(() => {
+            timeLeft--;
+            updateCountdown();
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                 otpSent = false; // Mark OTP as expired
+                 otpVerified = false; // Not verified anymore
+                 submitBtn.style.display = 'none'; // Hide submit button
+                 resendOtp.style.display = 'block'; // Show resend link
+                 countdown.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: var(--error-color);"></i> รหัส OTP หมดอายุแล้ว';
+                 otpInputs.forEach(inp => inp.disabled = true); // Disable inputs when expired
+                 showError('otpError', 'รหัส OTP หมดอายุ กรุณากดส่งรหัสอีกครั้ง');
+            }
+        }, 1000);
+    }
+
+    function updateCountdown() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        countdown.innerHTML = `<i class="fas fa-clock"></i> รหัส OTP จะหมดอายุใน ${minutes}:${String(seconds).padStart(2, '0')} นาที`;
+    }
+
+    // --- OTP Input Handling ---
+    const otpInputs = document.querySelectorAll('.otp-input');
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+            const currentValue = input.value;
+            // Allow only single digit
+            if (!/^[0-9]$/.test(currentValue)) {
+                input.value = ''; // Clear invalid input
+                return;
+            }
+
+            // Move focus to next input if not the last one
+            if (currentValue && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+
+            // If all inputs are filled, trigger validation
+            const allFilled = [...otpInputs].every(inp => inp.value);
+            if (allFilled) {
+                validateOTP();
+            }
+             hideError('otpError'); // Hide error on valid input
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                 // If field is empty and not the first one, move focus back
+                if (!input.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+                 // If field has value, backspace will clear it (default behavior), then user might type or backspace again
+                 // No need to move focus immediately on backspace if there was content
+                 otpVerified = false; // Reset verification status on backspace
+                 submitBtn.style.display = 'none'; // Hide submit button
+                 hideError('otpError');
+            } else if (e.key === 'ArrowLeft' && index > 0) {
+                otpInputs[index - 1].focus();
+            } else if (e.key === 'ArrowRight' && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, ''); // Sanitize pasted data
+
+            if (pasteData.length === 6) {
+                otpInputs.forEach((inp, i) => {
+                    inp.value = pasteData[i] || '';
+                });
+                otpInputs[5].focus(); // Focus last input
+                setTimeout(validateOTP, 50); // Validate after paste & focus update
+            } else if (pasteData.length > 0 && pasteData.length < 6) {
+                 // Paste partially if possible
+                 for(let i = 0; i < pasteData.length; i++) {
+                      if (index + i < otpInputs.length) {
+                          otpInputs[index + i].value = pasteData[i];
+                      }
+                 }
+                 // Focus the next empty or last field
+                 const nextFocusIndex = Math.min(index + pasteData.length, otpInputs.length - 1);
+                 otpInputs[nextFocusIndex].focus();
+            } else {
+                 showError('otpError', 'ข้อมูลที่วางไม่ถูกต้อง (ต้องเป็นเลข 6 หลัก)');
+            }
+             hideError('otpError'); // Hide error initially on paste attempt
+        });
+
+         input.addEventListener('focus', () => {
+             input.select(); // Select text on focus for easy replacement
+         });
+    });
+
+
+    async function validateOTP() {
+        let otp = '';
+        otpInputs.forEach(input => { otp += input.value; });
+
+        if (otp.length !== 6) {
+            // Don't show error immediately, wait for blur or submit maybe? Or just rely on submit validation.
+            // showError('otpError', 'กรุณากรอกรหัส OTP ให้ครบ 6 หลัก');
+            otpVerified = false; submitBtn.style.display = 'none'; return false;
+        }
+        if (!/^[0-9]{6}$/.test(otp)) {
+             showError('otpError', 'รหัส OTP ต้องเป็นตัวเลขเท่านั้น');
+            otpVerified = false; submitBtn.style.display = 'none'; return false;
+        }
+
+         // Add a visual cue that validation is happening
+         otpContainer.style.opacity = '0.7';
+         showStatus('countdown', 'กำลังยืนยัน OTP...', true); // Use countdown element for status
+         hideError('otpError');
+
+        try {
+            const response = await fetch(OTP_VERIFY_URL, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pin: otp, token: requestToken })
+            });
+            const data = await response.json();
+             console.log("OTP Verify Response:", data);
+
+             // Check response structure for success (Adjust based on your API)
+             if (response.ok && data.result && data.result.status === 'success' || (data.msg && data.msg.toLowerCase().includes("success"))) { // Example checks
+                otpVerified = true;
+                hideError('otpError');
+                submitBtn.style.display = 'block'; // Show submit button
+                 otpInputs.forEach(inp => inp.disabled = true); // Disable inputs after successful verification
+                 countdown.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success-color);"></i> ยืนยัน OTP สำเร็จ!';
+                 clearInterval(timer); // Stop countdown
+                return true;
+            } else {
+                 // Determine error message from API response
+                 let errorMessage = 'รหัส OTP ไม่ถูกต้อง หรือหมดอายุ';
+                 if (data && data.msg) errorMessage = data.msg;
+                 else if (data && data.message) errorMessage = data.message;
+                 else if (data && data.error) errorMessage = data.error;
+                 throw new Error(errorMessage);
+            }
+        } catch (error) {
+             console.error("OTP Verification error:", error);
+            showError('otpError', error.message || 'การยืนยัน OTP ล้มเหลว');
+            otpVerified = false;
+            submitBtn.style.display = 'none';
+             // Clear inputs on error and focus first
+             otpInputs.forEach(inp => {inp.value = ''; inp.disabled = false;});
+             otpInputs[0].focus();
+             // Restore countdown text or indicate failure state
+             if (timeLeft > 0) updateCountdown(); else countdown.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: var(--error-color);"></i> รหัส OTP หมดอายุแล้ว';
+            return false;
+        } finally {
+              otpContainer.style.opacity = '1'; // Restore opacity
+              // Hide status message if validation succeeded or failed
+              // showStatus('countdown', '', false); // Could hide status this way
+              // Or let success/error messages overwrite it
+        }
+    }
+
+
+    // --- Form Validation ---
+    function validatePhoneNumber(phone) {
+        // Starts with 0, followed by 9 digits (total 10)
+        return /^0[0-9]{9}$/.test(phone);
+    }
+
+    function isValidIDCard(id) {
+        if (!id || typeof id !== 'string') return "ไม่ได้ระบุเลขบัตร";
+        id = id.trim(); // Remove leading/trailing spaces
+        if (id.length !== 13) return "ต้องมี 13 หลัก";
+        if (!/^\d+$/.test(id)) return "ต้องเป็นตัวเลขเท่านั้น";
+
+        // Check digit validation
+        let sum = 0;
+        for (let i = 0; i < 12; i++) {
+             sum += parseInt(id[i]) * (13 - i);
+        }
+        const checkDigit = (11 - (sum % 11)) % 10;
+        if (checkDigit !== parseInt(id[12])) return "เลขบัตรประชาชนไม่ถูกต้อง";
+
+        return "OK"; // Valid
+    }
+    function validatePassport(passport) {
+        if (!passport || typeof passport !== 'string') return false;
+        passport = passport.trim();
+         // Basic check: at least 6 alphanumeric characters, adjust as needed
+        return /^[A-Za-z0-9]{6,}$/.test(passport);
+    }
+
+    document.getElementById('fullName').addEventListener('input', function() {
+        if (!this.value.trim()) showError('nameError', 'กรุณากรอกชื่อ-สกุล'); else hideError('nameError');
+    });
+
+    idCardInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, ''); // Allow only numbers
+        if (this.value.length === 13) {
+             const validationResult = isValidIDCard(this.value);
+             if (validationResult !== "OK") {
+                 showError('idCardError', validationResult);
+             } else {
+                 hideError('idCardError');
+                 // Optional: Trigger duplicate check here? Or wait for OTP request?
+             }
+        } else if (this.value.length > 0) {
+             showError('idCardError', `ต้องมี 13 หลัก (ตอนนี้ ${this.value.length} หลัก)`);
+        } else {
+             hideError('idCardError');
+        }
+    });
+     idCardInput.addEventListener('blur', function() { // Final validation on blur
+        const validationResult = isValidIDCard(this.value);
+        if (this.value && validationResult !== "OK") {
+             showError('idCardError', validationResult);
+        } else if (!this.value && currentIdType === 'idCard') {
+             showError('idCardError', 'กรุณากรอกรหัสบัตรประชาชน');
+        } else {
+             hideError('idCardError');
+        }
+     });
+
+    passportInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^A-Za-z0-9]/g, ''); // Allow only letters and numbers
+        if (this.value && !validatePassport(this.value)) {
+             showError('passportError', 'รูปแบบเลขพาสปอร์ตไม่ถูกต้อง (อย่างน้อย 6 ตัวอักษร/ตัวเลข)');
+        } else {
+             hideError('passportError');
+        }
+    });
+     passportInput.addEventListener('blur', function() {
+         if (!this.value && currentIdType === 'passport') {
+             showError('passportError', 'กรุณากรอกเลขพาสปอร์ต');
+         } else if (this.value && !validatePassport(this.value)) {
+             showError('passportError', 'รูปแบบเลขพาสปอร์ตไม่ถูกต้อง (อย่างน้อย 6 ตัวอักษร/ตัวเลข)');
+         } else {
+             hideError('passportError');
+         }
+     });
+
+    document.getElementById('phoneNumber').addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10); // Allow only numbers, max 10 digits
+        if (this.value.length > 0 && !validatePhoneNumber(this.value)) {
+             showError('phoneError', 'รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง (ต้องขึ้นต้นด้วย 0 และมี 10 หลัก)');
+        } else {
+             hideError('phoneError');
+        }
+    });
+     document.getElementById('phoneNumber').addEventListener('blur', function() {
+         if (!this.value) {
+             showError('phoneError', 'กรุณากรอกเบอร์โทรศัพท์');
+         } else if (!validatePhoneNumber(this.value)) {
+             showError('phoneError', 'รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง (ต้องขึ้นต้นด้วย 0 และมี 10 หลัก)');
+         } else {
+             hideError('phoneError');
+         }
+     });
+
+     currentAddressTextarea.addEventListener('input', function() { // Validate address on input
+        if (!this.value.trim()) showError('locationError', 'กรุณากดขอตำแหน่งปัจจุบัน หรือกรอกที่อยู่'); else hideError('locationError');
+     });
+
+
+    function validateForm(skipOtpCheck = false) {
+        let isValid = true;
+
+        // Name
+        const fullNameInput = document.getElementById('fullName');
+        if (!fullNameInput.value.trim()) { showError('nameError', 'กรุณากรอกชื่อ-สกุล'); isValid = false; } else { hideError('nameError'); }
+
+        // ID/Passport
+        if (currentIdType === 'idCard') {
+            const idValidation = isValidIDCard(idCardInput.value);
+            if (idValidation !== "OK") { showError('idCardError', idValidation); isValid = false; } else { hideError('idCardError'); }
+        } else { // Passport
+            if (!validatePassport(passportInput.value)) { showError('passportError', 'กรุณากรอกเลขพาสปอร์ตให้ถูกต้อง'); isValid = false; } else { hideError('passportError'); }
+        }
+
+        // Birthday & Age
+        if (!validateBirthday()) { isValid = false; } // Checks if selected
+        if (!checkAge()) { isValid = false; } // Checks validity and age >= 18
+
+        // Address & Lat/Lon Check
+        if (!currentAddressTextarea.value.trim()) {
+             showError('locationError', 'กรุณากดขอตำแหน่งปัจจุบัน หรือกรอกที่อยู่'); isValid = false;
+        } else if (!latitudeInput.value || !longitudeInput.value) { // Address is filled, but coords missing
+             showError('locationError', 'กรุณากดขอตำแหน่งปัจจุบัน เพื่อรับพิกัดประกอบ'); isValid = false;
+        } else {
+             hideError('locationError'); // Address and coords seem present
+        }
+
+        // Phone
+        if (!validatePhoneNumber(document.getElementById('phoneNumber').value)) { showError('phoneError', 'กรุณากรอกเบอร์โทรศัพท์ 10 หลักให้ถูกต้อง'); isValid = false; } else { hideError('phoneError'); }
+
+        // OTP (only if not skipped)
+        if (!skipOtpCheck) {
+             if (!otpVerified) {
+                 // Check if OTP was requested at all
+                 if (!otpSent) {
+                      showError('phoneError', 'กรุณากดขอ OTP และยืนยันรหัส'); // Error on phone field if not even requested
+                 } else {
+                      showError('otpError', 'กรุณายืนยัน OTP ให้สำเร็จ'); // Error on OTP field if requested but not verified
+                 }
+                 isValid = false;
+             } else {
+                 hideError('otpError'); // Verified, hide error
+             }
+        }
+
+         // PDPA Check (always check before final submit)
+         if (!skipOtpCheck && !pdpaAccepted) { // Check PDPA only on final submit validation
+              showPDPAAlert(); // Remind user
+              isValid = false;
+         }
+
+
+        return isValid;
+    }
+
+    // --- Form Submission ---
+    registrationForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Final validation check, including OTP and PDPA
+        if (!validateForm(false)) {
+             console.log("Form validation failed.");
+             // Find the first visible error message and scroll to it
+             const firstError = registrationForm.querySelector('.error-message[style*="display: block"]');
+             if (firstError) {
+                 firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             }
+             Swal.fire({
+                 icon:'warning',
+                 title:'ข้อมูลไม่ครบถ้วนหรือไม่ถูกต้อง',
+                 text:'กรุณาตรวจสอบข้อมูลในช่องที่มีข้อความสีแดง',
+                 confirmButtonColor: '#FF6B9E'
+             });
+             return; // Stop submission
+        }
+
+        // If validation passes, proceed to submit
+        await submitRegistration();
+    });
+
+    async function submitRegistration() {
+        submitBtn.disabled = true;
+        btnText.style.display = 'none';
+        spinner.style.display = 'block';
+        isRegistrationComplete = false; // Reset flag
+
+        try {
+            // 1. Construct Birthday Date Object (Convert BE to CE)
+            const day   = parseInt(birthDaySelect.value,   10);
+            const month = parseInt(birthMonthSelect.value, 10) - 1; // JS month is 0-indexed
+            const year  = parseInt(birthYearSelect.value,  10) - 543;
+            const dobDate = new Date(Date.UTC(year, month, day)); // Use UTC to avoid timezone issues if backend expects UTC
+
+            // 2. Prepare Payload
+            const formData = {
+                fullname: document.getElementById('fullName').value.trim(),
+                citizenId: currentIdType === 'idCard' ? idCardInput.value : null,
+                passport:  currentIdType === 'passport' ? passportInput.value.trim() : null,
+                idType:    currentIdType,
+                dob:       dobDate.toISOString(), // Send as ISO 8601 string (UTC)
+                phone:     document.getElementById('phoneNumber').value.trim(),
+                address:   currentAddressTextarea.value.trim(),
+                latitude:  latitudeInput.value,
+                longitude: longitudeInput.value,
+                pdpaConsent: acceptPDPA.checked, // Use checkbox state
+                userId:      window.userProfile?.userId || '',
+                displayName: window.userProfile?.displayName || '',
+                profileUrl:  window.userProfile?.pictureUrl || '',
+                otpReference: otpReferenceNumber, // Send OTP ref number
+                registrationTimestamp: new Date().toISOString() // Timestamp of submission
+            };
+
+            console.log("Submitting Form Data:", JSON.stringify(formData, null, 2)); // Log prettified JSON
+
+            // 3. Send to API
+            const response = await fetch(REGISTER_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            // 4. Handle Response
+            if (!response.ok) {
+                let errorData = { message: `HTTP error! status: ${response.status}`};
+                try {
+                    errorData = await response.json(); // Try to parse specific error from API
+                    console.error("API Error Response:", errorData);
+                } catch (e) {
+                     console.error("Could not parse error JSON from API", e);
+                     const textError = await response.text(); // Get raw text if JSON fails
+                     console.error("API Error Text:", textError);
+                     errorData.message = textError || errorData.message;
+                }
+                 // Try to make error more specific
+                 let displayError = errorData.message || errorData.error || 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ';
+                 if (displayError.includes('duplicate key') || displayError.includes('ข้อมูลซ้ำ')) {
+                     // Check specific fields if possible from error message
+                     if (displayError.includes('citizenId') || displayError.includes('passport')) {
+                          displayError = 'รหัสบัตรประชาชนหรือพาสปอร์ตนี้ ถูกใช้ลงทะเบียนแล้ว';
+                     } else if (displayError.includes('phone')) {
+                          displayError = 'เบอร์โทรศัพท์นี้ ถูกใช้ลงทะเบียนแล้ว';
+                     } else if (displayError.includes('userId')) {
+                         displayError = 'บัญชี LINE นี้ ถูกใช้ลงทะเบียนแล้ว';
+                     } else {
+                          displayError = 'พบข้อมูลซ้ำในระบบ (อาจเป็น ID, โทรศัพท์ หรือ LINE)';
+                     }
+                 }
+
+                 throw new Error(displayError);
+            }
+
+            const data = await response.json();
+            console.log("Registration Success Response:", data);
+            isRegistrationComplete = true; // Set flag on success
+
+            // 5. Show Success & Navigate/Reload
+            Swal.fire({
+                icon: 'success',
+                title: 'ลงทะเบียนสำเร็จ',
+                text: 'ข้อมูลของคุณถูกส่งเข้าระบบแล้ว กำลังรีเฟรชหน้าสถานะ...',
+                timer: 3000, // Slightly longer timer
+                showConfirmButton: false,
+                timerProgressBar: true,
+                 allowOutsideClick: false, // Prevent closing during timer
+                didClose: () => {
+                    window.location.reload(); // Reload the page to trigger status check again
+                }
+            });
+
+            // Optionally disable form elements after successful submit
+            registrationForm.querySelectorAll('input, textarea, select, button').forEach(el => el.disabled = true);
+
+
+        } catch (error) {
+            console.error('Registration Submission Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'ลงทะเบียนไม่สำเร็จ',
+                html: `เกิดข้อผิดพลาด: ${error.message || 'ไม่สามารถส่งข้อมูลได้'}.<br>กรุณาตรวจสอบข้อมูลและลองอีกครั้ง`, // Use html for line break
+                confirmButtonColor: '#FF6B9E'
+            });
+            isRegistrationComplete = false; // Ensure flag is false on error
+        } finally {
+            // Re-enable button only if registration didn't complete successfully
+             if (!isRegistrationComplete) {
+                 submitBtn.disabled = false;
+                 btnText.style.display = 'inline';
+                 spinner.style.display = 'none';
+             }
+        }
+    }
+
+
+    // --- Initial Setup ---
+    initializeBirthdayDropdowns();
+    // Submit button, OTP container, map are hidden by default CSS or JS logic now
+    // Loading overlay is shown by default via CSS
+
+    // Scroll down arrow in PDPA popup
+    if (scrollDown && pdpaContent) {
+        pdpaContent.addEventListener('scroll', () => {
+            // Hide arrow if scrolled near the bottom
+            if (pdpaContent.scrollHeight - pdpaContent.scrollTop <= pdpaContent.clientHeight + 30) {
+                scrollDown.style.display = 'none';
+            } else {
+                scrollDown.style.display = 'block';
+            }
+        });
+         // Initial check
+         if (pdpaContent.scrollHeight <= pdpaContent.clientHeight) {
+              scrollDown.style.display = 'none';
+         }
+    }
+
+
+}); // End DOMContentLoaded
+    </script>
+</body>
+</html>
