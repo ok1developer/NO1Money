@@ -1,0 +1,567 @@
+@font-face {
+    font-family: 'LINESeedSansTH';
+    src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff');
+}
+
+body {
+    font-family: 'LINESeedSansTH', sans-serif;
+    background-color: #FEFEFE;
+    color: #464652;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    color: #ED7A6D;
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #464652;
+    margin-top: 20px;
+    border-bottom: 2px solid #ff3366;
+    padding-bottom: 10px;
+}
+
+form {
+    max-width: 700px;
+    margin: auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ff3366;
+    margin-top: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+.form-group label {
+    width: 140px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #464652;
+    border-radius: 6px;
+    margin-left: 10px;
+    max-width: 300px; /* จำกัดความกว้างสูงสุด */
+    width: 100%; /* ให้ฟิลด์เต็มหน้าจอบนมือถือ */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #ED7A6D;
+    outline: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #464652;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+    appearance: none;
+    font-family: 'LINESeedSansTH', sans-serif;
+    font-size: 16px;
+}
+
+select#name-title, 
+select#reference-relation {
+    max-width: 120px;
+}
+
+input#email {
+    max-width: 300px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #ED7A6D;
+    outline: none;
+}
+
+button {
+    background-color: #ff3366;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.next-btn,
+.prev-btn {
+    margin-top: 10px;
+}
+
+.next-btn {
+    float: right;
+}
+
+.prev-btn {
+    float: left;
+}
+
+/* ปรับขนาดฟิลด์และปุ่มบนหน้าจอมือถือ */
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .next-btn,
+    .prev-btn {
+        float: none;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.form-check-label {
+  margin-top: 20px;
+    font-size: 12px;
+    color: #464652;
+    line-height: 1.5;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff3366;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+}
+
+.header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.back-button {
+    position: absolute;
+    left: 10px;
+    top: 60%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+}
+
+.tabs {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.tab {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    font-size: 12px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab:not(:last-child) {
+    border-right: 1px solid #dee2e6;
+}
+
+.tab.active {
+    background-color: #ff3366;
+    color: #fff;
+}
+
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+}
+
+#signature {
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+.form-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #007bff; /* สีฟ้า */
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 3100%;
+    background-color: #ff3366;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 7px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%; /* แสดงด้านบนของ tooltip */
+    left: 50%;
+    margin-left: -1260%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  font-size: 12px; /* ปรับขนาดฟอนต์เล็กลง */
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ลบขีดเส้นใต้ของลิงก์ */
+.form-group a {
+    text-decoration: none;
+}
+/* จัดให้ Popup ลอยอยู่เหนือทุกสิ่ง */
+#storage-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* เพิ่ม z-index เพื่อให้ลอยอยู่เหนือทุกสิ่ง */
+}
+
+#storage-popup > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* จัดให้ Popup ลอยอยู่เหนือทุกสิ่ง */
+#popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* เพิ่ม z-index เพื่อให้ลอยอยู่เหนือทุกสิ่ง */
+}
+
+#popup > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* จัดให้ Popup ลอยอยู่เหนือทุกสิ่ง */
+#sn-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* เพิ่ม z-index เพื่อให้ลอยอยู่เหนือทุกสิ่ง */
+}
+
+#sn-popup > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* จัดให้ Popup ลอยอยู่เหนือทุกสิ่ง */
+#upload-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* เพิ่ม z-index เพื่อให้ลอยอยู่เหนือทุกสิ่ง */
+}
+
+#upload-popup > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+/* จัดให้ Popup ลอยอยู่เหนือทุกสิ่ง */
+#id-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* เพิ่ม z-index เพื่อให้ลอยอยู่เหนือทุกสิ่ง */
+}
+
+#id-popup > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.payment-date-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.tos-container {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+h1.h1-re {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.terms-box {
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.terms-box p, .terms-box h2, .terms-box h3 {
+    color: #333;
+    margin-bottom: 12px;
+    text-indent: 2em; /* ระยะห่างเริ่มต้นย่อหน้า */
+}
+.logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  margin-left: 15px;
+}
+.accept-box label {
+    font-size: 12px; /* Adjust font size for label text */
+}
+.accept-box-re label {
+    font-size: 12px; /* Adjust font size for label text */
+}
+.accept-box-re  {
+    margin-bottom: 10px; /* Adjust font size for label text */
+}
+.accept-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 8px; /* Adjust font size for accept box text */
+}
+
+.accept-box input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Adjusts size of the checkbox */
+}
+li {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.accept-box-re {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.accept-box-re input[type="checkbox-re"] {
+    margin-right: 10px;
+}
+
+.accept-button {
+    background-color: #ff3366;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.accept-button:hover {
+    background-color: #c01470;
+}
+/* เปลี่ยนสีส่วนหัวของปฏิทิน */
+    .flatpickr-calendar .flatpickr-month {
+        background-color: #ff3366 !important; /* เปลี่ยนสีพื้นหลัง */
+        color: #fff !important; /* เปลี่ยนสีข้อความ */
+    }
+
+    /* เปลี่ยนสีปุ่มลูกศรในส่วนหัว */
+    .flatpickr-calendar .flatpickr-prev-month,
+    .flatpickr-calendar .flatpickr-next-month {
+        color: #fff !important; /* เปลี่ยนสีไอคอนลูกศร */
+    }
+
+    /* ปรับข้อความเดือน */
+    .flatpickr-calendar .flatpickr-current-month {
+        font-weight: bold !important; /* เน้นข้อความ */
+        text-transform: uppercase !important; /* ตัวพิมพ์ใหญ่ */
+    }
+.prev-btn {
+  background-color: #ff914d; /* สีพื้นหลังของปุ่ม */
+  color: white; /* สีตัวอักษร */
+  padding: 10px 20px; /* ขนาดของปุ่ม */
+  border: none; /* ไม่มีกรอบ */
+  border-radius: 5px; /* มุมโค้ง */
+  cursor: pointer; /* เปลี่ยนเป็นมือเมื่อวางเมาส์บนปุ่ม */
+  font-size: 16px; /* ขนาดฟอนต์ */
+  transition: background-color 0.3s ease; /* เพิ่มการเปลี่ยนสีพื้นหลังเมื่อวางเมาส์ */
+}
+
+/* เมื่อวางเมาส์บนปุ่ม */
+.prev-btn:hover {
+  background-color: #45a049; /* สีพื้นหลังเมื่อวางเมาส์ */
+}
+.form-hint {
+    display: block;
+    font-size: 10px;
+    color: #6c757d;
+    margin-top: 5px;
+}

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ฟอร์มสัญญารีไฟแนนซ์ออนไลน์</title>
+    <link rel="stylesheet" href="refinance.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+       <div class="header">
+        <a href="menu.html" class="back-button">
+            <img src="https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%8B%E0%B8%99%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%20(4).png?v=1730791506134" alt="ย้อนกลับ" style="width: 30px; height: 30px;">
+        </a>
+        <img src="https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/1729495746901.jpg?v=1729613467316" alt="NO1Money+ logo">
+        <span>NO1Money+<br>สัญญารีไฟแนนซ์</span>
+    </div>
+    <div class="tabs" id="tabs">
+        <div class="tab active" data-section="section-1">ส่วนที่ 1</div>
+        <div class="tab" data-section="section-2">ส่วนที่ 2</div>
+        <div class="tab" data-section="section-3">ส่วนที่ 3</div>
+        <div class="tab" data-section="section-4">ส่วนที่ 4</div>
+        <div class="tab" data-section="section-5">ส่วนที่ 5</div>
+    </div>
+    <form id="refinance-form" >
+        <div class="form-section active" id="section-1">
+            <h2>ข้อมูลผู้ทำสัญญา</h2>
+          <div class="form-group">
+            <label for="branch">สาขาที่ทำสัญญา:</label>
+            <select id="branch" name="branch" required>
+                <option value="">-- กรุณาเลือกสาขา --</option>
+                <option value="ออนไลน์">ออนไลน์</option>
+                <option value="เซ็นเตอร์วัน">สาขา เซ็นเตอร์วัน</option>
+                <option value="สุขสวัสดิ์ 52">สาขา สุขสวัสดิ์ 52</option>
+                <option value="คู้บอน 27">สาขา กุดปลาดุก</option>
+            </select>
+</div>
+            <input type="hidden" id="IDdoc" name="IDdoc" readonly />
+          <div class="form-group">
+            <label for="date">วันที่ทำสัญญา:</label>
+            <input type="text" id="date" name="date" required readonly>
+            </div>
+          <div class="form-group">
+            <label for="name-title">คำนำหน้า:</label>
+            <select id="name-title" name="name-title" required onchange="toggleCustomInput()">
+                <option value="">เลือกคำนำหน้า</option>
+                <option value="นาย">นาย</option>
+                <option value="นาง">นาง</option>
+                <option value="นางสาว">นางสาว</option>
+                <option value="">อื่นๆ</option>
+            </select>
+            <input type="text" id="name-title-custom" name="name-title-custom" placeholder="กรอกคำนำหน้าของคุณ" style="display: none;" />
+            <br>
+          </div>
+          <div class="form-group">
+            <label for="fullname">ชื่อ-นามสกุล:</label>
+            <input type="text" id="fullname" name="fullname" required readonly>
+            </div>
+            <input type="hidden" id="userID" name="userID" required readonly>
+          <div class="form-group">
+            <label for="dob">วันเดือนปีเกิด:</label>
+            <input type="text" id="dob" name="dob" required readonly>
+             </div>
+          <div class="form-group">
+            <label for="age">อายุ:</label>
+            <input type="text" id="age" name="age" required readonly>
+            </div>
+           <div class="form-group">
+            <label for="id-card">เลขบัตรประจำตัวประชาชนชน:</label>
+            <input type="text" id="id-card" name="id-card" required readonly>
+             </div>
+      <div class="form-group">
+    <label for="b-id-card">เลขหลังบัตรประจำตัวประชาชน:</label>
+    <input type="text" id="b-id-card" name="b-id-card" maxlength="12" required placeholder="XX1-2345678-90" style="text-transform: uppercase;" inputmode="text">
+    <small id="error-message" style="color: red; display: none;">รูปแบบเลขหลังบัตรไม่ถูกต้อง</small>
+</div>
+
+          <div class="form-group">
+            <label for="house-number">บ้านเลขที่:</label>
+            <input type="text" id="house-number" name="house-number" required>
+            </div>
+          <div class="form-group">
+            <label for="moo">หมู่:</label>
+            <input type="text" id="moo" name="moo" inputmode="numeric">
+             </div>
+          <div class="form-group">
+            <label for="street">ถนน:</label>
+            <input type="text" id="street" name="street">
+            </div>
+          <div class="form-group">
+            <label for="soi">ตรอก/ซอย:</label>
+            <input type="text" id="soi" name="soi">
+            </div>
+            <div id="dropdowns-container">
+               <div class="form-group">
+                <label for="province">จังหวัด:</label>
+                <select id="province" name="province" required></select>
+                <br>
+                   </div>
+              <div class="form-group">
+                <label for="district">อำเภอ/เขต:</label>
+                <select id="district" name="district" required></select>
+                <br>
+                </div>
+              <div class="form-group">
+                <label for="subdistrict">ตำบล/แขวง:</label>
+                <select id="subdistrict" name="subdistrict" required></select>
+                <br>
+                   </div>
+              <div class="form-group">
+                <label for="postal-code">รหัสไปรษณีย์:</label>
+                <select id="postal-code" name="postal-code" required readonly></select>
+                 </div>
+            </div>
+
+            <button type="button" class="next-btn">ถัดไป</button>
+        </div>
+<div class="form-section" id="section-2" >
+    <h2>ข้อมูลทั่วไปและอาชีพ</h2>
+<div class="form-group">
+    <label for="phone">เบอร์โทร</label>
+    <input type="tel" id="phone" name="phone" maxlength="10" required><br>
+     </div>
+ <div class="form-group">
+    <label for="apple-id">Apple ID/<br>Google Account  <small class="form-hint">
+        หากคุณใช้ iOS กรุณากรอก Apple ID และหากใช้ Android กรุณากรอก Gmail
+    </small></label>
+    <input type="email" id="apple-id" name="apple-id" required>
+</div>
+  <div class="form-group">
+    <label for="apple-password">รหัสผ่าน</label>
+    <input type="text" id="apple-password" name="apple-password" required><br>
+     </div>
+   <div class="form-group">
+    <label for="screen-password">รหัสผ่านหน้าจอ</label>
+    <input type="text" id="screen-password" name="screen-password" required><br>
+   </div>
+  <div class="form-group">
+    <label for="facebook">ลิงก์ Facebook <a href="#" onclick="showPopup()">ตัวอย่างลิงก์</a></label>
+    <input type="text" id="facebook" name="facebook"><br>
+</div>
+
+<!-- Popup Modal -->
+<div id="popup">
+    <div>
+        <img src="https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%AD%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B8%87%E0%B8%81%E0%B9%8C%20FaceBook%20URL.png?v=1731151000943" alt="ตัวอย่างลิงก์ Facebook" style="max-width: 100%; height: auto;">
+        <button onclick="closePopup()" style="align-self: center; padding: 10px 20px; margin-top: 10px;">ปิด</button>
+    </div>
+</div>
+     <div class="form-group">
+    <label for="line-id">LINE ID</label>
+    <input type="text" id="line-id" name="line-id" required><br>
+</div>
+  <div class="form-group">
+    <label for="company">บริษัทที่ทำงาน</label>
+    <input type="text" id="company" name="company" required><br>
+    </div>
+<div class="form-group">
+    <label for="company-address">ที่อยู่บริษัท</label>
+    <input type="text" id="company-address" name="company-address" required><br>
+</div>
+  <div id="dropdowns-container-company">
+    <div class="form-group">
+    <label for="company-province">จังหวัด:</label>
+    <select id="company-province" name="company-province" required></select>
+    <br>
+      </div>
+    <div class="form-group">
+    <label for="company-district">อำเภอ/เขต:</label>
+    <select id="company-district" name="company-district" required></select>
+    <br>
+       </div>
+    <div class="form-group">
+    <label for="company-subdistrict">ตำบล/แขวง:</label>
+    <select id="company-subdistrict" name="company-subdistrict" required></select>
+    <br>
+       </div>
+    <div class="form-group">
+    <label for="company-postal-code">รหัสไปรษณีย์:</label>
+    <select id="company-postal-code" name="company-postal-code" required readonly></select>
+       </div>
+</div>
+  <div class="form-group">
+    <label for="company-phone">เบอร์โทรบริษัท</label>
+    <input type="tel" id="company-phone" name="company-phone" required><br>
+</div>
+    <div class="form-group">
+    <label for="current-address">ที่อยู่ปัจจุบัน *โปรดระบุให้ชัดเจน</label>
+    <input type="text" id="current-address" name="current-address" required><br>
+      </div>
+  <div id="dropdowns-container-current">
+    <div class="form-group">
+    <label for="current-province">จังหวัด:</label>
+    <select id="current-province" name="current-province" required></select>
+    <br>
+      </div>
+    <div class="form-group">
+    <label for="current-district">อำเภอ/เขต:</label>
+    <select id="current-district" name="current-district" required></select>
+    <br>
+         </div>
+    <div class="form-group">
+    <label for="current-subdistrict">ตำบล/แขวง:</label>
+    <select id="current-subdistrict" name="current-subdistrict" required></select>
+    <br>
+</div>
+    <div class="form-group">
+    <label for="current-postal-code">รหัสไปรษณีย์:</label>
+    <select id="current-postal-code" name="current-postal-code" required readonly></select>
+      </div>
+</div>
+<div class="form-group">
+    <label for="reference-name">ชื่อ-นามสกุล บุคคลอ้างอิง</label>
+    <input type="text" id="reference-name" name="reference-name" required><br>
+</div>
+  <div class="form-group">
+    <label for="reference-relation">เกี่ยวข้องเป็น:</label>
+<select id="reference-relation" name="reference-relation" required onchange="toggleReferenceInput()">
+    <option value="">เลือกความสัมพันธ์</option>
+    <option value="พ่อแม่">พ่อแม่</option>
+    <option value="พี่น้อง">พี่น้อง</option>
+    <option value="สามี/ภรรยา/แฟน">สามี/ภรรยา/แฟน</option>
+    <option value="ลูก">ลูก</option>
+    <option value="เพื่อน/หัวหน้างาน">เพื่อน/หัวหน้างาน</option>
+    <option value="ญาติ">ญาติ</option>
+    <option value="อื่นๆ">อื่นๆ</option>
+</select>
+<input type="text" id="reference-relation-custom" name="reference-relation-custom" placeholder="กรุณาระบุความสัมพันธ์" style="display: none;" /><br>
+</div>
+  <div class="form-group">
+    <label for="reference-phone">เบอร์โทรบุคคลอ้างอิง</label>
+    <input type="tel" id="reference-phone" name="reference-phone" required><br>
+</div>
+    <button type="button" class="prev-btn">ก่อนหน้า</button>
+    <button type="button" class="next-btn">ถัดไป</button>
+</div>
+
+
+        <div class="form-section" id="section-3" >
+    <h2>หลักฐานเพิ่มเติม</h2>
+<div class="form-group">
+    <label for="borrower-image">ภาพผู้กู้: <a href="#" onclick="showUploadPopup()">ℹ️</a></label>
+    <input type="file" id="borrower-image" name="borrower-image" accept="image/*" required>
+</div>
+
+<!-- Popup Modal for Upload Image Example -->
+<div id="upload-popup">
+    <div>
+        <img src="https://lh3.googleusercontent.com/d/1RgzWd_C-fhfZgl-Un6hRkmWhzPEilmA_" alt="ตัวอย่างการอัปโหลดภาพ" style="max-width: 100%; height: auto;">
+        <button onclick="closeUploadPopup()" style="align-self: center; padding: 10px 20px; margin-top: 10px;">ปิด</button>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="id-image">ภาพบัตรประชาชนผู้กู้: <a href="#" onclick="showIDPopup()">ℹ️</a></label>
+    <input type="file" id="id-image" name="id-image" accept="image/*" required>
+</div>
+
+<!-- Popup Modal for ID Card Example -->
+<div id="id-popup">
+    <div>
+        <img src="https://lh3.googleusercontent.com/d/1eZdoTfYcNna7acFHdGRHJCOxxVWb9TzW" alt="ตัวอย่างการอัปโหลดภาพบัตรประชาชน" style="max-width: 100%; height: auto;">
+        <p style="margin-top: 10px;">กรุณาถ่ายภาพบัตรประชาชนตัวจริงเท่านั้น</p>
+        <button onclick="closeIDPopup()" style="align-self: center; padding: 10px 20px; margin-top: 10px;">ปิด</button>
+    </div>
+</div>
+<div class="form-group">
+    <label for="facebook-profile-image">ภาพบันทึกหน้าจอโปรไฟล์ Facebook:</label>
+    <input type="file" id="facebook-profile-image" name="facebook-profile-image" accept="image/*" required>
+</div>
+<div class="form-group">
+    <label for="salary-slip" id="salary-slip-label" >สลิปเงินเดือน:</label>
+<input type="file" id="salary-slip" name="salary-slip" accept=".pdf,.doc,.docx" >
+</div>
+<div class="form-group">
+<label for="bank-statement" id="bank-statement-label">Statement:</label>
+<input type="file" id="bank-statement" name="bank-statement" accept=".pdf,.doc,.docx" >
+</div>
+  <div class="form-group">
+    <label for="file-access-code">รหัสเข้าไฟล์:</label>
+    <input type="text" id="file-access-code" name="file-access-code" >
+</div>
+    <button type="button" class="prev-btn">ก่อนหน้า</button>
+    <button type="button" class="next-btn">ถัดไป</button>
+</div>
+
+       
+        <div class="form-section" id="section-4" >
+            <h2> สินค้า</h2>
+          <div class="form-group">
+            <label for="product">เลือกยี่ห้อ:</label>
+            <select id="product" name="product" required>
+                <option value="">-- กรุณาเลือกสินค้า --</option>
+            </select>
+</div>
+          <div class="form-group">
+            <label for="model">รุ่น:</label>
+            <select id="model" name="model" required>
+                <option value="">-- กรุณาเลือกรุ่น --</option>
+            </select>
+</div>
+          <div class="form-group">
+    <label for="storage">ความจุ: <a href="#" onclick="showStoragePopup()">ℹ️</a></label>
+    <select id="storage" name="storage" required>
+        <option value="">-- กรุณาเลือกความจุ --</option>
+    </select>
+</div>
+
+<!-- Popup Modal for Storage Example -->
+<div id="storage-popup">
+    <div>
+        <img src="https://lh3.googleusercontent.com/d/1-OQBU0yt6kCuHSkD9sCKkGPzXv6m7Mhe" alt="วิธีดูความจุ" style="max-width: 100%; height: auto;">
+        <button onclick="closeStoragePopup()" style="align-self: center; padding: 10px 20px; margin-top: 10px;">ปิด</button>
+    </div>
+</div>
+
+<script>
+function showStoragePopup() {
+    document.getElementById('storage-popup').style.display = 'block';
+}
+
+function closeStoragePopup() {
+    document.getElementById('storage-popup').style.display = 'none';
+}
+</script>
+
+           <div class="form-group">
+            <label for="color">สี:</label>
+           <select id="color" name="color" required>
+                <option value="">-- กรุณาเลือกสี --</option>
+            </select>
+             </div>
+         <div class="form-group">
+    <label for="imei">หมายเลข IMEI:<div class="tooltip"> ?
+        <span class="tooltiptext">ไปที่ โทรศัพท์ > แป้นตัวเลข > กด *#06# เพื่อค้นหาหมายเลข IMEI</span>
+    </div> </label>
+    <input type="text" id="imei" name="imei" inputmode="numeric" required>
+</div>
+
+         <div class="form-group">
+    <label for="serial-number">หมายเลข SN: <a href="#" onclick="showSNPopup()">ℹ️</a></label>
+    <input type="text" id="serial-number" name="serial-number" required><br>
+</div>
+
+<!-- Popup Modal for Serial Number Example -->
+<div id="sn-popup">
+    <div>
+        <img src="https://lh3.googleusercontent.com/d/1u6KDJVmf6ro7QxwYleS5s0khsAa5kRGB" alt="วิธีดูหมายเลข SN" style="max-width: 100%; height: auto;">
+        <button onclick="closeSNPopup()" style="align-self: center; padding: 10px 20px; margin-top: 10px;">ปิด</button>
+    </div>
+</div>
+
+          <div class="form-group">
+            <label for="quantity">จำนวน (เครื่อง):</label>
+<input type="number" id="quantity" name="quantity" value="1" min="1" required readonly>
+            </div>
+          <div class="form-group">
+            <label for="refinance-price">รีไฟแนนซ์ที่ราคา:</label>
+            <input type="number" id="refinance-price" name="refinance-price" required>
+            </div>
+          <div class="form-group">
+            <label for="installments">จำนวนงวด:</label>
+            <select id="installments" name="installments" required>
+                <option value="">-- กรุณาเลือกจำนวนงวด --</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+</div>
+              <div class="form-group">
+        <label for="payment-date">เริ่มชำระวันที่:</label>
+        <input type="text" id="first-payment-date" name="first-payment-date" required>
+    </div>
+<div class="form-group">
+            <label for="monthly-payment">ผ่อนส่งงวดละ:</label>
+            <input type="number" id="monthly-payment" name="monthly-payment" required readonly>
+            </div>
+  
+
+          <button type="button" class="prev-btn">ก่อนหน้า</button>
+            <button type="button" class="next-btn">ถัดไป</button>
+</div>
+
+        <div class="form-section" id="section-5" >
+  <h2>ลงชื่อ</h2>
+            <label for="email">อีเมลสำหรับจัดส่งเอกสารอิเล็กทรอนิกส์:</label>
+            <input type="email" id="email" name="email" required>
+            
+    <label for="signature">ลงชื่อผู้ทำสัญญา:</label>
+    <canvas id="signature" name="signature" ></canvas>
+    <button id="clearSignature" class="clear-btn">ล้างลายเซ็น</button>
+
+
+
+  <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkBlock0" required="">
+              <label class="form-check-label" for="checkBlock0">
+        ข้าพเจ้าขอยืนยันว่าได้อ่าน เงื่อนไข/ข้อตกลง/คำแนะนำ/ข้อควรระวัง และรายละเอียดอื่นๆ จากในเรียบร้อยแล้ว ข้าพเจ้าเข้าใจและสามารถปฏิบัติตามได้
+              </label>
+           </div>
+            <button type="button" class="prev-btn">ก่อนหน้า</button>
+            <button type="submit">ส่งข้อมูล</button>
+        </div>
+      
+        
+    </form>
+  <div class="tos-container" style="display: none;">
+        <img src="https://lh3.googleusercontent.com/d/18SfBnCKgKsI3KL-Wnwxnk5g484JeJ5Jm" alt="Logo" class="logo-image">
+        <h1 class="h1-re">ข้อกำหนดและเงื่อนไข<br>การทำสัญญารีไฟแนนซ์</h1>
+        <div class="terms-box">
+            <ol class="term-list">
+                <li>ผู้เช่าซื้อจะต้องชำระเงินตามระยะเวลาที่ทางบริษัทกำหนดให้ กรณีไม่สามารถผ่อนต่อให้ส่งคืนบริษัทเพื่อรับเงินหรือชำระค่าส่วนต่าง (เงื่อนไขเป็นไปตามสัญญาที่ทางบริษัทกำหนด)</li>
+               <li>สามารถเลื่อนการชำระได้สูงสุด 2 ครั้ง โดยครั้งแรกเลื่อนได้ไม่เกิน 5 วัน และครั้งที่สองเลื่อนได้ไม่เกิน 7 วัน ทั้งนี้ หากชำระล่าช้าจะมีค่าบริการเพิ่มวันละ 50 บาท ในกรณีที่ค้างชำระเกิน 12 วัน ทางบริษัทอาจระงับการใช้งานสินทรัพย์ของท่าน และการปลดล็อคจะมีค่าบริการ 500 บาทต่อครั้ง ข้อมูลของผู้เช่าซื้อจะสูญหายทั้งหมด บริษัทปฏิเสธความรับผิดชอบข้อมูลของผู้เช่าซื้อ</li>
+                <li>กรณีค้างชำระเกิน 15 วัน ทางบริษัทจะเรียกคืนสินค้าจากผู้เช่าซื้อ โดยผู้เช่าซื้อจะต้องนำสินค้ามาคืนบริษัทภายใน 3 วันหลังมีการแจ้งให้คืนสินค้า หากมีการทุจริตหรือกระทำการใดอันเป็นเหตุให้บริษัทเสียหาย ทางบริษัทจะดำเนินการทางกฎหมายอย่างถึงที่สุด และลูกค้าจะต้องชำระค่าความเสียหายใดๆที่ทางบริษัทดำเนินการเพื่อการได้คืนสินค้าและค่าบริการตามสัญญา</li>
+                <li>กรณีชำระยังไม่ครบสัญญา สินค้าถือเป็นกรรมสิทธิ์ของบริษัทอย่างถูกต้องตามกฎหมาย ทางบริษัทมีสิทธิ์ที่จะดำเนินการเรียกร้อง/ระงับ/จำกัด โดยมิต้องแจ้งหรือบอกกล่าวล่วงหน้า บริษัทฯจะคืนกรรมสิทธิ์ให้ผู้เช่าซื้อ หลังจากชำระค่าบริการครบถ้วนงวดสุดท้ายหรือสิ้นสุดสัญญาเท่านั้น</li>
+                <li>บริษัทจะไม่เก็บข้อมูลของผู้เช่าซื้อใดๆทั้งสิ้น ข้อมูลจะยังคงอยู่ในตัวสินค้า บริษัทขอสงวนสิทธิ์และไม่รับผิดชอบในกรณีข้อมูลลูกค้าสูญหาย อันเกิดจากการกระทำที่มิได้กระทำโดยบริษัทโดยพิสูจน์ทราบได้</li>
+                <li>สินทรัพย์มีค่าความเสื่อมตามอายุการใช้งาน ผู้เช่าซื้อจะต้องดูแล รักษา และบำรุงสินทรัพย์ของบริษัทด้วยตัวผู้เช่าซื้อเอง และยินดีชดใช้ค่าเสียหายกรณีสูญหาย ทำลาย แตกหัก หรือสิ้นสภาพจากเดิม</li>
+                <li>ข้าพเจ้าขอยืนยันว่าได้อ่าน เงื่อนไข/ข้อตกลง/คำแนะนำ/ข้อควรระวัง และรายละเอียดอื่นๆ เรียบร้อยแล้ว ข้าพเจ้าเข้าใจและสามารถปฏิบัติตามได้ ข้าพเจ้าตกลงทำตามเงื่อนไขในเอกสารฉบับนี้ทุกประการ พร้อมทั้งได้รับเงินถูกต้องตามสัญญาแล้วจึงได้ลงลายมือชื่อไว้เป็นหลักฐาน</li>
+            </ol>
+        </div>
+        
+        <div class="accept-box">
+            <input type="checkbox" id="accept">
+            <label for="accept">ข้าพเจ้ายอมรับในข้อกำหนดและเงื่อนไขการทำสัญญารีไฟแนนซ์</label>
+        </div>
+        <button class="accept-button-re">ยอมรับ</button>
+    </div>
+ <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script> <!-- ภาษาไทย -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/plugin/customParseFormat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/locale/th.min.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="refinance.js"></script>
+</body>
+</html>
