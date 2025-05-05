@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ระบบระบุรหัส PIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @font-face {
+          font-family: 'LINESeedSansTH';
+          src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff');
+          font-weight: normal;
+        }
+        @font-face {
+          font-family: 'LINESeedSansTH';
+          src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Bd.woff?v=1731156180172') format('woff');
+          font-weight: bold;
+        }
+
+        :root {
+            --primary-color: #007AFF; /* iOS Blue */
+            --success-color: #34C759; /* iOS Green */
+            --error-color: #FF3B30;   /* iOS Red */
+            --text-color: #1C1C1E;     /* Almost Black */
+            --bg-color: #FAFAFA;       /* Very Light Grey */
+            --input-bg: #FFFFFF;       /* White */
+            --input-border: #D1D1D6;   /* Light Grey */
+            --keypad-text: #000000;    /* Black */
+            --link-color: #007AFF;   /* Link color */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'LINESeedSansTH', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* --- View Containers --- */
+        .view {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: inherit;
+        }
+
+        .view.hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            z-index: -1;
+        }
+
+        /* --- Shared Content Styling --- */
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .instructions {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.4;
+            max-width: 100%;
+            font-weight: normal;
+            padding: 0 10px;
+            word-break: break-word;
+            text-align: center;
+        }
+
+        /* --- PIN Specific --- */
+        .pin-indicator-container {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 25px;
+            height: 15px;
+        }
+
+        .pin-dot {
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--input-border);
+            border-radius: 50%;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .pin-dot.filled {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .pin-input-hidden {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            caret-color: transparent;
+        }
+
+        /* --- Status Message Styling (Shared) --- */
+        .status {
+            margin-bottom: 15px;
+            min-height: 22px;
+            font-size: 15px;
+            font-weight: normal;
+            transition: all 0.3s ease;
+            padding: 0 10px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .status i {
+            display: none;
+            font-size: 1.1em;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .status.success i.fa-check-circle,
+        .status.error i.fa-times-circle {
+            display: inline-block;
+        }
+
+        .status.success {
+            font-weight: bold;
+            color: var(--success-color);
+        }
+        .status.error {
+            font-weight: bold;
+            color: var(--error-color);
+        }
+
+        /* --- Forgot PIN Link --- */
+        .forgot-pin-link {
+            background: none;
+            border: none;
+            color: var(--link-color);
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            padding: 5px;
+            font-weight: normal;
+        }
+        .forgot-pin-link:hover {
+            text-decoration: underline;
+        }
+        .forgot-pin-link:active {
+            color: #0056b3;
+        }
+
+        /* --- Keypad --- */
+        .keypad-container {
+            margin-top: auto;
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .key {
+            height: 80px;
+            width: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: normal;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            border: none;
+            color: var(--keypad-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+            pointer-events: none;
+        }
+
+        .key:active::before {
+            width: 200%;
+            height: 200%;
+            opacity: 1;
+            transition: width 0s, height 0s, opacity 0s;
+        }
+        .key:active {
+            background-color: #E5E5EA;
+            transform: scale(0.95);
+        }
+
+        .key.empty {
+            background-color: transparent;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .key.delete {
+            font-size: 24px;
+            background-color: transparent;
+            box-shadow: none;
+        }
+        .key.delete:active {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: scale(0.95);
+        }
+        .key i {
+            pointer-events: none;
+            color: var(--keypad-text);
+        }
+        .key:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .key:disabled::before {
+            display: none;
+        }
+
+        /* --- Confetti --- */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #f00;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* --- Animations --- */
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-3px); }
+            40%, 60% { transform: translateX(3px); }
+        }
+
+        /* --- OTP View Enhancements --- */
+        #otp-view .header-content {
+            margin-top: 40px;
+            padding-top: 0;
+        }
+
+        #otp-view .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.2);
+        }
+
+        #otp-view h1 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        #otp-view .instructions {
+            background-color: rgba(0, 122, 255, 0.1);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            font-size: 14px;
+            max-width: 90%;
+        }
+
+        #maskedPhone {
+            color: var(--primary-color);
+            font-weight: bold;
+            background-color: rgba(0, 122, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .otp-input-container {
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        #otpInput {
+            width: 100%;
+            padding: 18px;
+            font-size: 26px;
+            text-align: center;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            letter-spacing: 12px;
+            font-weight: bold;
+            caret-color: var(--primary-color);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #otpInput:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .otp-input-container::after {
+            content: "รหัส OTP";
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            background-color: var(--bg-color);
+            padding: 0 8px;
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .otp-actions {
+            width: 100%;
+            padding: 0 20px;
+            margin-top: auto;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Adjusted gap */
+        }
+
+        #verifyOtpButton {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        #verifyOtpButton:hover {
+            background-color: #0062cc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.4);
+        }
+
+        #verifyOtpButton:active {
+            background-color: #0052b3;
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(0, 122, 255, 0.3);
+        }
+
+        .resend-otp {
+            color: var(--primary-color);
+            background: none;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin-top: 5px; /* Add some space above if needed */
+        }
+
+        .resend-otp:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .resend-otp:active {
+            background-color: rgba(0, 122, 255, 0.2);
+        }
+
+        .resend-otp:disabled {
+            color: var(--input-border);
+            cursor: not-allowed;
+            background-color: transparent;
+        }
+
+        /* --- Back Button Style --- */
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--link-color);
+            font-size: 15px;
+            cursor: pointer;
+            /* margin-bottom: 10px; Remove margin, rely on flex gap */
+            padding: 8px 12px;
+            font-weight: normal;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            width: auto;
+            order: -1; /* Place it before other items in flex */
+        }
+
+        .back-button:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .back-button:active {
+            background-color: rgba(0, 122, 255, 0.2);
+            color: #0056b3;
+        }
+
+        /* Animation for OTP input */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .otp-pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-height: 750px) {
+            .container { padding: 15px; }
+            .header-content { padding-top: 10px; }
+            .user-avatar { width: 80px; height: 80px; margin-bottom: 15px; }
+            h1 { font-size: 22px; }
+            .instructions { font-size: 14px; margin-bottom: 20px; }
+            .pin-indicator-container { margin-bottom: 20px; gap: 15px; }
+            .pin-dot { width: 12px; height: 12px; border-width: 1.5px; }
+            .status { font-size: 14px; margin-bottom: 10px; gap: 5px; }
+            .status i { font-size: 1em; }
+            .forgot-pin-link { font-size: 13px; margin-bottom: 15px; }
+            .keypad { gap: 10px; max-width: 280px; }
+            .key { width: 70px; height: 70px; font-size: 28px; }
+            .key.delete { font-size: 22px; }
+
+            /* OTP Responsive */
+            #otp-view .header-content { margin-top: 20px; }
+            #otp-view .user-avatar { width: 70px; height: 70px; margin-bottom: 15px; }
+            #otp-view h1 { font-size: 22px; margin-bottom: 12px; }
+            #otp-view .instructions { padding: 10px 12px; margin-bottom: 25px; font-size: 13px; }
+            .otp-input-container { margin-bottom: 25px; max-width: 260px; }
+            #otpInput { padding: 15px; font-size: 24px; letter-spacing: 10px; }
+            .otp-actions { padding-bottom: 30px; gap: 12px; }
+            #verifyOtpButton { padding: 14px; font-size: 17px; }
+            .back-button { font-size: 14px; }
+            .resend-otp { font-size: 13px; }
+        }
+
+        @media (max-width: 380px) {
+            .instructions { font-size: 13px; }
+            .keypad { max-width: 260px; gap: 8px; }
+            .key { width: 65px; height: 65px; font-size: 26px; }
+            .forgot-pin-link { font-size: 12px; }
+
+            /* OTP Responsive */
+            #otp-view .instructions { font-size: 12px; padding: 8px 10px; }
+            .otp-input-container { max-width: 240px; }
+            #otpInput { padding: 12px; font-size: 22px; letter-spacing: 8px; }
+            #verifyOtpButton { font-size: 16px; padding: 13px; }
+            .otp-actions { gap: 10px; }
+            .back-button { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+
+        <!-- PIN Entry View -->
+        <div class="view" id="pin-entry-view">
+            <div class="header-content">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar" id="userAvatar">
+                <h1 id="pinTitle">ระบุรหัส PIN</h1>
+                <p class="instructions" id="pinInstructions">กรุณาระบุรหัส PIN 6 หลัก</p>
+            </div>
+
+            <div class="pin-indicator-container" id="pinIndicator">
+                <div class="pin-dot" data-index="0"></div>
+                <div class="pin-dot" data-index="1"></div>
+                <div class="pin-dot" data-index="2"></div>
+                <div class="pin-dot" data-index="3"></div>
+                <div class="pin-dot" data-index="4"></div>
+                <div class="pin-dot" data-index="5"></div>
+            </div>
+
+            <input type="number" pattern="[0-9]*" inputmode="numeric" class="pin-input-hidden" id="hiddenPinInput" maxlength="6" autocomplete="off">
+
+            <div class="status" id="pinStatusMessage">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+                <span id="pinStatusText"></span>
+            </div>
+
+            <button class="forgot-pin-link" id="forgotPinLink">ลืมรหัส PIN?</button>
+
+            <div class="keypad-container">
+                <div class="keypad">
+                    <button class="key" data-value="1">1</button>
+                    <button class="key" data-value="2">2</button>
+                    <button class="key" data-value="3">3</button>
+                    <button class="key" data-value="4">4</button>
+                    <button class="key" data-value="5">5</button>
+                    <button class="key" data-value="6">6</button>
+                    <button class="key" data-value="7">7</button>
+                    <button class="key" data-value="8">8</button>
+                    <button class="key" data-value="9">9</button>
+                    <button class="key empty"></button>
+                    <button class="key" data-value="0">0</button>
+                    <button class="key delete" id="deleteKey"><i class="fas fa-delete-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTP Verification View -->
+        <div class="view hidden" id="otp-view">
+            <div class="header-content">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
+                <h1 id="otpTitle">ยืนยันตัวตน</h1>
+                <p class="instructions" id="otpInstructions">กรุณากรอกรหัส OTP ที่ส่งไปยัง <span id="maskedPhone"></span></p>
+            </div>
+
+            <div class="otp-input-container">
+                <input type="number" id="otpInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="------">
+            </div>
+
+            <div class="status" id="otpStatusMessage">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+                <span id="otpStatusText"></span>
+            </div>
+
+            <div class="otp-actions">
+                 <!-- === NEW BACK BUTTON === -->
+                <button id="backToPinButton" class="back-button">ย้อนกลับ</button>
+                 <!-- ====================== -->
+                <button id="verifyOtpButton">ยืนยัน OTP</button>
+                <button class="resend-otp" id="resendOtpButton">ส่งรหัสใหม่</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Constants ---
+        const PIN_LENGTH = 6;
+        const OTP_LENGTH = 6;
+        const SIMULATED_OTP = "123456";
+        const registeredPhoneNumber = "0812345678";
+        const OTP_RESEND_DELAY = 30; // 30 seconds
+
+        // --- DOM Elements ---
+        const container = document.getElementById('container');
+        const userAvatar = document.getElementById('userAvatar');
+
+        // PIN View Elements
+        const pinEntryView = document.getElementById('pin-entry-view');
+        const pinTitle = document.getElementById('pinTitle');
+        const pinInstructions = document.getElementById('pinInstructions');
+        const hiddenPinInput = document.getElementById('hiddenPinInput');
+        const pinDots = document.querySelectorAll('#pinIndicator .pin-dot');
+        const pinIndicator = document.getElementById('pinIndicator');
+        const pinStatusMessageDiv = document.getElementById('pinStatusMessage');
+        const pinStatusTextSpan = document.getElementById('pinStatusText');
+        const forgotPinLink = document.getElementById('forgotPinLink');
+        const keypadKeys = document.querySelectorAll('.keypad .key:not(.empty):not(.delete)');
+        const deleteKey = document.getElementById('deleteKey');
+        const allKeypadButtons = document.querySelectorAll('.keypad button');
+
+        // OTP View Elements
+        const otpView = document.getElementById('otp-view');
+        const otpTitle = document.getElementById('otpTitle');
+        const otpInstructions = document.getElementById('otpInstructions');
+        const maskedPhoneSpan = document.getElementById('maskedPhone');
+        const otpInput = document.getElementById('otpInput');
+        const otpStatusMessageDiv = document.getElementById('otpStatusMessage');
+        const otpStatusTextSpan = document.getElementById('otpStatusText');
+        const verifyOtpButton = document.getElementById('verifyOtpButton');
+        const resendOtpButton = document.getElementById('resendOtpButton');
+        const backToPinButton = document.getElementById('backToPinButton'); // New Button Ref
+
+        // --- State Variables ---
+        let currentView = 'pin';
+        let currentStep = 1; // 1: Enter first PIN, 2: Confirm PIN
+        let firstPin = '';
+        let currentPin = '';
+        let statusTimeoutId = null;
+        let otpStatusTimeoutId = null;
+        let isKeypadDisabled = false;
+        let resendTimer = 0;
+        let resendInterval = null; // Changed variable name for clarity
+
+        // --- Initialization ---
+        function initialize() {
+            resetPinState();
+            showPinView();
+            userAvatar.style.opacity = '0';
+            userAvatar.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                userAvatar.style.opacity = '1';
+                userAvatar.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // --- View Management ---
+        function showPinView(isResetting = false) {
+            currentView = 'pin';
+            otpView.classList.add('hidden');
+            pinEntryView.classList.remove('hidden');
+            clearStatus(otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId); // Clear OTP status when switching to PIN
+
+            // Reset OTP button state if switching back
+            if (resendInterval) {
+                clearInterval(resendInterval);
+                resendInterval = null;
+            }
+            resendOtpButton.disabled = false;
+            resendOtpButton.textContent = 'ส่งรหัสใหม่';
+            resendTimer = 0;
+
+
+            if (isResetting) {
+                pinTitle.textContent = 'ตั้งรหัส PIN ใหม่';
+                pinInstructions.textContent = 'กรุณากำหนดรหัส PIN 6 หลักใหม่';
+                resetPinState();
+                enableKeypad();
+            } else {
+                // When returning from OTP or initial load, keep existing state
+                pinTitle.textContent = (currentStep === 1) ? 'ระบุรหัส PIN' : 'ยืนยันรหัส PIN';
+                pinInstructions.textContent = (currentStep === 1) ? 'กรุณาระบุรหัส PIN 6 หลัก' : 'กรุณายืนยันรหัส PIN อีกครั้ง';
+                // Don't reset PIN here, keep currentPin and firstPin if returning
+                isKeypadDisabled ? disableKeypad() : enableKeypad();
+                updatePinDisplay(); // Ensure dots match currentPin state
+            }
+        }
+
+        function showOtpView() {
+            currentView = 'otp';
+            pinEntryView.classList.add('hidden');
+            otpView.classList.remove('hidden');
+            clearStatus(pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId); // Clear PIN status
+            otpInput.value = '';
+            // Focus handled by transitionend/MutationObserver
+
+            // Mask phone number
+            maskedPhoneSpan.textContent = maskPhoneNumber(registeredPhoneNumber);
+            otpInstructions.innerHTML = `กรุณากรอกรหัส OTP ที่ส่งไปยัง ${maskedPhoneSpan.outerHTML}`;
+
+            // Simulate sending OTP
+            setStatusMessage(`ส่ง OTP แล้ว (รหัสจำลอง: ${SIMULATED_OTP})`, '', 5000, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+
+            // Start resend timer
+            startResendTimer();
+        }
+
+        // --- PIN Logic ---
+        function resetPinState() {
+            currentStep = 1;
+            firstPin = '';
+            currentPin = '';
+            hiddenPinInput.value = '';
+            updatePinDisplay();
+            clearStatus(pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+        }
+
+        function handlePinKeyPress(value) {
+            if (isKeypadDisabled || currentPin.length >= PIN_LENGTH) return;
+
+            clearStatus(pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            currentPin += value;
+            updatePinDisplay();
+
+            if (currentPin.length === PIN_LENGTH) {
+                setTimeout(checkPin, 150);
+            }
+        }
+
+        function handlePinDelete() {
+            if (isKeypadDisabled || currentPin.length === 0) return;
+
+            clearStatus(pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            currentPin = currentPin.slice(0, -1);
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            pinDots.forEach((dot, index) => {
+                dot.classList.toggle('filled', index < currentPin.length);
+            });
+            hiddenPinInput.value = currentPin;
+        }
+
+        function checkPin() {
+            if (currentPin.length !== PIN_LENGTH || isKeypadDisabled) return;
+
+            if (currentStep === 1) { // Entering first PIN
+                firstPin = currentPin;
+                currentPin = ''; // Clear for confirmation
+                updatePinDisplay();
+                currentStep = 2; // Move to confirmation step
+                pinTitle.textContent = 'ยืนยันรหัส PIN';
+                pinInstructions.textContent = 'กรุณายืนยันรหัส PIN อีกครั้ง';
+                clearStatus(pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            } else { // Confirming PIN (currentStep === 2)
+                if (firstPin === currentPin) {
+                    handlePinSuccess();
+                } else {
+                    handleConfirmationError();
+                }
+            }
+        }
+
+        function handlePinSuccess() {
+            setStatusMessage('ตั้งค่ารหัส PIN เรียบร้อยแล้ว', 'success', 0, pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            userAvatar.style.transform = 'scale(1.1)';
+            userAvatar.style.boxShadow = '0 0 25px rgba(52, 199, 89, 0.6)';
+            createConfetti();
+            disableKeypad();
+            console.log("PIN Setup Successful! PIN:", firstPin);
+            // Maybe redirect or show a final success message after a delay
+        }
+
+        function handleConfirmationError() {
+            setStatusMessage('รหัส PIN ไม่ตรงกัน กรุณาลองอีกครั้ง', 'error', 3000, pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            shakeAnimation(pinIndicator);
+            // Don't reset step here, allow user to retry confirmation
+            setTimeout(() => {
+                currentPin = ''; // Clear only the current input for retry
+                updatePinDisplay();
+            }, 1500);
+        }
+
+        // --- OTP Logic ---
+        function handleOtpVerification() {
+            const enteredOtp = otpInput.value;
+
+            if (enteredOtp.length !== OTP_LENGTH) {
+                setStatusMessage('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก', 'error', 3000, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+                return;
+            }
+
+            clearStatus(otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+
+            // --- Simulate OTP check ---
+            if (enteredOtp === SIMULATED_OTP) {
+                setStatusMessage('ยืนยัน OTP สำเร็จ กำลังไปยังหน้าตั้ง PIN ใหม่...', 'success', 2000, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+                clearInterval(resendInterval); // Stop timer on success
+                resendInterval = null;
+                setTimeout(() => {
+                    showPinView(true); // Go to PIN setup, resetting state
+                }, 2000);
+            } else {
+                setStatusMessage('รหัส OTP ไม่ถูกต้อง กรุณาลองอีกครั้ง', 'error', 3000, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+                shakeAnimation(otpInput);
+                otpInput.value = '';
+                otpInput.focus();
+            }
+        }
+
+        function startResendTimer() {
+            // Clear any existing interval first
+            if (resendInterval) {
+                clearInterval(resendInterval);
+            }
+
+            resendTimer = OTP_RESEND_DELAY;
+            resendOtpButton.disabled = true;
+            updateResendButtonText();
+
+            resendInterval = setInterval(() => {
+                resendTimer--;
+                updateResendButtonText();
+
+                if (resendTimer <= 0) {
+                    clearInterval(resendInterval);
+                    resendInterval = null;
+                    resendOtpButton.disabled = false;
+                    resendOtpButton.textContent = 'ส่งรหัสใหม่';
+                }
+            }, 1000);
+        }
+
+        function updateResendButtonText() {
+            if (resendOtpButton.disabled) {
+                resendOtpButton.textContent = `ส่งรหัสใหม่ (${resendTimer}ว)`;
+            }
+        }
+
+        function resendOtp() {
+            setStatusMessage(`ส่ง OTP ใหม่แล้ว (รหัสจำลอง: ${SIMULATED_OTP})`, '', 5000, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+            otpInput.value = ''; // Clear input on resend
+            otpInput.focus();
+            startResendTimer(); // Restart the timer
+
+            resendOtpButton.classList.add('otp-pulse');
+            setTimeout(() => {
+                resendOtpButton.classList.remove('otp-pulse');
+            }, 1500);
+        }
+
+        // --- NEW FUNCTION: Handle Back from OTP ---
+        function handleBackToPin() {
+            showPinView(false); // Switch back to PIN view without resetting
+        }
+
+        // --- Keypad Management ---
+        function disableKeypad() {
+            isKeypadDisabled = true;
+            allKeypadButtons.forEach(key => {
+                key.disabled = true;
+            });
+        }
+
+        function enableKeypad() {
+            isKeypadDisabled = false;
+            allKeypadButtons.forEach(key => {
+                if (!key.classList.contains('empty')) {
+                    key.disabled = false;
+                }
+            });
+        }
+
+        // --- UI Helpers ---
+        function clearStatus(statusDiv, statusSpan, timeoutVar, setTimeoutCallback) {
+            if (timeoutVar) {
+                clearTimeout(timeoutVar);
+                if (setTimeoutCallback) setTimeoutCallback(null);
+            }
+            statusSpan.textContent = '';
+            statusDiv.className = 'status';
+        }
+
+        function setStatusMessage(message, type = '', duration = 0, statusDiv, statusSpan, timeoutVar, setTimeoutCallback) {
+            clearStatus(statusDiv, statusSpan, timeoutVar, setTimeoutCallback);
+
+            statusSpan.textContent = message;
+            statusDiv.className = `status ${type}`;
+
+            if (duration > 0) {
+                const newTimeoutId = setTimeout(() => {
+                    clearStatus(statusDiv, statusSpan, null, null);
+                    if(setTimeoutCallback) setTimeoutCallback(null);
+                }, duration);
+                if (setTimeoutCallback) setTimeoutCallback(newTimeoutId);
+            }
+        }
+
+        function shakeAnimation(element) {
+            element.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 400);
+        }
+
+        function maskPhoneNumber(phone) {
+            if (!phone || phone.length < 4) return "****";
+            return "******" + phone.slice(-4);
+        }
+
+        function createConfetti() {
+            const colors = ['#FF3B30', '#007AFF', '#34C759', '#FF9500', '#AF52DE', '#FFCC00'];
+            const containerRect = container.getBoundingClientRect();
+            if (!containerRect || containerRect.width === 0 || containerRect.height === 0) {
+                console.warn("Container dimensions not available for confetti.");
+                return;
+            }
+            const numConfetti = Math.min(100, Math.floor(containerRect.width / 5));
+
+            for (let i = 0; i < numConfetti; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * containerRect.width + 'px';
+                confetti.style.top = -15 + 'px';
+                const size = Math.random() * 6 + 4;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                container.appendChild(confetti);
+                const animationDuration = Math.random() * 2.5 + 1.5;
+                const fallDistance = containerRect.height + 50;
+                const drift = Math.random() * (containerRect.width / 2) - (containerRect.width / 4);
+                const rotation = Math.random() * 720 - 360;
+
+                requestAnimationFrame(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `translate(${drift}px, ${fallDistance}px) rotate(${rotation}deg)`;
+                    confetti.style.transition = `transform ${animationDuration}s cubic-bezier(0.25, 0.1, 0.25, 1), opacity ${animationDuration * 0.8}s ease-out`;
+                });
+
+                setTimeout(() => {
+                    confetti.style.opacity = '0';
+                }, animationDuration * 800);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000 + 50);
+            }
+        }
+
+        // --- Event Listeners ---
+        keypadKeys.forEach(key => {
+            key.addEventListener('click', () => {
+                handlePinKeyPress(key.getAttribute('data-value'));
+            });
+        });
+
+        deleteKey.addEventListener('click', handlePinDelete);
+
+        document.addEventListener('keydown', (e) => {
+            if (currentView === 'pin' && !isKeypadDisabled) {
+                if (e.key >= '0' && e.key <= '9') {
+                    handlePinKeyPress(e.key);
+                    const keyElement = document.querySelector(`.key[data-value="${e.key}"]`);
+                    if(keyElement) {
+                        keyElement.style.transform = 'scale(0.95)';
+                        keyElement.style.backgroundColor = '#E5E5EA';
+                        setTimeout(() => { keyElement.style.transform = ''; keyElement.style.backgroundColor = ''; }, 100);
+                    }
+                } else if (e.key === 'Backspace') {
+                    handlePinDelete();
+                    deleteKey.style.transform = 'scale(0.95)';
+                    deleteKey.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+                    setTimeout(() => { deleteKey.style.transform = ''; deleteKey.style.backgroundColor = ''; }, 100);
+                }
+            } else if (currentView === 'otp') {
+                 if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent potential form submission if wrapped
+                    handleOtpVerification();
+                }
+                // Allow numeric input and backspace for OTP field naturally
+            }
+        });
+
+        hiddenPinInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            if (currentView === 'pin') {
+                setStatusMessage('ระบบไม่อนุญาตให้วางข้อความ', 'error', 3500, pinStatusMessageDiv, pinStatusTextSpan, statusTimeoutId, (newTimeoutId) => { statusTimeoutId = newTimeoutId; });
+            }
+        });
+        otpInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            setStatusMessage('ระบบไม่อนุญาตให้วางข้อความ', 'error', 3500, otpStatusMessageDiv, otpStatusTextSpan, otpStatusTimeoutId, (newTimeoutId) => { otpStatusTimeoutId = newTimeoutId; });
+        });
+
+        forgotPinLink.addEventListener('click', showOtpView);
+        verifyOtpButton.addEventListener('click', handleOtpVerification);
+        resendOtpButton.addEventListener('click', resendOtp);
+        backToPinButton.addEventListener('click', handleBackToPin); // New Listener
+
+        // --- Focus Management for OTP View ---
+        const otpObserver = new MutationObserver((mutationsList) => {
+            for(let mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    // If otpView becomes visible (class does NOT contain 'hidden')
+                    if (currentView === 'otp' && !otpView.classList.contains('hidden')) {
+                        // Use short timeout to ensure rendering is complete
+                        setTimeout(() => otpInput.focus(), 50);
+                    }
+                }
+            }
+        });
+        otpObserver.observe(otpView, { attributes: true });
+
+
+        // --- Start the application ---
+        initialize();
+    });
+</script>
+</body>
+</html>
