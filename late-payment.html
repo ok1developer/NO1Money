@@ -1,0 +1,1422 @@
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ระบบเลื่อนชำระหนี้</title>
+    <!-- Using Font Awesome 6.5.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Line Awesome for Line icon -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- LINE LIFF SDK (Add this if you intend to use the close button) -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <style>
+         /* --- Font Definition --- */
+         @font-face {
+           font-family: 'LINESeedSansTH';
+           src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff');
+           font-weight: 400; font-display: swap;
+         }
+         @font-face {
+           font-family: 'LINESeedSansTH';
+           src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Bd.woff?v=1731156180172') format('woff');
+           font-weight: 700; font-display: swap;
+         }
+
+         /* --- Variables and Base --- */
+         :root {
+             /* Core Palette */
+             --primary: #8e44ad; --primary-dark: #70318c;
+             --secondary: #1abc9c; --secondary-dark: #158c78;
+             --accent: #e91e63; --light: #f8f9fa; --dark: #2c3e50; --gray: #7f8c8d;
+             --success: #2ecc71; --warning: #f1c40f; --danger: #e74c3c; --info: #3498db;
+             --line-green: #00b900; --line-green-dark: #008a00;
+             /* Radii */
+             --border-radius-lg: 20px;
+             --border-radius-md: 14px;
+             --border-radius-sm: 8px;
+             /* Shadows */
+             --box-shadow: 0 6px 18px rgba(44, 62, 80, 0.07);
+             --box-shadow-lg: 0 12px 35px rgba(44, 62, 80, 0.09);
+             /* Transition */
+             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+             /* Gradients */
+             --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+             --gradient-accent: linear-gradient(135deg, var(--accent), #ff7b54);
+             /* Font */
+             --font-family-base: 'LINESeedSansTH', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+         }
+
+         * { margin: 0; padding: 0; box-sizing: border-box; }
+         html { scroll-behavior: smooth; }
+         body {
+             font-family: var(--font-family-base); font-weight: 400; line-height: 1.7; color: var(--dark);
+             background-color: var(--light);
+             background-image: radial-gradient(rgba(127, 140, 141, 0.08) 0.5px, transparent 0.5px), radial-gradient(rgba(127, 140, 141, 0.08) 0.5px, var(--light) 0.5px);
+             background-size: 35px 35px;
+             background-position: 0 0, 17.5px 17.5px;
+             min-height: 100vh; padding: 25px;
+             -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+             touch-action: manipulation;
+         }
+
+         /* --- Typography --- */
+         h1, h2, h3, h4, h5, h6, strong, b,
+         .summary-card h3, .confirmation h2, .info-item .content p, .debt-card .badge, .btn, .countdown-timer, .summary-item.total > span, .tab.active, .day-option input:checked + label, .unlock-option input:checked + label, #extension-fee-total,
+         .countdown-timer .time-digits, .confirmation .detail p strong, .btn-contact-admin, .btn-final-contact, .btn-close-liff { font-weight: 700; } /* Added .btn-close-liff */
+
+         /* *** Updated Currency Unit Style *** */
+         .currency-unit {
+             font-size: 0.8rem; /* More consistent size using rem */
+             margin-left: 3px; /* Slightly reduced margin */
+             font-weight: 400;
+             color: var(--gray);
+             vertical-align: baseline; /* Align better with preceding number */
+         }
+
+         /* --- Container --- */
+         .container {
+             max-width: 850px; margin: 30px auto; background: #ffffff;
+             border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow-lg);
+             overflow: hidden; position: relative;
+             border: 1px solid #e8eaf6;
+         }
+         .container::before {
+             content: ''; position: absolute; top: 0; left: 0; right: 0;
+             height: 8px; background: var(--gradient-primary); z-index: 2;
+         }
+
+         /* --- Header --- */
+         .header {
+             padding: 40px 30px 30px; text-align: center; background: #fff;
+             border-bottom: 1px solid #f0f0f0; position: relative;
+         }
+         .header::after {
+             content: ''; position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%);
+             width: 140%; height: 70px; background: rgba(142, 68, 173, 0.025);
+             border-radius: 50%; z-index: 0;
+         }
+         .header h1 { color: var(--primary); font-size: 2.4rem; margin-bottom: 12px; position: relative; z-index: 1; }
+         .header h1 i { margin-right: 12px; animation: iconBounce 1.5s infinite ease-in-out; }
+
+         /* --- Debt Info Card --- */
+         .debt-card {
+             margin: 30px; padding: 25px; background-color: #fff; border-radius: var(--border-radius-md);
+             border: 1px solid #e8eaf6; position: relative; box-shadow: 0 5px 12px rgba(0,0,0,0.04);
+             border-left: 5px solid var(--primary);
+         }
+         .debt-card .badge {
+             position: absolute; top: -12px; right: 20px;
+             background: var(--gradient-accent); color: white; padding: 7px 18px;
+             border-radius: 50px; font-size: 0.8rem;
+             box-shadow: 0 4px 10px rgba(233, 30, 99, 0.25);
+         }
+         .debt-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+         .info-item {
+             display: flex; align-items: flex-start; background: #fcfdff; padding: 14px;
+             border-radius: var(--border-radius-md); border: 1px solid #f0f4f8; transition: var(--transition); overflow: hidden;
+         }
+         .info-item:nth-child(odd) { background-color: #ffffff; }
+         .info-item:hover {
+             transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+             border-left-color: var(--secondary); background-color: #fff; border-color: #e0e6ef;
+         }
+         .info-item .icon {
+             width: 36px; height: 36px; background: var(--primary); border-radius: 10px;
+             display: flex; align-items: center; justify-content: center; margin-right: 14px;
+             color: white; font-size: 1.1rem; flex-shrink: 0; transition: var(--transition); margin-top: 2px;
+         }
+         .info-item:hover .icon { transform: rotate(-7deg) scale(1.06); }
+         .info-item .content { min-width: 0; }
+         .info-item .content h3 { font-size: 0.75rem; color: var(--gray); font-weight: 700; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+         .info-item .content p { font-size: 1.1rem; color: var(--primary-dark); word-break: break-word; line-height: 1.4; }
+         .debt-info .info-item:has(#outstanding-penalty) { display: none; }
+         .debt-info .info-item:has(#outstanding-penalty).visible { display: flex; }
+         .debt-info .info-item:has(#outstanding-penalty).visible p { color: var(--danger); font-weight: 700; }
+         .debt-info .info-item:has(#next-original-due-date-display) p { color: var(--info); }
+
+
+         /* --- Extension Section --- */
+         .extension-section { padding: 25px 30px; }
+
+         /* --- Countdown Timer --- */
+         .countdown-timer {
+             text-align: center; margin-bottom: 30px; padding: 18px;
+             border-radius: var(--border-radius-md); font-size: 1.05rem; border-width: 0px;
+             transition: all 0.4s ease; box-shadow: var(--box-shadow);
+             color: #fff; position: relative; overflow: hidden;
+         }
+         .countdown-timer i { margin-right: 10px; }
+         .countdown-timer .time-digits { font-size: 1.4em; margin: 0 4px; display: inline-block; line-height: 1; vertical-align: baseline; text-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+         .countdown-timer { background: linear-gradient(135deg, var(--success), #28b487); }
+         .countdown-timer.warning { background: linear-gradient(135deg, var(--warning), #ffb404); color: var(--dark); }
+         .countdown-timer.expired { background: linear-gradient(135deg, var(--danger), #ff5858); }
+         .countdown-timer.success { background: linear-gradient(135deg, var(--success), var(--secondary)); }
+         .countdown-timer.warning .time-digits { color: var(--danger); animation: pulseWarningTime 1.2s infinite ease-in-out; }
+         .countdown-timer.expired .time-digits { color: #fff; }
+
+         /* --- Unlock Sections --- */
+         .unlock-section, .admin-unlock-section {
+             border-radius: var(--border-radius-md); padding: 25px; margin: -15px 0 30px 0;
+             text-align: center; display: none; animation: fadeIn 0.6s ease-out;
+         }
+         .unlock-section { background: #fff; border: 2px dashed var(--warning); box-shadow: 0 5px 15px rgba(241, 196, 15, 0.15); }
+         .admin-unlock-section { background: #fdfdff; border: 1px solid #e0e0e0; box-shadow: var(--box-shadow); }
+         .unlock-section h3, .admin-unlock-section h3 { margin-bottom: 12px; font-size: 1.3rem; }
+         .unlock-section h3 { color: var(--warning); }
+         .admin-unlock-section h3 { color: var(--primary-dark); }
+         .unlock-section h3 i { color: var(--warning); margin-right: 8px; animation: iconShake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite; }
+         .admin-unlock-section h3 i { color: var(--primary); margin-right: 8px; }
+         .unlock-section p, .admin-unlock-section p { color: var(--gray); margin-bottom: 25px; font-size: 1rem; }
+         .unlock-options { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
+         .unlock-option { position: relative; flex: 1; min-width: 200px; max-width: 260px; }
+         .unlock-option input { position: absolute; opacity: 0; }
+         .unlock-option label {
+             display: flex; flex-direction: column; justify-content: space-between;
+             min-height: 115px; padding: 15px 18px; background: #fff;
+             border: 2px solid #eee; border-radius: var(--border-radius-md);
+             cursor: pointer; transition: var(--transition);
+             box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+             font-weight: 700; position: relative; overflow: hidden; text-align: center;
+         }
+         .unlock-option label::before { content: ''; position: absolute; top: 0; left: -150%; width: 70%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: left 0.65s ease; }
+         .unlock-option label:hover::before { left: 150%; }
+         .unlock-option label:hover { border-color: var(--warning); box-shadow: 0 7px 18px rgba(241, 196, 15, 0.18); }
+         .unlock-option label .option-title { display: block; font-size: 0.85em; font-weight: 700; margin-bottom: 8px; }
+         .unlock-option label .price-info { display: flex; align-items: baseline; justify-content: center; margin-top: auto; }
+         .unlock-option label .price-info i { font-size: 0.95em; margin-right: 5px; vertical-align: middle; width: 1.2em; text-align: center;}
+         .unlock-option label .price-value { font-size: 1.05em; font-weight: 700; color: var(--dark); transition: color 0.3s ease; }
+         /* .currency-unit styling moved to global scope */
+         .unlock-option input[value="100"] + label i { color: var(--info); }
+         .unlock-option input[value="200"] + label i { color: var(--accent); }
+         .unlock-option input[value="200"] + label .price-value { color: var(--accent); }
+         .unlock-option input:checked + label { border-color: var(--warning); background: var(--warning); color: #fff; box-shadow: 0 6px 18px rgba(241, 196, 15, 0.35); transform: scale(1.03); }
+         .unlock-option input:checked + label .price-value,
+         .unlock-option input:checked + label .currency-unit,
+         .unlock-option input:checked + label i { color: #fff; }
+         .unlock-option input[value="200"]:checked + label { border-color: var(--accent); background: var(--accent); box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35); }
+         .btn-unlock { background: var(--warning); color: var(--dark); width: auto; padding: 10px 30px; font-size: 0.95rem; border-radius: var(--border-radius-md); font-family: var(--font-family-base); font-weight: 700; border: none; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(241, 196, 15, 0.2); }
+         .btn-unlock:hover { background: #f39c12; box-shadow: 0 6px 16px rgba(241, 196, 15, 0.3); transform: translateY(-2px);}
+         .btn-unlock:disabled { background: var(--gray) !important; color: #fff !important; opacity: 0.6; cursor: not-allowed; box-shadow: none; transform: none; }
+         .admin-unlock-input-group { display: flex; max-width: 380px; margin: 0 auto 18px; gap: 8px; }
+         .admin-unlock-input-group input { flex-grow: 1; padding: 10px 14px; border: 2px solid #ccc; border-radius: var(--border-radius-sm); font-size: 0.95rem; font-family: var(--font-family-base); transition: var(--transition); }
+         .admin-unlock-input-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.15); }
+         .btn-admin-unlock { background: var(--primary); color: white; padding: 10px 20px; font-size: 0.95rem; border-radius: var(--border-radius-sm); border: none; cursor: pointer; transition: var(--transition); font-family: var(--font-family-base); font-weight: 700; }
+         .btn-admin-unlock:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(142, 68, 173, 0.25); }
+         .admin-unlock-error { color: var(--danger); font-size: 0.85rem; margin-top: -8px; margin-bottom: 12px; font-weight: 700; display: none; }
+         .btn-contact-admin {
+             display: inline-flex; align-items: center; margin-top: 18px; padding: 10px 25px;
+             font-size: 0.95rem; color: white; background: var(--line-green);
+             border: none; border-radius: var(--border-radius-md); text-decoration: none;
+             transition: var(--transition); font-weight: 700; font-family: var(--font-family-base);
+             cursor: pointer; box-shadow: 0 4px 12px rgba(0, 185, 0, 0.2);
+             border-bottom: 2px solid var(--line-green-dark);
+         }
+         .btn-contact-admin:hover {
+             background: var(--line-green-dark);
+             box-shadow: 0 6px 16px rgba(0, 140, 0, 0.28);
+             transform: translateY(-2px); border-bottom-width: 1px;
+         }
+         .btn-contact-admin:active {
+            background: var(--line-green-dark);
+            box-shadow: 0 3px 8px rgba(0, 140, 0, 0.2);
+            transform: translateY(0px); border-bottom-width: 1px;
+         }
+         .btn-contact-admin i { font-size: 1.3em; margin-right: 9px; vertical-align: middle; line-height: 1;}
+
+         /* --- Tabs --- */
+         .tabs { display: flex; margin-bottom: 25px; border-bottom: none; background-color: #eef1f5; border-radius: 50px; padding: 5px; }
+         .tab { flex: 1; padding: 10px 14px; cursor: pointer; font-weight: 700; color: var(--gray); position: relative; transition: var(--transition); white-space: nowrap; text-align: center; border-radius: 50px; border: none; margin: 0 3px; }
+         .tab i:not(.fa-lock) { margin-right: 7px; }
+         .tab[data-tab="third"] i.fa-lock { margin-left: 5px; color: var(--gray); font-size: 0.85em; }
+         .tab:hover:not(.active):not(.locked) { background-color: rgba(142, 68, 173, 0.08); color: var(--primary-dark); }
+         .tab.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(142, 68, 173, 0.25); }
+         .tab.locked { color: #b0bec5; opacity: 0.7; cursor: not-allowed; pointer-events: none; background-color: #e4e7eb; }
+         .tab.active[data-tab="third"] i.fa-lock { color: rgba(255, 255, 255, 0.7); }
+
+         /* --- Tab Content --- */
+         .tab-content { display: none; animation: fadeIn 0.6s ease-out; padding-top: 15px; }
+         .tab-content.active { display: block; }
+         .tab-content h3 { margin-bottom: 10px; color: var(--primary-dark); font-size: 1.4rem; }
+         .tab-content h3 i { margin-right: 10px; color: var(--primary); }
+         .tab-content > p { color: var(--gray); margin-bottom: 30px; font-size: 1rem; border-left: 4px solid var(--secondary); padding-left: 18px; background-color: rgba(26, 188, 156, 0.05); padding-top: 10px; padding-bottom: 10px; border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0; }
+         .tab-content#third-tab > p { font-size: 0.9rem; }
+         #next-installment-due-date-info { color: var(--primary); font-weight: 700;}
+
+         /* --- Day/Date Selectors --- */
+         .days-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 15px; margin-bottom: 30px; }
+         .day-option, .date-option { position: relative; }
+         .day-option input, .date-option input[type="radio"] { position: absolute; opacity: 0; }
+         .day-option label, .date-option label {
+             display: block; padding: 16px 8px; background: white;
+             border: 2px solid #e8eaf6; border-radius: var(--border-radius-md); text-align: center; cursor: pointer;
+             transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+             font-weight: 700; font-size: 0.95rem; line-height: 1.35;
+             word-break: break-word; position: relative; overflow: hidden;
+         }
+         .day-option label::after, .date-option label::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0; background-color: rgba(26, 188, 156, 0.08); transition: height 0.3s ease-out; z-index: 0; border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); }
+         .day-option label span, .date-option label span { position: relative; z-index: 1; }
+         .day-option label:hover::after, .date-option label:hover::after { height: 100%; }
+         .day-option label:hover, .date-option label:hover { border-color: var(--secondary); color: var(--secondary-dark); box-shadow: 0 6px 12px rgba(0,0,0,0.06);}
+         .day-option input:checked + label, .date-option input:checked + label {
+             background: var(--gradient-primary); color: white;
+             border-color: transparent; transform: translateY(-3px) scale(1.02);
+             box-shadow: 0 8px 18px rgba(142, 68, 173, 0.22);
+         }
+         .day-option input:checked + label::after, .date-option input:checked + label::after { display: none; }
+         .day-option input:disabled + label, .date-option input:disabled + label { opacity: 0.5; cursor: not-allowed; background: #f0f2f5 !important; border-color: #e4e7eb !important; transform: none; box-shadow: none; font-weight: 400 !important; color: var(--gray) !important; }
+         .day-option input:disabled + label::after, .date-option input:disabled + label::after { display: none; }
+
+         /* --- Date Input Container (for Flatpickr) --- */
+         .date-input-container { margin-bottom: 30px; }
+         .date-input-container label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--dark); font-size: 1rem; }
+         .date-input-container label i { margin-right: 7px; color: var(--primary); }
+         .date-input-container input[type="text"]#custom-date {
+             width: 100%; padding: 14px 18px; border: 2px solid #ced4da; border-radius: var(--border-radius-sm);
+             font-family: var(--font-family-base); font-size: 0.95rem; transition: var(--transition); background-color: #fff; cursor: pointer;
+         }
+         .date-input-container input[type="text"]#custom-date::placeholder { color: #999; opacity: 1; }
+         .date-input-container input[type="text"]#custom-date:focus {
+             border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(142, 68, 173, 0.12); background-color: #fdfdff;
+         }
+         .date-input-container input[type="text"]#custom-date[readonly] { background-color: #e9ecef; opacity: 0.7; cursor: not-allowed; }
+         #date-error { color: var(--danger); font-size: 0.85rem; margin-top: 8px; display: none; font-weight: 700; }
+         #date-error i { margin-right: 5px;}
+
+         /* --- Summary Card --- */
+         .summary-card {
+             background: #fff; padding: 25px 30px; border-radius: var(--border-radius-md);
+             margin-bottom: 35px; border: 1px solid #e8eaf6; box-shadow: 0 6px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden;
+             max-height: 0; overflow: hidden; transform: translateY(15px) scale(0.98);
+             transition: opacity 0.5s ease, visibility 0.5s ease, max-height 0.6s ease, transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+             border-top: 4px solid var(--primary);
+         }
+         .summary-card.active { opacity: 1; visibility: visible; max-height: 600px; transform: translateY(0) scale(1); }
+         .summary-card h3 { color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+         .summary-card h3 i { margin-right: 12px; color: var(--primary); font-size: 1.4rem; }
+         .summary-item { display: grid; grid-template-columns: auto 1fr; gap: 5px 15px; align-items: baseline; padding: 12px 0; border-bottom: 1px dashed #dde4e8; font-size: 0.95rem; }
+         .summary-item span:first-child { grid-column: 1 / 2; color: var(--gray); font-weight: 400; display: inline-flex; align-items: center; text-align: left; }
+         .summary-item span:first-child i { margin-right: 10px; width: 1.1em; text-align: center; color: var(--gray); transition: color 0.3s ease; font-size: 0.95em;}
+         .summary-item:hover span:first-child i { color: var(--secondary); }
+         .summary-item span:last-child { grid-column: 2 / 3; color: var(--dark); font-weight: 700; text-align: right; justify-self: end; word-break: break-word; font-size: 1em; }
+         .summary-item:last-child { border-bottom: none; }
+         #unlock-fee-summary { color: var(--warning); }
+         #outstanding-penalty-summary { color: var(--danger); }
+         #late-fee { color: var(--dark); }
+         #extension-days { color: var(--info); }
+         #new-due-date { color: var(--success); }
+         .summary-item.total { font-size: 1.1rem; margin-top: 15px; padding-top: 20px; border-top: 2px solid var(--primary); border-bottom: none; grid-template-columns: auto 1fr; }
+         .summary-item.total span:first-child { font-weight: 700; color: var(--primary); }
+         .summary-item.total span:last-child { font-size: 1.25em; justify-self: end;}
+
+         /* --- Buttons --- */
+         .btn {
+             display: block; width: 100%; padding: 15px 25px; border: none;
+             border-radius: var(--border-radius-md); font-family: var(--font-family-base);
+             font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition);
+             text-align: center; position: relative; overflow: hidden; z-index: 1;
+             box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+             text-transform: uppercase; letter-spacing: 0.5px;
+         }
+         .btn i { margin-right: 8px; }
+         .btn-primary {
+             background: var(--gradient-primary); color: white;
+             box-shadow: 0 6px 18px rgba(142, 68, 173, 0.22);
+             border-bottom: 2px solid var(--primary-dark);
+         }
+         .btn-primary:hover {
+             transform: translateY(-3px); box-shadow: 0 9px 22px rgba(142, 68, 173, 0.28);
+         }
+         .btn-primary:active {
+             transform: translateY(-1px); box-shadow: 0 5px 15px rgba(142, 68, 173, 0.25); border-bottom-width: 1px;
+         }
+         .btn-primary:disabled {
+             background: #bdc3c7 !important; box-shadow: none !important;
+             transform: none !important; cursor: not-allowed; opacity: 0.65;
+             border-bottom: none !important;
+         }
+
+         /* --- Confirmation Modal --- */
+         .confirmation {
+             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+             background: rgba(44, 62, 80, 0.88); display: flex; align-items: center; justify-content: center; z-index: 1000;
+             opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0s 0.4s linear;
+             backdrop-filter: blur(6px);
+         }
+         .confirmation.active { opacity: 1; visibility: visible; transition: opacity 0.4s ease; }
+         .confirmation-content {
+             background: white; border-radius: var(--border-radius-lg);
+             width: 90%; max-width: 550px; padding: 35px 30px;
+             text-align: center; transform: scale(0.9) translateY(20px);
+             transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+             box-shadow: var(--box-shadow-lg);
+         }
+         .confirmation.active .confirmation-content { transform: scale(1) translateY(0); }
+         .confirmation-icon {
+             width: 70px; height: 70px; background: var(--success); border-radius: 50%;
+             display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+             color: white; font-size: 2.2rem; box-shadow: 0 10px 25px rgba(46, 204, 113, 0.25);
+             animation: iconPopIn 0.5s 0.3s ease-out backwards;
+         }
+         .confirmation h2 { color: var(--primary); margin-bottom: 12px; font-size: 1.5rem; animation: textFadeIn 0.5s 0.5s ease-out backwards; }
+         .confirmation p.description { color: var(--gray); margin-bottom: 25px; font-size: 1rem; line-height: 1.7; animation: textFadeIn 0.5s 0.6s ease-out backwards; }
+         .confirmation p strong { color: var(--dark); font-weight: 700; }
+         .confirmation .detail {
+             background-color: #f7f9fc; padding: 20px; border-radius: var(--border-radius-md); margin-top: 20px;
+             border: 1px solid #e8eef1; text-align: left; animation: textFadeIn 0.5s 0.7s ease-out backwards;
+         }
+         .confirmation .detail p { display: grid; grid-template-columns: auto 1fr; gap: 0 12px; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e8eef1; font-size: 0.95rem; }
+         .confirmation .detail p i { grid-column: 1 / 2; width: 1.2em; text-align: center; color: var(--gray); margin-right: 10px; font-size: 0.95em; }
+         .confirmation .detail p .detail-label { grid-column: 2 / 3; color: var(--gray); font-weight: 400; justify-self: start; font-size: 0.9em; }
+         .confirmation .detail p strong { grid-column: 2 / 3; font-size: 1em; color: var(--dark); text-align: right; justify-self: end; padding-left: 8px; }
+         .confirmation .detail p#confirm-outstanding-penalty-line i { color: var(--danger); }
+         .confirmation .detail p#confirm-outstanding-penalty-line strong { color: var(--danger); }
+         .confirmation .detail p#confirm-unlock-fee-msg i { color: var(--warning); }
+         .confirmation .detail p#confirm-unlock-fee-msg strong { color: var(--warning); }
+         .confirmation .detail p#confirm-total-fee-line strong { font-size: 1.3em; color: var(--success); }
+         .confirmation .detail p#confirm-base-amount-line { align-items: baseline; }
+         .confirmation .detail p#confirm-base-amount-line .detail-label { display: block; }
+         .confirmation .detail p#confirm-base-amount-line strong { display: block; color: var(--primary-dark); font-size: 1.05em; }
+         .confirmation .detail p#confirm-due-date-line strong { color: var(--success); font-size: 1em;}
+         .confirmation .detail p.sub-note { grid-column: 1 / 3; font-size: 0.8rem; color: var(--gray); margin-top: 12px; text-align: center; border-bottom: none; padding-bottom: 0;}
+         .confirmation .detail p:last-of-type { margin-bottom: 0; border-bottom: none; padding-bottom: 0;}
+         .confirmation .button-container { display: flex; justify-content: center; gap: 15px; margin-top: 28px; flex-wrap: wrap; }
+         .confirmation .button-container .btn { width: auto; flex-grow: 0; animation: textFadeIn 0.5s 0.8s ease-out backwards; padding: 10px 25px; font-size: 0.9rem; }
+
+         /* *** Updated Cancel Button Style *** */
+         .confirmation .btn-cancel {
+             background-color: #f1f3f5; /* Light gray background */
+             border: 1px solid #dee2e6; /* Slightly darker border */
+             color: var(--dark);       /* Darker text for contrast */
+             box-shadow: none;
+             text-transform: none;    /* Keep normal case */
+             letter-spacing: 0;
+             font-weight: 700;         /* Make text bold */
+         }
+         .confirmation .btn-cancel:hover {
+             background-color: #e9ecef; /* Slightly darker background on hover */
+             border-color: #ced4da;
+             color: var(--info);      /* Use info color for text hover */
+             transform: translateY(-1px); /* Subtle lift */
+             box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+         }
+
+         .confirmation .button-container .btn-primary { background: var(--success); border-bottom-color: #25a25a; box-shadow: 0 7px 18px rgba(46, 204, 113, 0.28); }
+         .confirmation .button-container .btn-primary:hover { background: #27ae60; transform: translateY(-3px); box-shadow: 0 9px 22px rgba(46, 204, 113, 0.35); }
+         .confirmation .button-container .btn-primary:active { background: #25a25a; transform: translateY(-1px); box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
+
+         /* --- Progress Bar --- */
+         .progress-container {
+             width: 100%; height: 10px; background: #e9ecef; border-radius: 5px; margin: 30px 0; overflow: hidden;
+             box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+         }
+         .progress-bar { height: 100%; background: var(--gradient-primary); border-radius: 5px; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+         /* --- Floating Notification --- */
+         .floating-notification {
+             position: fixed; bottom: 25px; right: 25px; background: white;
+             padding: 18px 25px; border-radius: var(--border-radius-md);
+             box-shadow: var(--box-shadow-lg); display: flex; align-items: center;
+             transform: translateX(calc(100% + 40px)); opacity: 0;
+             transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease, visibility 0s 0.7s linear;
+             z-index: 1000; max-width: 420px; border-left: 5px solid var(--warning); visibility: hidden;
+         }
+         .floating-notification.active { transform: translateX(0); opacity: 1; visibility: visible; transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease, visibility 0s 0s linear; }
+         .floating-notification.hidden-at-bottom { transform: translateY(calc(100% + 40px)); opacity: 0; visibility: hidden; pointer-events: none; transition: transform 0.4s ease-out, opacity 0.3s ease-out, visibility 0s 0.4s linear; }
+         .floating-notification .icon { font-size: 1.6rem; color: var(--warning); margin-right: 18px; flex-shrink: 0; animation: pulseWarning 2s infinite; }
+         .floating-notification .content { flex-grow: 1; font-size: 0.95rem; color: var(--dark); line-height: 1.6; }
+         .floating-notification .content strong { font-weight: 700; color: var(--primary); }
+         .floating-notification .close { margin-left: 20px; color: var(--gray); cursor: pointer; opacity: 0.8; transition: var(--transition); font-size: 1.2rem; }
+         .floating-notification .close:hover { opacity: 1; color: var(--danger); transform: rotate(90deg) scale(1.1); }
+
+         /* --- Flatpickr Customization --- */
+         .flatpickr-calendar {
+             background: #ffffff; border-radius: var(--border-radius-md); box-shadow: var(--box-shadow-lg);
+             border: 1px solid #e0e0e0; font-family: var(--font-family-base);
+         }
+         .flatpickr-months {
+             background: var(--primary); border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+             padding: 12px 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+         }
+         .flatpickr-current-month { color: white; font-weight: 700; font-size: 1.15em; padding-top: 2px; height: auto; line-height: 1.3; }
+         .flatpickr-current-month .flatpickr-monthDropdown-months { color: white; background: var(--primary); border-radius: var(--border-radius-sm); padding: 2px 5px; font-size: 1em; }
+         .numInputWrapper:hover, .flatpickr-monthDropdown-months:hover { background: rgba(255, 255, 255, 0.15); }
+         .flatpickr-current-month input.cur-year { color: white; font-weight: 700; font-size: 1em; }
+         .flatpickr-prev-month, .flatpickr-next-month {
+             fill: white; padding: 5px; transition: background 0.2s ease; border-radius: 50%;
+             width: 34px; height: 34px; top: 10px; position: absolute;
+         }
+         .flatpickr-prev-month { left: 5px; } .flatpickr-next-month { right: 5px; }
+         .flatpickr-prev-month:hover, .flatpickr-next-month:hover { fill: var(--primary); background: rgba(255, 255, 255, 0.9); }
+         .flatpickr-weekdays { background: #f8f9fa; padding: 8px 0; border-bottom: 1px solid #eee; }
+         span.flatpickr-weekday { color: var(--dark); opacity: 0.7; font-weight: 700; font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.5px; }
+         .flatpickr-days { padding: 5px; }
+         .flatpickr-day {
+             color: var(--dark); background: transparent; border: 1px solid transparent;
+             transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+             font-weight: 400; height: 38px; line-height: 38px; border-radius: var(--border-radius-sm);
+             max-width: 38px; margin: auto;
+         }
+         .flatpickr-day:hover { background: rgba(233, 30, 99, 0.1); border-color: transparent; cursor: pointer; color: var(--accent); }
+         .flatpickr-day.today { border-color: var(--accent); color: var(--accent); font-weight: 700; background: rgba(233, 30, 99, 0.05); }
+         .flatpickr-day.today:hover { background: rgba(233, 30, 99, 0.15); border-color: var(--accent); color: var(--accent); }
+         .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange,
+         .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover {
+             background: var(--accent); border-color: var(--accent); color: white; font-weight: 700;
+         }
+         .flatpickr-day.disabled, .flatpickr-day.disabled:hover,
+         .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover,
+         .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay,
+         .flatpickr-day.notAllowed, .flatpickr-day.notAllowed.prevMonthDay, .flatpickr-day.notAllowed.nextMonthDay {
+             color: #b0bec5; background: none; border-color: transparent; cursor: default; font-weight: 400;
+         }
+         .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay { color: #d0d9e0; }
+
+         /* --- Final Contact Section --- */
+         /* *** Updated Final Contact Section Style *** */
+         .final-contact-section {
+             display: none; /* Initially hidden */
+             border-top: 1px solid #eee; /* Separator line */
+             padding: 35px 30px 40px; /* Adjusted padding */
+             text-align: center;
+             background-color: #fcfdff; /* Very light background tint */
+         }
+         /* *** Updated Final Contact Message Style *** */
+         .final-contact-section p {
+             color: var(--dark); /* Darker text */
+             margin-bottom: 25px;
+             font-size: 1.05rem; /* Slightly larger */
+             line-height: 1.7;
+             border-left: 4px solid var(--info); /* Info color accent */
+             padding: 15px;
+             background-color: rgba(52, 152, 219, 0.07); /* Light blue background */
+             border-radius: var(--border-radius-sm);
+             text-align: left; /* Align text left within the box */
+         }
+         .final-contact-section p i {
+             margin-right: 8px;
+             color: var(--info); /* Match accent color */
+         }
+         .final-contact-section p strong {
+             color: var(--primary); /* Highlight */
+         }
+         .btn-final-contact {
+             display: inline-flex; align-items: center; justify-content: center; width: auto; max-width: 350px;
+             padding: 14px 35px; font-size: 1.05rem; font-weight: 700; color: white;
+             background: linear-gradient(135deg, var(--line-green), var(--line-green-dark)); border: none;
+             border-radius: 50px; text-decoration: none; transition: var(--transition); cursor: pointer;
+             box-shadow: 0 7px 20px rgba(0, 185, 0, 0.25); border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+             text-transform: none; letter-spacing: 0;
+         }
+         .btn-final-contact i { font-size: 1.4em; margin-right: 12px; line-height: 1; }
+         .btn-final-contact:hover {
+             background: linear-gradient(135deg, var(--line-green-dark), var(--line-green));
+             box-shadow: 0 9px 25px rgba(0, 140, 0, 0.3); transform: translateY(-3px); border-bottom-width: 2px;
+         }
+         .btn-final-contact:active {
+             background: var(--line-green-dark); box-shadow: 0 4px 15px rgba(0, 140, 0, 0.2);
+             transform: translateY(-1px); border-bottom-width: 1px;
+         }
+
+        /* --- Close LIFF Button --- */
+        /* *** New Style for Close LIFF Button *** */
+        .btn-close-liff {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            z-index: 999; /* Below modal/notification overlay */
+            padding: 8px 16px;
+            background-color: var(--gray);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-family-base);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: var(--transition);
+            display: none; /* Initially hidden, shown by JS if in LIFF */
+            align-items: center;
+        }
+        .btn-close-liff i {
+            margin-right: 6px;
+        }
+        .btn-close-liff:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+
+         /* --- Animations --- */
+         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+         @keyframes iconBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+         @keyframes pulseWarning { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+         @keyframes pulseWarningTime { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: 0.9; } }
+         @keyframes iconShake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-2px, 0, 0); } 40%, 60% { transform: translate3d(2px, 0, 0); } }
+         @keyframes iconPopIn { 0% { opacity: 0; transform: scale(0.5); } 80% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+         @keyframes textFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+         /* --- Responsive Adjustments --- */
+         @media (max-width: 768px) {
+              body { padding: 15px; background-size: 25px 25px; background-position: 0 0, 12.5px 12.5px;}
+              .container { margin: 20px auto; border-radius: var(--border-radius-md);}
+              .header { padding: 30px 20px 20px; } .header h1 { font-size: 1.8rem; }
+              .debt-card { margin: 20px; padding: 20px; } .debt-card .badge { padding: 6px 16px; font-size: 0.75rem; }
+              .debt-info { grid-template-columns: repeat(2, 1fr); gap: 10px;}
+              .info-item { padding: 12px; align-items: flex-start; border-radius: var(--border-radius-sm); }
+              .info-item .icon { width: 30px; height: 30px; font-size: 1rem; margin-right: 10px; border-radius: 8px;}
+              .info-item .content h3 { font-size: 0.65rem; margin-bottom: 2px;}
+              .info-item .content p { font-size: 0.9rem; line-height: 1.35; }
+              .extension-section { padding: 20px 20px; }
+              .countdown-timer { font-size: 0.95rem; padding: 15px; margin-bottom: 25px; } .countdown-timer .time-digits { font-size: 1.2em; }
+              .unlock-section { padding: 20px; } .unlock-section h3, .admin-unlock-section h3 { font-size: 1.15rem; }
+              .unlock-section p, .admin-unlock-section p { font-size: 0.95rem; }
+              .admin-unlock-input-group { max-width: 90%; }
+              .tabs { margin-bottom: 20px; border-radius: 30px; padding: 4px;}
+              .tab { padding: 9px 10px; font-size: 0.75rem;}
+              .tab-content h3 { font-size: 1.2rem; } .tab-content > p { font-size: 0.8rem; margin-bottom: 25px; padding-left: 12px; }
+              .days-selector { gap: 8px; grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); margin-bottom: 25px;}
+              .day-option label { padding: 11px 7px; font-size: 0.75rem;}
+              .unlock-options { gap: 12px;}
+              .unlock-option label { padding: 14px; font-size: 0.8rem; min-height: 110px;} .unlock-option label .option-title { font-size: 0.9em;} .unlock-option label .price-value { font-size: 1.05em; }
+              .btn-unlock { padding: 9px 22px; font-size: 0.85rem; }
+              .btn-contact-admin { padding: 9px 20px; font-size: 0.85rem; }
+              .date-input-container input[type="text"]#custom-date { padding: 10px 12px; font-size: 0.9rem; }
+              .summary-card { padding: 20px; margin-bottom: 30px;} .summary-card h3 { font-size: 1.1rem; padding-bottom: 12px;}
+              .summary-item { font-size: 0.85rem; padding: 10px 0; }
+              .summary-item.total { font-size: 0.95rem; padding-top: 15px; } .summary-item.total span:last-child { font-size: 1.05rem; }
+              .btn { padding: 12px 18px; font-size: 0.85rem; }
+              .confirmation-content { padding: 30px 20px; } .confirmation h2 { font-size: 1.4rem; }
+              .confirmation p.description { font-size: 0.85rem; margin-bottom: 20px; }
+              .confirmation .detail { padding: 18px; margin-top: 18px;}
+              .confirmation .detail p { font-size: 0.85rem; margin-bottom: 8px; padding-bottom: 8px; gap: 0 8px;}
+              .confirmation .detail p strong { font-size: 1em; } .confirmation .detail p#confirm-total-fee-line strong { font-size: 1.2em; }
+              .confirmation .button-container { margin-top: 25px; gap: 10px;} .confirmation .button-container .btn { font-size: 0.8rem; padding: 9px 20px;}
+              .floating-notification { right: 15px; bottom: 15px; max-width: calc(100% - 30px); padding: 15px 20px; } .floating-notification .content { font-size: 0.8rem; }
+              /* Responsive Final Contact Section */
+              .final-contact-section { padding: 30px 20px; }
+              .final-contact-section p { font-size: 0.95rem; padding: 12px; text-align: left;}
+              .btn-final-contact { max-width: 90%; font-size: 1rem; padding: 13px 30px;}
+         }
+         @media (max-width: 480px) {
+              body { padding: 10px;}
+              .container { margin: 15px auto; border-radius: var(--border-radius-md);}
+              .header { padding: 20px 15px 15px;} .header h1 { font-size: 1.5rem; }
+              .debt-card { margin: 15px; padding: 15px; } .debt-card .badge { font-size: 0.65rem; padding: 4px 10px; top: -8px; right: 8px;}
+              .debt-info { gap: 8px; grid-template-columns: 1fr 1fr;}
+              .info-item { padding: 10px; border-radius: var(--border-radius-sm);}
+              .info-item .icon { width: 26px; height: 26px; font-size: 0.85rem; margin-right: 8px; border-radius: 6px;}
+              .info-item .content h3 { font-size: 0.55rem; margin-bottom: 1px; } .info-item .content p { font-size: 0.8rem; }
+              .extension-section { padding: 15px 15px; }
+              .countdown-timer { font-size: 0.8rem; padding: 12px; margin-bottom: 20px; } .countdown-timer .time-digits { font-size: 1.05em; }
+              .unlock-section { padding: 15px; } .unlock-section h3 { font-size: 1rem;}
+              .unlock-section p { font-size: 0.8rem; margin-bottom: 18px;}
+              .unlock-options { gap: 10px; flex-direction: column; align-items: center;}
+              .unlock-option { width: 100%; max-width: 260px;}
+              .unlock-option label { padding: 12px; font-size: 0.75rem; min-height: auto;} .unlock-option label .option-title { font-size: 0.95em;} .unlock-option label .price-info { margin-top: 6px; } .unlock-option label .price-value { font-size: 1em; }
+              .btn-unlock { padding: 8px 20px; font-size: 0.8rem; }
+              .admin-unlock-section h3 { font-size: 0.95rem; } .admin-unlock-section p { font-size: 0.75rem; margin-bottom: 12px;}
+              .admin-unlock-input-group input { padding: 8px 10px; font-size: 0.75rem;}
+              .btn-admin-unlock { padding: 8px 14px; font-size: 0.75rem;}
+              .btn-contact-admin { font-size: 0.75rem; padding: 8px 15px;}
+              .tabs { border-radius: 25px; padding: 3px; margin-bottom: 18px;}
+              .tab { padding: 7px 5px; font-size: 0.65rem; margin: 0 1px;} .tab i { margin-right: 3px;}
+              .tab-content h3 { font-size: 0.9rem; } .tab-content > p { font-size: 0.7rem; padding-left: 10px; margin-bottom: 20px;}
+              .days-selector { gap: 6px; grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;}
+              .day-option label { padding: 9px 4px; font-size: 0.65rem;}
+              .date-input-container label { font-size: 0.75rem; }
+              .date-input-container input[type="text"]#custom-date { padding: 8px 10px; font-size: 0.8rem;}
+              .summary-card { padding: 15px; margin-bottom: 20px;} .summary-card h3 { font-size: 0.95rem; padding-bottom: 10px;}
+              .summary-item { font-size: 0.75rem; padding: 8px 0; gap: 4px 8px;} .summary-item span:first-child i { margin-right: 6px; }
+              .summary-item.total { font-size: 0.85rem; padding-top: 14px; margin-top: 10px;} .summary-item.total span:last-child { font-size: 1rem; }
+              .btn { padding: 10px 15px; font-size: 0.8rem; }
+              .confirmation-content { padding: 25px 15px; }
+              .confirmation-icon { width: 55px; height: 55px; font-size: 1.8rem; margin-bottom: 15px;}
+              .confirmation h2 { font-size: 1.1rem; margin-bottom: 10px;}
+              .confirmation p.description { font-size: 0.75rem; line-height: 1.5; margin-bottom: 18px;}
+              .confirmation .detail { padding: 14px; margin-top: 15px;}
+              .confirmation .detail p { font-size: 0.75rem; margin-bottom: 7px; padding-bottom: 7px; grid-template-columns: auto 1fr;}
+              .confirmation .detail p strong { font-size: 0.9em; } .confirmation .detail p#confirm-total-fee-line strong { font-size: 1.1em; }
+              .confirmation .button-container { margin-top: 22px; gap: 8px;}
+              .confirmation .button-container .btn { width: 100%; font-size: 0.75rem; padding: 9px 15px;}
+              .floating-notification { bottom: 10px; right: 10px; max-width: calc(100% - 20px); padding: 12px 15px; border-radius: var(--border-radius-sm);}
+              .floating-notification .content { font-size: 0.7rem; } .floating-notification .icon { font-size: 1rem; margin-right: 10px;} .floating-notification .close { font-size: 0.9rem; margin-left: 10px;}
+
+              /* Responsive Final Contact Section */
+              .final-contact-section { padding: 25px 15px 30px; } /* Adjusted padding */
+              .final-contact-section p {
+                   font-size: 0.85rem; /* Smaller font on mobile */
+                   padding: 12px;
+                   margin-bottom: 20px;
+                   text-align: left;
+              }
+               .final-contact-section p br { display: none; } /* Hide line break on mobile */
+              .btn-final-contact {
+                  width: 100%; /* Full width */
+                  max-width: none;
+                  padding: 12px 25px;
+                  font-size: 0.9rem;
+              }
+              .btn-final-contact i { font-size: 1.2em; margin-right: 10px; }
+              /* Responsive Close LIFF Button */
+              .btn-close-liff {
+                  font-size: 0.7rem;
+                  padding: 6px 12px;
+                  bottom: 10px;
+                  left: 10px;
+              }
+         }
+
+         /* SweetAlert2 Custom Font */
+         body.swal2-shown > [aria-hidden="true"] { filter: blur(3px); }
+         .swal2-popup { font-family: var(--font-family-base) !important; }
+         .swal2-title { font-family: var(--font-family-base) !important; font-weight: 700 !important; }
+         .swal2-html-container { font-family: var(--font-family-base) !important; }
+         .swal2-confirm, .swal2-cancel, .swal2-deny { font-family: var(--font-family-base) !important; font-weight: 700 !important; border-radius: var(--border-radius-sm) !important; }
+         .swal2-confirm { background-color: var(--success) !important; }
+         .swal2-confirm:hover { background-color: #27ae60 !important; }
+         .swal2-cancel { background-color: var(--gray) !important; }
+         .swal2-cancel:hover { background-color: #717d7e !important; }
+         .swal2-icon.swal2-error { border-color: var(--danger) !important; color: var(--danger) !important; }
+         .swal2-icon.swal2-success { border-color: var(--success) !important; color: var(--success) !important; }
+         .swal2-icon.swal2-success .swal2-success-line-tip,
+         .swal2-icon.swal2-success .swal2-success-line-long { background-color: var(--success) !important; }
+         .swal2-icon.swal2-warning { border-color: var(--warning) !important; color: var(--warning) !important; }
+         .swal2-icon.swal2-info { border-color: var(--info) !important; color: var(--info) !important; }
+
+    </style>
+</head>
+<body>
+     <!-- The HTML Body (Debt Card section) -->
+     <div class="container">
+         <div class="header">
+             <h1><i class="fas fa-calendar-alt"></i> ระบบเลื่อนชำระหนี้</h1>
+         </div>
+
+         <div class="debt-card">
+             <div class="badge">สถานะ: รอชำระ</div>
+             <div class="debt-info">
+                 <div class="info-item"> <div class="icon"><i class="fas fa-calendar-day"></i></div> <div class="content"> <h3>ครบกำหนดชำระงวดนี้</h3> <p id="current-due-date"></p> </div> </div>
+                 <div class="info-item"> <div class="icon"><i class="fas fa-hashtag"></i></div> <div class="content"> <h3>งวดที่</h3> <p id="current-installment">1 / 12</p> </div> </div>
+                 <div class="info-item"> <div class="icon"><i class="fas fa-coins"></i></div> <div class="content"> <h3>ค่างวดรอบนี้</h3> <p id="base-installment-amount"></p> </div> </div>
+                 <div class="info-item" id="next-original-due-date-item"> <div class="icon"><i class="fas fa-calendar-week"></i></div> <div class="content"> <h3>ครบกำหนดชำระงวดถัดไป</h3> <p id="next-original-due-date-display"></p> </div> </div>
+                 <div class="info-item"> <div class="icon"><i class="fas fa-history"></i></div> <div class="content"> <h3>สิทธิ์เลื่อนชำระคงเหลือ</h3> <p id="remaining-extensions"></p> </div> </div>
+                 <div class="info-item" id="outstanding-penalty-item"> <div class="icon"><i class="fas fa-exclamation-triangle"></i></div> <div class="content"> <h3>ค่าปรับคงค้าง</h3> <p id="outstanding-penalty"></p> </div> </div>
+             </div>
+         </div>
+
+         <!-- Extension Section (will be hidden when max extensions reached) -->
+         <div class="extension-section" id="extension-section">
+             <div class="countdown-timer" id="countdown-timer"> <i class="fas fa-hourglass-start"></i> กำลังประมวลผลข้อมูลเวลา... </div>
+             <div class="unlock-section" id="unlock-section"> <h3><i class="fas fa-lock"></i> เกินกำหนดเวลาเลื่อนชำระ (ไม่มีค่าธรรมเนียม)</h3> <p>ท่านยังสามารถเลื่อนชำระได้ โดยมีค่าธรรมเนียมการปลดล็อคเพิ่มเติม</p> <div class="unlock-options"> <div class="unlock-option"> <input type="radio" id="unlock-normal" name="unlock-option" value="100"> <label for="unlock-normal"> <span class="option-title">ปลดล็อคธรรมดา (รอ 1-2 ชม.)</span> <span class="price-info"><i class="fas fa-hourglass-half"></i><span class="price-value">100</span><span class="currency-unit"> บาท</span></span> </label> </div> <div class="unlock-option unlock-option--express"> <input type="radio" id="unlock-express" name="unlock-option" value="200"> <label for="unlock-express"> <span class="option-title">ปลดล็อคด่วน (ภายใน 5-10 นาที)</span> <span class="price-info"><i class="fas fa-rocket"></i><span class="price-value">200</span><span class="currency-unit"> บาท</span></span> </label> </div> </div> <button class="btn btn-unlock" id="unlock-btn" disabled> <i class="fas fa-key"></i> ยืนยันการปลดล็อค </button> </div>
+             <div class="admin-unlock-section" id="admin-unlock-section"> <h3><i class="fas fa-user-shield"></i> ปลดล็อคการเลื่อนครั้งที่ 3</h3> <p>โปรดกรอกรหัสปลดล็อคที่ได้รับจากผู้ดูแลระบบ เพื่อดำเนินการเลื่อนชำระครั้งที่ 3</p> <div class="admin-unlock-input-group"> <input type="password" id="admin-unlock-code" placeholder="กรอกรหัสปลดล็อค..."> <button class="btn-admin-unlock" id="admin-unlock-submit"><i class="fas fa-unlock-alt"></i> ปลดล็อค</button> </div> <div class="admin-unlock-error" id="admin-unlock-error">รหัสไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</div> <button class="btn-contact-admin" id="contact-admin-btn"> <i class="lab la-line"></i> ติดต่อผู้ดูแลระบบ </button> </div>
+             <div class="tabs"> <div class="tab active" data-tab="first"><i class="fas fa-star"></i> เลื่อนครั้งที่ 1</div> <div class="tab" data-tab="second"><i class="fas fa-star-half-alt"></i> เลื่อนครั้งที่ 2</div> <div class="tab locked" data-tab="third"><i class="fas fa-crown"></i> เลื่อนครั้งที่ 3 <i class="fas fa-lock"></i></div> </div>
+             <div class="progress-container"> <div class="progress-bar" id="progress-bar" style="width: 0%"></div> </div>
+             <div class="tab-content active" id="first-tab"> <h3><i class="fas fa-calendar-plus"></i> เลือกเลื่อนการชำระครั้งที่ 1</h3> <p>สามารถเลื่อนได้สูงสุด 5 วัน | มีค่าปรับ 50<span class="currency-unit"> บาท</span>/วัน</p> <div class="days-selector"> <div class="day-option"> <input type="radio" id="day1" name="extension-days" value="1" data-tab="first"><label for="day1"><span>1 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day2" name="extension-days" value="2" data-tab="first"><label for="day2"><span>2 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day3" name="extension-days" value="3" data-tab="first"><label for="day3"><span>3 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day4" name="extension-days" value="4" data-tab="first"><label for="day4"><span>4 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day5" name="extension-days" value="5" data-tab="first"><label for="day5"><span>5 วัน</span></label> </div> </div> </div>
+             <div class="tab-content" id="second-tab"> <h3><i class="fas fa-calendar-plus"></i> เลือกเลื่อนการชำระครั้งที่ 2</h3> <p>สามารถเลื่อนได้สูงสุด 7 วัน | มีค่าปรับ 50<span class="currency-unit"> บาท</span>/วัน</p> <div class="days-selector"> <div class="day-option"> <input type="radio" id="day6" name="extension-days" value="1" data-tab="second"><label for="day6"><span>1 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day7" name="extension-days" value="2" data-tab="second"><label for="day7"><span>2 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day8" name="extension-days" value="3" data-tab="second"><label for="day8"><span>3 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day9" name="extension-days" value="4" data-tab="second"><label for="day9"><span>4 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day10" name="extension-days" value="5" data-tab="second"><label for="day10"><span>5 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day11" name="extension-days" value="6" data-tab="second"><label for="day11"><span>6 วัน</span></label> </div> <div class="day-option"> <input type="radio" id="day12" name="extension-days" value="7" data-tab="second"><label for="day12"><span>7 วัน</span></label> </div> </div> </div>
+             <div class="tab-content" id="third-tab"> <h3><i class="fas fa-calendar-alt"></i> เลือกเลื่อนการชำระครั้งที่ 3 <i class="fas fa-lock"></i></h3> <p>ต้องได้รับการอนุมัติจากผู้ดูแล | ค่าปรับ 100<span class="currency-unit"> บาท</span>/วัน | เลือกวันครบกำหนดใหม่ (ต้องก่อนวันที่ <strong id="next-installment-due-date-info"></strong>)</p> <div class="date-input-container"> <label for="custom-date"><i class="fas fa-calendar-check"></i> เลือกวันที่ครบกำหนดชำระใหม่:</label> <input type="text" id="custom-date" name="custom-extension-date" placeholder="คลิกเพื่อเลือกวันที่..."> <div id="date-error"><i class="fas fa-exclamation-triangle"></i> <span></span></div> </div> </div>
+             <div class="summary-card" id="summary-card"> <h3><i class="fas fa-receipt"></i> สรุปข้อมูลและค่าธรรมเนียม</h3> <div class="summary-item"> <span><i class="fas fa-calendar-day"></i> วันครบกำหนดเดิม</span> <span id="old-due-date"></span> </div> <div class="summary-item"> <span><i class="fas fa-hourglass-half"></i> จำนวนวันที่เลื่อน</span> <span id="extension-days"></span> </div> <div class="summary-item"> <span><i class="fas fa-coins"></i> ค่าปรับการเลื่อนฯ (รอบนี้)</span> <span id="late-fee"></span> </div> <div class="summary-item" id="unlock-fee-summary-item" style="display: none;"> <span><i class="fas fa-key"></i> ค่าปลดล็อค</span> <span id="unlock-fee-summary"></span> </div> <div class="summary-item" id="outstanding-penalty-summary-item" style="display: none;"> <span><i class="fas fa-exclamation-triangle"></i> ค่าปรับคงค้างเดิม</span> <span id="outstanding-penalty-summary"></span> </div> <div class="summary-item"> <span><i class="fas fa-calendar-check"></i> กำหนดชำระใหม่ (ค่างวด)</span> <span id="new-due-date">-</span> </div> <div class="summary-item total"> <span><i class="fas fa-money-bill-wave"></i> ยอดรวมที่ต้องชำระ</span> <span id="extension-fee-total"></span> </div> </div>
+             <button class="btn btn-primary" id="submit-btn" disabled> <i class="fas fa-clipboard-check"></i> ตรวจสอบข้อมูล </button>
+         </div> <!-- End of extension-section -->
+
+         <!-- Final Contact Section (Initially Hidden) -->
+         <!-- *** Updated Section *** -->
+         <div class="final-contact-section" id="final-contact-section">
+             <!-- *** Updated Message Block *** -->
+             <p>
+                 <i class="fas fa-exclamation-circle"></i>
+                 ท่านได้ใช้สิทธิ์เลื่อนชำระ<strong>ครบ 3 ครั้ง</strong>แล้ว
+                 <br>
+                 หากท่านต้องการความช่วยเหลือเพิ่มเติม หรือปรึกษาเกี่ยวกับเงื่อนไขการชำระ โปรดติดต่อผู้ดูแลระบบผ่าน LINE
+             </p>
+             <button class="btn btn-final-contact" id="final-contact-admin-btn">
+                 <i class="lab la-line"></i> ติดต่อผู้ดูแลระบบ
+             </button>
+         </div>
+
+     </div> <!-- End of container -->
+
+     <!-- Confirmation Modal -->
+     <div class="confirmation" id="confirmation"> <div class="confirmation-content"> <div class="confirmation-icon"> <i class="fas fa-check"></i> </div> <h2>ยืนยันข้อมูลและดำเนินการชำระเงิน</h2> <p class="description">โปรดตรวจสอบรายละเอียดการเลื่อนชำระและยอดรวมทั้งหมด ก่อนดำเนินการต่อ</p> <div class="detail"> <p id="confirm-outstanding-penalty-line" style="display: none;"> <i class="fas fa-exclamation-triangle"></i> <span class="detail-label">ค่าปรับคงค้างเดิม:</span> <strong id="confirmed-outstanding-penalty"></strong> </p> <p id="confirm-unlock-fee-msg" style="display: none;"> <i class="fas fa-key"></i> <span class="detail-label">ค่าธรรมเนียมปลดล็อค:</span> <strong id="confirmed-unlock-fee"></strong> </p> <p> <i class="fas fa-coins"></i> <span class="detail-label">ค่าปรับการเลื่อนชำระ (รอบนี้):</span> <strong id="confirmed-fee"></strong> </p> <p id="confirm-total-fee-line"> <i class="fas fa-money-bill-wave"></i> <span class="detail-label">ยอดรวมที่ต้องชำระทั้งหมด:</span> <strong id="confirmed-total-extension-fee"></strong> </p> <p id="confirm-base-amount-line"> <i class="fas fa-file-invoice-dollar"></i> <span class="detail-label" id="confirmed-installment-label">ค่างวด</span> <strong id="confirmed-base-amount"></strong> </p> <p id="confirm-due-date-line"> <i class="fas fa-calendar-check"></i> <span class="detail-label">ครบกำหนดชำระใหม่ (ค่างวด):</span> <strong id="confirmed-due-date"></strong> </p> <p class="sub-note">(ค่างวดจะถูกเรียกเก็บในวันที่กำหนดใหม่นี้)</p> </div> <div class="button-container"> <button class="btn btn-primary" id="confirm-pay-btn"> <i class="fas fa-credit-card"></i> ชำระยอดรวมทั้งหมด </button> <button class="btn btn-cancel" onclick="document.getElementById('confirmation').classList.remove('active')"> <i class="fas fa-edit"></i> ยกเลิก / แก้ไขข้อมูล </button> </div> </div> </div>
+
+     <!-- Floating Notification -->
+     <div class="floating-notification" id="notification"> <div class="icon"><i class="fas fa-info-circle"></i></div> <div class="content"> ท่านสามารถเลื่อนชำระโดย<strong>ไม่มีค่าธรรมเนียมปลดล็อค</strong> ก่อนเวลา 18:00 น. หากเกินกำหนดเวลา จะมี<strong>ค่าธรรมเนียมเพิ่มเติม</strong> </div> <div class="close" id="close-notification"> <i class="fas fa-times"></i> </div> </div>
+
+     <!-- *** New LIFF Close Button *** -->
+     <button id="close-liff-button" class="btn-close-liff">
+         <i class="fas fa-times"></i> ปิดหน้าต่าง
+     </button>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Flatpickr Thai Locale -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM Loaded. Initializing script...");
+
+            // --- LIFF Initialization (EXAMPLE - Requires your LIFF ID) ---
+            // Make sure the LIFF SDK script tag is included in <head>
+            /* Uncomment and replace YOUR_LIFF_ID before running the LIFF logic below
+            liff.init({ liffId: "YOUR_LIFF_ID" })
+              .then(() => {
+                console.log("LIFF Initialization successful.");
+                // Now you can call LIFF APIs like liff.isInClient(), liff.getProfile(), etc.
+                initializeCloseButton(); // Initialize button after LIFF is ready
+              })
+              .catch((err) => {
+                console.error("LIFF Initialization failed", err);
+                initializeCloseButton(); // Still try to initialize button logic (will hide if not in client)
+              });
+            */
+           // For now, we call initialize directly, the check inside will handle non-LIFF env
+           initializeCloseButton();
+           // --- End LIFF Initialization ---
+
+
+            // Configuration
+            const BASE_INSTALLMENT_AMOUNT = 5000;
+            const LATE_FEE_RATE_1_2 = 50, LATE_FEE_RATE_3 = 100;
+            const MAX_EXTENSIONS = 3, DEADLINE_HOUR = 18;
+            const ADMIN_UNLOCKS_THIRD_TAB_DEFAULT = false;
+            const SCROLL_BOTTOM_THRESHOLD = 70;
+            const CONTACT_ADMIN_LINK = "https://line.me/ti/p/~YOUR_LINE_ID"; // <<<--- !!!!! CHANGE THIS TO YOUR ACTUAL LINE ID !!!!!
+
+            // State
+            let initialDueDate = new Date(); initialDueDate.setHours(0, 0, 0, 0);
+            let currentDueDate = new Date(initialDueDate);
+            let originalNextBillingDueDate = new Date(initialDueDate);
+            originalNextBillingDueDate.setMonth(originalNextBillingDueDate.getMonth() + 1);
+
+            let deferralsUsed = 0; // DEBUG: Set to 2 or 3 to test final state
+            let currentTab = 'first';
+            let deadlinePassed = false, unlockFee = 0, isUnlockedAfterDeadline = false;
+            let countdownInterval;
+            let isAdminTabUnlocked = ADMIN_UNLOCKS_THIRD_TAB_DEFAULT;
+            let outstandingPenaltyAmount = 150; // Example: Set to 0 if there's no penalty initially
+            let customDatePickerInstance = null;
+
+            // DOM Elements
+            const el = {
+                dueDate: document.getElementById('current-due-date'), baseAmount: document.getElementById('base-installment-amount'),
+                remainingExt: document.getElementById('remaining-extensions'), installment: document.getElementById('current-installment'),
+                outstandingPenaltyItem: document.getElementById('outstanding-penalty-item'),
+                outstandingPenalty: document.getElementById('outstanding-penalty'),
+                nextOriginalDueDateItem: document.getElementById('next-original-due-date-item'),
+                nextOriginalDueDateDisplay: document.getElementById('next-original-due-date-display'),
+                tabs: document.querySelectorAll('.tab'), tabContents: document.querySelectorAll('.tab-content'),
+                dayOptions: Array.from(document.querySelectorAll('input[name="extension-days"]')),
+                customDateInput: document.getElementById('custom-date'),
+                dateError: document.getElementById('date-error'), dateErrorSpan: document.getElementById('date-error').querySelector('span'),
+                summary: document.getElementById('summary-card'), oldDue: document.getElementById('old-due-date'),
+                newDue: document.getElementById('new-due-date'), extDays: document.getElementById('extension-days'),
+                lateFee: document.getElementById('late-fee'), extTotal: document.getElementById('extension-fee-total'),
+                outstandingPenaltySummaryItem: document.getElementById('outstanding-penalty-summary-item'),
+                outstandingPenaltySummary: document.getElementById('outstanding-penalty-summary'),
+                submitBtn: document.getElementById('submit-btn'), confirmPopup: document.getElementById('confirmation'),
+                confDue: document.getElementById('confirmed-due-date'), confFee: document.getElementById('confirmed-fee'),
+                confTotalExt: document.getElementById('confirmed-total-extension-fee'),
+                confInstallmentLabel: document.getElementById('confirmed-installment-label'),
+                confBase: document.getElementById('confirmed-base-amount'),
+                confOutstandingPenaltyLine: document.getElementById('confirm-outstanding-penalty-line'),
+                confOutstandingPenalty: document.getElementById('confirmed-outstanding-penalty'),
+                progress: document.getElementById('progress-bar'), notification: document.getElementById('notification'),
+                closeNotify: document.getElementById('close-notification'), countdown: document.getElementById('countdown-timer'),
+                unlockSection: document.getElementById('unlock-section'), unlockOptions: document.querySelectorAll('input[name="unlock-option"]'),
+                unlockBtn: document.getElementById('unlock-btn'), unlockSumItem: document.getElementById('unlock-fee-summary-item'),
+                unlockSum: document.getElementById('unlock-fee-summary'), confUnlockMsg: document.getElementById('confirm-unlock-fee-msg'),
+                confUnlockFee: document.getElementById('confirmed-unlock-fee'), nextDueInfo: document.getElementById('next-installment-due-date-info'),
+                thirdTab: document.querySelector('.tab[data-tab="third"]'), confirmPayBtn: document.getElementById('confirm-pay-btn'),
+                adminUnlockSection: document.getElementById('admin-unlock-section'),
+                adminUnlockCodeInput: document.getElementById('admin-unlock-code'),
+                adminUnlockSubmitBtn: document.getElementById('admin-unlock-submit'),
+                adminUnlockError: document.getElementById('admin-unlock-error'),
+                contactAdminBtn: document.getElementById('contact-admin-btn'),
+                extensionSection: document.querySelector('.extension-section'),
+                finalContactSection: document.getElementById('final-contact-section'),
+                finalContactAdminBtn: document.getElementById('final-contact-admin-btn'),
+                // Added for LIFF button
+                closeLiffButton: document.getElementById('close-liff-button') // Reference the new button
+            };
+
+            // Helpers
+            const formatDate = (date) => {
+                if (!date || !(date instanceof Date) || isNaN(date.getTime())) return '-';
+                const opts = { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Bangkok' };
+                try {
+                    return new Intl.DateTimeFormat('th-TH-u-ca-buddhist', opts).format(date);
+                } catch (e) {
+                     try {
+                         return date.toLocaleDateString('th-TH', opts);
+                     } catch (e2) {
+                         const fbOpts = { day: 'numeric', month: 'long', year: 'numeric' };
+                         return date.toLocaleDateString(undefined, fbOpts);
+                     }
+                }
+            };
+            const formatISODate = (date) => { if (!date || !(date instanceof Date) || isNaN(date.getTime())) return ''; return date.toISOString().split('T')[0]; };
+            // Adjusted formatCurrency to use the updated CSS class (though it's global now)
+            const formatCurrency = (amount) => { const f = amount.toLocaleString('th-TH', { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0 }); return f + '<span class="currency-unit"> บาท</span>'; };
+            const resetSelection = () => {
+                console.log("Resetting selection...");
+                el.dayOptions.forEach(o => o.checked = false);
+                if(customDatePickerInstance) {
+                    customDatePickerInstance.clear();
+                    const defaultDate = new Date(currentDueDate);
+                    defaultDate.setDate(defaultDate.getDate() + 1);
+                    customDatePickerInstance.set('defaultDate', defaultDate);
+                }
+                el.dateError.style.display = 'none';
+                el.summary.classList.remove('active');
+                el.submitBtn.disabled = true;
+                el.submitBtn.removeAttribute('data-days');
+                el.submitBtn.removeAttribute('data-new-date-ts');
+                el.submitBtn.removeAttribute('data-late-fee');
+                el.submitBtn.removeAttribute('data-extension-total');
+            };
+            const disableTabContent = (id) => {
+                const contentElement = document.getElementById(id + '-tab');
+                if (contentElement) {
+                    contentElement.querySelectorAll('input').forEach(input => {
+                        input.disabled = true;
+                        if(input.id === 'custom-date' && customDatePickerInstance) {
+                            customDatePickerInstance.set('clickOpens', false);
+                            el.customDateInput.readOnly = true;
+                            el.customDateInput.style.cursor = 'not-allowed';
+                        }
+                    });
+                    contentElement.style.opacity = '0.6';
+                    contentElement.style.pointerEvents = 'none';
+                }
+            };
+            const enableTabContent = (id) => {
+                const contentElement = document.getElementById(id + '-tab');
+                const tabElement = document.querySelector(`.tab[data-tab="${id}"]`);
+                if (contentElement && tabElement && !tabElement.classList.contains('locked')) {
+                    contentElement.querySelectorAll('input').forEach(input => {
+                        input.disabled = false;
+                        if(input.id === 'custom-date' && customDatePickerInstance) {
+                            customDatePickerInstance.set('clickOpens', true);
+                            el.customDateInput.readOnly = false;
+                            el.customDateInput.style.cursor = 'pointer';
+                        }
+                    });
+                    contentElement.style.opacity = '1';
+                    contentElement.style.pointerEvents = 'auto';
+                } else if (contentElement) {
+                    disableTabContent(id);
+                }
+            };
+            const disableAllOptions = () => {
+                el.tabs.forEach(t => t.classList.add('locked'));
+                el.tabContents.forEach(c => disableTabContent(c.id.replace('-tab','')));
+            };
+
+            // Function to handle showing/hiding UI based on max extensions
+            const updateUIForExtensionStatus = () => {
+                if (deferralsUsed >= MAX_EXTENSIONS) {
+                    console.log("Max extensions reached. Hiding extension UI and showing final contact button.");
+                    if(el.extensionSection) el.extensionSection.style.display = 'none';
+                    if(el.submitBtn) el.submitBtn.style.display = 'none';
+                    if(el.finalContactSection) el.finalContactSection.style.display = 'block'; // Use 'block' or 'flex' depending on layout
+
+                    if(el.countdown) {
+                        el.countdown.innerHTML = `<i class="fas fa-ban"></i> ใช้สิทธิ์เลื่อนครบ ${MAX_EXTENSIONS} ครั้งแล้ว`;
+                        el.countdown.className = 'countdown-timer expired';
+                        el.countdown.style.display = 'block';
+                    }
+                    clearInterval(countdownInterval);
+                } else {
+                    if(el.extensionSection) el.extensionSection.style.display = 'block';
+                    if(el.submitBtn) el.submitBtn.style.display = 'block';
+                    if(el.finalContactSection) el.finalContactSection.style.display = 'none';
+                    // Restart timer logic is handled elsewhere (after payment/initial load)
+                }
+            };
+
+            // Core Logic
+            const updateSummary = (days, newDate, currentLateFee, combinedTotalFee) => {
+                console.log(`Updating summary: Days=${days}, NewDate=${formatDate(newDate)}, LateFee=${currentLateFee}, Total=${combinedTotalFee}, TS=${newDate.getTime()}`);
+                el.oldDue.textContent = formatDate(currentDueDate);
+                el.extDays.textContent = `${days} วัน`;
+                el.lateFee.innerHTML = formatCurrency(currentLateFee);
+                el.newDue.textContent = formatDate(newDate);
+
+                const appliedUnlock = (deadlinePassed && isUnlockedAfterDeadline) ? unlockFee : 0;
+                el.unlockSum.innerHTML = formatCurrency(appliedUnlock);
+                el.unlockSumItem.style.display = appliedUnlock > 0 ? 'grid' : 'none';
+
+                if (outstandingPenaltyAmount > 0) {
+                    el.outstandingPenaltySummary.innerHTML = formatCurrency(outstandingPenaltyAmount);
+                    el.outstandingPenaltySummaryItem.style.display = 'grid';
+                } else {
+                    el.outstandingPenaltySummaryItem.style.display = 'none';
+                }
+
+                el.extTotal.innerHTML = formatCurrency(combinedTotalFee);
+                el.submitBtn.setAttribute('data-days', days);
+                el.submitBtn.setAttribute('data-new-date-ts', newDate.getTime());
+                el.submitBtn.setAttribute('data-late-fee', currentLateFee);
+                el.submitBtn.setAttribute('data-extension-total', combinedTotalFee);
+                el.summary.classList.add('active');
+                el.submitBtn.disabled = false;
+            };
+
+            const calculateExtension = () => {
+                console.log(`Calculating extension for tab: ${currentTab}`);
+                let days = 0, feeRate = LATE_FEE_RATE_1_2, newDueDate = null, isValid = false;
+                const nextExtNum = deferralsUsed + 1;
+                feeRate = (nextExtNum >= 3) ? LATE_FEE_RATE_3 : LATE_FEE_RATE_1_2;
+
+                if (currentTab === 'first' || currentTab === 'second') {
+                    const selectedOption = el.dayOptions.find(o => o.checked && o.dataset.tab === currentTab);
+                    if (selectedOption) {
+                        days = parseInt(selectedOption.value);
+                        if (!isNaN(days) && days > 0) {
+                             newDueDate = new Date(currentDueDate);
+                             newDueDate.setDate(newDueDate.getDate() + days);
+                             isValid = true;
+                        }
+                    }
+                }
+                else if (currentTab === 'third' && customDatePickerInstance && customDatePickerInstance.selectedDates.length > 0) {
+                    const selectedDateObject = customDatePickerInstance.selectedDates[0];
+                    if (!(selectedDateObject instanceof Date) || isNaN(selectedDateObject.getTime())) {
+                         isValid = false;
+                    } else {
+                        const selectedDate = new Date(selectedDateObject.getFullYear(), selectedDateObject.getMonth(), selectedDateObject.getDate());
+                        const comparableDueDate = new Date(currentDueDate.getFullYear(), currentDueDate.getMonth(), currentDueDate.getDate());
+                        const comparableNextOriginal = new Date(originalNextBillingDueDate.getFullYear(), originalNextBillingDueDate.getMonth(), originalNextBillingDueDate.getDate());
+
+                        if (selectedDate.getTime() <= comparableDueDate.getTime()) {
+                            el.dateErrorSpan.textContent = 'วันที่เลือกต้องอยู่หลังวันครบกำหนดปัจจุบัน';
+                            el.dateError.style.display = 'block'; isValid = false;
+                        } else if (selectedDate.getTime() >= comparableNextOriginal.getTime()) {
+                            el.dateErrorSpan.textContent = `วันที่เลือกต้องก่อนวันครบกำหนดรอบบิลถัดไป (${formatDate(originalNextBillingDueDate)})`;
+                            el.dateError.style.display = 'block'; isValid = false;
+                        } else {
+                            el.dateError.style.display = 'none';
+                            days = Math.round((selectedDate.getTime() - comparableDueDate.getTime()) / (1000 * 60 * 60 * 24));
+                            newDueDate = selectedDateObject;
+                            isValid = true;
+                        }
+                    }
+                }
+
+                if (isValid && days > 0 && newDueDate instanceof Date && !isNaN(newDueDate.getTime())) {
+                    const currentLateFee = days * feeRate;
+                    const currentUnlock = (deadlinePassed && isUnlockedAfterDeadline) ? unlockFee : 0;
+                    const combinedTotalFee = currentLateFee + currentUnlock + outstandingPenaltyAmount;
+                    updateSummary(days, newDueDate, currentLateFee, combinedTotalFee);
+                } else {
+                    el.summary.classList.remove('active');
+                    el.submitBtn.disabled = true;
+                    if (currentTab !== 'third' || !el.dateError.style.display || el.dateError.style.display === 'none') {
+                       el.dateError.style.display = 'none';
+                    }
+                }
+            };
+
+            const updateProgressBar = () => {
+                const progressPercent = Math.min(100, (deferralsUsed / MAX_EXTENSIONS) * 100);
+                el.progress.style.width = `${progressPercent}%`;
+            };
+            const getAdminUnlockCode = () => {
+                const today = new Date();
+                const day = String(today.getDate()).padStart(2, '0');
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                return `ADM${day}${month}`;
+            };
+
+            const updateRemainingUI = () => {
+                 if (deferralsUsed >= MAX_EXTENSIONS) {
+                     console.log("Skipping updateRemainingUI as max extensions reached.");
+                     return;
+                 }
+                 const remainingExtensions = MAX_EXTENSIONS - deferralsUsed;
+                 el.remainingExt.textContent = `${remainingExtensions > 0 ? remainingExtensions : 0} ครั้ง`;
+                 let firstAvailableTabId = null;
+                 let showAdminUnlockPrompt = false;
+
+                 el.tabs.forEach((tabElement, index) => {
+                     const tabId = tabElement.dataset.tab;
+                     let isLocked = index !== deferralsUsed;
+                     if (tabId === 'third' && !isAdminTabUnlocked) {
+                         isLocked = true;
+                         if (deferralsUsed === 2 && !deadlinePassed) {
+                             showAdminUnlockPrompt = true;
+                         }
+                     }
+                     if (index >= deferralsUsed && deadlinePassed && !isUnlockedAfterDeadline) {
+                         isLocked = true;
+                     }
+                     const lockIcon = tabElement.querySelector('.fa-lock');
+                     if (isLocked) {
+                         tabElement.classList.add('locked');
+                         disableTabContent(tabId);
+                         if(lockIcon) lockIcon.style.display = 'inline-block';
+                     } else {
+                         tabElement.classList.remove('locked');
+                         if (!firstAvailableTabId) firstAvailableTabId = tabId;
+                         enableTabContent(tabId);
+                         if(lockIcon) lockIcon.style.display = 'none';
+                     }
+                 });
+
+                 el.adminUnlockSection.style.display = showAdminUnlockPrompt ? 'block' : 'none';
+                 const activeTab = document.querySelector('.tab.active');
+                 if (firstAvailableTabId && (!activeTab || activeTab.classList.contains('locked'))) {
+                     const nextAvailableTabElement = document.querySelector(`.tab[data-tab="${firstAvailableTabId}"]`);
+                     if (nextAvailableTabElement) nextAvailableTabElement.click();
+                 } else if (activeTab && activeTab.classList.contains('locked')) {
+                      disableAllOptions();
+                 } else if (activeTab) {
+                     if (!deadlinePassed || isUnlockedAfterDeadline) {
+                         enableTabContent(activeTab.dataset.tab);
+                     } else {
+                         disableTabContent(activeTab.dataset.tab);
+                     }
+                 }
+
+                 updateProgressBar();
+
+                 if (remainingExtensions <= 0 && !(deferralsUsed === MAX_EXTENSIONS && isAdminTabUnlocked && currentTab === 'third') ) {
+                     el.submitBtn.disabled = true; el.submitBtn.textContent = 'สิทธิ์เลื่อนชำระหมดแล้ว';
+                 } else if (deadlinePassed && !isUnlockedAfterDeadline) {
+                     el.submitBtn.disabled = true; el.submitBtn.textContent = 'กรุณาปลดล็อคก่อน';
+                 } else if (showAdminUnlockPrompt) {
+                     el.submitBtn.disabled = true; el.submitBtn.textContent = 'กรุณาปลดล็อค Tab 3';
+                 } else if (!el.summary.classList.contains('active')) {
+                     el.submitBtn.disabled = true; el.submitBtn.textContent = 'ตรวจสอบข้อมูล';
+                 } else {
+                     el.submitBtn.disabled = false; el.submitBtn.textContent = 'ตรวจสอบข้อมูล';
+                 }
+            };
+
+            const checkDeadline = () => {
+                if (deferralsUsed >= MAX_EXTENSIONS) return;
+                 const now = new Date();
+                 const deadlineDate = new Date(currentDueDate);
+                 deadlineDate.setHours(DEADLINE_HOUR, 0, 0, 0);
+                 const timeDifference = deadlineDate.getTime() - now.getTime();
+
+                 if (timeDifference <= 0 && !deadlinePassed) {
+                     console.log("Deadline passed.");
+                     clearInterval(countdownInterval);
+                     el.countdown.innerHTML = `<i class="fas fa-times-circle"></i> เกินกำหนดเวลาเลื่อนชำระ (${DEADLINE_HOUR}:00 น.)`;
+                     el.countdown.className = 'countdown-timer expired';
+                     deadlinePassed = true;
+                     if (deferralsUsed < MAX_EXTENSIONS && !isUnlockedAfterDeadline) {
+                         el.unlockSection.style.display = 'block';
+                     } else {
+                         el.unlockSection.style.display = 'none';
+                     }
+                     updateRemainingUI();
+                 }
+                 else if (timeDifference > 0) {
+                     if (deadlinePassed) {
+                        deadlinePassed = false;
+                        el.unlockSection.style.display = 'none';
+                        updateRemainingUI();
+                     }
+                     const hours = Math.floor(timeDifference / 36e5);
+                     const minutes = Math.floor((timeDifference % 36e5) / 6e4);
+                     const seconds = Math.floor((timeDifference % 6e4) / 1e3);
+                     el.countdown.innerHTML = `<i class="fas fa-hourglass-half"></i> เหลือเวลาเลื่อนชำระ: <span class="time-digits">${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}</span> (ก่อน ${DEADLINE_HOUR}:00 น.)`;
+                     el.countdown.className = timeDifference < 3600000 ? 'countdown-timer warning' : 'countdown-timer';
+                 }
+            };
+
+            const checkScrollAndToggleNotification = () => {
+                if (!el.notification || (!el.submitBtn && !el.finalContactAdminBtn)) return; // Check both buttons
+                const scrollPosition = window.scrollY + window.innerHeight;
+                const buttonToCheck = (el.finalContactSection && el.finalContactSection.style.display !== 'none') ? el.finalContactAdminBtn : el.submitBtn;
+                if (!buttonToCheck || buttonToCheck.style.display === 'none') return; // Skip if relevant button isn't visible
+
+                const buttonTopPosition = buttonToCheck.offsetTop - SCROLL_BOTTOM_THRESHOLD;
+
+                if (scrollPosition >= buttonTopPosition) {
+                    el.notification.classList.add('hidden-at-bottom');
+                } else {
+                    if (el.notification.classList.contains('active')) {
+                       el.notification.classList.remove('hidden-at-bottom');
+                    }
+                }
+            };
+
+            const updateOutstandingPenaltyDisplay = () => {
+                if (outstandingPenaltyAmount > 0) {
+                    el.outstandingPenalty.innerHTML = formatCurrency(outstandingPenaltyAmount);
+                    el.outstandingPenaltyItem.classList.add('visible');
+                } else {
+                    el.outstandingPenalty.innerHTML = formatCurrency(0);
+                    el.outstandingPenaltyItem.classList.remove('visible');
+                }
+            };
+
+            const setDatePickerLimits = () => {
+                 const minDate = new Date(currentDueDate);
+                 minDate.setDate(minDate.getDate() + 1);
+                 const maxDate = new Date(originalNextBillingDueDate);
+                 maxDate.setDate(maxDate.getDate() - 1);
+                 if (customDatePickerInstance) {
+                     customDatePickerInstance.set('minDate', minDate);
+                     customDatePickerInstance.set('maxDate', maxDate);
+                 }
+            };
+
+            // --- Event Listeners ---
+            el.tabs.forEach(t => t.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                if (this.classList.contains('locked') && !isAdminTabUnlocked && tabId === 'third') {
+                    if (deferralsUsed === 2) {
+                        el.adminUnlockSection.style.display = 'block';
+                    }
+                    return;
+                }
+                if (this.classList.contains('locked')) return;
+
+                el.tabs.forEach(tab => tab.classList.remove('active'));
+                this.classList.add('active');
+                el.tabContents.forEach(c => c.classList.remove('active'));
+                document.getElementById(tabId + '-tab').classList.add('active');
+                currentTab = tabId;
+                resetSelection();
+                enableTabContent(currentTab);
+            }));
+
+            el.dayOptions.forEach(o => o.addEventListener('change', function() {
+                if (this.checked && this.dataset.tab === currentTab && !this.disabled) {
+                    calculateExtension();
+                }
+            }));
+
+            el.unlockOptions.forEach(o => o.addEventListener('change', () => {
+                el.unlockBtn.disabled = !document.querySelector('input[name="unlock-option"]:checked');
+            }));
+
+            el.unlockBtn.addEventListener('click', () => {
+                const selectedUnlockOption = document.querySelector('input[name="unlock-option"]:checked');
+                if (selectedUnlockOption) {
+                    unlockFee = parseInt(selectedUnlockOption.value);
+                    isUnlockedAfterDeadline = true;
+                    el.unlockSection.style.display = 'none';
+                    el.countdown.innerHTML = `<i class="fas fa-lock-open"></i> ปลดล็อคแล้ว! (ค่าธรรมเนียม ${formatCurrency(unlockFee)} จะถูกรวมเมื่อยืนยัน)`;
+                    el.countdown.className = 'countdown-timer warning';
+                    updateRemainingUI();
+                    resetSelection();
+                }
+            });
+
+            el.submitBtn.addEventListener('click', function() {
+                if (this.disabled) return;
+                const days = parseInt(this.dataset.days);
+                const timestamp = parseInt(this.dataset.newDateTs);
+                const currentLateFee = parseInt(this.dataset.lateFee);
+                const combinedTotal = parseInt(this.dataset.extensionTotal);
+                let newDate = null;
+                if (!isNaN(timestamp)) newDate = new Date(timestamp);
+
+                if (!newDate || isNaN(newDate.getTime()) || isNaN(days) || isNaN(currentLateFee) || isNaN(combinedTotal)) {
+                    Swal.fire({ icon: 'error', title: 'ข้อมูลไม่ถูกต้อง', text: 'ข้อมูลสรุปไม่สมบูรณ์หรือไม่ถูกต้อง กรุณาลองเลือกตัวเลือกใหม่อีกครั้ง' });
+                    resetSelection();
+                    return;
+                }
+
+                const appliedUnlock = (deadlinePassed && isUnlockedAfterDeadline) ? unlockFee : 0;
+                const installmentText = el.installment.textContent || '';
+
+                if (outstandingPenaltyAmount > 0) {
+                    el.confOutstandingPenalty.innerHTML = formatCurrency(outstandingPenaltyAmount);
+                    el.confOutstandingPenaltyLine.style.display = 'grid';
+                } else {
+                    el.confOutstandingPenaltyLine.style.display = 'none';
+                }
+                el.confUnlockFee.innerHTML = formatCurrency(appliedUnlock);
+                el.confUnlockMsg.style.display = appliedUnlock > 0 ? 'grid' : 'none';
+                el.confFee.innerHTML = formatCurrency(currentLateFee);
+                el.confTotalExt.innerHTML = formatCurrency(combinedTotal);
+                el.confInstallmentLabel.textContent = `ค่างวด (${installmentText})`;
+                el.confBase.innerHTML = formatCurrency(BASE_INSTALLMENT_AMOUNT);
+                el.confDue.textContent = formatDate(newDate);
+                el.confirmPopup.classList.add('active');
+            });
+
+            el.closeNotify.addEventListener('click', () => {
+                el.notification.classList.remove('active');
+                el.notification.classList.remove('hidden-at-bottom');
+            });
+
+            if (el.adminUnlockSubmitBtn) {
+                el.adminUnlockSubmitBtn.addEventListener('click', () => {
+                    const enteredCode = el.adminUnlockCodeInput.value;
+                    const correctCode = getAdminUnlockCode();
+                    el.adminUnlockError.style.display = 'none';
+                    if (enteredCode === correctCode) {
+                        isAdminTabUnlocked = true;
+                        el.adminUnlockSection.style.display = 'none';
+                        updateRemainingUI();
+                        el.thirdTab.click();
+                        Swal.fire({ icon: 'success', title: 'ปลดล็อคสำเร็จ!', text: 'ท่านสามารถเลือกเลื่อนการชำระครั้งที่ 3 ได้แล้ว', timer: 2500, showConfirmButton: false });
+                    } else {
+                        el.adminUnlockError.style.display = 'block';
+                        el.adminUnlockCodeInput.focus();
+                        el.adminUnlockCodeInput.select();
+                    }
+                });
+            }
+
+            if (el.contactAdminBtn) {
+                el.contactAdminBtn.addEventListener('click', () => {
+                    Swal.fire({ icon: 'info', title: 'กำลังนำทาง...', text: 'ระบบจะนำท่านไปยัง LINE เพื่อติดต่อผู้ดูแลระบบ', showConfirmButton: true, confirmButtonText: 'ตกลง' })
+                    .then((result) => { if (result.isConfirmed) window.open(CONTACT_ADMIN_LINK, '_blank'); });
+                });
+            }
+
+            if (el.confirmPayBtn) {
+                el.confirmPayBtn.addEventListener('click', () => {
+                    const paymentAmountText = el.confTotalExt.textContent;
+                    const paymentAmount = parseInt(paymentAmountText.replace(/[^0-9.-]/g,'')) || 0;
+                    const timestamp = parseInt(el.submitBtn.dataset.newDateTs);
+                    let finalNewDate = null;
+                    if (!isNaN(timestamp)) finalNewDate = new Date(timestamp);
+
+                    if (!finalNewDate || isNaN(finalNewDate.getTime()) || isNaN(paymentAmount)) {
+                          Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'เกิดข้อผิดพลาดในการยืนยันข้อมูล กรุณาลองใหม่อีกครั้ง' });
+                          el.confirmPopup.classList.remove('active');
+                          return;
+                    }
+
+                    Swal.fire({ icon: 'success', title: 'ดำเนินการสำเร็จ!', html: `ชำระยอดรวม <strong>${formatCurrency(paymentAmount)}</strong> เรียบร้อยแล้ว`, timer: 3000, showConfirmButton: false });
+
+                    currentDueDate = finalNewDate;
+                    deferralsUsed++;
+                    outstandingPenaltyAmount = 0;
+                    isUnlockedAfterDeadline = false;
+                    unlockFee = 0;
+                    isAdminTabUnlocked = false;
+
+                    el.dueDate.textContent = formatDate(currentDueDate);
+                    updateOutstandingPenaltyDisplay();
+                    resetSelection();
+                    clearInterval(countdownInterval);
+                    el.confirmPopup.classList.remove('active');
+                    setDatePickerLimits();
+
+                    if (customDatePickerInstance) {
+                        const newDefaultDate = new Date(currentDueDate);
+                        newDefaultDate.setDate(currentDueDate.getDate() + 1);
+                        customDatePickerInstance.set('defaultDate', newDefaultDate);
+                    }
+                    deadlinePassed = false;
+                    updateUIForExtensionStatus(); // Check if max extensions reached NOW
+                    updateRemainingUI(); // Update tabs/progress AFTER status check
+
+                    if (deferralsUsed < MAX_EXTENSIONS) {
+                        checkDeadline();
+                        countdownInterval = setInterval(checkDeadline, 1000);
+                    }
+                });
+            }
+
+            if (el.finalContactAdminBtn) {
+                el.finalContactAdminBtn.addEventListener('click', () => {
+                     Swal.fire({ title: 'ติดต่อผู้ดูแลระบบ?', text: "ระบบจะนำท่านไปยัง LINE เพื่อติดต่อ", icon: 'question', showCancelButton: true, confirmButtonText: 'ตกลง, เปิด LINE', cancelButtonText: 'ยกเลิก', reverseButtons: true })
+                     .then((result) => { if (result.isConfirmed) window.open(CONTACT_ADMIN_LINK, '_blank'); });
+                });
+            }
+
+            window.addEventListener('scroll', checkScrollAndToggleNotification);
+
+            // --- Initial Setup ---
+            el.baseAmount.innerHTML = formatCurrency(BASE_INSTALLMENT_AMOUNT);
+            el.dueDate.textContent = formatDate(currentDueDate);
+            el.nextOriginalDueDateDisplay.textContent = formatDate(originalNextBillingDueDate);
+            el.nextDueInfo.textContent = formatDate(originalNextBillingDueDate);
+            updateOutstandingPenaltyDisplay();
+
+            try {
+                 const initialMinDate = new Date(currentDueDate); initialMinDate.setDate(currentDueDate.getDate() + 1);
+                 const initialMaxDate = new Date(originalNextBillingDueDate); initialMaxDate.setDate(originalNextBillingDueDate.getDate() - 1);
+                 const initialDefaultDate = new Date(currentDueDate); initialDefaultDate.setDate(currentDueDate.getDate() + 1);
+
+                customDatePickerInstance = flatpickr(el.customDateInput, {
+                    locale: "th", dateFormat: "Y-m-d", altInput: true, altFormat: "j F Y",
+                    minDate: initialMinDate, maxDate: initialMaxDate, defaultDate: initialDefaultDate,
+                    disableMobile: true, clickOpens: true,
+                    onChange: function(selectedDates, dateStr, instance) {
+                        if (currentTab === 'third' && !el.customDateInput.disabled) calculateExtension();
+                    },
+                    onReady: function(selectedDates, dateStr, instance) { enableTabContent(currentTab); },
+                });
+            } catch (error) {
+                 console.error("Error initializing flatpickr:", error);
+                 Swal.fire({ icon: 'error', title: 'ข้อผิดพลาด', text: 'เกิดข้อผิดพลาดในการโหลดปฏิทิน กรุณาลองรีเฟรชหน้า' });
+            }
+
+            updateRemainingUI(); // Set initial tab locks/progress
+            updateUIForExtensionStatus(); // Check initial state (maybe already maxed out)
+
+            checkDeadline(); // Initial check
+            if (!deadlinePassed && deferralsUsed < MAX_EXTENSIONS) {
+                countdownInterval = setInterval(checkDeadline, 1000);
+            }
+            checkScrollAndToggleNotification();
+            setTimeout(() => {
+                if (el.notification && el.notification.style.display !== 'none') { // Check if not hidden by final state
+                    el.notification.classList.add('active');
+                    checkScrollAndToggleNotification();
+                }
+            }, 1500);
+
+            console.log("Initial Setup Complete.");
+
+        }); // End of DOMContentLoaded
+
+
+        // --- LIFF Close Button Logic (Function) ---
+        // This function initializes the close button visibility and action
+        function initializeCloseButton() {
+            const closeLiffButton = document.getElementById('close-liff-button');
+            if (!closeLiffButton) return; // Exit if button not found
+
+            // Check if the LIFF object exists and is initialized (liff.ready promise is better)
+            if (typeof liff !== 'undefined' && typeof liff.ready !== 'undefined') {
+                 liff.ready
+                    .then(() => {
+                        if (liff.isInClient()) {
+                            console.log("Running in LIFF client, showing close button.");
+                            closeLiffButton.style.display = 'inline-flex'; // Show the button
+                            closeLiffButton.addEventListener('click', () => {
+                                console.log("Close LIFF button clicked.");
+                                liff.closeWindow(); // Call LIFF API to close
+                            });
+                        } else {
+                            console.log("Not running in LIFF client, close button remains hidden.");
+                            closeLiffButton.style.display = 'none'; // Ensure it's hidden
+                        }
+                    })
+                    .catch((err) => {
+                         console.error("Error checking LIFF state:", err);
+                         closeLiffButton.style.display = 'none'; // Hide on error
+                    });
+            } else {
+                console.log("LIFF SDK not detected or not ready, close button remains hidden.");
+                closeLiffButton.style.display = 'none'; // Ensure it's hidden if LIFF not available
+            }
+        }
+        // --- End LIFF Close Button Logic ---
+
+    </script>
+
+</body>
+</html>
