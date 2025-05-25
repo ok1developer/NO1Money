@@ -1,0 +1,1272 @@
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ระบบชำระเงิน | NO1Money+</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- <<< 1. ADD LIFF SDK >>> -->
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        /* --- Font Definition & CSS Variables --- */
+        @font-face { font-family: 'LINESeedSansTH'; src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Rg.woff?v=1729614138182') format('woff'); font-weight: normal; font-display: swap; }
+        @font-face { font-family: 'LINESeedSansTH'; src: url('https://cdn.glitch.global/47bd20a5-ea68-4eee-b852-538d3eb2c0a4/LINESeedSansTH_W_Bd.woff?v=1731156180172') format('woff'); font-weight: bold; font-display: swap; }
+
+        :root {
+            --primary-color: #4a6bdf; --primary-color-dark: #3a56c4; --primary-color-light: #eef2ff;
+            --secondary-color: #f8f9fa; --accent-color: #ff6b6b; --dark-color: #343a40;
+            --light-color: #ffffff; --success-color: #28a745; --warning-color: #ffc107;
+            --warning-bg-light: #fff9e6; --warning-border: #ffeeba; --warning-text: #856404;
+            --danger-color: #dc3545; --danger-bg-light: #f8d7da; --danger-border: #f5c6cb;
+            --danger-text: #721c24; --info-color: #17a2b8; --info-bg-light: #e2f6f8;
+            --info-border: #bee5eb; --info-text: #0c5460; --border-radius: 12px;
+            --box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08); --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-color: #e0e0e0;
+            --footer-text-color: #6c757d;
+             /* PromptPay Specific Colors */
+             --promptpay-header-bg: #0B3C6F;
+             --promptpay-amount-color: #E76F51; /* Keep this for promptpay strong text */
+             --promptpay-button-bg: #FFF0E6;
+             --promptpay-button-text: #E76F51;
+             --promptpay-button-border: #FADBC7;
+            /* Bank Transfer Upload Variables */
+            --text-dark-bt: #333333;
+            --text-secondary-bt: #555555;
+            --background-grey-bt: #f8f9fa;
+            /* Bank Transfer NEW Upload Styles */
+            --upload-border-color: #d0d7e0;
+            --upload-border-hover: var(--primary-color);
+            --upload-background-hover: rgba(74, 107, 223, 0.05);
+            /* Verification Status Colors */
+            --verification-bg: #e9ecef;
+            --verification-text: #495057;
+            --verification-border: #ced4da;
+        }
+
+        /* --- Global & Body --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'LINESeedSansTH', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: linear-gradient(180deg, #f8faff 0%, #f0f2f7 100%); color: var(--dark-color); line-height: 1.6; font-size: 16px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 15px; touch-action: manipulation; }
+
+        /* --- Main Container --- */
+        .payment-workflow { background-color: var(--light-color); border-radius: var(--border-radius); box-shadow: var(--box-shadow); overflow: hidden; width: 100%; max-width: 800px; display: flex; flex-direction: column; }
+        .payment-content { flex-grow: 1; }
+
+        /* --- Header --- */
+        header { background: linear-gradient(135deg, var(--primary-color), #6c5ce7); padding: 15px 35px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; }
+        .header-logo { height: 40px; width: auto; max-width: 150px; object-fit: contain; }
+         .menu-button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px; }
+
+        /* --- Form Steps & Animations --- */
+        .form-step { display: none; padding: 35px 45px; animation: fadeIn 0.5s ease forwards; }
+        .form-step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .form-step.exiting { animation: fadeOut 0.3s ease forwards; }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+
+        /* --- Headings --- */
+        .form-step h2 { text-align: center; margin-bottom: 30px; font-size: 1.7rem; color: var(--primary-color); font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .form-step.active h2 i { animation: iconBounce 0.6s ease-out; }
+        @keyframes iconBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        /* --- Step 1: Summary --- */
+        .summary-details { background-color: var(--secondary-color); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 25px; margin-bottom: 30px; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #ddd; font-size: 1rem; }
+        .summary-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .summary-label { color: #555; }
+        .summary-value { font-weight: bold; color: var(--dark-color); }
+
+        /* --- Step 1: Total Amount (NEW STYLE) --- */
+        .total-amount-summary {
+             background-color: var(--primary-color); /* Blue background */
+             color: var(--light-color); /* White text */
+             border-radius: 8px; /* Rounded corners */
+             padding: 18px 25px; /* Padding */
+             margin-top: 25px;
+             margin-bottom: 0; /* Adjusted margin */
+             text-align: center; /* Center text */
+             border: none;
+             box-shadow: 0 4px 10px rgba(74, 107, 223, 0.3); /* Optional subtle shadow */
+        }
+        .total-amount-summary div:first-child { /* "ยอดที่ต้องชำระ" */
+            font-size: 1rem; /* Adjust size as needed */
+            margin-bottom: 5px; /* Space between label and amount */
+            opacity: 0.9; /* Slightly less prominent */
+        }
+        .total-amount-summary #totalAmountValueStep1 { /* The amount */
+            font-weight: bold;
+            font-size: 2rem; /* Larger font size for amount */
+            line-height: 1.2;
+        }
+
+        /* --- Step 2: Payment Methods --- */
+        /* Generic amount display - will be overridden by specific tab styles */
+        .payment-amount-display { text-align: center; margin-bottom: 20px; padding: 12px 15px; background-color: var(--secondary-color); border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1.1rem; color: var(--dark-color); }
+        .payment-amount-display .amount-label { margin-right: 5px; }
+        .payment-amount-display strong { font-weight: bold; color: var(--primary-color); font-size: 1.4rem; margin-left: 3px; }
+
+        /* *** NEW STYLES for Bank Transfer and Other Methods Amount Display *** */
+        #bank-transfer .payment-amount-display,
+        #other .payment-amount-display {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: 8px;
+            padding: 18px 25px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: none;
+            box-shadow: 0 4px 10px rgba(74, 107, 223, 0.3);
+        }
+        #bank-transfer .payment-amount-display .amount-label,
+        #other .payment-amount-display .amount-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            color: var(--light-color); /* Ensure label is white */
+        }
+        #bank-transfer .payment-amount-display strong,
+        #other .payment-amount-display strong {
+            font-size: 2rem; /* Match Step 1 */
+            font-weight: bold;
+            color: var(--light-color); /* Ensure amount is white */
+            line-height: 1.2;
+        }
+        /* --- END NEW STYLES --- */
+
+        .alert { padding: 15px 20px; margin-bottom: 25px; border: 1px solid transparent; border-radius: var(--border-radius); display: flex; align-items: center; gap: 12px; font-size: 0.9rem; } .alert i { font-size: 1.3rem; line-height: 1; flex-shrink: 0; } .alert-warning { color: var(--warning-text); background-color: var(--warning-bg-light); border-color: var(--warning-border); } .alert-warning i { color: var(--warning-color); }
+
+        /* --- Modern Payment Tabs & Content --- */
+        .payment-tabs-container { margin-bottom: 0; overflow: hidden; }
+        .payment-tabs { display: flex; gap: 8px; padding-bottom: 10px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border-color) transparent; } .payment-tabs::-webkit-scrollbar { height: 6px; } .payment-tabs::-webkit-scrollbar-track { background: transparent; } .payment-tabs::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+        .tab-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; background-color: var(--secondary-color); border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; color: #555; font-size: 0.95rem; transition: var(--transition); flex-shrink: 0; position: relative; z-index: 1; } .tab-btn:hover { color: var(--primary-color); background-color: #f1f3f5; } .tab-btn.active { color: var(--primary-color); background-color: var(--light-color); border-color: var(--border-color); border-bottom: 1px solid var(--light-color); margin-bottom: -1px; box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.03); z-index: 2; } .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background-color: var(--primary-color); border-radius: 3px 3px 0 0; }
+        .tab-content-container { border: 1px solid var(--border-color); border-radius: 0 0 var(--border-radius) var(--border-radius); margin-top: -1px; position: relative; z-index: 1; background-color: var(--light-color); }
+        .tab-content { display: none; padding: 30px; animation: contentFadeIn 0.4s ease; } @keyframes contentFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .tab-content.active { display: block; }
+        #step-2 h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--primary-color-dark); display: flex; align-items: center; gap: 8px; } #step-2 p { color: #666; font-size: 0.95rem; margin-bottom: 25px; }
+
+        /* --- Bank Transfer Specific Styles --- */
+        .bank-account-display { background-color: var(--light-color); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 20px 25px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); transition: padding 0.3s ease; }
+        .bank-header { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); transition: gap 0.3s ease; }
+        .bank-header .bank-logo { width: 45px; height: 45px; object-fit: contain; border-radius: 50%; padding: 5px; background: #fff; border: 1px solid var(--border-color); flex-shrink: 0; transition: width 0.3s ease, height 0.3s ease; }
+        .bank-header h3 { font-size: 1.25rem; color: var(--dark-color); margin: 0; transition: font-size 0.3s ease; }
+        .account-holder-name { font-size: 0.95rem; color: #555; margin-top: 8px; margin-bottom: 18px; padding-left: 60px; text-align: left; transition: font-size 0.3s ease, margin-bottom 0.3s ease, padding-left 0.3s ease; }
+        .account-main { text-align: center; }
+        .account-number-line { display: flex; justify-content: center; align-items: center; background-color: var(--secondary-color); padding: 15px 20px; border-radius: 8px; margin-bottom: 0; border: 1px solid var(--border-color); transition: padding 0.3s ease, flex-direction 0.3s ease, gap 0.3s ease; }
+        .account-number-text { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); letter-spacing: 2px; font-family: monospace, 'LINESeedSansTH', sans-serif; margin-right: 15px; line-height: 1.2; transition: font-size 0.3s ease, margin-right 0.3s ease; }
+        .account-number-line .copy-btn { background: var(--primary-color); color: white; border: none; border-radius: 6px; padding: 8px 15px; cursor: pointer; font-size: 0.85rem; transition: var(--transition); white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; margin-left: 0; min-width: 105px; justify-content: center; transition: padding 0.3s ease, font-size 0.3s ease, min-width 0.3s ease, transform 0.1s ease; }
+        .account-number-line .copy-btn i { font-size: 0.9em; }
+        .account-number-line .copy-btn:hover:not(.copied) { background: var(--primary-color-dark); transform: scale(1.05); }
+        .account-number-line .copy-btn.copied { background: var(--success-color); transform: scale(1); color: white; }
+        .account-number-line .copy-btn.copied span { margin-left: 3px; }
+
+        /* +++ Styles for REDESIGNED Bank Transfer Upload Section +++ */
+        #bank-transfer .upload-section { margin-top: 30px; padding-top: 25px; border-top: 1px solid var(--border-color); }
+        #bank-transfer .instruction-text { display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; font-size: 1rem; color: var(--text-secondary-bt); margin-bottom: 25px; line-height: 1.5; transition: font-size 0.3s ease, margin-bottom 0.3s ease; }
+        #bank-transfer .instruction-text i { font-size: 1.1rem; color: var(--primary-color); }
+
+        /* REDESIGNED Upload Area */
+        #bank-transfer .upload-area { border: 2px dashed var(--upload-border-color); border-radius: var(--border-radius); padding: 40px 25px; text-align: center; cursor: pointer; transition: var(--transition); margin-bottom: 20px; background-color: var(--background-grey-bt); position: relative; overflow: hidden; transition: padding 0.3s ease, margin-bottom 0.3s ease; }
+        #bank-transfer .upload-area:hover,
+        #bank-transfer .upload-area.dragover { border-color: var(--upload-border-hover); background: var(--upload-background-hover); border-style: solid; }
+        #bank-transfer .upload-area.dragover { box-shadow: inset 0 0 15px rgba(74, 107, 223, 0.1); }
+        #bank-transfer .upload-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 15px; transition: transform 0.3s ease, font-size 0.3s ease, margin-bottom 0.3s ease; display: block; }
+        #bank-transfer .upload-area:hover .upload-icon { transform: scale(1.1) translateY(-5px); }
+        #bank-transfer .upload-area p { margin-bottom: 5px; color: var(--dark-color); font-size: 1.05rem; font-weight: 500; transition: font-size 0.3s ease; }
+        #bank-transfer .upload-area .small { font-size: 0.85rem; color: #777; transition: font-size 0.3s ease; }
+        #bank-transfer .file-input { display: none; }
+
+        /* Preview Area */
+        #bank-transfer .slip-preview-container { text-align: center; margin-top: 0; margin-bottom: 30px; padding: 20px; background-color: #fdfdff; border: 1px solid var(--border-color); border-radius: var(--border-radius); position: relative; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06); transition: padding 0.3s ease, margin-bottom 0.3s ease; }
+        #bank-transfer .slip-preview-image { display: block; max-width: 100%; height: auto; max-height: 400px; margin: 0 auto 15px auto; border-radius: 8px; object-fit: contain; border: 1px solid #ddd; }
+        #bank-transfer .pdf-preview-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 35px 15px; min-height: 160px; }
+        #bank-transfer .pdf-preview-placeholder i { font-size: 3.5rem; color: var(--danger-color); margin-bottom: 15px; }
+        #bank-transfer .pdf-preview-placeholder span { font-size: 0.95rem; color: var(--text-secondary-bt); max-width: 90%; overflow-wrap: break-word; line-height: 1.4; font-weight: 500; }
+        #bank-transfer .remove-slip-button { position: absolute; top: 10px; right: 10px; background-color: rgba(50, 50, 50, 0.65); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1.1rem; line-height: 30px; text-align: center; cursor: pointer; transition: var(--transition); padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        #bank-transfer .remove-slip-button:hover { background-color: var(--danger-color); transform: scale(1.1); }
+        #bank-transfer .remove-slip-button i { line-height: 1; }
+
+        /* Submit Button */
+        #bank-transfer #submitBtnBank { display: block; width: 100%; max-width: 350px; background-color: var(--primary-color); color: var(--light-color); border: none; padding: 16px 20px; font-size: 1.1rem; font-weight: bold; text-align: center; border-radius: 50px; cursor: pointer; transition: var(--transition); box-shadow: 0 5px 15px rgba(74, 107, 223, 0.3); margin: 0 auto 20px auto; }
+        #bank-transfer #submitBtnBank:hover:not(:disabled) { background-color: var(--primary-color-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74, 107, 223, 0.4); }
+        #bank-transfer #submitBtnBank:disabled { background-color: #a0b0e8; cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
+        #bank-transfer #submitBtnBank .spinner { margin-right: 8px; font-size: 1em; }
+
+        /* --- Alert & Status Messages (CSS Updated) --- */
+        #bank-transfer .alert-message,
+        #bank-transfer #bankTransferVerificationStatus {
+            padding: 15px 20px; margin-top: 15px; margin-bottom: 20px; border-radius: var(--border-radius); font-size: 0.95rem; text-align: center; display: none; border: 1px solid transparent; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 500; transition: padding 0.3s ease, font-size 0.3s ease; }
+        #bank-transfer .alert-message i,
+        #bank-transfer #bankTransferVerificationStatus i { font-size: 1.2rem; flex-shrink: 0; }
+
+        /* Keep standard alert styles */
+        #bank-transfer .alert-danger { background-color: var(--danger-bg-light); color: var(--danger-text); border-color: var(--danger-border); }
+        #bank-transfer .alert-danger i { color: var(--danger-color); }
+        #bank-transfer .alert-success { background-color: var(--info-bg-light); color: var(--info-text); border-color: var(--info-border); }
+        #bank-transfer .alert-success i { color: var(--info-color); }
+
+        /* *** Specific Verification Status Styling (Light Grey) *** */
+        #bank-transfer #bankTransferVerificationStatus {
+            background-color: var(--verification-bg, #e9ecef); /* Use variable or fallback */
+            color: var(--verification-text, #495057);
+            border-color: var(--verification-border, #ced4da);
+        }
+        #bank-transfer #bankTransferVerificationStatus i {
+            color: var(--primary-color); /* Spinner color */
+            animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        /* --- END: Alert & Status Updates --- */
+
+        #bankTransferPending { display: none; }
+        /* +++ END: Bank Transfer Upload Section Styles +++ */
+
+
+        /* --- Other Methods Specific Styles --- */
+        .payment-card { background: var(--light-color); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 15px; margin-bottom: 15px; transition: var(--transition); cursor: pointer; display: flex; align-items: center; } .payment-card:hover:not(.disabled-card) { border-color: var(--primary-color); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07); transform: translateY(-3px); } .payment-icon { width: 40px; height: auto; max-height: 40px; margin-right: 15px; object-fit: contain; flex-shrink: 0;} .payment-card div h4 { margin-bottom: 3px; font-size: 1.05rem;} .payment-card div p { font-size: 0.85rem; color: #666; margin-bottom: 0;} .payment-card.disabled-card { opacity: 0.5; cursor: not-allowed; pointer-events: none; user-select: none; transform: none !important; }
+
+        /* --- Styles specific to the PromptPay Tab (Amount display unchanged) --- */
+         #promptpay .promptpay-header-specific { background-color: var(--promptpay-header-bg); padding: 15px 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--border-radius) var(--border-radius) 0 0; margin: -30px -30px 25px -30px; }
+         #promptpay .header-logo-specific { height: 30px; width: auto; }
+         #promptpay .promptpay-logo-image { display: block; max-width: 130px; height: auto; margin: 0 auto 20px auto; }
+         #promptpay .promptpay-qr-container.modified { text-align: center; background-color: transparent; padding: 0; border: none; max-width: 300px; margin: 0 auto 25px auto; }
+         #promptpay img#promptpay-qr.qr-code-image-promptpay { display: block; width: 100%; max-width: 280px; height: auto; margin: 0 auto; border: 1px solid #eee; padding: 5px; background-color: white; border-radius: 8px; opacity: 1 !important; pointer-events: auto !important; transition: none; }
+         #promptpay img#promptpay-qr.hidden { opacity: 0.3 !important; }
+         /* Original PromptPay amount style */
+         #promptpay .promptpay-total-amount { font-size: 1.2rem; color: #555; margin-bottom: 20px; font-weight: 500; text-align: center; background-color: transparent; border: none; padding: 0; }
+         #promptpay .promptpay-total-amount .amount-label { margin-right: 5px; }
+         #promptpay .promptpay-total-amount strong { font-size: 1.5rem; color: var(--promptpay-amount-color); font-weight: 700; margin-left: 3px; }
+         /* --- END Original PromptPay amount style --- */
+         #promptpay .save-qr-button-wrapper { text-align: center; margin-bottom: 15px; }
+         #promptpay a#downloadQrBtn.save-qr-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: var(--promptpay-button-bg); color: var(--promptpay-button-text); border: 1px solid var(--promptpay-button-border); border-radius: 50px; padding: 10px 25px; font-size: 1rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; margin-top: 0; } #promptpay a#downloadQrBtn.save-qr-button:hover { background-color: #FCE8D9; color: var(--promptpay-button-text); text-decoration: none;} #promptpay a#downloadQrBtn.save-qr-button:active { transform: scale(0.98); } #promptpay a#downloadQrBtn.save-qr-button i { font-size: 0.9em; }
+         #promptpay #qrTimerDisplay.promptpay-timer-display { margin-top: 0; margin-bottom: 15px; font-size: 1rem; color: var(--dark-color); font-weight: bold; text-align: center; display: block; } #promptpay #qrTimerDisplay.promptpay-timer-display span { color: var(--danger-color); }
+         #promptpay #qrExpiredMessage.promptpay-expired-message { margin-top: 0; margin-bottom: 20px; font-size: 1rem; color: var(--danger-text); font-weight: bold; padding: 10px; background-color: var(--danger-bg-light); border: 1px solid var(--danger-border); border-radius: 8px; text-align: center; }
+         #promptpay button#refreshQrBtn.promptpay-refresh-button { display: block; margin: 0 auto 25px auto; background-color: var(--success-color); border-color: var(--success-color); max-width: 240px; width: 90%; padding: 12px 25px; font-size: 1rem; border-radius: 50px;}
+         #promptpay button#refreshQrBtn.promptpay-refresh-button:hover { background-color: #218838; }
+         /* PromptPay Upload Section (Consistent Style) */
+         #promptpay .upload-section { margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border-color); }
+         #promptpay .upload-section h3 { margin-bottom: 10px; font-size: 1.2rem; color: var(--dark-color); display: flex; align-items: center; gap: 8px;}
+         #promptpay .upload-section > p { font-size: 0.95rem; margin-bottom: 18px; color: #555; font-weight: normal; }
+         #promptpay .upload-area { border: 2px dashed var(--upload-border-color); border-radius: var(--border-radius); padding: 30px; text-align: center; cursor: pointer; transition: var(--transition); margin-bottom: 18px; background-color: var(--secondary-color); position: relative; overflow: hidden; }
+         #promptpay .upload-area:hover, #promptpay .upload-area.dragover { border-color: var(--primary-color); background: rgba(74, 107, 223, 0.06); border-style: solid; }
+         #promptpay .upload-area.dragover { box-shadow: inset 0 0 15px rgba(74, 107, 223, 0.1); }
+         #promptpay .upload-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; transition: transform 0.3s ease; display: block; }
+         #promptpay .upload-area:hover .upload-icon { transform: scale(1.1) translateY(-3px); }
+         #promptpay .upload-area p { margin-bottom: 5px; color: var(--dark-color); font-size: 1rem; font-weight: 500;}
+         #promptpay .upload-area .small { font-size: 0.85rem; color: #777; }
+         #promptpay .file-input { display: none; }
+         #promptpay .receipt-preview-container { text-align: center; margin-bottom: 15px; padding: 15px; background-color: #fdfdff; border: 1px solid var(--border-color); border-radius: var(--border-radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; }
+         #promptpay .receipt-preview { max-width: 90%; max-height: 220px; margin: 10px auto 10px auto; display: block; border-radius: var(--border-radius); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12); border: 1px solid var(--border-color); object-fit: contain; background-color: #fff; }
+         #promptpay .receipt-preview-container .btn-secondary { background: transparent; color: var(--footer-text-color); border: 1px solid var(--border-color); border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; line-height: 1.4; margin-top: 8px; display: inline-flex; align-items: center; gap: 4px; transition: var(--transition); box-shadow: none; cursor: pointer; } #promptpay .receipt-preview-container .btn-secondary:hover { background-color: var(--secondary-color); color: var(--danger-color); border-color: var(--danger-border); transform: translateY(-1px); } #promptpay .receipt-preview-container .btn-secondary i { font-size: 0.85em; color: var(--danger-color); transition: color 0.2s ease; }
+         #promptpay #submitBtnPromptpay { display: block; margin: 25px auto 15px auto; max-width: 320px; padding: 15px 20px; font-size: 1.1rem;}
+         #promptpay #promptPayPending { display: none; }
+         #promptpay .pending-verification-notice { margin-top: 20px; padding: 20px; text-align: center; background-color: var(--info-bg-light); border: 1px solid var(--info-border); border-radius: var(--border-radius); color: var(--info-text); margin-bottom: 25px; } #promptpay .pending-verification-notice i { font-size: 2rem; margin-bottom: 10px; display: block; color: var(--info-color); animation: spinSlow 2s linear infinite; } @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } #promptpay .pending-verification-notice p { margin: 0; font-size: 1rem; font-weight: bold; } #promptpay .pending-verification-notice .small { font-size: 0.85rem; display: block; margin-top: 5px; font-weight: normal; color: var(--info-text); opacity: 0.9; }
+
+        /* --- Form Inputs & Credit Card --- */
+        input[type="text"], input[type="file"] { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; transition: var(--transition); background-color: #fff; color: var(--dark-color); box-shadow: inset 0 1px 3px rgba(0,0,0,0.04); }
+        input[type="text"]:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(74, 107, 223, 0.15); outline: none; background-color: #fff; } label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: var(--dark-color); } .form-group { margin-bottom: 20px; } .form-row { display: flex; gap: 18px; margin-bottom: 20px; } .form-row > div { flex: 1; } .cc-logos { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 15px 0 20px 0; flex-wrap: wrap; } .cc-logos img { height: 25px; max-width: 45px; object-fit: contain; }
+
+        /* *** NEW STYLE for Credit Card Fee Display *** */
+        #credit-card #creditCardFeeDisplay {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: 8px;
+            padding: 18px 25px; /* Increased padding */
+            margin-top: 5px;
+            margin-bottom: 25px; /* Increased bottom margin */
+            text-align: center;
+            border: none;
+            box-shadow: 0 4px 10px rgba(74, 107, 223, 0.3);
+            line-height: 1.6; /* Adjust line height for better spacing */
+        }
+        #credit-card #creditCardFeeDisplay .cc-line {
+            margin-bottom: 8px; /* Increased space between lines */
+        }
+        #credit-card #creditCardFeeDisplay .cc-line:last-child {
+            margin-bottom: 0;
+        }
+        #credit-card #creditCardFeeDisplay .total-line {
+            margin-top: 12px; /* More space above total */
+            padding-top: 8px; /* Optional: add padding top for visual separation */
+            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Optional faint separator line */
+        }
+        #credit-card #creditCardFeeDisplay .label {
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.85); /* Slightly dimmer white for labels */
+             font-size: 0.9rem;
+        }
+        #credit-card #creditCardFeeDisplay .value {
+            font-weight: bold;
+            margin-left: 5px;
+            color: var(--light-color); /* Bright white for values */
+            font-size: 1rem;
+        }
+        #credit-card #creditCardFeeDisplay .total-value {
+            color: var(--light-color); /* Bright white for total */
+            font-size: 1.2rem; /* Slightly larger total */
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        /* --- END NEW CC STYLE --- */
+
+
+        /* --- Hidden Steps Toggle --- */
+        .toggle-steps-btn { background: none; border: none; color: var(--primary-color); font-size: 0.9rem; cursor: pointer; padding: 5px 0; margin: 15px 0 10px 0; display: inline-flex; align-items: center; gap: 5px; } .toggle-steps-btn i { transition: transform 0.3s ease; } .toggle-steps-btn.expanded i { transform: rotate(180deg); }
+        .hidden-steps { display: none; background-color: var(--secondary-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px 20px 15px 35px; margin-bottom: 20px; font-size: 0.9rem; color: #555; animation: fadeInSteps 0.4s ease forwards; } .hidden-steps.active { display: block; } .hidden-steps ol, .hidden-steps ul { padding-left: 1.2em; margin: 0; } .hidden-steps li { margin-bottom: 8px; } .hidden-steps li:last-child { margin-bottom: 0; } @keyframes fadeInSteps { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Action Buttons --- */
+        .step-actions { display: flex; align-items: center; margin-top: 35px; padding-top: 25px; border-top: 1px solid var(--border-color); } #step-1 .step-actions { justify-content: flex-end; } #step-2 .step-actions { display: none; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 30px; background: var(--primary-color); color: var(--light-color); border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: var(--transition); text-align: center; font-size: 1rem; box-shadow: 0 5px 18px rgba(74, 107, 223, 0.25); white-space: nowrap; } .btn i { font-size: 1.1em; line-height: 1; } .btn .spinner { margin-left: 8px; } .btn:hover:not(:disabled) { background: var(--primary-color-dark); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(74, 107, 223, 0.35); } .btn:active:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(74, 107, 223, 0.3); } .btn:disabled { background-color: #a0b0e8; cursor: not-allowed; box-shadow: none; transform: none; opacity: 0.7; } .btn-next { margin-left: auto; }
+        .tab-content .btn:not(#submitBtnBank):not(.promptpay-refresh-button):not(.btn-secondary) { max-width: 320px; display: block; margin: 25px auto 15px auto; padding: 15px 20px; font-size: 1.1rem; }
+
+        /* --- Security Badge --- */
+        .security-badge { display: flex; align-items: center; justify-content: center; margin-top: 30px; padding: 14px; background: var(--secondary-color); border-radius: var(--border-radius); border: 1px solid var(--border-color); font-size: 0.9rem; color: #555; text-align: center; } .security-icon { margin-right: 10px; color: var(--success-color); font-size: 1.2rem; line-height: 1; }
+
+        /* --- Modal & Confetti --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; padding: 15px; }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content { background: white; border-radius: var(--border-radius); padding: 40px; max-width: 480px; width: 100%; text-align: center; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.25); transform: scale(0.95) translateY(10px); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease; opacity: 0; }
+        .modal.show .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        .close-modal { position: absolute; top: 18px; right: 18px; font-size: 2rem; cursor: pointer; color: #bbb; line-height: 1; transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
+        .close-modal:hover { color: var(--dark-color); transform: rotate(90deg); }
+        .close-modal.disabled { cursor: not-allowed; color: #ddd; opacity: 0.5; pointer-events: none; }
+        .modal.block-close { pointer-events: none; }
+        .modal.block-close .modal-content { pointer-events: auto; }
+        .success-icon { font-size: 5rem; color: var(--success-color); margin-bottom: 18px; line-height: 1; animation: successIconPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; transform: scale(0.5); opacity: 0; } @keyframes successIconPop { to { transform: scale(1); opacity: 1; } } .modal-content h2 { color: var(--dark-color); margin-bottom: 12px; font-size: 1.8rem; } .modal-content p { margin-bottom: 15px; color: #555; font-size: 1rem; } .modal-content p strong { color: var(--primary-color); font-weight: bold; } .modal-content .btn { margin: 25px auto 0 auto; max-width: 220px; }
+        @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(1080deg); opacity: 0; } } .confetti { position: fixed; width: 12px; height: 12px; background: var(--primary-color); opacity: 0; z-index: 9999; animation: confetti 3.5s ease-out forwards; top: -20px; pointer-events: none; border-radius: 3px; }
+
+        /* --- Footer Styles --- */
+        .payment-footer { background-color: var(--secondary-color); padding: 20px 30px; margin-top: auto; text-align: center; font-size: 0.85rem; color: var(--footer-text-color); border-top: 1px solid var(--border-color); } .payment-footer p { margin-bottom: 8px; } .payment-footer .footer-links a { color: var(--footer-text-color); text-decoration: none; margin: 0 8px; transition: color 0.2s ease; } .payment-footer .footer-links a:hover { color: var(--primary-color); text-decoration: underline; } .payment-footer .footer-links .separator { display: inline; }
+
+        /* --- Floating Contact Widget Styles --- */
+        #contact-float-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 998; /* Below modal but above most content */
+            display: flex;
+            flex-direction: column-reverse; /* Options appear above main button */
+            align-items: flex-end; /* Align items to the right */
+        }
+
+        #contact-float-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark)); /* Use site's primary color */
+            color: #ffffff;
+            border: none;
+            width: 60px; /* Circle size */
+            height: 60px;
+            border-radius: 50%; /* Circle shape */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem; /* Icon size */
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            transform: scale(0); /* Start hidden/small */
+            animation: floatInScale 0.5s 0.7s ease-out forwards; /* Animate in */
+        }
+
+        #contact-float-btn:hover {
+            background: linear-gradient(135deg, var(--primary-color-dark), var(--primary-color));
+            transform: scale(1.08) rotate(5deg); /* Pop and slight rotate */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        #contact-float-btn:active {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #contact-float-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* Space between option buttons */
+            margin-bottom: 15px; /* Space above main button */
+            transition: max-height 0.35s ease-out, opacity 0.3s ease-in-out, transform 0.35s ease-out;
+            max-height: 0; /* Hidden initially */
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(10px); /* Start slightly down */
+            pointer-events: none; /* Prevent interaction when hidden */
+        }
+
+        /* State when options are visible */
+        #contact-float-widget.active #contact-float-options {
+            max-height: 200px; /* Allow space to expand */
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Allow interaction when visible */
+        }
+
+        /* Change main button icon when active */
+        #contact-float-widget.active #contact-float-btn i::before {
+            content: "\f00d"; /* Font Awesome Times/Close icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+        }
+
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s ease;
+            gap: 8px;
+            min-width: 100px; /* Ensure some width */
+            text-align: center;
+        }
+
+        .contact-option i {
+            font-size: 1.3em;
+            line-height: 1;
+        }
+
+        .contact-option.line {
+            background: linear-gradient(135deg, #00c300, #00a500);
+        }
+        .contact-option.phone {
+            background: linear-gradient(135deg, #555, #333); /* Grey for phone */
+        }
+
+        .contact-option:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .contact-option.line:hover { background: linear-gradient(135deg, #00d100, #00b300); }
+        .contact-option.phone:hover { background: linear-gradient(135deg, #666, #444); }
+
+        .contact-option:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+
+        /* Animation for main button */
+        @keyframes floatInScale {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            body { padding: 20px 10px; } .payment-workflow { max-width: 100%; } header { padding: 10px 20px; } .header-logo { height: 35px; max-width: 120px; } .form-step { padding: 25px 15px; } .form-step h2 { font-size: 1.5rem; } .summary-details { padding: 20px; } .summary-item { font-size: 0.9rem; }
+            /* Responsive Total Amount Step 1 */
+            .total-amount-summary { padding: 15px 20px; } .total-amount-summary div:first-child { font-size: 0.9rem; } .total-amount-summary #totalAmountValueStep1 { font-size: 1.6rem; }
+             /* Responsive New Amount Displays */
+            #bank-transfer .payment-amount-display,
+            #other .payment-amount-display,
+            #credit-card #creditCardFeeDisplay { padding: 15px 20px; }
+            #bank-transfer .payment-amount-display strong,
+            #other .payment-amount-display strong { font-size: 1.6rem; }
+             #credit-card #creditCardFeeDisplay .label { font-size: 0.85rem; }
+             #credit-card #creditCardFeeDisplay .value { font-size: 0.95rem; }
+             #credit-card #creditCardFeeDisplay .total-value { font-size: 1.1rem; }
+
+            .alert { padding: 12px 15px; font-size: 0.85rem; } .alert i { font-size: 1.1rem; } .payment-tabs-container { margin-left: -15px; margin-right: -15px; } .payment-tabs { padding-left: 15px; padding-right: 15px; } .tab-btn { padding: 10px 15px; font-size: 0.9rem; } .tab-content-container { margin-left: 0; margin-right: 0; border-left: none; border-right: none; border-radius: 0;} .tab-content { padding: 25px; } #step-2 h3 { font-size: 1.2rem; } #step-2 p { font-size: 0.9rem; }
+            .bank-account-display { padding: 15px 20px; } .bank-header { gap: 12px; margin-bottom: 5px; padding-bottom: 8px; } .bank-header .bank-logo { width: 40px; height: 40px; } .bank-header h3 { font-size: 1.15rem; } .account-holder-name { font-size: 0.9rem; margin-bottom: 15px; padding-left: 52px; } .account-number-line { padding: 12px 15px; } .account-number-text { font-size: 1.3rem; margin-right: 10px; } .account-number-line .copy-btn { padding: 7px 12px; font-size: 0.8rem; min-width: 90px; } .payment-card { padding: 12px; } .payment-icon { width: 35px; height: 35px; }
+            #bank-transfer .instruction-text { font-size: 0.95rem; } #bank-transfer .upload-area { padding: 30px 20px; } #bank-transfer .upload-icon { font-size: 2.5rem; } #bank-transfer .upload-area p { font-size: 1rem;} #bank-transfer .slip-preview-container { padding: 15px; } #bank-transfer #submitBtnBank { padding: 14px 20px; font-size: 1rem;} #bank-transfer .alert-message, #bank-transfer #bankTransferVerificationStatus { font-size: 0.9rem; padding: 12px 15px; }
+            .toggle-steps-btn { font-size: 0.85rem; margin-top: 10px;} .hidden-steps { padding: 15px 15px 15px 25px; font-size: 0.85rem;} .cc-logos img { height: 22px; max-width: 35px;} .btn { padding: 12px 25px; font-size: 0.95rem; } #step-1 .btn { width: auto; } .tab-content .btn:not(#submitBtnBank):not(.promptpay-refresh-button):not(.btn-secondary) { width: 100%; max-width: 100%; padding: 12px 25px; font-size: 0.95rem; } .modal-content { padding: 30px 25px; } .modal-content h2 { font-size: 1.5rem; } .modal-content p { font-size: 0.95rem; } .payment-footer { padding: 15px; font-size: 0.8rem; } .payment-footer .footer-links a { margin: 0 5px; }
+            input[type="text"] { font-size: 1rem; padding: 12px 15px; }
+            #promptpay .promptpay-header-specific { margin: -25px -25px 20px -25px; padding: 12px 15px; } #promptpay #qrTimerDisplay.promptpay-timer-display, #promptpay #qrExpiredMessage.promptpay-expired-message { margin-left: -10px; margin-right: -10px; } #promptpay button#refreshQrBtn.promptpay-refresh-button { max-width: 250px; font-size: 0.95rem; padding: 12px 25px;}
+             /* Keep PromptPay original amount display style on mobile */
+             #promptpay .promptpay-total-amount { font-size: 1.1rem; margin-bottom: 15px; }
+             #promptpay .promptpay-total-amount strong { font-size: 1.3rem; }
+            /* Responsive Contact Widget */
+             #contact-float-widget { bottom: 20px; right: 20px; }
+             #contact-float-btn { width: 55px; height: 55px; font-size: 1.6rem; }
+             #contact-float-options { gap: 10px; margin-bottom: 12px; }
+             .contact-option { padding: 7px 12px; font-size: 0.85rem; min-width: 90px; gap: 6px; }
+             .contact-option i { font-size: 1.2em; }
+        }
+
+        @media (max-width: 480px) {
+             header { padding: 10px 15px; } .header-logo { height: 30px; max-width: 100px; } .form-step { padding: 20px 10px; } .form-step h2 { font-size: 1.3rem; }
+             /* Small Mobile Total Amount Step 1 */
+             .total-amount-summary { padding: 12px 15px; } .total-amount-summary div:first-child { font-size: 0.8rem; } .total-amount-summary #totalAmountValueStep1 { font-size: 1.4rem; }
+             /* Small Mobile New Amount Displays */
+             #bank-transfer .payment-amount-display,
+             #other .payment-amount-display,
+             #credit-card #creditCardFeeDisplay { padding: 12px 15px; text-align: center; /* Ensure center align */ }
+             #bank-transfer .payment-amount-display strong,
+             #other .payment-amount-display strong { font-size: 1.4rem; }
+             #credit-card #creditCardFeeDisplay { text-align: center; } /* Override potential left align from base */
+             #credit-card #creditCardFeeDisplay .cc-line { display: block; margin-bottom: 5px; }
+             #credit-card #creditCardFeeDisplay .label { display: inline-block; font-size: 0.8rem; }
+             #credit-card #creditCardFeeDisplay .value { font-size: 0.9rem; }
+             #credit-card #creditCardFeeDisplay .total-value { font-size: 1.05rem; }
+             #credit-card #creditCardFeeDisplay .total-line { margin-top: 8px; padding-top: 5px; }
+
+
+             .alert { font-size: 0.8rem; padding: 10px 12px; } .payment-tabs-container { margin-left: -10px; margin-right: -10px; } .payment-tabs { padding-left: 10px; padding-right: 10px; } .tab-btn { padding: 9px 12px; font-size: 0.85rem; } .tab-content { padding: 20px; }
+             .bank-account-display { padding: 12px 15px; } .bank-header { gap: 10px; padding-bottom: 6px; margin-bottom: 4px; } .bank-header .bank-logo { width: 35px; height: 35px; } .bank-header h3 { font-size: 1rem; } .account-holder-name { font-size: 0.85rem; margin-top: 5px; margin-bottom: 12px; padding-left: 45px; } .account-number-line { padding: 10px 12px; } .account-number-text { font-size: 1.2rem; letter-spacing: 1px; margin-right: 8px; } .account-number-line .copy-btn { padding: 6px 10px; font-size: 0.75rem; min-width: 80px; gap: 4px; } .account-number-line .copy-btn i { font-size: 0.85em; }
+             #bank-transfer .instruction-text { font-size: 0.9rem; margin-bottom: 15px; } #bank-transfer .upload-area { padding: 20px 15px; margin-bottom: 15px; } #bank-transfer .upload-icon { font-size: 2.2rem; margin-bottom: 8px; } #bank-transfer .upload-area p { font-size: 0.95rem; } #bank-transfer .upload-area .small { font-size: 0.8rem; } #bank-transfer .slip-preview-container { padding: 15px; margin-bottom: 20px; } #bank-transfer #submitBtnBank { padding: 12px 18px; font-size: 1rem; } #bank-transfer .alert-message, #bank-transfer #bankTransferVerificationStatus { font-size: 0.85rem; padding: 10px 12px; margin-bottom: 15px; }
+             input[type="text"] { font-size: 1rem; padding: 11px 12px; }
+             .modal-content { padding: 25px 20px; } .success-icon { font-size: 3.5rem; } .modal-content h2 { font-size: 1.4rem; } .modal-content p { font-size: 0.9rem; } .payment-footer { font-size: 0.75rem; padding: 15px 10px; } .payment-footer p { margin-bottom: 10px; } .payment-footer .footer-links a { margin: 0 4px; }
+             #promptpay .promptpay-header-specific { padding: 10px 15px; gap: 10px; margin: -20px -20px 15px -20px; } #promptpay .header-logo-specific { height: 28px; } #promptpay .promptpay-logo-image { max-width: 110px; margin-bottom: 15px; } #promptpay .promptpay-qr-container.modified { max-width: 260px; } #promptpay img#promptpay-qr.qr-code-image-promptpay { max-width: 240px; margin-bottom: 20px; }
+             /* Keep PromptPay original amount style on small mobile */
+             #promptpay .promptpay-total-amount { font-size: 1rem; margin-bottom: 15px; }
+             #promptpay .promptpay-total-amount strong { font-size: 1.2rem; }
+             #promptpay .save-qr-button-wrapper { margin-bottom: 10px; } #promptpay a#downloadQrBtn.save-qr-button { padding: 9px 20px; font-size: 0.9rem; } #promptpay #qrTimerDisplay.promptpay-timer-display { font-size: 0.85rem; margin-bottom: 10px;} #promptpay #qrExpiredMessage.promptpay-expired-message { font-size: 0.85rem; margin-bottom: 15px; } #promptpay button#refreshQrBtn.promptpay-refresh-button { font-size: 0.9rem; padding: 10px 20px; max-width: 90%; width: auto; } #promptpay .upload-section > p { font-size: 0.8rem; } #promptpay #submitBtnPromptpay { font-size: 1rem; padding: 12px 20px; }
+             /* Small Mobile Contact Widget */
+             #contact-float-widget { bottom: 15px; right: 15px; }
+             #contact-float-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+             #contact-float-options { gap: 8px; margin-bottom: 10px; }
+             .contact-option { padding: 8px; width: 40px; height: 40px; min-width: 40px; justify-content: center; gap: 0; }
+             .contact-option .option-text { display: none; }
+             .contact-option i { font-size: 1.3em; margin: 0; }
+             #contact-float-btn:hover { transform: scale(1.08) rotate(5deg); } /* Keep hover effect consistent */
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML Structure -->
+    <div class="payment-workflow">
+        <div class="payment-content">
+            <!-- Header -->
+            <header>
+                <img src="https://lh3.googleusercontent.com/d/1Z8TQQ4au9FvZwkMRONlfPuAP4ZrKydkM" alt="Logo บริษัท" class="header-logo logo-left">
+                 <button class="menu-button" aria-label="เมนู">
+                     <i class="fas fa-bars"></i>
+                 </button>
+            </header>
+            <!-- Step 1 -->
+            <div class="form-step active" id="step-1">
+                 <h2><i class="fas fa-receipt"></i> ตรวจสอบข้อมูลการชำระเงิน</h2>
+                <div class="summary-details">
+                    <div class="summary-item"><span class="summary-label">หมายเลขอ้างอิง</span><span class="summary-value">REF20240001</span></div>
+                    <div class="summary-item"><span class="summary-label">รหัสธุรกรรม</span><span class="summary-value">TXN123456789</span></div>
+                    <div class="summary-item"><span class="summary-label">วันครบกำหนดชำระ</span><span class="summary-value">31 ธันวาคม 2567</span></div>
+                    <div class="summary-item"><span class="summary-label">ยอดคงค้าง</span><span class="summary-value">500.00 บาท</span></div>
+                    <div class="summary-item"><span class="summary-label">ค่าปรับ (ถ้ามี)</span><span class="summary-value">0.00 บาท</span></div>
+                    <div class="summary-item"><span class="summary-label">ค่างวดปัจจุบัน</span><span class="summary-value">2,000.00 บาท</span></div>
+                </div>
+                <!-- *** MODIFIED TOTAL AMOUNT DISPLAY (STEP 1) *** -->
+                <div class="total-amount-summary">
+                    <div>ยอดที่ต้องชำระ</div>
+                    <div id="totalAmountValueStep1"></div> <!-- Amount will be injected by JS -->
+                </div>
+                <div class="step-actions">
+                    <button type="button" class="btn btn-next" id="btn-next-step1">ดำเนินการชำระเงิน <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="form-step" id="step-2">
+                <h2><i class="fas fa-credit-card"></i> เลือกช่องทางการชำระเงิน</h2>
+                <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><div><strong>ข้อแนะนำ:</strong> กรุณาหลีกเลี่ยงการทำธุรกรรมในช่วงเวลา <strong>23:00 - 02:00 น.</strong> เนื่องจากเป็นช่วงปิดปรับปรุงระบบของธนาคาร ซึ่งอาจทำให้การชำระเงินของท่านไม่สำเร็จ หรือเกิดความล่าช้าในการตรวจสอบยอด</div></div>
+                <div class="payment-tabs-container"><div class="payment-tabs"><button type="button" class="tab-btn active" data-tab="bank-transfer"><i class="fas fa-university"></i> โอนเงิน</button><button type="button" class="tab-btn" data-tab="promptpay"><i class="fas fa-qrcode"></i> พร้อมเพย์</button><button type="button" class="tab-btn" data-tab="credit-card"><i class="far fa-credit-card"></i> บัตรเครดิต</button><button type="button" class="tab-btn" data-tab="other"><i class="fas fa-ellipsis-h"></i> อื่นๆ</button></div></div>
+                <div class="tab-content-container">
+
+                    <!-- Bank Transfer Tab -->
+                    <div id="bank-transfer" class="tab-content active">
+                        <h3><i class="fas fa-university"></i> โอนเงินผ่านบัญชีธนาคาร</h3>
+                        <p>โอนเงินเข้าบัญชีธนาคารที่ระบุ และแนบหลักฐานการโอนเงิน</p>
+                        <!-- *** BANK TRANSFER AMOUNT - NEW STYLE APPLIED VIA CSS *** -->
+                        <div class="payment-amount-display">
+                             <span class="amount-label">ยอดชำระ:</span>
+                             <strong id="bank-transfer-amount"></strong>
+                        </div>
+                        <button type="button" class="toggle-steps-btn" onclick="toggleStepsVisibility('bankTransferSteps', this)"><i class="fas fa-chevron-down"></i> แสดงขั้นตอน </button><div class="hidden-steps" id="bankTransferSteps"><ol><li>เปิดแอปพลิเคชันธนาคาร</li><li>เลือกเมนู "โอนเงิน"</li><li>เลือกธนาคารปลายทาง "กสิกรไทย"</li><li>กรอกเลขที่บัญชี: 185-8-70993-4</li><li>ระบุจำนวนเงิน: <span id="bank-transfer-amount-steps"></span></li> <li>ตรวจสอบข้อมูลผู้รับ และยืนยันการโอน</li><li>บันทึกสลิปการโอนเงิน</li><li>กลับมาที่หน้านี้เพื่อแนบหลักฐาน</li></ol></div>
+                        <div class="bank-account-display">
+                            <div class="bank-header">
+                                <img src="https://lh3.googleusercontent.com/d/110s7ojR7IiTmR0uD7J6x9UIqMFxMp7YO" alt="KBank" class="bank-logo">
+                                <h3>ธนาคารกสิกรไทย</h3>
+                            </div>
+                            <p class="account-holder-name">ชื่อบัญชี: นพดล ลาภตระกลู</p>
+                            <div class="account-main">
+                                <div class="account-number-line">
+                                    <span class="account-number-text" id="acc-kbank-text">185-8-70993-4</span>
+                                    <button type="button" class="copy-btn" id="copyBtnKbank" onclick="copyToClipboard('1858709934', this)">
+                                        <i class="far fa-copy"></i><span>คัดลอกเลขบัญชี</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upload-section" data-receipt-uploaded="false">
+                            <p class="instruction-text">
+                                <i class="fas fa-info-circle"></i>
+                                <span>หากชำระเงินเรียบร้อยแล้ว โปรดแนบสลิปเพื่อยืนยัน</span>
+                            </p>
+                            <div id="alertMessageBank" class="alert-message" style="display: none;"></div>
+                            <div id="bankTransferVerificationStatus" style="display: none;"></div>
+                            <div class="upload-area" id="uploadAreaBank">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <p>คลิก หรือ ลากไฟล์สลิปมาวางที่นี่</p>
+                                <p class="small">รองรับ: JPG, PNG, GIF, PDF (สูงสุด 5MB)</p>
+                                <input type="file" id="fileInputBank" class="file-input" accept="image/jpeg, image/png, image/gif, application/pdf">
+                            </div>
+                            <div class="slip-preview-container" id="receiptPreviewContainerBank" style="display: none;">
+                                <button type="button" class="remove-slip-button" id="removeSlipButtonBank" aria-label="ลบสลิป">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <!-- Preview content injected by JS -->
+                            </div>
+                            <button type="button" id="submitBtnBank" disabled>
+                                ยืนยันการชำระเงิน
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PromptPay Tab -->
+                    <div id="promptpay" class="tab-content">
+                         <div class="promptpay-header-specific"> <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Thai_QR_Payment_Logo.png" alt="QR Payment Logo" class="header-logo-specific"> </div>
+                         <img src="https://www.designil.com/wp-content/uploads/2020/04/prompt-pay-logo.png" alt="PromptPay" class="promptpay-logo-image">
+                         <div class="promptpay-qr-container modified"><img id="promptpay-qr" src="" alt="Thai QR Payment Code" class="qr-code-image-promptpay"></div>
+                         <!-- *** PROMPTPAY AMOUNT - ORIGINAL STYLE (Unaffected) *** -->
+                         <div class="promptpay-total-amount"><span class="amount-label">ทั้งหมด:</span> <strong id="promptpay-dynamic-amount"></strong></div>
+                         <div class="save-qr-button-wrapper"><a id="downloadQrBtn" href="#" download="PromptPay-QR.png" class="save-qr-button"><i class="fas fa-download"></i> บันทึก QR Code </a></div>
+                         <div id="qrTimerDisplay" class="promptpay-timer-display">QR Code จะหมดอายุใน <span>05:00</span> นาที</div>
+                         <div id="qrExpiredMessage" class="promptpay-expired-message" style="display: none;">QR Code หมดอายุแล้ว</div>
+                         <button type="button" class="btn promptpay-refresh-button" id="refreshQrBtn" style="display: none;" onclick="refreshQrCode()"><i class="fas fa-sync-alt"></i> สร้าง QR Code ใหม่ </button>
+                         <div class="upload-section" data-receipt-uploaded="false">
+                            <h3><i class="far fa-file-alt"></i> แนบหลักฐานการชำระเงิน (ทางเลือก)</h3>
+                            <p>ท่านสามารถแนบหลักฐานเพิ่มเติมได้ หากต้องการยืนยัน หรือกรณีระบบขัดข้อง</p>
+                            <div class="upload-area" id="uploadAreaPromptpay">
+                                <i class="far fa-file-image upload-icon"></i>
+                                <p>คลิก หรือ ลากไฟล์สลิปมาวางที่นี่</p>
+                                <p class="small">รองรับ: JPG, PNG, PDF (สูงสุด 5MB)</p>
+                                <input type="file" id="fileInputPromptpay" class="file-input" accept="image/jpeg, image/png, application/pdf">
+                            </div>
+                            <div class="receipt-preview-container" id="receiptPreviewContainerPromptpay" style="display: none;">
+                                <img id="receiptPreviewPromptpay" class="receipt-preview" src="" alt="หลักฐานการชำระเงิน">
+                                <button type="button" class="btn-secondary" onclick="removeReceiptPromptpay()">
+                                    <i class="fas fa-trash-alt"></i> ลบไฟล์
+                                </button>
+                            </div>
+                            <button type="button" class="btn" id="submitBtnPromptpay" onclick="handlePromptPaySubmit(this)"><i class="fas fa-paper-plane"></i> แจ้งการชำระเงิน </button>
+                            <div id="promptPayPending" class="pending-verification-notice" style="display: none;">
+                                <i class="fas fa-hourglass-half"></i>
+                                <p>รอการตรวจสอบหลักฐาน</p>
+                                <span class="small">ระบบได้รับข้อมูลของท่านแล้ว กำลังดำเนินการตรวจสอบ</span>
+                            </div>
+                        </div>
+                         <button type="button" class="toggle-steps-btn" onclick="toggleStepsVisibility('qrScanSteps', this)" style="display: none;"><i class="fas fa-chevron-down"></i> แสดงขั้นตอนการสแกน </button>
+                         <div class="hidden-steps" id="qrScanSteps" style="display: none;"><ol><li>เปิดแอปพลิเคชัน Mobile Banking ของธนาคารท่าน</li><li>เลือกเมนู "สแกน" หรือ "Scan QR"</li><li>สแกน QR Code ที่แสดงบนหน้าจอนี้ หรือเลือกรูปภาพ QR Code ที่บันทึกไว้</li><li>ตรวจสอบยอดเงินและข้อมูลผู้รับให้ถูกต้อง</li><li>ยืนยันการชำระเงิน</li></ol></div>
+                    </div>
+
+                    <!-- Credit Card Tab -->
+                    <div id="credit-card" class="tab-content">
+                         <h3><i class="far fa-credit-card"></i> ชำระเงินด้วยบัตรเครดิต</h3><p>กรอกข้อมูลบัตรเครดิตของท่าน (มีค่าธรรมเนียม 3%)</p><div class="cc-logos"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/JCB_logo.svg" alt="JCB"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/UnionPay_logo.svg" alt="UnionPay"></div>
+                         <!-- *** CREDIT CARD AMOUNT/FEE DISPLAY - NEW STYLE APPLIED VIA CSS *** -->
+                         <div id="creditCardFeeDisplay">
+                              <div class="cc-line"><span class="label">ยอดชำระ:</span> <span class="value" id="cc-base-amount"></span></div>
+                              <div class="cc-line"><span class="label">ค่าธรรมเนียม (3%):</span> <span class="value" id="cc-fee-amount"></span></div>
+                              <div class="cc-line total-line"><span class="label">ยอดรวมที่ต้องชำระ:</span> <strong class="total-value" id="creditCardTotalAmount"></strong></div>
+                         </div>
+                         <form id="creditCardForm"><div class="form-group"><label for="cardNumber">หมายเลขบัตรเครดิต</label><input type="text" id="cardNumber" inputmode="numeric" required placeholder="xxxx xxxx xxxx xxxx"></div><div class="form-row"><div><label for="expiryDate">วันหมดอายุ (MM/YY)</label><input type="text" id="expiryDate" inputmode="numeric" required placeholder="MM / YY"></div><div><label for="cvv">CVV</label><input type="text" id="cvv" inputmode="numeric" required placeholder="xxx"></div></div><div class="form-group"><label for="cardName">ชื่อบนบัตร (ภาษาอังกฤษ)</label><input type="text" id="cardName" required placeholder="ชื่อ-นามสกุล ตามที่ระบุบนบัตร (ภาษาอังกฤษ)"></div><button type="button" class="btn" id="submitBtnCreditCard" onclick="simulatePaymentSubmission(this)"><i class="fas fa-lock"></i> ชำระเงิน <span id="cc-submit-button-amount"></span></button></form>
+                         <div class="security-badge"><span class="security-icon"><i class="fas fa-shield-alt"></i></span><span>การชำระเงินปลอดภัย ผ่านระบบ Payment Gateway ที่ได้มาตรฐาน</span></div>
+                    </div>
+
+                    <!-- Other Methods Tab -->
+                    <div id="other" class="tab-content">
+                        <h3><i class="fas fa-ellipsis-h"></i> ช่องทางการชำระเงินอื่นๆ</h3>
+                         <!-- *** OTHER METHODS AMOUNT - NEW STYLE APPLIED VIA CSS *** -->
+                        <div class="payment-amount-display">
+                            <span class="amount-label">ยอดชำระ:</span>
+                            <strong id="other-methods-amount"></strong>
+                        </div>
+                        <p>ช่องทางชำระนี้ยังไม่เปิดให้บริการในขณะนี้</p>
+                        <div style="margin: 25px 0;"><div class="payment-card disabled-card"><img src="https://sleepcountry.tw/wp-content/uploads/Pay-by-LINE-Pay.png" alt="Line Pay" class="payment-icon"><div><h4>LINE Pay</h4><p>ชำระผ่านแอปพลิเคชัน LINE</p></div></div><div class="payment-card disabled-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png" alt="PayPal" class="payment-icon"><div><h4>PayPal</h4><p>ชำระด้วยบัญชี PayPal</p></div></div><div class="payment-card disabled-card"><img src="https://play-lh.googleusercontent.com/6I2IYbIg4rhGUgs0UxP_5q6wmJmlBjBrlQ9f0_FAN94yOzwmrtEteifCdPPd1-chY_NX" alt="TrueMoney Wallet" class="payment-icon" style="width: 35px; height: 35px;"><div><h4>ทรูมันนี่ วอลเล็ต</h4><p>ชำระด้วยบัญชี TrueMoney</p></div></div><div class="payment-card disabled-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUOCO8Xngf8mWD9G7B-dvoPetXRlKD5Zx7nw&s" alt="ShopeePay" class="payment-icon" style="height: 35px;"><div><h4>ShopeePay</h4><p>ชำระด้วย ShopeePay Wallet</p></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="payment-footer">
+              <p>© <script>document.write(new Date().getFullYear())</script> สงวนลิขสิทธิ์โดย NO1Money+. All Rights Reserved.</p>
+             <div class="footer-links"><a href="#" target="_blank">ข้อกำหนดและเงื่อนไขการให้บริการ</a><span class="separator"> | </span><a href="#" target="_blank">นโยบายความเป็นส่วนตัว</a></div>
+        </footer>
+    </div>
+    <!-- Modal -->
+    <div class="modal" id="successModal">
+         <div class="modal-content">
+             <span class="close-modal" onclick="closeModal()">×</span>
+             <div class="success-icon">🎉</div>
+             <h2>ชำระเงินสำเร็จ!</h2>
+             <p>ระบบได้รับข้อมูลการชำระเงินของท่านเรียบร้อยแล้ว</p>
+             <p>หมายเลขอ้างอิง: <strong id="modalRefNumber" style="font-family: monospace;">PAY2024XXXX</strong></p>
+             <p id="modalVerificationNote" style="font-size: 0.9rem; color: #666; margin-top: 10px; padding: 8px; background-color: #f8f9fa; border-radius: 6px; display: none;">
+                 <!-- JS Updates this message based on verification outcome -->
+             </p>
+             <button type="button" class="btn" id="modalCloseButton" onclick="closeModal()">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <!-- Floating Contact Widget -->
+    <div id="contact-float-widget">
+        <div id="contact-float-options"> <!-- Removed class hidden -->
+            <!-- LINE Option -->
+            <a href="https://lin.ee/wzcduLu" id="line-contact-option" class="contact-option line" target="_blank" rel="noopener noreferrer" title="ติดต่อทาง LINE">
+                <i class="fab fa-line"></i>
+                <span class="option-text">LINE</span>
+            </a>
+            <!-- Phone Option -->
+            <a href="tel:0627766774" class="contact-option phone" title="โทร 0627766774">
+                <i class="fas fa-phone"></i>
+                <span class="option-text">โทร</span>
+            </a>
+        </div>
+        <!-- Main Floating Button -->
+        <button type="button" id="contact-float-btn" title="ติดต่อเจ้าหน้าที่">
+            <i class="fas fa-comment-dots"></i> <!-- Or use fas fa-headset -->
+        </button>
+    </div>
+
+<script>
+    // --- DOM Element References ---
+    const formSteps = document.querySelectorAll('.form-step');
+    const paymentTabsContainer = document.querySelector('#step-2 .payment-tabs');
+    const paymentTabBtns = document.querySelectorAll('#step-2 .tab-btn');
+    const paymentTabContents = document.querySelectorAll('#step-2 .tab-content');
+    const successModal = document.getElementById('successModal');
+    const modalCloseButton = document.getElementById('modalCloseButton');
+    const modalCloseX = successModal ? successModal.querySelector('.close-modal') : null;
+    const modalRefNumEl = document.getElementById('modalRefNumber');
+    const modalVerificationNoteEl = document.getElementById('modalVerificationNote');
+    const bankTransferAmountDisplay = document.getElementById('bank-transfer-amount');
+    const bankTransferAmountSteps = document.getElementById('bank-transfer-amount-steps');
+    const promptpayDynamicAmountEl = document.getElementById('promptpay-dynamic-amount');
+    const creditCardBaseAmountDisplay = document.getElementById('cc-base-amount');
+    const creditCardFeeAmountDisplay = document.getElementById('cc-fee-amount');
+    const creditCardTotalAmountDisplay = document.getElementById('creditCardTotalAmount');
+    const creditCardSubmitBtnAmount = document.getElementById('cc-submit-button-amount');
+    const otherMethodsAmountDisplay = document.getElementById('other-methods-amount');
+    const creditCardFeeDisplayContainer = document.getElementById('creditCardFeeDisplay');
+    const creditCardSubmitBtn = document.getElementById('submitBtnCreditCard');
+    const promptpayQrImg = document.getElementById('promptpay-qr');
+    const downloadQrBtn = document.getElementById('downloadQrBtn');
+    const qrTimerDisplay = document.getElementById('qrTimerDisplay');
+    const qrExpiredMessage = document.getElementById('qrExpiredMessage');
+    const refreshQrBtn = document.getElementById('refreshQrBtn');
+    const promptPaySubmitBtn = document.getElementById('submitBtnPromptpay');
+    const promptPayPendingNotice = document.getElementById('promptPayPending');
+    const totalAmountDisplayStep1 = document.getElementById('totalAmountValueStep1');
+    const nextBtnStep1 = document.getElementById('btn-next-step1');
+
+    // +++ START: Refs for Bank Transfer Upload (REDESIGNED) +++
+    const fileInputBank = document.getElementById('fileInputBank');
+    const uploadAreaBank = document.getElementById('uploadAreaBank');
+    const receiptPreviewContainerBank = document.getElementById('receiptPreviewContainerBank');
+    const submitBtnBank = document.getElementById('submitBtnBank');
+    const alertMessageBank = document.getElementById('alertMessageBank');
+    const bankVerificationStatusDiv = document.getElementById('bankTransferVerificationStatus');
+    let selectedFileBank = null;
+    let submitBtnBankOriginalText = submitBtnBank ? submitBtnBank.textContent.trim() : 'ยืนยันการชำระเงิน';
+    let isBankVerificationInProgress = false; // Flag to control modal closing
+    // +++ END: Refs for Bank Transfer Upload +++
+
+    // Refs for PromptPay Upload (REDESIGNED)
+    const fileInputPromptpay = document.getElementById('fileInputPromptpay');
+    const uploadAreaPromptpay = document.getElementById('uploadAreaPromptpay');
+    const receiptPreviewContainerPromptpay = document.getElementById('receiptPreviewContainerPromptpay');
+    const receiptPreviewPromptpay = document.getElementById('receiptPreviewPromptpay');
+
+
+    // --- Variables ---
+    let currentStep = 1;
+    const baseAmountNumeric = 2500.00; // *** CORRECTED TOTAL AMOUNT ***
+    const creditCardFeePercent = 0.03;
+    const qrTimerDuration = 5 * 60; // 5 minutes
+    let qrTimerIntervalId = null;
+    let qrTimeRemaining = qrTimerDuration;
+    let buttonOriginalContent = {};
+
+    // --- <<< 2. LIFF Integration Variables >>> ---
+    const liffId = "2006703040-rakJMkJk"; // <--- IMPORTANT: Replace with your LIFF ID
+    let liffInitialized = false;
+    let isInLiffClient = false; // Track if running inside LINE
+
+    // --- <<< 3. LIFF Initialization Function >>> ---
+    async function initializeLiff(id) {
+        if (!id || id === "2006703040-rakJMkJk") { // Check if placeholder is still there
+            console.warn("LIFF ID is missing or is the placeholder. LIFF features will be disabled.");
+            return; // Don't attempt to init without a valid ID
+        }
+        // Check if liff object exists (from SDK script)
+        if (typeof liff === 'undefined') {
+             console.error("LIFF SDK not loaded.");
+             return;
+        }
+        try {
+            console.log("Initializing LIFF with ID:", id);
+            await liff.init({ liffId: id });
+            liffInitialized = true; // Mark as attempted init
+            if (liff.isInClient()) {
+                 console.log("Running inside LINE client.");
+                 isInLiffClient = true;
+            } else {
+                 console.log("Running outside LINE client (external browser).");
+                 isInLiffClient = false;
+            }
+        } catch (error) {
+            console.error("LIFF initialization failed:", error);
+            liffInitialized = false; // Explicitly mark as failed
+            isInLiffClient = false;
+        }
+    }
+    // --- End LIFF Integration ---
+
+
+    // --- Helper Functions ---
+    function formatAmountUnit(amount) { if (typeof amount !== 'number' || isNaN(amount)) { console.error("Invalid amount:", amount); return 'N/A'; } return amount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' บาท'; }
+    function showLoadingState(btn) { if (!btn) return; buttonOriginalContent[btn.id] = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> กำลังดำเนินการ...`; }
+    function hideLoadingState(btn) { if (!btn || !buttonOriginalContent[btn.id]) return; btn.disabled = false; btn.innerHTML = buttonOriginalContent[btn.id]; delete buttonOriginalContent[btn.id]; }
+
+    // +++ START: Helpers for Bank Transfer Upload (Updated for new design & colors) +++
+    function setBankSubmitLoadingState(isLoading, message = 'กำลังดำเนินการ...') {
+        if (!submitBtnBank) return;
+        if (isLoading) {
+            submitBtnBank.disabled = true;
+            submitBtnBank.innerHTML = `<i class="fas fa-spinner fa-spin spinner"></i> ${message}`;
+        } else {
+            submitBtnBank.disabled = (selectedFileBank === null);
+            submitBtnBank.innerHTML = submitBtnBankOriginalText;
+        }
+    }
+
+    function showBankAlert(message, type = 'danger') {
+        if (!alertMessageBank) return;
+        let iconClass = 'fa-times-circle';
+        if (type === 'success') iconClass = 'fa-check-circle';
+        else if (type === 'warning') iconClass = 'fa-exclamation-triangle';
+        else if (type === 'info') iconClass = 'fa-info-circle';
+
+        alertMessageBank.innerHTML = `<i class="fas ${iconClass}"></i> <span>${message}</span>`;
+        alertMessageBank.className = `alert-message alert-${type}`;
+        alertMessageBank.style.display = 'flex';
+        hideBankVerificationStatus();
+    }
+
+    function hideBankAlert() {
+        if (alertMessageBank) alertMessageBank.style.display = 'none';
+    }
+
+    function showBankVerificationStatus(message) {
+        if (!bankVerificationStatusDiv || !submitBtnBank) return;
+        bankVerificationStatusDiv.innerHTML = `<i class="fas fa-sync-alt fa-spin"></i> <span>${message || 'กำลังตรวจสอบข้อมูลกับธนาคาร...'}</span>`;
+        bankVerificationStatusDiv.style.display = 'flex';
+        submitBtnBank.style.display = 'none';
+        hideBankAlert();
+        isBankVerificationInProgress = true;
+        disableModalClosing();
+    }
+
+    function hideBankVerificationStatus() {
+        if (bankVerificationStatusDiv) bankVerificationStatusDiv.style.display = 'none';
+    }
+
+    // --- Modal Closing Control ---
+    function disableModalClosing() {
+        if (!successModal || !modalCloseX || !modalCloseButton) return;
+        console.log("Disabling modal closing");
+        successModal.classList.add('block-close');
+        modalCloseX.classList.add('disabled');
+        modalCloseButton.disabled = true;
+    }
+
+    function enableModalClosing() {
+        if (!successModal || !modalCloseX || !modalCloseButton) return;
+        console.log("Enabling modal closing");
+        successModal.classList.remove('block-close');
+        modalCloseX.classList.remove('disabled');
+        modalCloseButton.disabled = false;
+        isBankVerificationInProgress = false; // Reset flag ONLY when enabling
+    }
+    // +++ END: Helpers for Bank Transfer Upload +++
+
+    // --- Step Navigation ---
+    function goToStep(stepNumber) {
+        console.log("Navigating to step:", stepNumber);
+        const currentActiveStep = document.querySelector('.form-step.active');
+        if (currentActiveStep && parseInt(currentActiveStep.id.split('-')[1]) === stepNumber) {
+             console.log("Already on step", stepNumber); return; }
+        if (stepNumber === 2) { updateAllPaymentAmounts(); }
+        else { clearQrTimer(); }
+        if (currentActiveStep) {
+            currentActiveStep.classList.add('exiting');
+            setTimeout(() => {
+                currentActiveStep.classList.remove('active', 'exiting');
+                const nextStepElement = document.getElementById(`step-${stepNumber}`);
+                if (nextStepElement) {
+                    nextStepElement.classList.add('active');
+                    currentStep = stepNumber;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (stepNumber === 2) { handleTabChange(); }
+                } else { console.error(`Target step element 'step-${stepNumber}' not found!`); }
+            }, 300);
+        } else {
+            formSteps.forEach(step => step.classList.remove('active'));
+            const nextStepElement = document.getElementById(`step-${stepNumber}`);
+            if (nextStepElement) {
+                nextStepElement.classList.add('active');
+                currentStep = stepNumber;
+                if (stepNumber === 2) { updateAllPaymentAmounts(); handleTabChange(); }
+            } else { console.error(`Target step element 'step-${stepNumber}' not found!`); }
+        }
+    }
+
+    // --- Update All Payment Amounts ---
+    function updateAllPaymentAmounts() {
+         console.log("Updating payment amounts...");
+         const formattedAmount = formatAmountUnit(baseAmountNumeric);
+         // Step 1 Total (Blue Box)
+         if (totalAmountDisplayStep1) totalAmountDisplayStep1.textContent = formattedAmount;
+
+         // Step 2 Amounts
+         // Bank Transfer (Blue Box)
+         if (bankTransferAmountDisplay) bankTransferAmountDisplay.textContent = formattedAmount;
+         if (bankTransferAmountSteps) bankTransferAmountSteps.textContent = formattedAmount; // Inside hidden steps
+
+         // PromptPay (Original Style)
+         if (promptpayDynamicAmountEl) promptpayDynamicAmountEl.textContent = formattedAmount;
+
+         // Credit Card (Blue Box)
+         updateCreditCardDisplay(); // Handles base, fee, total within its blue box
+
+         // Other Methods (Blue Box)
+         if (otherMethodsAmountDisplay) otherMethodsAmountDisplay.textContent = formattedAmount;
+    }
+
+    // --- Update Credit Card Display (within its Blue Box) ---
+    function updateCreditCardDisplay() {
+         const fee = baseAmountNumeric * creditCardFeePercent;
+         const total = baseAmountNumeric + fee;
+         const fmtBase = formatAmountUnit(baseAmountNumeric);
+         const fmtFee = formatAmountUnit(fee);
+         const fmtTotal = formatAmountUnit(total);
+         if (creditCardBaseAmountDisplay) creditCardBaseAmountDisplay.textContent = fmtBase;
+         if (creditCardFeeAmountDisplay) creditCardFeeAmountDisplay.textContent = fmtFee;
+         if (creditCardTotalAmountDisplay) creditCardTotalAmountDisplay.textContent = fmtTotal;
+         if (creditCardSubmitBtnAmount) creditCardSubmitBtnAmount.textContent = `(${fmtTotal})`;
+    }
+
+    // --- QR Code Timer Logic ---
+    function startQrTimer() { clearQrTimer(); qrTimeRemaining = qrTimerDuration; const receiverId = '0888888889'; const amount = baseAmountNumeric.toFixed(2); const qrUrl = `https://promptpay.io/${receiverId}/${amount}.png`; if (promptpayQrImg) { promptpayQrImg.src = qrUrl; promptpayQrImg.alt = `สแกน QR Code เพื่อชำระ ${amount} บาท`; promptpayQrImg.classList.remove('hidden'); } if (downloadQrBtn) { downloadQrBtn.href = qrUrl; downloadQrBtn.download = `PromptPay-QR-${amount}.png`; downloadQrBtn.style.display = 'inline-flex'; } updateTimerDisplay(); if (qrTimerDisplay) qrTimerDisplay.style.display = 'block'; if (qrExpiredMessage) qrExpiredMessage.style.display = 'none'; if (refreshQrBtn) refreshQrBtn.style.display = 'none'; qrTimerIntervalId = setInterval(() => { qrTimeRemaining--; updateTimerDisplay(); if (qrTimeRemaining <= 0) expireQrCode(); }, 1000); }
+    function updateTimerDisplay() { if (!qrTimerDisplay) return; const minutes = Math.floor(qrTimeRemaining / 60); const seconds = qrTimeRemaining % 60; const timerSpan = qrTimerDisplay.querySelector('span'); if (timerSpan) timerSpan.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; }
+    function clearQrTimer() { if (qrTimerIntervalId) clearInterval(qrTimerIntervalId); qrTimerIntervalId = null; }
+    function expireQrCode() { clearQrTimer(); if (qrTimerDisplay) qrTimerDisplay.style.display = 'none'; if (qrExpiredMessage) qrExpiredMessage.style.display = 'block'; if (promptpayQrImg) { promptpayQrImg.classList.add('hidden'); promptpayQrImg.src = ''; } if (downloadQrBtn) downloadQrBtn.style.display = 'none'; if (refreshQrBtn) refreshQrBtn.style.display = 'block'; }
+    function refreshQrCode() { if (promptpayQrImg) promptpayQrImg.classList.remove('hidden'); startQrTimer(); }
+    // --- Handle Tab Changes ---
+    function handleTabChange() { const activeTabButton = paymentTabsContainer?.querySelector('.tab-btn.active'); if (!activeTabButton) return; const activeTabId = activeTabButton.dataset.tab; console.log("Active tab changed to:", activeTabId); updateAllPaymentAmounts(); hideBankAlert(); hideBankVerificationStatus(); if (submitBtnBank) { submitBtnBank.style.display = 'block'; setBankSubmitLoadingState(false); } if (promptPayPendingNotice) promptPayPendingNotice.style.display = 'none'; if (promptPaySubmitBtn && buttonOriginalContent[promptPaySubmitBtn.id]) hideLoadingState(promptPaySubmitBtn); if (promptPaySubmitBtn) { promptPaySubmitBtn.style.display = 'block'; promptPaySubmitBtn.disabled = false; } if (activeTabId === 'promptpay') startQrTimer(); else clearQrTimer(); document.querySelectorAll('.hidden-steps.active').forEach(el => el.classList.remove('active')); document.querySelectorAll('.toggle-steps-btn.expanded').forEach(btn => { btn.classList.remove('expanded'); const icon = btn.querySelector('i'); if (icon) icon.className = 'fas fa-chevron-down'; btn.childNodes.forEach(node => { if (node.nodeType === Node.TEXT_NODE && node.textContent.includes('ซ่อน')) node.textContent = node.textContent.replace(/ซ่อนขั้นตอน.*/, 'แสดงขั้นตอน '); }); }); }
+    // --- Copy to Clipboard ---
+    function copyToClipboard(text, btnEl) { if (!navigator.clipboard) { alert('บราวเซอร์ไม่รองรับการคัดลอกอัตโนมัติ'); return; } navigator.clipboard.writeText(text).then(() => { const originalHTML = btnEl.innerHTML; const originalWidth = btnEl.offsetWidth; btnEl.style.width = `${originalWidth}px`; btnEl.innerHTML = '<i class="fas fa-check"></i> <span>คัดลอกแล้ว</span>'; btnEl.classList.add('copied'); btnEl.disabled = true; setTimeout(() => { btnEl.innerHTML = originalHTML; btnEl.classList.remove('copied'); btnEl.disabled = false; btnEl.style.width = ''; }, 1800); }).catch(err => { console.error('Copy failed:', err); alert('การคัดลอกล้มเหลว'); }); }
+
+    // +++ START: Bank Transfer Upload Functions (REDESIGNED) +++
+    function handleFileSelectBank(event) {
+        hideBankAlert();
+        const file = event.target.files ? event.target.files[0] : null;
+        const droppedFiles = event.dataTransfer ? event.dataTransfer.files : null;
+        const selected = file || (droppedFiles ? droppedFiles[0] : null);
+        if (!selected) return;
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'application/pdf'];
+        const maxSize = 5 * 1024 * 1024;
+        if (!allowedTypes.includes(selected.type)) {
+            showBankAlert('รูปแบบไฟล์ไม่ถูกต้อง โปรดเลือกไฟล์ PNG, JPG, GIF หรือ PDF เท่านั้น', 'danger'); resetFileInputBank(); return; }
+        if (selected.size > maxSize) {
+            showBankAlert(`ขนาดไฟล์เกินกำหนด (สูงสุด ${maxSize / 1024 / 1024}MB)`, 'danger'); resetFileInputBank(); return; }
+        selectedFileBank = selected;
+        generatePreviewBank(selected);
+        if (uploadAreaBank) uploadAreaBank.style.display = 'none';
+        if (receiptPreviewContainerBank) receiptPreviewContainerBank.style.display = 'block';
+        if (submitBtnBank) submitBtnBank.disabled = false;
+        hideBankVerificationStatus();
+    }
+
+    function generatePreviewBank(file) {
+        if (!receiptPreviewContainerBank) return;
+        const existingPreview = receiptPreviewContainerBank.querySelector('.slip-preview-image, .pdf-preview-placeholder');
+        if (existingPreview) existingPreview.remove();
+        const removeBtn = receiptPreviewContainerBank.querySelector('.remove-slip-button');
+        if (!removeBtn) { console.error("Remove button not found in preview container!"); return; }
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = `ตัวอย่างสลิป: ${file.name}`;
+                img.classList.add('slip-preview-image');
+                receiptPreviewContainerBank.insertBefore(img, removeBtn);
+            }
+            reader.readAsDataURL(file);
+        } else if (file.type === 'application/pdf') {
+            const pdfPlaceholder = document.createElement('div');
+            pdfPlaceholder.classList.add('pdf-preview-placeholder');
+            pdfPlaceholder.innerHTML = `<i class="fas fa-file-pdf"></i> <span>${file.name}</span>`;
+            receiptPreviewContainerBank.insertBefore(pdfPlaceholder, removeBtn);
+        }
+    }
+
+    function removeSelectedSlipBank() {
+        hideBankAlert(); resetFileInputBank(); selectedFileBank = null;
+        if (receiptPreviewContainerBank) {
+            receiptPreviewContainerBank.style.display = 'none';
+            const previewContent = receiptPreviewContainerBank.querySelector('.slip-preview-image, .pdf-preview-placeholder');
+            if (previewContent) previewContent.remove();
+        }
+        if (uploadAreaBank) uploadAreaBank.style.display = 'block';
+        if (submitBtnBank) {
+            submitBtnBank.disabled = true;
+            if (submitBtnBank.innerHTML !== submitBtnBankOriginalText) { submitBtnBank.innerHTML = submitBtnBankOriginalText; }
+        }
+        hideBankVerificationStatus();
+    }
+
+    function resetFileInputBank() { if (fileInputBank) fileInputBank.value = null; }
+
+    function handleConfirmationBank() {
+        if (!selectedFileBank || !submitBtnBank || submitBtnBank.disabled || isBankVerificationInProgress) return;
+        hideBankAlert(); hideBankVerificationStatus();
+        setBankSubmitLoadingState(true, 'กำลังอัปโหลด...');
+        uploadSlipToApiBank(selectedFileBank)
+            .then(uploadResponse => {
+                console.log('Upload Response:', uploadResponse);
+                setBankSubmitLoadingState(false);
+                showBankVerificationStatus('กำลังตรวจสอบข้อมูลกับธนาคาร...'); // Updated Text
+                return new Promise(resolve => setTimeout(resolve, 3000)).then(() => uploadResponse); // Simulate API call time
+            })
+            .then(verificationResponse => {
+                hideBankVerificationStatus(); // Hide grey verification box
+                const refNum = verificationResponse.transactionRef || `PAY${new Date().getFullYear()}BT${(Math.random()*1000).toFixed(0).padStart(3,'0')}`;
+                if (verificationResponse.status === 'verified_ok') {
+                    showSuccessModal("โอนเงินผ่านธนาคาร", true, refNum); // Pass 'true' for automatedCheckPerformed
+                } else if (verificationResponse.status === 'verified_fake') {
+                    showBankAlert('การตรวจสอบไม่สำเร็จ: ข้อมูลในสลิปไม่ถูกต้อง หรือยอดเงินไม่ตรงกัน', 'danger'); // More specific error
+                    if (submitBtnBank) submitBtnBank.style.display = 'block'; // Show button again
+                    setBankSubmitLoadingState(false); // Reset button state
+                } else {
+                    showBankAlert('เกิดข้อผิดพลาดในการตรวจสอบข้อมูลกับธนาคาร', 'danger'); // More specific error
+                    if (submitBtnBank) submitBtnBank.style.display = 'block';
+                    setBankSubmitLoadingState(false);
+                }
+                enableModalClosing(); // Enable closing AFTER result is known
+            })
+            .catch(error => {
+                console.error('Bank Transfer Error:', error);
+                hideBankVerificationStatus();
+                setBankSubmitLoadingState(false);
+                showBankAlert(`เกิดข้อผิดพลาด: ${error.message || 'ไม่สามารถดำเนินการได้ โปรดลองอีกครั้ง'}`, 'danger');
+                if (submitBtnBank) submitBtnBank.style.display = 'block';
+                enableModalClosing(); // Ensure closable on error
+            });
+    }
+
+    async function uploadSlipToApiBank(file) { // Keep simulation simple
+        console.log(`Simulating upload & verification for: ${file.name}`);
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate upload
+        const randomOutcome = Math.random(); let resultStatus;
+        if (randomOutcome < 0.7) { resultStatus = 'verified_ok'; }
+        else if (randomOutcome < 0.9) { resultStatus = 'verified_fake'; }
+        else { throw new Error("จำลองข้อผิดพลาด API: ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ธนาคาร"); }
+        console.log("Simulated Verification Status:", resultStatus);
+        return { success: true, status: resultStatus, transactionRef: `PAY${new Date().getFullYear()}BT${(Math.random()*10000).toFixed(0).padStart(4,'0')}` };
+    }
+    // +++ END: Bank Transfer Upload Functions +++
+
+
+    // --- PromptPay Upload Functions (REDESIGNED STYLE) ---
+    function setupUploadAreaPromptpay() {
+        if (!uploadAreaPromptpay || !fileInputPromptpay || !receiptPreviewPromptpay || !receiptPreviewContainerPromptpay) { console.warn("PromptPay upload elements not found."); return; }
+        const handleFile = (file) => {
+            if (!file) return; const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf']; const maxSize = 5 * 1024 * 1024;
+            if (!allowedTypes.includes(file.type)) { alert('รูปแบบไฟล์ไม่ถูกต้อง (JPG, PNG, PDF เท่านั้น)'); fileInputPromptpay.value = ''; return; }
+            if (file.size > maxSize) { alert('ขนาดไฟล์ต้องไม่เกิน 5MB'); fileInputPromptpay.value = ''; return; }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                 const existingPreview = receiptPreviewContainerPromptpay.querySelector('.receipt-preview, .pdf-preview-placeholder'); if(existingPreview) existingPreview.remove();
+                 const removeBtn = receiptPreviewContainerPromptpay.querySelector('.btn-secondary');
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img'); img.src = e.target.result; img.alt = `ตัวอย่างสลิป: ${file.name}`; img.classList.add('receipt-preview');
+                    receiptPreviewContainerPromptpay.insertBefore(img, removeBtn);
+                } else if (file.type === 'application/pdf') {
+                    const pdfPlaceholder = document.createElement('div'); pdfPlaceholder.classList.add('pdf-preview-placeholder'); pdfPlaceholder.innerHTML = `<i class="fas fa-file-pdf" style="color: var(--danger-color); font-size: 2rem; margin-bottom: 10px;"></i> <span style="font-size: 0.9rem; color: #555;">${file.name}</span>`;
+                    receiptPreviewContainerPromptpay.insertBefore(pdfPlaceholder, removeBtn);
+                }
+                receiptPreviewContainerPromptpay.style.display = 'block'; uploadAreaPromptpay.style.display = 'none';
+                const uploadSection = uploadAreaPromptpay.closest('.upload-section'); if (uploadSection) uploadSection.dataset.receiptUploaded = 'true';
+            }; reader.readAsDataURL(file); };
+        uploadAreaPromptpay.addEventListener('click', () => fileInputPromptpay.click());
+        fileInputPromptpay.addEventListener('change', (e) => { if (e.target.files.length > 0) handleFile(e.target.files[0]); });
+        uploadAreaPromptpay.addEventListener('dragover', (e) => { e.preventDefault(); uploadAreaPromptpay.classList.add('dragover'); });
+        uploadAreaPromptpay.addEventListener('dragleave', () => { uploadAreaPromptpay.classList.remove('dragover'); });
+        uploadAreaPromptpay.addEventListener('drop', (e) => { e.preventDefault(); uploadAreaPromptpay.classList.remove('dragover'); if (e.dataTransfer.files.length > 0) { fileInputPromptpay.files = e.dataTransfer.files; handleFile(fileInputPromptpay.files[0]); } });
+    }
+
+    function removeReceiptPromptpay() {
+        if (fileInputPromptpay) fileInputPromptpay.value = '';
+        const previewContent = receiptPreviewContainerPromptpay.querySelector('.receipt-preview, .pdf-preview-placeholder'); if(previewContent) previewContent.remove();
+        if (receiptPreviewContainerPromptpay) receiptPreviewContainerPromptpay.style.display = 'none';
+        if (uploadAreaPromptpay) uploadAreaPromptpay.style.display = 'block';
+        const uploadSection = uploadAreaPromptpay ? uploadAreaPromptpay.closest('.upload-section') : null; if (uploadSection) uploadSection.dataset.receiptUploaded = 'false';
+    }
+
+    // --- Modal & Confetti ---
+    function showSuccessModal(paymentMethod = "Unknown", automatedCheckPerformed = false, refNumber = "N/A") {
+        console.log("Showing Success Modal. Method:", paymentMethod, "Automated Check:", automatedCheckPerformed, "Ref:", refNumber);
+        if (!successModal || !modalRefNumEl || !modalVerificationNoteEl) return;
+
+        modalRefNumEl.textContent = refNumber;
+
+        if (automatedCheckPerformed) {
+             modalVerificationNoteEl.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-color);"></i> การตรวจสอบข้อมูลเสร็จสมบูรณ์ การชำระเงินของท่านได้รับการยืนยันแล้ว`;
+             modalVerificationNoteEl.style.display = 'block';
+             enableModalClosing();
+        } else if (paymentMethod.includes("มีสลิป")) {
+             modalVerificationNoteEl.innerHTML = `<i class="fas fa-info-circle"></i> ระบบได้รับหลักฐานแล้ว จะดำเนินการตรวจสอบและแจ้งผลภายหลัง (ถ้าจำเป็น)`;
+             modalVerificationNoteEl.style.display = 'block';
+             enableModalClosing();
+        }
+        else {
+             modalVerificationNoteEl.textContent = 'การชำระเงินของท่านได้รับการยืนยันเรียบร้อยแล้ว';
+             modalVerificationNoteEl.style.display = 'block';
+             enableModalClosing();
+        }
+
+        createConfetti();
+        successModal.classList.add('show');
+
+        if (!isBankVerificationInProgress) {
+             enableModalClosing();
+        }
+    }
+
+    function closeModal() {
+        if (isBankVerificationInProgress) {
+            console.log("Modal closing blocked: Bank verification API call in progress.");
+            if (successModal) { successModal.style.animation = 'shake 0.5s'; setTimeout(() => { successModal.style.animation = ''; }, 500); }
+            return;
+        }
+        console.log("Closing Modal");
+        if (successModal) successModal.classList.remove('show');
+
+        // *** ADD LIFF CLOSE WINDOW LOGIC HERE ***
+        if (liffInitialized && isInLiffClient && typeof liff !== 'undefined' && liff.closeWindow) {
+             try {
+                  console.log("Attempting to close LIFF window...");
+                  liff.closeWindow();
+             } catch (error) {
+                  console.error("Error closing LIFF window:", error);
+                  // Fallback or just log if closeWindow fails
+             }
+        } else {
+            console.log("Not in LIFF client or LIFF not initialized/closeWindow unavailable, cannot close LIFF window.");
+            // Optional: redirect to a 'thank you' page or back to the app if running in a standard browser
+            // window.location.href = '/thank-you';
+        }
+    }
+
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && successModal?.classList.contains('show')) { closeModal(); } });
+
+    function createConfetti() { const container=document.body;if(document.querySelectorAll('.confetti').length>200)return;const colors=['#4a6bdf','#ff6b6b','#28a745','#ffc107','#6c5ce7','#f06595','#fab005','#12b886'];const count=80;for(let i=0;i<count;i++){const confetti=document.createElement('div');confetti.className='confetti';confetti.style.left=Math.random()*100+'vw';confetti.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];const size=Math.random()*10+5;confetti.style.width=size+'px';confetti.style.height=size*(Math.random()*.6+.7)+'px';confetti.style.opacity=Math.random()*.6+.4;confetti.style.animationDuration=Math.random()*2.5+3+'s';confetti.style.animationDelay=Math.random()*1.5+'s';confetti.style.transform=`translateX(${Math.random()*40-20}px)`;container.appendChild(confetti);setTimeout(()=>{confetti.remove();},(parseFloat(confetti.style.animationDuration)+parseFloat(confetti.style.animationDelay))*1000);} }
+
+    // --- Form Submission Simulation ---
+    function handlePromptPaySubmit(btnEl) { if (!btnEl) return; const uploadSection=document.querySelector('#promptpay .upload-section'); const hasReceipt=uploadSection&&uploadSection.dataset.receiptUploaded==='true'; showLoadingState(btnEl); const refNum = `PAY${new Date().getFullYear()}PP${(Math.random()*1000).toFixed(0).padStart(3,'0')}`; if (hasReceipt) { console.log("Submitting PromptPay with receipt..."); setTimeout(()=>{ if(promptPayPendingNotice)promptPayPendingNotice.style.display='block'; if(btnEl)btnEl.style.display='none'; setTimeout(()=>{ if(promptPayPendingNotice)promptPayPendingNotice.style.display='none'; showSuccessModal("พร้อมเพย์ (มีสลิป)", false, refNum); // automatedCheckPerformed = false here
+         }, 3000); }, 1000); } else { console.log("Submitting PromptPay without receipt..."); setTimeout(()=>{ showSuccessModal("พร้อมเพย์ (อัตโนมัติ)", false, refNum); // automatedCheckPerformed = false here
+         hideLoadingState(btnEl); }, 1500); } }
+    function simulatePaymentSubmission(btnEl) { if (!btnEl||btnEl.disabled) return; showLoadingState(btnEl); console.log("Submitting Credit Card payment..."); const refNum = `PAY${new Date().getFullYear()}CC${(Math.random()*1000).toFixed(0).padStart(3,'0')}`; setTimeout(()=>{ showSuccessModal("บัตรเครดิต", false, refNum); // automatedCheckPerformed = false here
+         hideLoadingState(btnEl); }, 1500); }
+
+    // --- Input Masking ---
+    function formatCardNumber(input) { let v=input.value.replace(/\D/g,''),f='';for(let i=0;i<v.length;i++){if(i>0&&i%4===0)f+=' ';f+=v[i];}input.value=f.trim().slice(0,19);}
+    function formatExpiryDate(input) { let v=input.value.replace(/\D/g,'');if(v.length>=2){let m=v.substring(0,2);if(parseInt(m)===0)m='01';else if(parseInt(m)>12)m='12';input.value=m+(v.length>2?' / '+v.substring(2,4):'');}else{input.value=v;}input.value=input.value.slice(0,7);}
+    function formatCVV(input) { input.value=input.value.replace(/\D/g,'').slice(0,4);}
+
+    // --- Toggle Hidden Steps ---
+    function toggleStepsVisibility(targetId, btnEl) { const content=document.getElementById(targetId);const icon=btnEl.querySelector('i');if(!content||!icon)return;const isActive=content.classList.toggle('active');btnEl.classList.toggle('expanded',isActive);if(isActive){icon.className='fas fa-chevron-up';btnEl.childNodes.forEach(n=>{if(n.nodeType===Node.TEXT_NODE&&n.textContent.includes('แสดง'))n.textContent=n.textContent.replace(/แสดงขั้นตอน.*/,'ซ่อนขั้นตอน ');});}else{icon.className='fas fa-chevron-down';btnEl.childNodes.forEach(n=>{if(n.nodeType===Node.TEXT_NODE&&n.textContent.includes('ซ่อน'))n.textContent=n.textContent.replace(/ซ่อนขั้นตอน.*/,'แสดงขั้นตอน ');});}}
+
+    // --- <<< 4. Floating Contact Button Logic >>> ---
+    function setupContactWidget() {
+        const contactWidget = document.getElementById('contact-float-widget');
+        const contactBtn = document.getElementById('contact-float-btn');
+        const lineOptionButton = document.getElementById('line-contact-option'); // Specific ID for LINE
+
+        if (!contactWidget || !contactBtn || !lineOptionButton) {
+            console.warn("Floating contact widget elements not found.");
+            return;
+        }
+
+        contactBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            contactWidget.classList.toggle('active');
+        });
+
+        // Add LIFF check to LINE button click
+        lineOptionButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Always prevent default for this button now
+            console.log("LINE option clicked. Checking LIFF state...");
+
+            // --- <<< 5. LIFF Check >>> ---
+            const lineOAUrl = this.href; // Get URL from the href attribute
+
+            if (liffInitialized && isInLiffClient && typeof liff !== 'undefined' && liff.openWindow) { // Use the flags set during init & check openWindow exists
+                console.log("User is in LINE client. Attempting liff.openWindow...");
+                try {
+                    liff.openWindow({
+                        url: lineOAUrl,
+                        external: false // Open *within* LINE app
+                    });
+                    console.log("liff.openWindow called for:", lineOAUrl);
+                    // Optionally close the widget after clicking
+                    contactWidget.classList.remove('active');
+                } catch (error) {
+                    console.error("liff.openWindow failed:", error);
+                    // Fallback if openWindow fails
+                    window.open(lineOAUrl, '_blank');
+                }
+            } else {
+                console.log("User is NOT in LINE client or LIFF failed/not initialized/openWindow unavailable. Opening standard link.");
+                // Standard behavior for external browsers or if LIFF failed
+                window.open(lineOAUrl, '_blank');
+                 // Optionally close the widget after clicking
+                 contactWidget.classList.remove('active');
+            }
+        });
+
+        // Close options if clicking outside the widget
+        document.addEventListener('click', (event) => {
+            if (contactWidget.classList.contains('active') && !contactWidget.contains(event.target)) {
+                contactWidget.classList.remove('active');
+            }
+        });
+    }
+    // --- End Floating Contact Button Logic ---
+
+
+    // --- Initial Setup ---
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('--- DOMContentLoaded START ---');
+
+        // --- <<< 6. Initialize LIFF on Load >>> ---
+        // IMPORTANT: Remember to replace "YOUR_LIFF_ID_HERE" with your actual LIFF ID!
+        initializeLiff(liffId);
+
+
+        // --- Payment Form Setup ---
+        if (nextBtnStep1) { nextBtnStep1.addEventListener('click', () => goToStep(2)); nextBtnStep1.disabled = false; console.log('SUCCESS: #btn-next-step1 setup complete.'); } else { console.error('CRITICAL ERROR: #btn-next-step1 button NOT FOUND!'); }
+        updateAllPaymentAmounts(); // Call this AFTER correcting baseAmountNumeric
+        const ccNum = document.getElementById('cardNumber'); const ccExp = document.getElementById('expiryDate'); const ccCvv = document.getElementById('cvv'); const ccName = document.getElementById('cardName'); if(ccNum) ccNum.addEventListener('input',()=>formatCardNumber(ccNum)); if(ccExp) ccExp.addEventListener('input',()=>formatExpiryDate(ccExp)); if(ccCvv) ccCvv.addEventListener('input',()=>formatCVV(ccCvv)); if(ccName){ccName.addEventListener('input',function(){this.value=this.value.replace(/[^A-Za-z\s-]/g,'').toUpperCase();});}
+        if (paymentTabsContainer) { paymentTabBtns.forEach(btn => { btn.addEventListener('click', () => { const tabId = btn.dataset.tab; console.log(`Tab clicked: ${tabId}`); paymentTabBtns.forEach(b => b.classList.remove('active')); paymentTabContents.forEach(c => c.classList.remove('active')); btn.classList.add('active'); const content = document.getElementById(tabId); if (content) content.classList.add('active'); handleTabChange(); setTimeout(() => { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }, 100); }); }); } else { console.warn("Payment tabs container not found."); }
+        console.log('Setting up Bank Transfer Upload Listeners...'); if (uploadAreaBank) { uploadAreaBank.addEventListener('click', () => { if(fileInputBank) fileInputBank.click(); }); uploadAreaBank.addEventListener('dragover', (e) => { e.preventDefault(); uploadAreaBank.classList.add('dragover'); }); uploadAreaBank.addEventListener('dragleave', () => { uploadAreaBank.classList.remove('dragover'); }); uploadAreaBank.addEventListener('drop', (e) => { e.preventDefault(); uploadAreaBank.classList.remove('dragover'); handleFileSelectBank(e); }); } else { console.warn('#uploadAreaBank not found.'); } if (fileInputBank) { fileInputBank.addEventListener('change', handleFileSelectBank); } else { console.warn('#fileInputBank not found.'); } if (receiptPreviewContainerBank) { receiptPreviewContainerBank.addEventListener('click', function(event) { const removeButton = event.target.closest('.remove-slip-button'); if (removeButton && removeButton.id === 'removeSlipButtonBank') { removeSelectedSlipBank(); } }); } else { console.warn('#receiptPreviewContainerBank not found.'); } if (submitBtnBank) { submitBtnBank.addEventListener('click', handleConfirmationBank); submitBtnBankOriginalText = submitBtnBank.textContent.trim(); } else { console.warn('#submitBtnBank not found.'); }
+        console.log('Setting up PromptPay Upload Area...'); setupUploadAreaPromptpay();
+        handleTabChange(); // Ensure correct initial state
+
+        // --- <<< 7. Setup Floating Contact Widget Listeners >>> ---
+        setupContactWidget();
+
+        isBankVerificationInProgress = false; // Ensure flag is false initially
+        enableModalClosing(); // Ensure modal is closable initially
+
+        console.log('--- DOMContentLoaded END ---');
+    }); // End of DOMContentLoaded
+</script>
+
+</body>
+</html>
