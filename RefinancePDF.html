@@ -63,8 +63,8 @@ body {
 /* ====== Page Bottom Stamp (New) ====== */
 .page-bottom-stamp {
  position: absolute;
-    bottom: 10mm;
-    left: 10mm;
+    bottom: 5mm;
+    left: 75mm;
     width: 250px;
     height: auto;
     opacity: 0.7;
@@ -199,7 +199,8 @@ position: absolute;
   padding: 1mm; /* Add slight padding inside border */
   box-sizing: border-box;
   text-align: center; /* Center any fallback text */
-  font-size: 7pt; /* Smaller font for fallback text */
+  font-size: 7pt;
+   /* Smaller font for fallback text */
   color: #666; /* Mute fallback text color */
   /* Remove any default content like text or placeholder divs */
 }
@@ -211,7 +212,7 @@ position: absolute;
 }
 
 .contract-info {
-  font-size: 9.5pt;
+  font-size: 12pt;
   text-align: left;
   line-height: 1.25;
   white-space: nowrap; /* Keep lines from wrapping */
@@ -228,7 +229,7 @@ position: absolute;
   white-space: normal; /* Allow date info to wrap if needed, although min-widths should prevent it */
   text-align: right; /* Align date info to center */
   line-height: 1.4;
-  font-size: 9pt;
+  font-size: 12pt;
   /* New grid properties to position it */
   grid-column: 1 / span 1; /* Span 1 column */
   grid-row: 2; /* Place in the second row */
@@ -246,6 +247,7 @@ position: absolute;
 .clauses {
   line-height: 1.3;
   font-size: 13pt; /* Base size for clauses */
+  
 }
 
 .clauses p:last-child {
@@ -257,7 +259,7 @@ position: absolute;
 }
 .clauses ul,
 .clauses ol {
-  font-size: 9pt;
+  font-size: 11pt;
   text-align: justify;
   margin: 0 0 2.5mm;
   padding-left: 3.5em;
@@ -274,7 +276,7 @@ position: absolute;
 #consentClausesContainerPage2 p,
 #consentClausesContainerPage2 ul,
 #consentClausesContainerPage2 ol {
-  font-size: 8.5pt;
+  font-size: 11pt;
   margin-bottom: 1.8mm;
   text-align: justify;
 }
@@ -295,12 +297,12 @@ position: absolute;
   margin-bottom: 0.5mm;
 }
 #consentClausesContainerPage2 > p:first-of-type {
-  font-size: 8.5pt;
+  font-size: 11pt;
   margin-bottom: 2mm;
   text-align: right;
 }
 #consentClausesContainerPage2 > p:nth-of-type(2) {
-  font-size: 8.5pt;
+  font-size: 11pt;
   margin-bottom: 1.5mm;
   text-indent: 0;
   line-height: 1.3;
@@ -309,7 +311,7 @@ position: absolute;
   text-indent: 1.8em;
 }
 #consentClausesContainerPage2 > p:last-of-type {
-  font-size: 8.5pt;
+  font-size: 11pt;
   margin-bottom: 2mm;
   text-indent: 0;
 }
@@ -317,9 +319,9 @@ position: absolute;
 /* ====== เซ็นชื่อ (General) ====== */
 .signature-header-text {
   text-align: center;
-  font-size: 10pt;
+  font-size: 14pt;
   font-weight: bold;
-  margin: 8mm 0 5mm;
+  margin: 3mm 0 8mm;
 }
 .signature-grid {
   display: flex;
@@ -332,7 +334,7 @@ position: absolute;
 .signature-block {
   width: 48%;
   text-align: center;
-  font-size: 9.5pt;
+  font-size: 12pt;
   position: relative;
   line-height: 1.2;
 }
@@ -353,11 +355,12 @@ position: absolute;
 }
 .signature-name {
   margin-top: 2px;
-  font-size: 9pt;
+  font-size: 12pt;
 }
 .signature-title-text {
-  font-size: 8.5pt;
+  font-size: 12pt;
   margin-top: 1px;
+
 }
 .applicant-signature-image { /* Signature on Page 1 & 5 Debtor */ /* Added 5 */
   position: absolute;
@@ -412,14 +415,14 @@ position: absolute;
 .stamp-duty-box {
   border: 0.5px solid #000;
   width: 60%;
-  margin: 7mm auto 0;
+  margin: 4mm 0;
   padding: 2mm;
   text-align: center;
-  font-size: 8pt;
+  font-size: 12pt;
   line-height: 1.15;
 }
 .stamp-duty-box .title {
-  font-size: 9.5pt;
+  font-size: 12pt;
   font-weight: bold;
   margin-bottom: 1mm;
 }
@@ -427,11 +430,12 @@ position: absolute;
 /* ====== Styles for Page 2 ====== */
 .dotted-underline {
   border-bottom: 0.5px dotted #333;
-  display: inline-block;
+  display: inline !important;
   min-width: 20mm; /* Default min-width */
   white-space: nowrap;
-  padding: 0 1px;
+  padding: 0 5px !important;
   vertical-align: bottom;
+
 }
 .dotted-underline#consentApplicantNamePage2 { min-width: 60mm; }
 .dotted-underline#consentApplicantIdPage2   { min-width: 45mm; }
@@ -448,12 +452,12 @@ position: absolute;
   flex-direction: column;
 }
 .page2-signatures-area > p {
-  font-size: 9pt;
+  font-size: 11pt;
   text-align: center;
   margin: 0 0 1mm;
 }
 .signature-block-p2 {
-  font-size: 9pt;
+  font-size: 11pt;
   line-height: 1.2;
   width: 100%;
 }
@@ -461,7 +465,7 @@ position: absolute;
   display: flex;
   align-items: center;
   margin-bottom: 1mm;
-  font-size: 9pt;
+  font-size: 11pt;
 }
 .signature-label { white-space: nowrap; margin-right: 4px; }
 .signature-role  { white-space: nowrap; margin-left: 4px; }
@@ -484,7 +488,7 @@ position: absolute;
 .signature-name-container-p2 {
   text-align: center;
   margin-top: 1mm;
-  font-size: 8.5pt;
+  font-size: 11pt;
   padding: 0 5mm;
   display: flex;
   justify-content: center;
@@ -534,7 +538,7 @@ position: absolute;
 }
 .page3-header-info {
   text-align: right;
-  font-size: 9pt;
+  font-size: 12pt;
   margin-bottom: 4mm;
 }
 /* Style for the contract intro section (Used on Page 3, 4 and 5) */ /* Added 5 */
@@ -544,7 +548,7 @@ position: absolute;
 }
 /* General style for all paragraphs in the intro */
 .page3-contract-intro p {
-  font-size: 9pt;
+  font-size: 12pt;
   line-height: 1.5;
   margin-bottom: 1.5mm;
   text-indent: 0; /* Ensure no indent for all intro paragraphs */
@@ -591,7 +595,7 @@ position: absolute;
 .page3-contract-intro .office-address {
   white-space: normal; /* CHANGED to allow text to wrap */
   overflow: visible;
-  font-size: 9pt;
+  font-size: 12pt;
   line-height: 1.5;
   margin-bottom: 1.5mm;
   text-indent: 0;
@@ -613,7 +617,7 @@ position: absolute;
 .page3-details-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 10pt;
+  font-size: 12pt;
   margin: 3mm 0;
   table-layout: fixed; /* Makes column widths predictable */
 }
@@ -664,7 +668,7 @@ position: absolute;
   margin-top: 5mm; /* Add space before this block */
 }
 .page3-agreement-text p {
-  font-size: 9pt;
+  font-size: 12pt;
   line-height: 1.4;
   margin-bottom: 2mm;
   text-indent: 2em;
@@ -763,7 +767,7 @@ position: absolute;
 
 #salesConcludingText p,
 #acknowledgementConcludingText p { /* Added #acknowledgementConcludingText p */
-  font-size: 9pt; /* Match clause text size */
+  font-size: 12pt; /* Match clause text size */
   line-height: 1.4; /* Match clause line height */
   margin-bottom: 5mm; /* Space before signatures */
   text-indent: 0 !important; /* Ensure no indent for this paragraph */
@@ -930,7 +934,7 @@ position: absolute;
    white-space: normal; 
 }
   .page5-contract-intro p { 
-    font-size: 9pt;
+    font-size: 12pt;
     line-height: 1.5;
     margin-bottom: 1.5mm;
     text-indent: 0;
@@ -1071,6 +1075,48 @@ position: absolute;
     </header>
     <div class="clauses" id="contractClausesContainer">
         <!-- จะถูกเติมโดย JavaScript -->
+              <p class="contract-paragraph">
+                1. บริษัทฯ ตกลงให้เช่าซื้อ และผู้เช่าซื้อตกลงเช่าซื้อ สินค้าตามที่ระบุในสัญญานี้ภายใต้ข้อกำหนดและเงื่อนไข โดยผู้เช่าซื้อได้รับสินค้าของบริษัทฯไปในสภาพเรียบร้อย ใช้การได้ดี และบริษัทฯ ตกลงจัดให้ผู้เช่าซื้อสามารถใช้สิทธิ์ในการเรียกร้องให้มีการปฏิบัติตามเงื่อนไข 
+                <strong>
+                การรับประกันสินค้าจากผู้ขายและผู้ผลิตได้โดยตรง ผู้เช่าซื้อได้ทราบแล้วว่ามีกรรมสิทธิ์ในสินค้าที่จะเช่าซื้อยังคงเป็นของบริษัทฯจนกว่าผู้เช่าซื้อชำระเงินครบถ้วนตามสัญญา
+                </strong>
+                นี้แล้ว และในระหว่างการเช่าซื้อหากบริษัทฯจะโอนสิทธิการเป็นเจ้าของ หรือภาระผูกพันอันเกิดจากสัญญาเช่าซื้อไปยังบุคคลอื่น หรือเจ้าหนี้รายอื่นแล้ว ให้ถือว่าผู้เช่าซื้อยินยอมการรับโอนสิทธิ หรือภาระผูกพันอันเกิดจากสัญญาเช่าชื้อนั้น 
+              </p>
+              <p>
+                2. ผู้เช่าซื้อได้ชำระค่างวดครั้งแรกตามระบุในสัญญาในวันที่ทำสัญญานี้ และจะชำระค่างวดส่วนที่เหลือเป็นรายเดือน ตามวิธีการ จำนวนเงินและในวันกำหนดชำระเงินตามที่ระบุไว้ กรณีที่ผู้เช่าซื้อมีความประสงค์จะขอชำระเงินค่าเช่าซื้อทั้งหมด ในคราวเดียวเพื่อปิดบัญชี บริษัทฯตกลงตามความประสงค์นั้นโดยจะให้ส่วนลดแก่ผู้เช่าซื้อตามประกาศของคณะกรรมการคุ้มครองผู้บริโภค หาก
+                <strong>
+                    ในกรณีที่บริษัทฯไม่ได้รับชำระเงินค่างวดภายในวันที่กำหนดชำระเงิน ผู้เช่าซื้อต้องเสียค่าปรับ สำหรับค่างวดที่ค้างชำระในอัตราที่กฎหมายกำหนด
+                </strong>
+                 และผู้เช่าซื้อขอให้สัญญาว่าจะเก็บรักษาสินค้า และส่วนประกอบของสินค้าที่ได้เช่าซื้อในสถานที่ของผู้เช่าซื้อดังระบุไว้ และจะไม่เคลื่อนย้ายสินค้านี้ไปไว้ที่อื่น เว้นแต่จะได้รับอนุญาตเป็นลายลักษณ์อักษร ก่อน จะระวังรักษาให้อยู่ในสภาพเรียบร้อย ใช้การได้ดี จะไม่ดัดแปลงหรือแก้ไขทรัพย์สิน อุปกรณ์ หรืออะไหล่ หรือส่วนหนึ่งส่วนใดของสินค้าด้วยประการใดๆ ในการซ่อมแซมจะต้องให้ผู้แทนหรือพนักงานของบริษัทฯเป็นผู้ซ่อมแซม สำหรับค่าใช้จ่ายในการซ่อมแซม ค่าอุปกรณ์ ค่าอะไหล่ที่ซ่อมแซมนั้น ให้เป็นไปตามข้อตกลงที่ผู้เช่าซื้อได้ทำไว้กับบริษัทฯ
+              </p>
+              <p>
+              3. ผู้เช่าซื้อยอมให้บริษัทฯ หรือผู้แทนบริษัทฯ ไม่ว่าคนเดียวหรือหลายคน เข้าตรวจดูสินค้าที่เช่าซื้อได้เป็นครั้งคราวในเวลาและระยะเวลาอันสมควร กรณีที่บริษัทฯประสงค์จะเรียกใบเสร็จรับเงินค่าเช่าซื้อเพื่อไปตรวจสอบ บริษัทฯจะออกใบรับตามแบบพิมพ์ที่กำหนดไว้มอบให้ผู้เช่าซื้อยึดถือไว้เป็นหลักฐาน แต่หากว่าผู้เช่าซื้อค้างชำระค่าเช่า 
+                <strong>
+                    ผู้เช่าซื้อยินยอมให้ผู้แทนหรือลูกจ้าง พนักงานบริษัทฯ เข้าไปในเคหสถานที่อยู่อาศัยของตนเพื่อยึดสินค้าตามสัญญานี้ โดยมิต้องบอกกล่าวล่วงหน้า ไม่ว่าผู้เช่าซื้อจะอยู่ด้วยในขณะนั้นหรือไม่ และไม่ต้องคำนึงว่าบริษัทฯจะได้บอกเลิกสัญญาแล้วหรือไม่ ผู้เช่าซื้อขอให้สัญญาว่าจะให้เช่าช่วงหรือโอนสิทธิในสัญญานี้ให้แก่ผู้หนึ่งผู้ใดมิได้ เว้นแต่จะได้รับยินยอมเป็นหนังสือ และผู้เช่าซื้อให้สัญญาว่าจะไม่นำทรัพย์สินที่เช่าซื้อไป จำนำ ขายฝาก จำหน่าย โดยวิธีใดๆ แก่บุคคลอื่นเป็นอันขาด หากได้นำทรัพย์สินไปจำนำ ขาย ขายฝาก ปลดล็อค 
+                </strong>
+              และหรือจำหน่ายไปด้วยวิธีใดๆ ให้ถือว่าผู้เช่าซื้อมีเจตนาทุจริต บริษัทฯมีสิทธิ์ที่จะดำเนินคดีอาญากับผู้เช่าซื้อได้ทันที ในกรณีที่ผู้เช่าซื้อมีการเปลี่ยนแปลงที่อยู่หรือรายละเอียดบัญชีธนาคารผู้เช่าซื้อ จะแจ้งให้บริษัทฯทราบโดยพลัน ทั้งยินยอมให้บริษัทฯตรวจสอบความน่าเชื่อถือทางการเงินและเครดิตทั้งของผู้เช่าซื้อและผู้ค้ำประกันได้จากบุคคลที่เกี่ยวข้องได้ด้วย
+              </p>
+              <p>
+                4.
+                <strong>
+                    กรณีที่ผู้เช่าซื้อไม่ชำระค่าเช่าซื้อรวม2งวดติดกันทางบัญชี หรือผู้เช่าซื้อ ประพฤติผิดสัญญาอันเป็นเหตุให้บริษัทฯสามารถดำเนินคดีอาญาได้หรือผู้เช่าซื้อ ทรัพย์สินที่ชอบซื้อไปกระทำผิดกฎหมายอาญาหรือผู้เช่าซื้อเป็นบุคคลที่ศาลมีคำสั่งพิทักษ์ทรัพย์เด็ดขาดตามกฎหมาย ล้มละลายหรือทรัพย์สินที่เช่าซื้อถูกยึดหรืออายัด ในการบังคับคดีตามคำพิพากษาของศาลหรือทรัพย์สินที่เช่าซื้อถูกนำไปใช้ในการกระทำ ผิดกฎหมายทางอาญา ให้เจ้าของมีสิทธิ์บอกเลิกสัญญาได้
+                </strong>
+                การใช้สิทธิในการบอกเลิก
+                <strong>
+                    สัญญาเจ้าของต้องบอกล่วงหน้าเป็นลายลักษณ์อักษรไม่น้อยกว่า 7 วัน
+                </strong>
+                เพื่อให้ผู้เช่าซื้อได้จัดการชำระค่าเช่าซื้อที่ค้างชำระให้เสร็จสิ้นและในระหว่างที่ผู้เช่าซื้อยังมิได้บอกเลิกสัญญาเช่าซื้อผู้เช่าซื้อมีสิทธิ์ที่จะ เรียกให้ผู้ค้ำประกันมาเป็น ผู้เช่าซื้อรายต่อไปก่อนหรือเป็นผู้ซื้อทรัพย์สินในราคาคงเหลือก็ได้หากผู้เช่าซื้อเพิกเฉยจนพ้นกำหนดระยะเวลาบอกเลิกสัญญาแล้วให้ถือว่าผู้เช่าซื้อและผู้ค้ำประกันสละสิทธิ์ในการเป็น ผู้ซื้อทรัพย์สิน หรือผู้เช่าซื้ออะไรต่อไปโดยจะต้อง 
+                <strong>
+                    คืนทรัพย์สินที่เช่าซื้อภายใน 7 วันนับตั้งแต่วันที่ครบกำหนดตามหนังสือบอกกล่าว และในกรณีที่ผู้เช่าซื้อส่งคืนทรัพย์สินให้ บริษัทฯแล้วหาก บริษัทฯจะจำหน่ายทรัพย์สินบริษัทฯจะแจ้งล่วงหน้าเป็นลายลักษณ์อักษรให้ผู้เช่าซื้อทราบไม่น้อยกว่า 7 วัน และ ผู้เช่าซื้อมีสิทธิ์ซื้อก่อนในราคาไม่เกินหนี้ที่ค้างชำระ โดยบริษัทฯมีสิทธิ์ที่จะเรียกร้องค่าใช้จ่ายเกี่ยวกับการทวงถามการติดตาม การยึดทรัพย์สินที่เช่าซื้อ ค่าทนายความ และอื่นๆที่เกี่ยวเนื่องด้วยการที่ผู้เช่าซื้อผิดชำระค่าเช่าซื้อหรือการยึดทรัพย์สินที่เช่าซื้อ
+                </strong>
+                เนื่องจากมีการบอกเลิกสัญญาผู้เช่าซื้อจะต้องชำระให้ทั้งสิ้น
+                </p>
+              <p>
+                5. บริษัทฯจะส่งคำบอกกล่าวซึ่งตามกฎหมายหรือตามสัญญากำหนด ให้ต้องเป็นหนังสือ ให้แก่ผู้เช่าซื้อตามที่ระบุในสัญญาเช่าซื้อ หรือที่อยู่ที่ผู้เช่าซื้อแจ้งการเปลี่ยนแปลงเป็นหนังสือครั้งหลังสุด
+                </p>
+              <p>
+              6. สิทธิ หน้าที่ และ/หรือความรับผิดชอบใดๆ ที่คู่สัญญามีต่อกัน หากมิได้ปรากฏในสัญญานี้ คู่สัญญาตกลงยินยอมให้เป็นไปตามกฎหมายที่ได้กำหนดไว้
+              </p>
     </div>
 
     <div class="signature-header-text">ข้าพเจ้ายังได้ลงลายมือชื่อไว้เป็นสำคัญ</div>
@@ -1145,7 +1191,7 @@ position: absolute;
             การจัดเก็บข้อมูลส่วนบุคคลผู้ให้กู้จะจัดเก็บข้อมูลส่วนบุคคลของผู้กู้ทั้งในรูปแบบกระดาษอิเล็กทรอนิกส์และอาจจะใช้บริการสารสนเทศของผู้ให้บริการซึ่งเป็นบุคคลภายนอกเพื่อให้ดำเนินการ เก็บรักษาข้อมูลส่วนบุคคลซึ่งผู้ให้บริการนั้นจะต้องมีมาตราการรักษาความมั่นคงที่ปลอดภัย โดยห้ามดำเนินการเก็บรวบรวม ใช้หรือเปิดเผยข้อมูลส่วนบุคคลนอกเหนือจากผู้ให้กู้กำหนด
         </p>
         <p>
-            <em>ระยะเวลาในการจัดเก็บ:</em><br>
+            <strong>ระยะเวลาในการจัดเก็บ</strong><br>
             ผู้ให้กู้จะจัดเก็บข้อมูลส่วนบุคคลอย่างน้อย 10 ปี หรือตามระยะเวลาที่กฎหมายกำหนด เช่นกฎหมายว่าด้วยการป้องกันและปราบปรามการฟอกเงิน กฎหมายว่าด้วยสถาบันการเงิน กฎหมายว่าด้วยภาษีอากร กฎหมายว่าด้วยการบัญชี ประกาศธนาคารแห่งประเทศไทย หรือมาตรฐานหรือแนวปฏิบัติตามที่กำหนด โดยหน่วยงานที่ควบคุม กำกับดูแลธุรกิจของผู้ให้กู้เป็นต้น
         </p>
         <p><strong>2. วัตถุประสงค์การเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล</strong></p>
@@ -1186,7 +1232,7 @@ position: absolute;
         <p>
             <strong>7. ช่องทางการติดต่อ</strong><br>
             ศูนย์บริการลูกค้าประชาสัมพันธ์ บริษัท โอเค นัมเบอร์ วัน จำกัด เลขที่ 1 อาคารศูนย์การค้า เซ็นเตอร์วัน ซอย เลิศปัญญา ถนนราชวิถี แขวงถนนพญาไท เขตราชเทวี กรุงเทพมหานคร 10400<br>
-            เบอร์โทรศัพท์ 085-0088806 , 02-1270010 Email: cs@ok1.co.th
+            เบอร์โทรศัพท์ 085-0088806 , 062-7766774 Email: pdpa@no1.email
         </p>
         <p>
             ข้าพเจ้าทราบว่าข้าพเจ้ามีสิทธิ์ที่จะให้ความยินยอมหรือไม่ให้ก็ได้และเมื่อให้ความยินยอมแล้วข้าพเจ้าจะแจ้งความประสงค์ไม่ให้ความยินยอมอีกต่อไปก็ได้โดยติดต่อทางข้างต้น
@@ -1214,7 +1260,7 @@ position: absolute;
             </div>
             <div class="signature-block-p2">
                 <div class="signature-line-row">
-                    <span class="signature-label">ลงชื่อ </span>
+                    <span class="signature-label">ลงชื่อ </span>
                     <div class="line-and-image-container" id="consentApplicantSignatureLineContainer">
                        <span class="dotted-line-element"></span>
                     </div>
@@ -1254,10 +1300,11 @@ position: absolute;
     <!-- คำนำสัญญา -->
 
     <div class="page3-contract-intro">
-        <p>สัญญานี้ทำขึ้นเมื่อวันที่ <span id="p3_contract_made_date" class="dotted-underline" style="min-width:60mm;"></span> ณ NO1MONEY+ by บริษัท โอเอ นัมเบอร์ วัน จำกัด</p>
+        <p style="padding-left: 10mm;">สัญญานี้ทำขึ้นเมื่อวันที่ <span id="p3_contract_made_date" class="dotted-underline" style="min-width:60mm;"></span> ณ NO1MONEY+ by บริษัท โอเอ นัมเบอร์ วัน จำกัด</p>
         <p class="office-address">สำนักงานตั้งอยู่ที่ บริษัทโอเคนัมเบอร์วันจำกัด (สำนักงานใหญ่) เซ็นเตอร์วัน ชั้น 2 ห้อง 2019 เลขที่ 1 แขวงถนนพญาไท เขตราชเทวี กทม. 10400</p>
-        <p>ระหว่าง <span id="p3_applicant_name_intro" class="dotted-underline" style="min-width:60mm;"></span> ที่อยู่ <span id="p3_applicant_address_intro" class="dotted-underline" style="min-width:90mm;"></span></p>
-        <p>โทรศัพท์ <span id="p3_applicant_phone_intro" class="dotted-underline" style="min-width:40mm;"></span> </p>
+        <p>ระหว่าง <span id="p3_applicant_name_intro" class="dotted-underline" style="min-width:60mm;"></span> ที่อยู่ <span id="p3_applicant_address_intro" class="dotted-underline" style="min-width:90mm;"></span>
+            <span>โทรศัพท์ <span id="p3_applicant_phone_intro" class="dotted-underline" style="min-width:40mm;"></span> </หp>
+        </p>
         <p>ซึ่งต่อไปในสัญญานี้เรียกว่า <span class="bold-text">ผู้กู้</span> ฝ่ายหนึ่ง กับ NO1MONEY+ by บริษัท โอเอ นัมเบอร์ วัน จำกัด </p>
         <p>ซึ่งต่อไปในสัญญานี้เรียกว่า <span class="bold-text">เจ้าของ</span> อีกฝ่ายหนึ่งทั้งสองฝ่ายได้ตกลงทำสัญญากัน ปรากฏข้อความดังต่อไปนี้</p>
     </div>
@@ -1292,8 +1339,8 @@ position: absolute;
                     <p><span class="label-text">ค่าบริการ:</span> <span id="p3_service_fee"></span></p>
                     <p><span class="label-text">ค่าประกันหนี้:</span> <span id="p3_insurance_fee"></span></p>
                     <p><span class="label-text">ค่าแนะนำ:</span> <span id="p3_referral_fee"></span></p>
-                    <p><span class="label-text">วันที่ชำระงวดแรก:</span> <span id="p3_first_payment_date" class="dotted-underline" style="min-width: 40mm;"></span></p>
-                    <p><span class="label-text">วันที่ชำระงวดสุดท้าย:</span> <span id="p3_last_payment_date" class="dotted-underline" style="min-width: 40mm;"></span></p>
+                    <p><span class="label-text">วันที่ชำระงวดแรก:</span> <span id="p3_first_payment_date"  style="min-width: 40mm; display: inline-block !important;"></span></p>
+                    <p><span class="label-text">วันที่ชำระงวดสุดท้าย:</span> <span id="p3_last_payment_date"  style="min-width: 40mm; display: inline-block !important;"></span></p>
                 </td>
             </tr>
         </tbody>
@@ -1367,7 +1414,7 @@ position: absolute;
 
     <!-- Adjusted Intro Phrasing for Page 4 based on user text -->
     <div class="page3-contract-intro">
-        <p>สัญญาฉบับนี้ทำขึ้นระหว่าง<span id="p4_seller_name_intro" class="dotted-underline"></span> ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ขาย</span> ฝ่ายหนึ่ง</p>
+        <p style="padding-left: 10mm;">สัญญาฉบับนี้ทำขึ้นระหว่าง<span id="p4_seller_name_intro" class="dotted-underline"></span> ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ขาย</span> ฝ่ายหนึ่ง</p>
         <!-- บรรทัดสำหรับข้อมูลผู้ซื้อ - แก้ไข HTML ตามคำขอ: ลบ span id="p4_buyer_info_intro" ออก -->
         <p class="no-indent" id="p4_buyer_paragraph">กับ  ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ซื้อ</span></p>
         <p>อีกฝ่ายหนึ่ง คู่สัญญาทั้งสองฝ่ายได้ตกลงทำสัญญานี้ โดยมีเงื่อนไขรายละเอียดต่อไปนี้:</p>
@@ -1375,17 +1422,17 @@ position: absolute;
 
     <div class="clauses" id="salesClausesContainer">
         <!-- ข้อ 1 - Adjusted layout to match user text -->
-        <p><strong>ข้อ 1.</strong> ผู้ขายตกลงขาย และผู้ซื้อตกลงซื้อสินค้าของผู้ขาย คือ <span id="p4_product_description" class="dotted-underline" style="min-width:100mm;"></span></p>
+        <p style="padding-left: 10mm;"><strong>ข้อ 1.</strong> ผู้ขายตกลงขาย และผู้ซื้อตกลงซื้อสินค้าของผู้ขาย คือ <span id="p4_product_description" class="dotted-underline" style="min-width:100mm;"></span></p>
         <p>
             หมายเลขตัวเครื่อง <span id="p4_imei" class="dotted-underline" style="min-width:40mm;"></span>
             S/N <span id="p4_sn" class="dotted-underline" style="min-width:40mm;"></span>
             จำนวน <span id="p4_quantity" class="dotted-underline" style="min-width:10mm; text-align:center;">1</span> เครื่อง
         </p>
         <p>
-            รวมเป็นเงิน <span id="p4_total_amount" class="dotted-underline" style="min-width:30mm; text-align:right;"></span> บาท (<span id="p4_total_amount_text" class="dotted-underline" style="min-width:30mm; text-align:right;"></span>) โดยผู้ซื้อได้รับสินค้าที่ซื้อขายดังกล่าวแล้ว และผู้ขายได้รับเงินเรียบร้อยแล้ว
+            รวมเป็นเงิน <span id="p4_total_amount" class="dotted-underline" style="min-width:30mm; text-align:center;"></span> บาท (<span id="p4_total_amount_text" class="dotted-underline" style="min-width:30mm; text-align:center;"></span>) โดยผู้ซื้อได้รับสินค้าที่ซื้อขายดังกล่าวแล้ว และผู้ขายได้รับเงินเรียบร้อยแล้ว
         </p>
         <!-- ข้อ 2 - Adjusted text -->
-         <p><strong>ข้อ 2.</strong> หากคู่สัญญาฝ่ายหนึ่งฝ่ายใดผิดสัญญา ให้อีกฝ่ายหนึ่งมีสิทธิบอกเลิกสัญญา และมีสิทธิเรียกร้องค่าเสียหายจากฝ่ายที่ผิดสัญญาได้ตามความเป็นจริง</p>
+         <p style="padding-left: 10mm;"><strong>ข้อ 2.</strong> หากคู่สัญญาฝ่ายหนึ่งฝ่ายใดผิดสัญญา ให้อีกฝ่ายหนึ่งมีสิทธิบอกเลิกสัญญา และมีสิทธิเรียกร้องค่าเสียหายจากฝ่ายที่ผิดสัญญาได้ตามความเป็นจริง</p>
     </div>
 
     <!-- Concluding Text - Adjusted text -->
@@ -1453,30 +1500,34 @@ position: absolute;
     <!-- Main Body Text - Reusing clauses style -->
     <div class="clauses">
         <!-- Paragraph with embedded dotted underlines for debtor info -->
-        <p class="no-indent">
-            โดยหนังสือฉบับนี้ข้าพเจ้า <span id="ack_debtor_name" class="dotted-underline"></span>
-            อายุ <span id="ack_debtor_age" class="dotted-underline"></span> ปี <br>
+        <p class="no-indent" >
+            <span style="padding-left: 10mm;">โดยหนังสือฉบับนี้ข้าพเจ้า <span id="ack_debtor_name" class="dotted-underline"></span></span>
+            อายุ <span id="ack_debtor_age" class="dotted-underline" style="text-align: center;"></span> ปี <br>
             อยู่บ้านเลขที่ <span id="ack_debtor_house_no" class="dotted-underline"></span>
             ขอทำหนังสือฉบับนี้ไว้ให้แก่นายวีระพงษ์ พลเสนา ในนามตัวแทนของบริษัท โอเค นัม เบอร์ วัน จำกัด อยู่บ้านเลขที่ 1 ห้อง 2019 ถนน ราชวิถี ตรอก /ซอย เลิศปัญญา แขวง (ตำบล) ถนนพญาไท เขต (อำเภอ) ราชเทวี จังหวัด กรุงเทพมหานคร
             เพื่อเป็นหลักฐานแสดงว่า ข้าพเจ้าตกลงยินยอมชดใช้ค่าเสียหาย กรณีไม่สามารถชำระหนี้เช่าซื้อสินทรัพย์จาก
             นายวีระพงษ์ พลเสนา ในนามตัวแทนของบริษัท โอเค นัมเบอร์ วัน จำกัด เป็นเงินรวมทั้งสิ้น
-            <span id="ack_total_amount_numeric" class="dotted-underline"></span> บาท
-            (<span id="ack_total_amount_text" class="dotted-underline"></span>)
+            <span id="ack_total_amount_numeric" class="dotted-underline" style="text-align: center;"></span> บาท
+            (<span id="ack_total_amount_text" class="dotted-underline" style="text-align: center;"></span>)
         </p>
          <!-- ADDED: Paragraph for payment period dates -->
        <!-- เพิ่ม id="ack_payment_period_paragraph" เข้าไปในแท็ก p -->
         <p id="ack_payment_period_paragraph">
             โดยข้าพเจ้าตกลงที่จะทำการชำระหนี้ดังกล่าวโดยมีกำหนดเวลาในการชำระหนี้ตั้งแต่วันที่
-            <span id="ack_start_date" class="dotted-underline"></span> ถึง
-            <span id="ack_end_date" class="dotted-underline"></span>
+            <span id="ack_start_date" class="dotted-underline" style="text-align: center;"></span> ถึง
+            <span id="ack_end_date" class="dotted-underline" style="text-align: center;"></span>
         </p>
          <!-- Paragraph for interest clause -->
         <p>
-            หากข้าพเจ้าผิดนัดไม่ชำระเงินจำนวนดังกล่าวภายในกำหนดเวลาดังกล่าวแล้ว ข้าพเจ้าต้องเสียดอกเบี้ยในอัตราร้อยละ 15 ต่อปี ของต้นเงินจำนวนดังกล่าวรวมตลอดทั้งค่าเสียหายต่างๆ อันอาจจะมีขึ้นเพราะการที่ข้าพเจ้าไม่ปฏิบัติตามหนังสือรับสภาพหนี้ฉบับนี้ทุกประการ
+            <span style="padding-left: 10mm;">
+                หากข้าพเจ้าผิดนัดไม่ชำระเงินจำนวนดังกล่าวภายในกำหนดเวลาดังกล่าวแล้ว ข้าพเจ้าต้องเสียดอกเบี้ยในอัตราร้อยละ 15 ต่อปี ของต้นเงินจำนวนดังกล่าวรวมตลอดทั้งค่าเสียหายต่างๆ อันอาจจะมีขึ้นเพราะการที่ข้าพเจ้าไม่ปฏิบัติตามหนังสือรับสภาพหนี้ฉบับนี้ทุกประการ
+            </span>
         </p>
         <!-- Concluding paragraph before signatures -->
         <p>
-            ข้าพเจ้าได้อ่านและเข้าใจในหนังสือรับสภาพหนี้ฉบับนี้ด้วยดีโดยตลอดแล้วเห็นว่าถูกต้องตรงตามเจตนารมณ์ของข้าพเจ้า จึงได้ลงลายมือชื่อไว้เป็นสำคัญต่อหน้าพยาน
+            <span style="padding-left: 10mm;">
+                ข้าพเจ้าได้อ่านและเข้าใจในหนังสือรับสภาพหนี้ฉบับนี้ด้วยดีโดยตลอดแล้วเห็นว่าถูกต้องตรงตามเจตนารมณ์ของข้าพเจ้า จึงได้ลงลายมือชื่อไว้เป็นสำคัญต่อหน้าพยาน
+            </span>
         </p>
     </div>
 
@@ -1956,19 +2007,6 @@ position: absolute;
             stampPlaceholder.innerHTML = ""; stampPlaceholder.appendChild(qrImg);
           }
 
-          const containerPage1 = document.getElementById("contractClausesContainer");
-          if (containerPage1) {
-            containerPage1.innerHTML = "";
-            const clausesPage1 = [
-              `1. บริษัทฯ ตกลงให้เช่าซื้อ และผู้เช่าซื้อตกลงเช่าซื้อ สินค้าตามที่ระบุในสัญญานี้ภายใต้ข้อกำหนดและเงื่อนไข โดยผู้เช่าซื้อได้รับสินค้าของบริษัทฯไปในสภาพเรียบร้อย ใช้การได้ดี และบริษัทฯ ตกลงจัดให้ผู้เช่าซื้อสามารถใช้สิทธิ์ในการเรียกร้องให้มีการปฏิบัติตามเงื่อนไข การรับประกันสินค้าจากผู้ขายและผู้ผลิตได้โดยตรง ผู้เช่าซื้อได้ทราบแล้วว่ามีกรรมสิทธิ์ในสินค้าที่จะเช่าซื้อยังคงเป็นของบริษัทฯจนกว่าผู้เช่าซื้อชำระเงินครบถ้วนตามสัญญานี้แล้ว และในระหว่างการเช่าซื้อหากบริษัทฯจะโอนสิทธิการเป็นเจ้าของ หรือภาระผูกพันอันเกิดจากสัญญาเช่าซื้อไปยังบุคคลอื่น หรือเจ้าหนี้รายอื่นแล้ว ให้ถือว่าผู้เช่าซื้อยินยอมการรับโอนสิทธิ หรือภาระผูกพันอันเกิดจากสัญญาเช่าชื้อนั้น`,
-              `2. ผู้เช่าซื้อได้ชำระค่างวดครั้งแรกตามระบุในสัญญาในวันที่ทำสัญญานี้ และจะชำระค่างวดส่วนที่เหลือเป็นรายเดือน ตามวิธีการ จำนวนเงินและในวันกำหนดชำระเงินตามที่ระบุไว้ กรณีที่ผู้เช่าซื้อมีความประสงค์จะขอชำระเงินค่าเช่าซื้อทั้งหมด ในคราวเดียวเพื่อปิดบัญชี บริษัทฯตกลงตามความประสงค์นั้นโดยจะให้ส่วนลดแก่ผู้เช่าซื้อตามประกาศของคณะกรรมการคุ้มครองผู้บริโภค หากในกรณีที่บริษัทฯไม่ได้รับชำระเงินค่างวดภายในวันที่กำหนดชำระเงิน ผู้เช่าซื้อต้องเสียค่าปรับ สำหรับค่างวดที่ค้างชำระในอัตราที่กฎหมายกำหนด และผู้เช่าซื้อขอให้สัญญาว่าจะเก็บรักษาสินค้า และส่วนประกอบของสินค้าที่ได้เช่าซื้อในสถานที่ของผู้เช่าซื้อดังระบุไว้ และจะไม่เคลื่อนย้ายสินค้านี้ไปไว้ที่อื่น เว้นแต่จะได้รับอนุญาตเป็นลายลักษณ์อักษร ก่อน จะระวังรักษาให้อยู่ในสภาพเรียบร้อย ใช้การได้ดี จะไม่ดัดแปลงหรือแก้ไขทรัพย์สิน อุปกรณ์ หรืออะไหล่ หรือส่วนหนึ่งส่วนใดของสินค้าด้วยประการใดๆ ในการซ่อมแซมจะต้องให้ผู้แทนหรือพนักงานของบริษัทฯเป็นผู้ซ่อมแซม สำหรับค่าใช้จ่ายในการซ่อมแซม ค่าอุปกรณ์ ค่าอะไหล่ที่ซ่อมแซมนั้น ให้เป็นไปตามข้อตกลงที่ผู้เช่าซื้อได้ทำไว้กับบริษัทฯ`,
-              `3. ผู้เช่าซื้อยอมให้บริษัทฯ หรือผู้แทนบริษัทฯ ไม่ว่าคนเดียวหรือหลายคน เข้าตรวจดูสินค้าที่เช่าซื้อได้เป็นครั้งคราวในเวลาและระยะเวลาอันสมควร กรณีที่บริษัทฯประสงค์จะเรียกใบเสร็จรับเงินค่าเช่าซื้อเพื่อไปตรวจสอบ บริษัทฯจะออกใบรับตามแบบพิมพ์ที่กำหนดไว้มอบให้ผู้เช่าซื้อยึดถือไว้เป็นหลักฐาน แต่หากว่าผู้เช่าซื้อค้างชำระค่าเช่า ผู้เช่าซื้อยินยอมให้ผู้แทนหรือลูกจ้าง พนักงานบริษัทฯ เข้าไปในเคหสถานที่อยู่อาศัยของตนเพื่อยึดสินค้าตามสัญญานี้ โดยมิต้องบอกกล่าวล่วงหน้า ไม่ว่าผู้เช่าซื้อจะอยู่ด้วยในขณะนั้นหรือไม่ และไม่ต้องคำนึงว่าบริษัทฯจะได้บอกเลิกสัญญาแล้วหรือไม่ ผู้เช่าซื้อขอให้สัญญาว่าจะให้เช่าช่วงหรือโอนสิทธิในสัญญานี้ให้แก่ผู้หนึ่งผู้ใดมิได้ เว้นแต่จะได้รับยินยอมเป็นหนังสือ และผู้เช่าซื้อให้สัญญาว่าจะไม่นำทรัพย์สินที่เช่าซื้อไป จำนำ ขายฝาก จำหน่าย โดยวิธีใดๆ แก่บุคคลอื่นเป็นอันขาด หากได้นำทรัพย์สินไปจำนำ ขาย ขายฝาก ปลดล็อค และหรือจำหน่ายไปด้วยวิธีใดๆ ให้ถือว่าผู้เช่าซื้อมีเจตนาทุจริต บริษัทฯมีสิทธิ์ที่จะดำเนินคดีอาญากับผู้เช่าซื้อได้ทันที ในกรณีที่ผู้เช่าซื้อมีการเปลี่ยนแปลงที่อยู่หรือรายละเอียดบัญชีธนาคารผู้เช่าซื้อ จะแจ้งให้บริษัทฯทราบโดยพลัน ทั้งยินยอมให้บริษัทฯตรวจสอบความน่าเชื่อถือทางการเงินและเครดิตทั้งของผู้เช่าซื้อและผู้ค้ำประกันได้จากบุคคลที่เกี่ยวข้องได้ด้วย`,
-              `4. กรณีที่ผู้เช่าซื้อไม่ชำระค่าเช่าซื้อรวม 2 งวดติดกันทางบัญชี หรือผู้เช่าซื้อประพฤติผิดสัญญาอันเป็นเหตุให้บริษัทฯสามารถดำเนินคดีอาญาได้ หรือผู้เช่าซื้อ ทรัพย์สินที่เช่าซื้อไปกระทำผิดกฎหมายอาญา หรือผู้เช่าซื้อเป็นบุคคลที่ศาลมีคำสั่งพิทักษ์ทรัพย์เด็ดขาดตามกฎหมายล้มละลาย หรือทรัพย์สินที่เช่าซื้อถูกยึดหรืออายัดในการบังคับคดีตามคำพิพากษาของศาล หรือทรัพย์สินที่เช่าซื้อถูกนำไปใช้ในการกระทำผิดกฎหมายอาญา ให้บริษัทฯมีสิทธิ์บอกเลิกสัญญาได้ การใช้สิทธิในการบอกเลิกสัญญา บริษัทฯต้องบอกล่วงหน้าเป็นลายลักษณ์อักษรไม่น้อยกว่า 7 วัน เพื่อให้ผู้เช่าซื้อได้จัดการชำระค่าเช่าซื้อที่ค้างชำระให้เสร็จสิ้น และในระหว่างที่ผู้เช่าซื้อยังมิได้บอกเลิกสัญญาเช่าซื้อ ผู้เช่าซื้อมีสิทธิ์ที่จะเรียกให้ผู้ค้ำประกันมาเป็นผู้เช่าซื้อรายต่อไปก่อนหรือเป็นผู้ซื้อทรัพย์สินในราคาคงเหลือก็ได้ หากผู้เช่าซื้อเพิกเฉยจนพ้นกำหนดระยะเวลาบอกเลิกสัญญาแล้ว ให้ถือว่าผู้เช่าซื้อและผู้ค้ำประกันสละสิทธิ์ในการเป็นผู้ซื้อทรัพย์สินหรือผู้เช่าซื้อใดๆ ต่อไป บริษัทฯจะเรียกร้องค่าใช้จ่ายเกี่ยวกับการทวงถาม การติดตาม การยึดทรัพย์สินที่เช่าซื้อ ค่าทนายความ และอื่นๆ ที่เกี่ยวเนื่องด้วยการที่ผู้เช่าซื้อผิดชำระค่าเช่าซื้อหรือการยึดทรัพย์สินที่เช่าซื้อ เนื่องจากมีการบอกเลิกสัญญา ผู้เช่าซื้อจะต้องชำระให้ทั้งหมด`,
-              `5. บริษัทฯจะส่งคำบอกกล่าวซึ่งตามกฎหมายหรือตามสัญญากำหนด ให้ต้องเป็นหนังสือ ให้แก่ผู้เช่าซื้อตามที่ระบุในสัญญาเช่าซื้อ หรือที่อยู่ที่ผู้เช่าซื้อแจ้งการเปลี่ยนแปลงเป็นหนังสือครั้งหลังสุด`,
-              `6. สิทธิ หน้าที่ และ/หรือความรับผิดชอบใดๆ ที่คู่สัญญามีต่อกัน หากมิได้ปรากฏในสัญญานี้ คู่สัญญาตกลงยินยอมให้เป็นไปตามกฎหมายที่ได้กำหนดไว้`,
-            ];
-            clausesPage1.forEach(txt => { const p = document.createElement("p"); p.textContent = txt; containerPage1.appendChild(p); });
-          }
 
           const appInfo = data.applicant_info || {};
           const applicantFullName = `${appInfo.name_title_custom || appInfo.name_title || ""} ${appInfo.fullname || "........................."}`.trim();
@@ -2013,11 +2051,12 @@ position: absolute;
             setText("p3_sn", prod.serial_number || "-"); setText("p3_imei", prod.imei || "-");
             setText("p3_account_id", appleDev.apple_id || "-"); setText("p3_password", appleDev.apple_password || "-");
             setText("p3_warranty", prod.warranty || "-");
-            setText("p3_contract_amount", prod.refinance_price != null ? `${formatCurrency(prod.refinance_price)} บาท` : "0.00 บาท");
+               const contactamout = (prod.monthly_payment*prod.installments) || {};
+            setText("p3_contract_amount", contactamout != null ? `${formatCurrency(contactamout)} บาท` : "0.00 บาท");
             setText("p3_interest_rate", prod.interest_rate != null ? `${parseFloat(prod.interest_rate).toFixed(2)}%` : "0.00%");
             setText("p3_installments_count", prod.installments != null ? `${prod.installments} งวด` : "0 งวด");
             setText("p3_installment_amount", prod.monthly_payment != null ? `${formatCurrency(prod.monthly_payment)} บาท` : "0.00 บาท");
-            setText("p3_contract_fee", prod.contract_fee != null ? `${formatCurrency(prod.contract_fee)} บาท` : "0.00 บาท");
+            setText("p3_contract_fee", prod.contract_fee != null ? `${formatCurrency(prod.contract_fee)} บาท` : "200 บาท");
             setText("p3_service_fee", prod.service_fee != null ? `${formatCurrency(prod.service_fee)} บาท` : "0.00 บาท");
             setText("p3_insurance_fee", prod.insurance_fee != null ? `${formatCurrency(prod.insurance_fee)} บาท` : "0.00 บาท");
             setText("p3_referral_fee", prod.referral_fee != null ? `${formatCurrency(prod.referral_fee)} บาท` : "0.00 บาท");
@@ -2046,7 +2085,7 @@ position: absolute;
             const productDescriptionP4 = [prodP4.product_type, prodP4.product_model, prodP4.storage ? `${prodP4.storage} GB` : null, prodP4.color].filter(p => p && p.trim() !== "").join(" ");
             setText("p4_product_description", productDescriptionP4 || "...............................................");
             setText("p4_imei", appleDevP4.imei || prodP4.imei || "-"); setText("p4_sn", prodP4.serial_number || "-"); setText("p4_quantity", "1");
-            const numericAmountP4 = parseFloat(prodP4.refinance_price);
+            const numericAmountP4 = parseFloat(prodP4.monthly_payment*prodP4.installments);
             setText("p4_total_amount", !isNaN(numericAmountP4) ? formatCurrency(numericAmountP4) : "0.00");
             setText("p4_total_amount_text", !isNaN(numericAmountP4) ? bahtText(numericAmountP4) : "...............................................");
             setText("p4_signature_seller_name", `( ${applicantFullName} )`); setText("p4_signature_buyer_name", `( นายวีระพงษ์ พลเสนา )`);
@@ -2061,7 +2100,7 @@ position: absolute;
             setText("ack_debtor_name", applicantFullName || "...............................................");
             setText("ack_debtor_age", appInfoAck.age != null && !isNaN(appInfoAck.age) ? String(appInfoAck.age) : "......");
             setText("ack_debtor_house_no", addrAck.registered_address || ".........................");
-            const totalAmountAck = prodInfoAck.refinance_price;
+            const totalAmountAck = prodInfoAck.monthly_payment*prodInfoAck.installments;
             setText("ack_total_amount_numeric", totalAmountAck != null ? formatCurrency(totalAmountAck) : "0.00");
             setText("ack_total_amount_text", totalAmountAck != null ? bahtText(totalAmountAck) : "...............................................");
             const firstPaymentDateAck = prodInfoAck.first_payment_date instanceof Date && !isNaN(prodInfoAck.first_payment_date.getTime()) ? prodInfoAck.first_payment_date : null;
@@ -2110,6 +2149,8 @@ position: absolute;
         }
     }
 
+
+
     async function proceedWithActualApproval() {
         const approveButton = document.getElementById('approveContractButton');
         const approvalStatusDiv = document.getElementById('approvalStatus');
@@ -2133,27 +2174,38 @@ position: absolute;
         if (approvalStatusDiv) approvalStatusDiv.textContent = ''; // Clear previous status messages
 
         try {
-            if (approvalStatusDiv) approvalStatusDiv.textContent = 'Updating status...'; // This will be under the overlay
-            const statusUpdateSuccess = await updateContractStatus(currentDocumentId, 'approved');
-            if (!statusUpdateSuccess) throw new Error('Failed to update contract status.');
+            // 1. (Optional but good practice) Update status to indicate processing
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังอัปเดตสถานะสัญญา...';
+            // อาจจะส่งสถานะเป็น 'pending_approval' หรือ 'processing' ชั่วคราว
+            const initialStatusUpdateSuccess = await updateContractStatus(currentDocumentId, 'pending_approval');
+            if (!initialStatusUpdateSuccess) throw new Error('Failed to set initial contract status.');
             
-            // --- NEW: Generate Bills ---
-            if (approvalStatusDiv) approvalStatusDiv.textContent = 'สถานะอัปเดตแล้ว กำลังสร้างบิล...'; // เปลี่ยนข้อความสถานะ
-            const billGenerationSuccess = await generateBillsForContract(window.loadedContractData); // เรียกฟังก์ชันใหม่
-            if (!billGenerationSuccess) throw new Error('Failed to generate bills.');
-            // --- END NEW ---
-
-            if (approvalStatusDiv) approvalStatusDiv.textContent = 'บิลถูกสร้างแล้ว กำลังสร้าง PDF ต้นฉบับ...'; // เปลี่ยนข้อความสถานะ
+            // 2. Generate PDF Blobs (ไฟล์ PDF ที่ยังไม่ได้อัปโหลด)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังสร้างเอกสาร PDF ต้นฉบับ...';
             const originalPageIds = ["contractSheet", "consentSheet", "productDetailsSheet", "salesSheet", "acknowledgementSheet"];
             const originalPdfBlob = await generatePdfForPages(originalPageIds, `${currentDocumentId}_ต้นฉบับ.pdf`);
 
-            if (approvalStatusDiv) approvalStatusDiv.textContent = 'Original PDF generated. Generating Copy PDF...';
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังสร้างเอกสาร PDF คู่ฉบับ...';
             const copyPageIds = originalPageIds.map(id => id + "_copy");
             const copyPdfBlob = await generatePdfForPages(copyPageIds, `${currentDocumentId}_คู่ฉบับ.pdf`);
 
-            if (approvalStatusDiv) approvalStatusDiv.textContent = 'Copy PDF generated. Sending files...';
+            // ***************************************************************
+            // ****** จุดที่ต้องแก้ไข: เลื่อนการอัปโหลด PDF มาไว้ตรงนี้ ******
+            // ***************************************************************
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังอัปโหลดเอกสาร PDF ไปยังเซิร์ฟเวอร์...';
             const uploadSuccess = await sendPdfsToApi(currentDocumentId, originalPdfBlob, copyPdfBlob);
-            if (!uploadSuccess) throw new Error('Failed to send PDFs to server.');
+            if (!uploadSuccess) throw new Error('Failed to upload PDFs.');
+            // ***************************************************************
+
+            // 3. Generate Bills (ตอนนี้ PDF URL ล่าสุดควรจะถูกบันทึกใน DB แล้ว)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'อัปโหลด PDF แล้ว. กำลังสร้างบิลและส่ง LINE...';
+            const billGenerationSuccess = await generateBillsForContract(window.loadedContractData); // เรียกฟังก์ชันใหม่
+            if (!billGenerationSuccess) throw new Error('Failed to generate bills.');
+
+            // 4. Final Status Update (เมื่อทุกอย่างสำเร็จ)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'บิลถูกสร้างแล้ว. กำลังอนุมัติสัญญาขั้นสุดท้าย...';
+            const finalStatusUpdateSuccess = await updateContractStatus(currentDocumentId, 'approved'); // อัปเดตเป็น 'approved'
+            if (!finalStatusUpdateSuccess) throw new Error('Failed to finalize contract status.');
 
             if (approvalStatusDiv) approvalStatusDiv.textContent = 'ดำเนินการอนุมัติสำเร็จ กำลังเปลี่ยนหน้า...';
             // Redirect after a short delay to allow user to see the success message briefly
@@ -2165,7 +2217,7 @@ position: absolute;
             console.error("Error during approval process:", error);
             if (approvalStatusDiv) approvalStatusDiv.textContent = `Error: ${error.message}`;
             approveButton.disabled = false;
-            approveButton.textContent = 'Approve Contract (Retry)';
+            approveButton.textContent = 'อนุมัติสัญญา (ลองใหม่)'; // เปลี่ยนปุ่มกลับไปให้กดได้
             hideApprovalLoading(); // Hide overlay on error
         }
         // Do NOT hide approvalLoadingOverlay here on success, as we are redirecting.
@@ -2315,7 +2367,7 @@ position: absolute;
             // if (!loadingOverlayHidden) loadingOverlay.classList.remove('hidden');
 
 
-            const imgData = canvas.toDataURL('image/jpeg', 0.9);
+            const imgData = canvas.toDataURL('image/jpeg', 1.5);
 
             if (i > 0) {
                 pdf.addPage();
