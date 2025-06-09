@@ -1,0 +1,2409 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สัญญาจำนำไอคลาว</title>
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1vCGw21vDrnLEICKZj6HYdoz-HaFhy60a">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* ====== แก้ไขตรงนี้ ====== */
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('https://cdn.glitch.global/d45df520-34ea-4782-b79a-0ad8227a259a/THSarabunNew.ttf?v=1747112012809') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* แนะนำให้เพิ่มเพื่อการแสดงผลที่ดีขึ้น */
+}
+/* ===================== */
+
+/* ====== Reset + เบสิค ====== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'THSarabunNew', sans-serif; /* ตรงนี้ยังคงใช้ THSarabunNew */
+  line-height: 1.35;
+  font-size: 24pt; /* Base font size for page 3, 4 & 5 */
+}
+.page-container {
+  position: relative; /* Keep this as the positioning context for absolute children */
+  width: 210mm;
+  min-height: 297mm;
+  height: auto; /* Use auto height for flexibility with content */
+  padding: 5mm 10mm; /* Padding for content within the page */
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  overflow: hidden; /* Keep overflow hidden to prevent layout issues */
+}
+.page-container:not(:last-child) {
+  page-break-after: always;
+}
+
+
+/* ====== Page Stamp (Original) - Base Styling ====== */
+/* Position (top/right) will be set by JavaScript per page or inline style */
+.page-stamp {
+  position: absolute; /* Position relative to the nearest positioned ancestor (.page-container) */
+  /* top and right are set by inline style */
+  font-size: 14pt; /* Adjust size to look like a stamp */
+  font-weight: bold;
+  color: #c00; /* Red color for stamp */
+  white-space: nowrap;
+  z-index: 20; /* Ensure it's above most content and SOP code */
+  opacity: 0.6; /* Optional: make it slightly transparent */
+}
+
+/* ====== Page Bottom Stamp (New) ====== */
+.page-bottom-stamp {
+ position: absolute;
+    bottom: 5mm;
+    left: 75mm;
+    width: 250px;
+    height: auto;
+    opacity: 0.7;
+    z-index: 5;
+    pointer-events: none;
+    transform: translateX(90%);
+}
+  .page-bottom-stamp-2 {
+ position: absolute;
+    top: 190mm;
+    left: 60mm;
+    width: 250px;
+    height: auto;
+    opacity: 0.7;
+    z-index: 5;
+    pointer-events: none;
+    transform: translateX(90%);
+
+}
+    .page-bottom-stamp-3 {
+position: absolute;
+    top: 200mm;
+    left: 10mm;
+    width: 250px;
+    height: auto;
+    opacity: 0.7;
+    z-index: 5;
+    pointer-events: none;
+    transform: translateX(90%);
+}
+  .page-bottom-stamp-4 {
+    position: absolute;
+    top: 170mm;
+    left: 10mm;
+    width: 250px;
+    height: auto;
+    opacity: 0.7;
+    z-index: 5;
+    pointer-events: none;
+    transform: translateX(90%);
+}
+
+
+/* ====== SOP Code at Top Right (Adjusted position to not overlap stamp) ====== */
+.sop-code {
+  position: absolute; /* ตำแหน่งแบบสัมบูรณ์ */
+  top: 5mm; /* ห่างจากขอบบน 5mm */
+  right: 10mm; /* ห่างจากขอบขวา 10mm */
+  font-size: 9pt;
+  color: #000;
+  white-space: nowrap;
+  z-index: 10;
+}
+/* ====== HEADER: 3 คอลัมน์ (Page 1) ====== */
+.doc-header {
+  display: grid;
+  grid-template-columns: 1fr auto; /* 2 columns - title and right-header */
+  align-items: start; /* Align grid items to the top */
+  column-gap: 4mm;
+  margin-bottom: 3mm;
+  margin-top: 0; /* Ensure no top margin */
+}
+
+/* Specific header style for Page 4 & 5 - MODIFIED */
+#salesSheet .doc-header,
+#salesSheet_copy .doc-header, /* ADDED FOR COPY */
+#acknowledgementSheet .doc-header,
+#acknowledgementSheet_copy .doc-header { /* ADDED FOR COPY */
+  display: grid; /* Ensure it's a grid */
+  grid-template-columns: 1fr; /* Single column */
+  grid-template-rows: auto auto;   /* Define rows: row 1 for title, row 2 for info */
+  column-gap: 5mm; /* Space between columns */
+  margin-bottom: 5mm;
+  margin-top: 50px; /* Keep consistent spacing from top */
+}
+
+.title-box {
+  min-height: 22mm; /* Ensure min-height matches stampPlaceholder height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  background: #e0e0e0;
+  border: 1px solid #000;
+  text-align: center;
+  padding: 1mm 3px;
+  box-sizing: border-box;
+}
+
+/* Specific title box style for Page 4 & 5 - MODIFIED */
+#salesSheet .title-box,
+#salesSheet_copy .title-box, /* ADDED FOR COPY */
+#acknowledgementSheet .title-box,
+#acknowledgementSheet_copy .title-box { /* ADDED FOR COPY */
+  background: none; /* No background */
+  border: 1px solid #000; /* Keep border */
+  min-height: 8mm; /* Smaller height for Page 4 & 5 title box */
+  justify-content: center;
+  /* New grid properties to position it */
+  grid-column: 1 / span 1; /* Span 1 column */
+  grid-row: 1; /* Place in the first row */
+  max-width: 120mm; /* กำหนดความกว้างสูงสุด เช่น 120mm, ปรับค่าได้ตามต้องการ */
+  margin: 0 auto; /* จัดให้อยู่กึ่งกลางแนวนอน */
+}
+
+.title-box .main-title {
+  margin: 0;
+  font-size: 14pt;
+  font-weight: bold;
+  line-height: 1.15;
+  white-space: nowrap; /* THIS IS THE CHANGE TO PREVENT WRAPPING */
+}
+.title-box .company-name {
+  margin-top: 1.5px;
+  font-size: 9.5pt;
+  line-height: 1.15;
+}
+.right-header {
+  display: flex;             /* Use flexbox for internal layout */
+  flex-direction: row;    /* Place children side-by-side horizontally */
+  align-items: flex-end;     /* Align children to the bottom */
+  gap: 4mm; /* Add space between stamp and info */
+  min-height: 22mm; /* Keep minimum height based on stamp size */
+}
+#stampPlaceholder {
+  width: 22mm;
+  height: 22mm;
+  border: 1px solid #000; /* Keep border */
+  flex-shrink: 0; /* Prevent shrinking */
+  display: flex; /* Make it a flex container to center QR image */
+  justify-content: center; /* Center image horizontally */
+  align-items: center; /* Center image vertically */
+  padding: 1mm; /* Add slight padding inside border */
+  box-sizing: border-box;
+  text-align: center; /* Center any fallback text */
+  font-size: 7pt;
+   /* Smaller font for fallback text */
+  color: #666; /* Mute fallback text color */
+  /* Remove any default content like text or placeholder divs */
+}
+
+#stampPlaceholder img {
+  max-width: 100%; /* Ensure image fits within the div */
+  max-height: 100%; /* Ensure image fits within the div */
+  object-fit: contain; /* Scale image nicely */
+}
+
+.contract-info {
+  font-size: 12pt;
+  text-align: left;
+  line-height: 1.25;
+  white-space: nowrap; /* Keep lines from wrapping */
+}
+.contract-info .label {
+  font-weight: normal;
+}
+
+/* Specific date info style for Page 4 & 5 - MODIFIED */
+#salesSheet .contract-info,
+#salesSheet_copy .contract-info, /* ADDED FOR COPY */
+#acknowledgementSheet .contract-info,
+#acknowledgementSheet_copy .contract-info { /* ADDED FOR COPY */
+  white-space: normal; /* Allow date info to wrap if needed, although min-widths should prevent it */
+  text-align: right; /* Align date info to center */
+  line-height: 1.4;
+  font-size: 12pt;
+  /* New grid properties to position it */
+  grid-column: 1 / span 1; /* Span 1 column */
+  grid-row: 2; /* Place in the second row */
+  align-self: start; /* Align self to the start of the grid cell (top) */
+  margin-top: 5mm; /* Add margin below title box */
+}
+#salesSheet .contract-info .dotted-underline,
+#salesSheet_copy .contract-info .dotted-underline, /* ADDED FOR COPY */
+#acknowledgementSheet .contract-info .dotted-underline,
+#acknowledgementSheet_copy .contract-info .dotted-underline { /* ADDED FOR COPY */
+  vertical-align: baseline; /* Adjust vertical alignment for dotted lines in date */
+}
+
+/* ====== เนื้อหาสัญญา (Page 1, 3, 4, 5) ====== */ /* Added 5 */
+.clauses {
+  line-height: 1.3;
+  font-size: 13pt; /* Base size for clauses */
+  
+}
+
+.clauses p:last-child {
+  margin-bottom: 3mm;
+}
+.clauses p:first-child,
+.clauses p.no-indent {
+  text-indent: 0;
+}
+.clauses ul,
+.clauses ol {
+  font-size: 11pt;
+  text-align: justify;
+  margin: 0 0 2.5mm;
+  padding-left: 3.5em;
+}
+.clauses ul li,
+.clauses ol li {
+  margin-bottom: 1mm;
+}
+
+/* ====== Page 2 Specific Clause Styling ====== */
+#consentClausesContainerPage2 {
+  line-height: 1.2;
+}
+#consentClausesContainerPage2 p,
+#consentClausesContainerPage2 ul,
+#consentClausesContainerPage2 ol {
+  font-size: 11pt;
+  margin-bottom: 1.8mm;
+  text-align: justify;
+}
+#consentClausesContainerPage2 p {
+  text-indent: 1.8em;
+}
+#consentClausesContainerPage2 p:first-child,
+#consentClausesContainerPage2 p.no-indent {
+  text-indent: 0;
+}
+#consentClausesContainerPage2 ul,
+#consentClausesContainerPage2 ol {
+  padding-left: 3em;
+  margin-top: -1.5mm;
+}
+#consentClausesContainerPage2 ul li,
+#consentClausesContainerPage2 ol li {
+  margin-bottom: 0.5mm;
+}
+#consentClausesContainerPage2 > p:first-of-type {
+  font-size: 11pt;
+  margin-bottom: 2mm;
+  text-align: right;
+}
+#consentClausesContainerPage2 > p:nth-of-type(2) {
+  font-size: 11pt;
+  margin-bottom: 1.5mm;
+  text-indent: 0;
+  line-height: 1.3;
+}
+#consentClausesContainerPage2 > p:nth-of-type(3) {
+  text-indent: 1.8em;
+}
+#consentClausesContainerPage2 > p:last-of-type {
+  font-size: 11pt;
+  margin-bottom: 2mm;
+  text-indent: 0;
+}
+
+/* ====== เซ็นชื่อ (General) ====== */
+.signature-header-text {
+  text-align: center;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 3mm 0 8mm;
+}
+.signature-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 10mm;
+  column-gap: 2%;
+  margin-top: 5mm;
+}
+.signature-block {
+  width: 48%;
+  text-align: center;
+  font-size: 12pt;
+  position: relative;
+  line-height: 1.2;
+}
+.signature-line-container {
+  position: relative;
+  white-space: nowrap;
+  margin-bottom: 1mm;
+  height: 30px; /* Adjust if needed to fit image */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.signature-line {
+  display: inline-block;
+  width: 55mm;
+  border-bottom: 0.5px solid #000;
+  margin: 0 2mm;
+}
+.signature-name {
+  margin-top: 2px;
+  font-size: 12pt;
+}
+.signature-title-text {
+  font-size: 12pt;
+  margin-top: 1px;
+
+}
+.applicant-signature-image { /* Signature on Page 1 & 5 Debtor */ /* Added 5 */
+  position: absolute;
+  left: 50%;
+  bottom: 5px; /* Adjust based on line-container height */
+  transform: translateX(-50%);
+  max-width: 150px; /* Limit image size */
+  max-height: 50px; /* Limit image size */
+  object-fit: contain; /* Ensure image fits without distortion */
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.9;
+}
+.signature-image { /* Static signatures on Pages 1, 3, 4 & Applicant on P3, P4 */
+  position: absolute;
+  left: 50%;
+  bottom: 5px; /* Adjust based on line-container height */
+  transform: translateX(-50%);
+  max-width: 150px; /* Limit image size */
+  max-height: 50px; /* Limit image size */
+  object-fit: contain; /* Ensure image fits without distortion */
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+/* Adjust specific positioning for Page 2 signatures */
+/* Note: Page 2 signatures use different classes and a different container structure */
+.signature-image-p2.applicant-signature {
+  position: absolute;
+  left: 50%;
+  bottom: -0.5em; /* Position over the dotted line */
+  transform: translateX(-50%);
+  height: 40px; /* Fixed height for consistent size */
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1; /* Z-index above the line */
+  opacity: 0.9;
+}
+.signature-image-p2.static-signature {
+  position: absolute;
+  bottom: -0.5em; /* Adjust to position correctly over the line */
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px; /* Fixed height for consistent size */
+  object-fit: contain;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* ====== กล่องติดอากร ====== */
+.stamp-duty-box {
+  border: 0.5px solid #000;
+  width: 60%;
+  margin: 4mm 0;
+  padding: 2mm;
+  text-align: center;
+  font-size: 12pt;
+  line-height: 1.15;
+}
+.stamp-duty-box .title {
+  font-size: 12pt;
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+/* ====== Styles for Page 2 ====== */
+.dotted-underline {
+  border-bottom: 0.5px dotted #333;
+  display: inline !important;
+  min-width: 20mm; /* Default min-width */
+  white-space: nowrap;
+  padding: 0 5px !important;
+  vertical-align: bottom;
+
+}
+.dotted-underline#consentApplicantNamePage2 { min-width: 60mm; }
+.dotted-underline#consentApplicantIdPage2   { min-width: 45mm; }
+
+.page2-bottom-flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3mm;
+}
+.page2-signatures-area {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+.page2-signatures-area > p {
+  font-size: 11pt;
+  text-align: center;
+  margin: 0 0 1mm;
+}
+.signature-block-p2 {
+  font-size: 11pt;
+  line-height: 1.2;
+  width: 100%;
+}
+.signature-line-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1mm;
+  font-size: 11pt;
+}
+.signature-label { white-space: nowrap; margin-right: 4px; }
+.signature-role  { white-space: nowrap; margin-left: 4px; }
+.line-and-image-container { /* This is the container that holds the line and image on Page 2 */
+  flex-grow: 1;
+  position: relative;
+  height: 40px; /* Sufficient height for image */
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden; /* Hide parts of image that go outside */
+  max-width: 70%; /* Limit width to avoid overflowing layout */
+}
+.dotted-line-element { /* This is the line element inside the container on Page 2 */
+  flex-grow: 1;
+  border-bottom: 0.5px dotted #000;
+  height: 1px;
+  min-width: 20mm;
+}
+
+.signature-name-container-p2 {
+  text-align: center;
+  margin-top: 1mm;
+  font-size: 11pt;
+  padding: 0 5mm;
+  display: flex;
+  justify-content: center;
+}
+.page2-image-placeholders-area {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-placeholders-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1mm;
+}
+.page2-custom-box {
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 7.5pt;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.placeholder-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+#idCardImagePlaceholderPage2.page2-custom-box {
+  height: 35mm;
+}
+#borrowerImagePlaceholderPage2.page2-custom-box,
+#assetImagePlaceholderPage2.page2-custom-box {
+  height: 35mm;
+}
+
+/* ====== Styles for Page 3, 4 & 5 Intro ====== */ /* Added 5 */
+.page3-main-title {
+  text-align: center;
+  font-size: 16pt;
+  font-weight: bold;
+  margin-bottom: 3mm;
+}
+.page3-header-info {
+  text-align: right;
+  font-size: 12pt;
+  margin-bottom: 4mm;
+}
+/* Style for the contract intro section (Used on Page 3, 4 and 5) */ /* Added 5 */
+.page3-contract-intro {
+  margin-top: 5mm; /* Add some space after header */
+  margin-bottom: 5mm;
+}
+/* General style for all paragraphs in the intro */
+.page3-contract-intro p {
+  font-size: 12pt;
+  line-height: 1.5;
+  margin-bottom: 1.5mm;
+  text-indent: 0; /* Ensure no indent for all intro paragraphs */
+  text-align: justify; /* Justify intro paragraphs */
+}
+/* Ensure the dotted underline in the intro remains inline and aligns with text */
+.page3-contract-intro .dotted-underline {
+  border-bottom: 0.5px dotted #333;
+  display: inline-block; /* Keep it inline with the text */
+  min-width: 100mm; /* Keep the specified minimum width */
+  white-space: nowrap; /* Prevent the content inside from wrapping */
+  overflow: visible; /* Ensure it overflows if it exceeds its width */
+  padding: 0 1px;
+  text-align: center; /* Keep text within the underline centered */
+  vertical-align: bottom; /* Align baseline with surrounding text */
+  font-weight: normal; /* Ensure the underline text is not bold */
+}
+/* Adjust dotted underline width for names in P3/P4/P5 intro */ /* Added P5 */
+.page3-contract-intro .dotted-underline[id^="p3_applicant_"],
+.page3-contract-intro .dotted-underline#p4_seller_name_intro,
+.page3-contract-intro .dotted-underline[id^="ack_date_"] { /* Added ACK date spans */
+  min-width: 60mm; /* Adjust width */
+}
+
+#acknowledgementSheet .page3-contract-intro .dotted-underline[id^="ack_date_day"],
+#acknowledgementSheet_copy .page3-contract-intro .dotted-underline[id^="ack_date_day"] /* ADDED */
+{ min-width: 25mm; } /* Specific overrides */
+
+#acknowledgementSheet .page3-contract-intro .dotted-underline[id^="ack_date_month"],
+#acknowledgementSheet_copy .page3-contract-intro .dotted-underline[id^="ack_date_month"] /* ADDED */
+{ min-width: 45mm; }
+
+#acknowledgementSheet .page3-contract-intro .dotted-underline[id^="ack_date_year"],
+#acknowledgementSheet_copy .page3-contract-intro .dotted-underline[id^="ack_date_year"] /* ADDED */
+{ min-width: 25mm; }
+
+
+.page3-contract-intro p.no-indent {
+  text-indent: 0;
+  text-align: justify;
+}
+
+/* --- STYLE FOR OFFICE ADDRESS LINE --- */
+.page3-contract-intro .office-address {
+  white-space: normal; /* CHANGED to allow text to wrap */
+  overflow: visible;
+  font-size: 12pt;
+  line-height: 1.5;
+  margin-bottom: 1.5mm;
+  text-indent: 0;
+  text-align: left;
+}
+/* --- END STYLE --- */
+
+.page3-section {
+  margin: 5mm 0;
+}
+.page3-section-title {
+  font-size: 11pt;
+  font-weight: bold;
+  margin-bottom: 2mm;
+  padding-left: 1em;
+}
+
+/* ====== MODIFIED: Updated Details Table on Page 3 ====== */
+.page3-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12pt;
+  margin: 3mm 0;
+  table-layout: fixed; /* Makes column widths predictable */
+}
+.page3-details-table th,
+.page3-details-table td {
+  border: 1px solid #000; /* Adjusted border thickness */
+  padding: 2mm 3mm; /* Adjusted padding */
+  vertical-align: top;
+  text-align: left; /* Crucial: Align content within TD (the <p> blocks) to the left */
+  overflow: visible; /* Ensure content can overflow cell boundaries */
+}
+.page3-details-table th {
+  font-weight: bold;
+  text-align: center; /* Keep header text center-aligned */
+}
+
+/* Style for the labels within the table - MODIFIED */
+.page3-details-table td .label-text {
+  font-weight: bold;
+  display: inline-block; /* Use inline-block to set a fixed width */
+  width: 45mm; /* Set a fixed width for labels (Adjust as needed) */
+  text-align: left; /* Keep label text left-aligned */
+  vertical-align: top; /* Align label to the top */
+  white-space: normal; /* Allow label text itself to wrap if needed (unlikely with 45mm) */
+}
+
+/* Styles for paragraphs inside table cells - MODIFIED */
+.page3-details-table td p {
+  margin: 0; /* Remove default paragraph margins */
+  text-indent: 0; /* Ensure no indent */
+  line-height: 1.3; /* Adjust line height within cells */
+  white-space: normal; /* Allow the text after the inline-block label to wrap */
+  overflow: visible; /* Ensure content is not hidden if it exceeds cell width */
+}
+
+/* Adjust the dotted underline for dates in the table - MODIFIED */
+.page3-details-table .dotted-underline {
+  min-width: 40mm; /* Adjusted min-width for full date format */
+  display: inline-block; /* Needed for min-width to work */
+  white-space: nowrap; /* Prevent the dotted line content from wrapping */
+  overflow: visible; /* Ensure it overflows if its content is too long */
+  vertical-align: bottom; /* Keep alignment consistent */
+}
+/* ====== END MODIFIED TABLE STYLES ====== */
+
+/* ====== Styles for Page 3, 4 & 5 Agreement Text / Clauses ====== */ /* Added 5 */
+.page3-agreement-text {
+  margin-top: 5mm; /* Add space before this block */
+}
+.page3-agreement-text p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin-bottom: 2mm;
+  text-indent: 2em;
+  text-align: justify;
+}
+.page3-agreement-text .bold-text {
+  font-weight: bold;
+}
+.page3-signature-grid {
+  margin-top: 8mm;
+  row-gap: 8mm;
+}
+
+/* ====== Styles for Page 4 Specifics ====== */
+/* Re-use clauses and signature-grid styles */
+#salesClausesContainer, /* This ID is cloned, style applies to both */
+#acknowledgementSheet .clauses,
+#acknowledgementSheet_copy .clauses /* ADDED FOR COPY */
+{
+  margin-top: 5mm;
+  margin-bottom: 5mm;
+}
+
+/* Modified margin and line height for Page 4 & 5 clauses for better spacing */
+#salesClausesContainer p, /* This ID is cloned, style applies to both */
+#acknowledgementSheet .clauses p,
+#acknowledgementSheet_copy .clauses p /* ADDED FOR COPY */
+{
+  margin-bottom: 1.5mm; /* Slightly less space than general clauses */
+  line-height: 1.4; /* Increase line height */
+  text-align: justify; /* Explicitly justify text */
+}
+
+#salesClausesContainer p:last-of-type, /* This ID is cloned, style applies to both */
+#acknowledgementSheet .clauses p:last-of-type,
+#acknowledgementSheet_copy .clauses p:last-of-type /* ADDED FOR COPY */
+{
+  margin-bottom: 5mm; /* More space after the last clause */
+}
+
+#salesClausesContainer .dotted-underline, /* This ID is cloned, style applies to both */
+#acknowledgementSheet .clauses .dotted-underline,
+#acknowledgementSheet_copy .clauses .dotted-underline /* ADDED FOR COPY */
+{
+  vertical-align: baseline; /* Align underlines better within text lines */
+}
+
+/* Specific dotted underline widths for Acknowledgement text */
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_name,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_name
+{ min-width: 70mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_age,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_age
+{ min-width: 15mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_house_no,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_house_no
+{ min-width: 20mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_moo,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_moo
+{ min-width: 15mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_road,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_road
+{ min-width: 30mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_tambon,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_tambon
+{ min-width: 35mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_amphure,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_amphure
+{ min-width: 35mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_debtor_province,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_debtor_province
+{ min-width: 40mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_total_amount_numeric,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_total_amount_numeric
+{ min-width: 30mm; }
+
+#acknowledgementSheet .clauses .dotted-underline#ack_total_amount_text,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_total_amount_text
+{ min-width: 60mm; }
+
+/* Added specific widths for the new date fields on Page 5 */
+#acknowledgementSheet .clauses .dotted-underline#ack_start_date,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_start_date,
+#acknowledgementSheet .clauses .dotted-underline#ack_end_date,
+#acknowledgementSheet_copy .clauses .dotted-underline#ack_end_date
+{ min-width: 35mm; }
+
+
+#salesConcludingText p,
+#acknowledgementConcludingText p { /* Added #acknowledgementConcludingText p */
+  font-size: 12pt; /* Match clause text size */
+  line-height: 1.4; /* Match clause line height */
+  margin-bottom: 5mm; /* Space before signatures */
+  text-indent: 0 !important; /* Ensure no indent for this paragraph */
+  text-align: justify; /* Justify as in image */
+}
+
+/* ====== ปุ่มพิมพ์ ====== */
+.print-button-container {
+  text-align: center;
+  margin-top: 15mm;
+  padding-bottom: 15px;
+  width: 210mm;
+}
+.print-button {
+  padding: 7px 14px;
+  font-size: 13px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+/* ====== Loading Overlay ====== */
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-size: 20pt;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+#loadingOverlay.hidden {
+  display: none;
+}
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.5s ease;
+}
+
+#loadingOverlay div {
+  text-align: center;
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 80%;
+  animation: fadeIn 0.5s ease;
+}
+
+/* สำหรับเอฟเฟกต์สปินเนอร์แบบ Apple */
+#loadingOverlay div::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 4px solid rgba(0, 122, 255, 0.2);
+  border-top-color: #007AFF;
+  animation: spin 1s linear infinite;
+}
+
+/* สำหรับ Dark Mode */
+@media (prefers-color-scheme: dark) {
+  #loadingOverlay {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+  
+  #loadingOverlay div {
+    color: #fff;
+  }
+  
+  #loadingOverlay div::before {
+    border: 4px solid rgba(120, 120, 128, 0.2);
+    border-top-color: #0A84FF;
+  }
+}
+
+/* Animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* สำหรับการซ่อน */
+#loadingOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen {
+  body {
+    padding: 20px 0;
+  }
+}
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: auto !important;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+  .page-container {
+    box-shadow: none;
+    height: 297mm !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    overflow: hidden;
+    min-height: 297mm;
+  }
+  .page-container:not(:last-child) {
+    page-break-after: always;
+  }
+  .print-button-container {
+    display: none !important;
+  }
+  #loadingOverlay { 
+    display: none !important;
+  }
+}
+  /* เพิ่มในส่วน <style> */
+#acknowledgementSheet #ack_payment_period_paragraph,
+#acknowledgementSheet_copy #ack_payment_period_paragraph 
+{
+  white-space: nowrap;
+  text-indent: 0 !important; 
+  
+}
+
+#acknowledgementSheet .clauses p:not(#ack_payment_period_paragraph),
+#acknowledgementSheet_copy .clauses p:not(#ack_payment_period_paragraph) 
+{
+   white-space: normal; 
+}
+  .page5-contract-intro p { 
+    font-size: 12pt;
+    line-height: 1.5;
+    margin-bottom: 1.5mm;
+    text-indent: 0;
+    text-align: end;
+}
+
+/* ====== Modal Styles ====== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Ensure it's above everything else */
+  font-family: 'THSarabunNew', sans-serif; /* Consistent font */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 25px 30px; /* Increased padding */
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+  width: 90%;
+  max-width: 450px; /* Slightly wider */
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.modal-content h2 {
+  font-size: 18pt; /* Larger title */
+  margin-top: 0;
+  margin-bottom: 15px; /* More space below title */
+  color: #333;
+  font-weight: bold;
+}
+
+.modal-content p {
+  font-size: 13pt; /* Larger text */
+  margin-bottom: 20px; /* More space */
+  color: #555;
+  line-height: 1.4;
+}
+
+.pin-input-container {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.pin-input-container label {
+  display: block;
+  font-size: 11pt; /* Larger label */
+  margin-bottom: 8px; /* More space below label */
+  color: #333;
+  font-weight: bold;
+}
+
+.pin-input-container input[type="password"] {
+  width: 100%; /* Full width */
+  padding: 12px 10px; /* Taller input */
+  font-size: 12pt; /* Larger font in input */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#pinErrorMessage {
+    font-size: 10pt; /* Larger error message */
+    margin-top: 8px; /* More space above error */
+    color: #d9534f; /* Softer red */
+    font-weight: bold;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between; /* Spread buttons */
+  margin-top: 25px; /* More space above buttons */
+}
+
+.modal-actions button {
+  padding: 10px 22px; /* Larger buttons */
+  font-size: 12pt; /* Larger font on buttons */
+  min-width: 120px; /* Minimum width for buttons */
+  /* Uses .print-button styles, specific overrides below */
+}
+.modal-actions #cancelApprovalPinButton {
+    background-color: #6c757d; /* Grey for cancel */
+    border-color: #6c757d;
+}
+.modal-actions #cancelApprovalPinButton:hover {
+    background-color: #5a6268;
+}
+.modal-actions #confirmApprovalPinButton {
+    background-color: #28a745; /* Green for confirm */
+    border-color: #28a745;
+}
+.modal-actions #confirmApprovalPinButton:hover {
+    background-color: #218838;
+}
+
+</style>
+
+</head>
+<body onload="loadContractData()">
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay">
+    <div>กำลังร่างสัญญา...<br>กรุณารอสักครู่</div>
+</div>
+  <!-- New Loading Overlay for Approval Process -->
+<div id="approvalLoadingOverlay" class="modal-overlay" style="display: none; z-index: 10001; background-color: rgba(0,0,0,0.8);">
+    <div style="background-color: white; padding: 30px 40px; border-radius: 8px; text-align: center; color: black; font-family: 'THSarabunNew', sans-serif;">
+        <h2 style="font-size: 20pt; margin-bottom: 15px;">กำลังดำเนินการอนุมัติสัญญา</h2>
+        <p style="font-size: 14pt; margin-bottom: 20px;">กรุณารอสักครู่ และ<strong style="color: red;">ห้ามออกจากหน้านี้</strong>จนกว่าจะดำเนินการเสร็จสิ้น</p>
+        <!-- Optional: Add a spinner or progress indicator here if desired -->
+        <div id="approvalProgressSpinner" style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; margin: 20px auto; animation: spin 1s linear infinite;"></div>
+    </div>
+</div>
+
+<!-- ======= หน้า 1: สัญญาเช่าซื้อ (ข้อกำหนด) ======= -->
+<div class="page-container" id="contractSheet">
+    <div class="page-stamp" style="top: 10mm; right: 15mm;">ต้นฉบับ</div> <!-- Stamp for Page 1 -->
+    <div class="sop-code" style="text-align: end;">SOP-NO1-24/011</div>
+    <header class="doc-header">
+        <div class="title-box">
+            <div class="main-title">ข้อกำหนดในสัญญาเช่าซื้อ บริษัท โอเค นันเบอร์ วัน จำกัด</div>
+        </div>
+        <div class="right-header">
+            <div id="stampPlaceholder"></div>
+            <div class="contract-info">
+                <div><span class="label">เลขที่สัญญา:</span> <span id="contractNumberDisplay"></span></div>
+                <div><span class="label">วันที่:</span> <span id="submittedDateDisplay"></span></div>
+            </div>
+        </div>
+    </header>
+    <div class="clauses" id="contractClausesContainer">
+        <!-- จะถูกเติมโดย JavaScript -->
+              <p class="contract-paragraph">
+                1. บริษัทฯ ตกลงให้เช่าซื้อ และผู้เช่าซื้อตกลงเช่าซื้อ สินค้าตามที่ระบุในสัญญานี้ภายใต้ข้อกำหนดและเงื่อนไข โดยผู้เช่าซื้อได้รับสินค้าของบริษัทฯไปในสภาพเรียบร้อย ใช้การได้ดี และบริษัทฯ ตกลงจัดให้ผู้เช่าซื้อสามารถใช้สิทธิ์ในการเรียกร้องให้มีการปฏิบัติตามเงื่อนไข 
+                <strong>
+                การรับประกันสินค้าจากผู้ขายและผู้ผลิตได้โดยตรง ผู้เช่าซื้อได้ทราบแล้วว่ามีกรรมสิทธิ์ในสินค้าที่จะเช่าซื้อยังคงเป็นของบริษัทฯจนกว่าผู้เช่าซื้อชำระเงินครบถ้วนตามสัญญา
+                </strong>
+                นี้แล้ว และในระหว่างการเช่าซื้อหากบริษัทฯจะโอนสิทธิการเป็นเจ้าของ หรือภาระผูกพันอันเกิดจากสัญญาเช่าซื้อไปยังบุคคลอื่น หรือเจ้าหนี้รายอื่นแล้ว ให้ถือว่าผู้เช่าซื้อยินยอมการรับโอนสิทธิ หรือภาระผูกพันอันเกิดจากสัญญาเช่าชื้อนั้น 
+              </p>
+              <p>
+                2. ผู้เช่าซื้อได้ชำระค่างวดครั้งแรกตามระบุในสัญญาในวันที่ทำสัญญานี้ และจะชำระค่างวดส่วนที่เหลือเป็นรายเดือน ตามวิธีการ จำนวนเงินและในวันกำหนดชำระเงินตามที่ระบุไว้ กรณีที่ผู้เช่าซื้อมีความประสงค์จะขอชำระเงินค่าเช่าซื้อทั้งหมด ในคราวเดียวเพื่อปิดบัญชี บริษัทฯตกลงตามความประสงค์นั้นโดยจะให้ส่วนลดแก่ผู้เช่าซื้อตามประกาศของคณะกรรมการคุ้มครองผู้บริโภค หาก
+                <strong>
+                    ในกรณีที่บริษัทฯไม่ได้รับชำระเงินค่างวดภายในวันที่กำหนดชำระเงิน ผู้เช่าซื้อต้องเสียค่าปรับ สำหรับค่างวดที่ค้างชำระในอัตราที่กฎหมายกำหนด
+                </strong>
+                 และผู้เช่าซื้อขอให้สัญญาว่าจะเก็บรักษาสินค้า และส่วนประกอบของสินค้าที่ได้เช่าซื้อในสถานที่ของผู้เช่าซื้อดังระบุไว้ และจะไม่เคลื่อนย้ายสินค้านี้ไปไว้ที่อื่น เว้นแต่จะได้รับอนุญาตเป็นลายลักษณ์อักษร ก่อน จะระวังรักษาให้อยู่ในสภาพเรียบร้อย ใช้การได้ดี จะไม่ดัดแปลงหรือแก้ไขทรัพย์สิน อุปกรณ์ หรืออะไหล่ หรือส่วนหนึ่งส่วนใดของสินค้าด้วยประการใดๆ ในการซ่อมแซมจะต้องให้ผู้แทนหรือพนักงานของบริษัทฯเป็นผู้ซ่อมแซม สำหรับค่าใช้จ่ายในการซ่อมแซม ค่าอุปกรณ์ ค่าอะไหล่ที่ซ่อมแซมนั้น ให้เป็นไปตามข้อตกลงที่ผู้เช่าซื้อได้ทำไว้กับบริษัทฯ
+              </p>
+              <p>
+              3. ผู้เช่าซื้อยอมให้บริษัทฯ หรือผู้แทนบริษัทฯ ไม่ว่าคนเดียวหรือหลายคน เข้าตรวจดูสินค้าที่เช่าซื้อได้เป็นครั้งคราวในเวลาและระยะเวลาอันสมควร กรณีที่บริษัทฯประสงค์จะเรียกใบเสร็จรับเงินค่าเช่าซื้อเพื่อไปตรวจสอบ บริษัทฯจะออกใบรับตามแบบพิมพ์ที่กำหนดไว้มอบให้ผู้เช่าซื้อยึดถือไว้เป็นหลักฐาน แต่หากว่าผู้เช่าซื้อค้างชำระค่าเช่า 
+                <strong>
+                    ผู้เช่าซื้อยินยอมให้ผู้แทนหรือลูกจ้าง พนักงานบริษัทฯ เข้าไปในเคหสถานที่อยู่อาศัยของตนเพื่อยึดสินค้าตามสัญญานี้ โดยมิต้องบอกกล่าวล่วงหน้า ไม่ว่าผู้เช่าซื้อจะอยู่ด้วยในขณะนั้นหรือไม่ และไม่ต้องคำนึงว่าบริษัทฯจะได้บอกเลิกสัญญาแล้วหรือไม่ ผู้เช่าซื้อขอให้สัญญาว่าจะให้เช่าช่วงหรือโอนสิทธิในสัญญานี้ให้แก่ผู้หนึ่งผู้ใดมิได้ เว้นแต่จะได้รับยินยอมเป็นหนังสือ และผู้เช่าซื้อให้สัญญาว่าจะไม่นำทรัพย์สินที่เช่าซื้อไป จำนำ ขายฝาก จำหน่าย โดยวิธีใดๆ แก่บุคคลอื่นเป็นอันขาด หากได้นำทรัพย์สินไปจำนำ ขาย ขายฝาก ปลดล็อค 
+                </strong>
+              และหรือจำหน่ายไปด้วยวิธีใดๆ ให้ถือว่าผู้เช่าซื้อมีเจตนาทุจริต บริษัทฯมีสิทธิ์ที่จะดำเนินคดีอาญากับผู้เช่าซื้อได้ทันที ในกรณีที่ผู้เช่าซื้อมีการเปลี่ยนแปลงที่อยู่หรือรายละเอียดบัญชีธนาคารผู้เช่าซื้อ จะแจ้งให้บริษัทฯทราบโดยพลัน ทั้งยินยอมให้บริษัทฯตรวจสอบความน่าเชื่อถือทางการเงินและเครดิตทั้งของผู้เช่าซื้อและผู้ค้ำประกันได้จากบุคคลที่เกี่ยวข้องได้ด้วย
+              </p>
+              <p>
+                4.
+                <strong>
+                    กรณีที่ผู้เช่าซื้อไม่ชำระค่าเช่าซื้อรวม2งวดติดกันทางบัญชี หรือผู้เช่าซื้อ ประพฤติผิดสัญญาอันเป็นเหตุให้บริษัทฯสามารถดำเนินคดีอาญาได้หรือผู้เช่าซื้อ ทรัพย์สินที่ชอบซื้อไปกระทำผิดกฎหมายอาญาหรือผู้เช่าซื้อเป็นบุคคลที่ศาลมีคำสั่งพิทักษ์ทรัพย์เด็ดขาดตามกฎหมาย ล้มละลายหรือทรัพย์สินที่เช่าซื้อถูกยึดหรืออายัด ในการบังคับคดีตามคำพิพากษาของศาลหรือทรัพย์สินที่เช่าซื้อถูกนำไปใช้ในการกระทำ ผิดกฎหมายทางอาญา ให้เจ้าของมีสิทธิ์บอกเลิกสัญญาได้
+                </strong>
+                การใช้สิทธิในการบอกเลิก
+                <strong>
+                    สัญญาเจ้าของต้องบอกล่วงหน้าเป็นลายลักษณ์อักษรไม่น้อยกว่า 7 วัน
+                </strong>
+                เพื่อให้ผู้เช่าซื้อได้จัดการชำระค่าเช่าซื้อที่ค้างชำระให้เสร็จสิ้นและในระหว่างที่ผู้เช่าซื้อยังมิได้บอกเลิกสัญญาเช่าซื้อผู้เช่าซื้อมีสิทธิ์ที่จะ เรียกให้ผู้ค้ำประกันมาเป็น ผู้เช่าซื้อรายต่อไปก่อนหรือเป็นผู้ซื้อทรัพย์สินในราคาคงเหลือก็ได้หากผู้เช่าซื้อเพิกเฉยจนพ้นกำหนดระยะเวลาบอกเลิกสัญญาแล้วให้ถือว่าผู้เช่าซื้อและผู้ค้ำประกันสละสิทธิ์ในการเป็น ผู้ซื้อทรัพย์สิน หรือผู้เช่าซื้ออะไรต่อไปโดยจะต้อง 
+                <strong>
+                    คืนทรัพย์สินที่เช่าซื้อภายใน 7 วันนับตั้งแต่วันที่ครบกำหนดตามหนังสือบอกกล่าว และในกรณีที่ผู้เช่าซื้อส่งคืนทรัพย์สินให้ บริษัทฯแล้วหาก บริษัทฯจะจำหน่ายทรัพย์สินบริษัทฯจะแจ้งล่วงหน้าเป็นลายลักษณ์อักษรให้ผู้เช่าซื้อทราบไม่น้อยกว่า 7 วัน และ ผู้เช่าซื้อมีสิทธิ์ซื้อก่อนในราคาไม่เกินหนี้ที่ค้างชำระ โดยบริษัทฯมีสิทธิ์ที่จะเรียกร้องค่าใช้จ่ายเกี่ยวกับการทวงถามการติดตาม การยึดทรัพย์สินที่เช่าซื้อ ค่าทนายความ และอื่นๆที่เกี่ยวเนื่องด้วยการที่ผู้เช่าซื้อผิดชำระค่าเช่าซื้อหรือการยึดทรัพย์สินที่เช่าซื้อ
+                </strong>
+                เนื่องจากมีการบอกเลิกสัญญาผู้เช่าซื้อจะต้องชำระให้ทั้งสิ้น
+                </p>
+              <p>
+                5. บริษัทฯจะส่งคำบอกกล่าวซึ่งตามกฎหมายหรือตามสัญญากำหนด ให้ต้องเป็นหนังสือ ให้แก่ผู้เช่าซื้อตามที่ระบุในสัญญาเช่าซื้อ หรือที่อยู่ที่ผู้เช่าซื้อแจ้งการเปลี่ยนแปลงเป็นหนังสือครั้งหลังสุด
+                </p>
+              <p>
+              6. สิทธิ หน้าที่ และ/หรือความรับผิดชอบใดๆ ที่คู่สัญญามีต่อกัน หากมิได้ปรากฏในสัญญานี้ คู่สัญญาตกลงยินยอมให้เป็นไปตามกฎหมายที่ได้กำหนดไว้
+              </p>
+    </div>
+
+    <div class="signature-header-text">ข้าพเจ้ายังได้ลงลายมือชื่อไว้เป็นสำคัญ</div>
+    <div class="signature-grid">
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <!-- Static signature URL -->
+                <img src="https://lh3.googleusercontent.com/d/1V0o52cJVmuq2blCb0gd4oLUz4kV35u7S" alt="ลายเซ็น วีระพงษ์ พlเสนา" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> ผู้ให้เช่าซื้อ
+            </div>
+            <div class="signature-name">(นายวีระพงษ์ พลเสนา)</div>
+            <div class="signature-title-text">ประธานเจ้าหน้าที่บริหาร</div>
+        </div>
+        <div class="signature-block" id="borrowerSignatureBlock">
+            <div class="signature-line-container">
+                <!-- JS inserts applicant signature image here -->
+                ลงชื่อ <span class="signature-line"></span> ผู้กู้
+            </div>
+            <div class="signature-name" id="borrowerName">( ........................................ )</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <img src="https://lh3.googleusercontent.com/d/1chu9CAGnLl3c3oXui7i1aoXAUN6nSbbz" alt="ลายเซ็น พิชชากรณ์ ลำทา" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <div class="signature-name">(นายพิชชากรณ์ ลำทา)</div>
+            <div class="signature-title-text">กรรมการผู้จัดการ</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <img src="https://lh3.googleusercontent.com/d/1vuAfGHVD9L2bQZ475dh7S8dddIskMjAL"
+                     alt="ลายเซ็น นพดล ลาภตระกูล" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <div class="signature-name">(นายนพดล ลาภตระกูล)</div>
+        </div>
+    </div>
+
+    <div class="stamp-duty-box">
+        <div class="title">สำหรับติดอากร</div>
+        <div>สัญญาเช่าซื้อฉบับนี้ปิดอากรตามราคาสินค้า ก่อนรวมภาษีมูลค่าเพิ่ม (ราคาสินค้ารวมภาษี × 0.93458)</div>
+        <div>ราคา 1,000 บาท ต่ออากร 1 บาท เศษของ 1,000 ปิดเพิ่มอีก 1 บาท</div>
+    </div>
+    <!-- ADDED: Bottom Left Stamp -->
+    <img src="https://lh3.googleusercontent.com/d/1La9wSE566UoWv9-Y1_sFF8Mtq0dp6Zph" alt="Company Seal" class="page-bottom-stamp">
+</div>
+
+<!-- ======= หน้า 2: หนังสือให้ความยินยอมเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล ======= -->
+
+<div class="page-container" id="consentSheet">
+    <div class="page-stamp" style="top: 6mm; right: 15mm;">ต้นฉบับ</div> <!-- Stamp for Page 2 -->
+    <header class="doc-header" style="grid-template-columns: 1fr; margin-bottom: 2mm;">
+        <div class="title-box" style="background:#fff; border:1px solid #000; box-shadow:none; padding:1mm 3px; min-height: auto; text-align:center;">
+            <div class="main-title" style="font-size: 14pt; line-height: 1.2; font-weight:bold;">หนังสือให้ความยินยอมเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล</div>
+        </div>
+    </header>
+    <div class="clauses" id="consentClausesContainerPage2">
+        <p> <!-- Date line -->
+            วันที่ทำหนังสือให้ความยินยอม วันที่ <span class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+            เดือน <span class="dotted-underline" style="min-width:45mm; text-align:center;"></span>
+            พ.ศ. <span class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+        </p>
+        <p> <!-- Name and ID card line -->
+            <span style="white-space: nowrap;">ข้าพเจ้า  <span class="dotted-underline" id="consentApplicantNamePage2"></span></span>
+            <span style="white-space: nowrap; margin-left: 2mm;">บัตรประจำตัวประชาชนเลขที่ <span class="dotted-underline" id="consentApplicantIdPage2"></span></span>
+        </p>
+        <p> <!-- Consent text -->
+            ข้าพเจ้า (ผู้กู้) ตกลงให้ความยินยอม แก่บริษัท โอเค นัมเบอร์ วัน จำกัด (ผู้ให้กู้) ในการเก็บรวบรวม ใช้และเปิดเผยข้อมูล ส่วนบุคคลของข้าพเจ้า เช่น ชื่อนามสกุล เลขที่บัตรประจำตัวประชาชน วันเดือนปีเกิด สถานภาพ ที่อยู่ อีเมล์ เบอร์โทรศัพท์ ข้อมูลการเงินข้อมูลเครดิต หรือข้อมูลอื่นใดที่สามารถระบุถึงตัวข้าพเจ้าได้ ไม่ว่าจะทางตรงหรือทางอ้อม ที่ให้ไว้แก่ผู้ให้กู้ภายใต้ข้อกำหนดและเงื่อนไขดังต่อไปนี้ที่สามารถระบุถึงตัวข้าพเจ้าได้ ไม่ว่าจะทางตรงหรือทางอ้อม ที่ให้ไว้แก่ผู้ให้กู้ภายใต้ข้อกำหนดและเงื่อนไขดังต่อไปนี้
+        </p>
+        <p>
+            <strong>1. การจัดเก็บข้อมูลส่วนบุคคล และระยะเวลาในการจัดเก็บ</strong><br>
+            การจัดเก็บข้อมูลส่วนบุคคลผู้ให้กู้จะจัดเก็บข้อมูลส่วนบุคคลของผู้กู้ทั้งในรูปแบบกระดาษอิเล็กทรอนิกส์และอาจจะใช้บริการสารสนเทศของผู้ให้บริการซึ่งเป็นบุคคลภายนอกเพื่อให้ดำเนินการ เก็บรักษาข้อมูลส่วนบุคคลซึ่งผู้ให้บริการนั้นจะต้องมีมาตราการรักษาความมั่นคงที่ปลอดภัย โดยห้ามดำเนินการเก็บรวบรวม ใช้หรือเปิดเผยข้อมูลส่วนบุคคลนอกเหนือจากผู้ให้กู้กำหนด
+        </p>
+        <p>
+            <strong>ระยะเวลาในการจัดเก็บ</strong><br>
+            ผู้ให้กู้จะจัดเก็บข้อมูลส่วนบุคคลอย่างน้อย 10 ปี หรือตามระยะเวลาที่กฎหมายกำหนด เช่นกฎหมายว่าด้วยการป้องกันและปราบปรามการฟอกเงิน กฎหมายว่าด้วยสถาบันการเงิน กฎหมายว่าด้วยภาษีอากร กฎหมายว่าด้วยการบัญชี ประกาศธนาคารแห่งประเทศไทย หรือมาตรฐานหรือแนวปฏิบัติตามที่กำหนด โดยหน่วยงานที่ควบคุม กำกับดูแลธุรกิจของผู้ให้กู้เป็นต้น
+        </p>
+        <p><strong>2. วัตถุประสงค์การเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล</strong></p>
+        <ul>
+            <li>เพื่อการเข้าทำสัญญา การวิเคราะห์การอนุมัติสินเชื่อ การทบทวนสินเชื่อ การจัดการสินเชื่อ การดำเนินการตามคำร้องหรือคำขอการแก้ไขข้อมูล หรือธุรกรรมต่างๆที่เกี่ยวข้อง</li>
+            <li>เพื่อการตรวจสอบ ยืนยันตัวตน</li>
+            <li>เพื่อการประมวลผลข้อมูล อันได้แก่การปฏิบัติการใดๆกับข้อมูลไม่ว่าจะเป็นการเก็บรวบรวมการบันทึกการจัดเรียงการเก็บรักษาการแก้ไขเพิ่มเติมการใช้การนำกลับมาใช้การเปิดเผยการพิมพ์การทำให้เข้าถึงการลบหรือการทำลายข้อมูลการจัดทำ และการเปิดเผยคะแนนเครดิต และรายงานเชิงสถิติ</li>
+            <li>เพื่อวัตถุประสงค์ในการดำเนินธุรกิจของผู้ให้กู้ สนับสนุน การให้บริการ รวมถึงการบริหารจัดการภายใต้การดำเนินธุรกิจของผู้ให้กู้</li>
+            <li>เพื่อการกำกับดูแลการจัดการความเสี่ยง ดำเนินการตรวจสอบความน่าเชื่อถือทางการเงินและความสามารถในการชำระหนี้การประเมินการตรวจหาการป้องกันไม่ให้เกิดขึ้นหรือ การแก้ไขเยียวยาการฉ้อโกงการทุจริตและการกระทำที่ผิดกฎหมายเป็นต้น</li>
+            <li>เพื่อการจัดส่งเอกสารหรือข้อมูลให้กับผู้กู้ เพื่อวัตถุประสงค์ในการติดตามทวงถามหนี้การรับชำระหนี้</li>
+        </ul>
+        <p>
+            <strong>ผลกระทบของการไม่ให้ข้อมูล</strong><br>
+            ผู้กู้จำเป็นต้องให้ข้อมูลส่วนบุคคลแก่ผู้ให้กู้เพื่อปฏิบัติตามกฎหมาย หรือการเข้าทำสัญญา หรือการปฏิบัติตามสัญญา หรือดำเนินการตามคำร้องขอของผู้กู้ กรณีผู้กู้ไม่ให้ข้อมูลส่วนบุคคล หรือการไม่ให้ความยินยอมในการเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคลดังกล่าวอาจทำให้ผู้กู้ถูกจำกัดสิทธิ์ในการให้บริการบางอย่างของผู้กู้ หรือส่งผลให้ผู้ให้กู้ไม่สามารถให้บริการแก่ผู้กู้ ได้เลยหากข้อมูลดังกล่าวจำเป็น ในการให้บริการผู้กู้
+        </p>
+        <p>
+            <strong>3. การเปิดเผยข้อมูลส่วนบุคคล</strong><br>
+            ผู้ให้กู้จะเปิดเผยข้อมูลส่วนบุคคลของผู้กู้ตามความยินยอมของผู้กู้โดยจะต้องเป็นไปตามวัตถุประสงค์ของการเก็บรวบรวมใช้หรือเปิดเผยข้อมูลส่วนบุคคลดังกล่าว ข้างต้นเท่านั้นโดยผู้กู้ยินยอมให้ผู้ให้กู้เปิดเผยข้อมูลส่วนบุคคลแก่พนักงานลูกจ้างสำนักงานสาขาผู้ถือหุ้นกรรมการผู้รับจ้างผู้แทนตัวแทนคู่สัญญาคู่ค้าบริษัทในเครือ ผู้ตรวจสอบภายในและภายนอกและผู้ประกอบวิชาชีพในการให้คำปรึกษาด้านต่างๆ ผู้รับโอนสิทธิ และหรือหน้าที่ของผู้ให้กู้ทั้งในประเทศและต่างประเทศเว้นแต่เป็นข้อมูลส่วนบุคคลที่ได้รับการยกเว้นไม่ต้องขอความยินยอมตามกฎหมายว่าด้วยการคุ้มครองข้อมูลส่วนบุคคลกำหนด
+        </p>
+        <p>
+            <strong>4. การส่งหรือการโอนข้อมูลส่วนบุคคลไปยังต่างประเทศ</strong><br>
+            ผู้ให้กู้อาจจะส่งหรือโอนข้อมูลส่วนบุคคลไปยังต่างประเทศ ประเทศปลายทางหรือองค์การระหว่างประเทศที่รับข้อมูลส่วนบุคคลต้องมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอและเป็นไปตามหลักเกณฑ์ การให้ความคุ้มครองข้อมูลส่วนบุคคลตามที่คณะกรรมการคุ้มครองข้อมูลส่วนบุคคลประกาศกำหนด
+        </p>
+        <p><strong>5. สิทธิของเจ้าของข้อมูลส่วนบุคคล</strong></p>
+        <ol style="list-style-type: none;">
+            <li>1) ขอถอนความยินยอมในการเก็บรวบรวมใช้หรือเปิดเผยข้อมูลส่วนบุคคลที่ได้ให้ไว้กับผู้ให้กู้ตลอดระยะเวลาที่ข้อมูลส่วนบุคคลอยู่กับผู้ให้กู้</li>
+            <li>2) ขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคลที่เกี่ยวกับตนหรือขอให้เปิดเผยกันได้มาซึ่งข้อมูลส่วนบุคคลดังกล่าวที่ตนไม่ได้ให้ความยินยอม</li>
+            <li>3) ขอให้แก้ไข ข้อมูลส่วนบุคคลให้ถูกต้อง เป็นปัจจุบันสมบูรณ์และไม่ก่อให้เกิดความเข้าใจผิด</li>
+            <li>4) ขอให้ลบหรือทำลายหรือทำให้ข้อมูล ส่วนบุคคลเป็นข้อมูลที่ไม่สามารถระบุถึงตัวผู้กู้ด้วยเหตุบางประการได้</li>
+            <li>5) ขอให้ระงับการใช้ข้อมูลส่วนบุคคลด้วยเหตุบางประการได้</li>
+            <li>6) ขอให้โอนข้อมูลส่วนบุคคลที่ให้ไว้กับผู้ให้กู้ไปยัง ผู้ควบคุมข้อมูลส่วนบุคคลอื่นโดยตรงหรือตัวผู้กู้เองด้วยเหตุบางประการได้</li>
+            <li>7) คัดค้านการเก็บรวบรวมใช้หรือเปิดเผยข้อมูลส่วนบุคคลด้วยเหตุบางประการได้</li>
+        </ol>
+        <p>
+            <strong>6. การถอนความยินยอมและผลของการเพิกถอนความยินยอม</strong><br>
+            ผู้กู้มาถอนความยินยอมในการเก็บรวบรวม ใช้หรือเปิดเผยข้อมูลส่วนบุคคล ที่ได้ให้ไว้กับผู้ให้กู้ เมื่อใดก็ได้ โดยแจ้งให้ผู้ให้กู้ทราบ ตามวิธีการที่ผู้ให้กู้กำหนด ทั้งนี้ การถอนความยินยอมดังกล่าว จะไม่ส่งผลกระทบต่อการเก็บรวบรวม ใช้หรือเปิดเผยข้อมูลส่วนบุคคล ที่ผู้กู้ได้ให้ความยินยอมไปแล้วก่อนหน้านั้น ในการถอนความยินยอมอาจทำให้ผู้ให้กู้ไม่สามารถให้บริการผู้กู้ได้อีกต่อไป
+        </p>
+        <p>
+            <strong>7. ช่องทางการติดต่อ</strong><br>
+            ศูนย์บริการลูกค้าประชาสัมพันธ์ บริษัท โอเค นัมเบอร์ วัน จำกัด เลขที่ 1 อาคารศูนย์การค้า เซ็นเตอร์วัน ซอย เลิศปัญญา ถนนราชวิถี แขวงถนนพญาไท เขตราชเทวี กรุงเทพมหานคร 10400<br>
+            เบอร์โทรศัพท์ 085-0088806 , 062-7766774 Email: pdpa@no1.email
+        </p>
+        <p>
+            ข้าพเจ้าทราบว่าข้าพเจ้ามีสิทธิ์ที่จะให้ความยินยอมหรือไม่ให้ก็ได้และเมื่อให้ความยินยอมแล้วข้าพเจ้าจะแจ้งความประสงค์ไม่ให้ความยินยอมอีกต่อไปก็ได้โดยติดต่อทางข้างต้น
+        </p>
+    </div>
+
+    <div class="page2-bottom-flex-container">
+        <div class="page2-signatures-area">
+            <p>
+                ข้าพเจ้าจึงได้ลงลายมือชื่อไว้เป็นสำคัญ
+            </p>
+            <div class="signature-block-p2">
+                <div class="signature-line-row">
+                    <span class="signature-label">ลงชื่อ</span>
+                    <div class="line-and-image-container">
+                       <!-- Static signature URL -->
+                       <img class="signature-image-p2 static-signature" src="https://lh3.googleusercontent.com/d/1V0o52cJVmuq2blCb0gd4oLUz4kV35u7S" alt="ลายเซ็น วีระพงษ์ พลเสนา">
+                       <span class="dotted-line-element"></span>
+                    </div>
+                    <span class="signature-role">ผู้จัดเก็บข้อมูล</span>
+                </div>
+                <div class="signature-name-container-p2">
+                    ( นายวีระพงษ์ พลเสนา )
+                </div>
+            </div>
+            <div class="signature-block-p2">
+                <div class="signature-line-row">
+                    <span class="signature-label">ลงชื่อ </span>
+                    <div class="line-and-image-container" id="consentApplicantSignatureLineContainer">
+                       <span class="dotted-line-element"></span>
+                    </div>
+                    <span class="signature-role">ผู้ให้ความยินยอม(ผู้กู้)</span>
+                </div>
+                <div class="signature-name-container-p2">
+                    ( <span class="signature-name-fill" id="consentApplicantNameSignaturePage2"></span> )
+                </div>
+            </div>
+        </div>
+
+        <div class="page2-image-placeholders-area">
+            <div class="image-placeholders-container">
+                <div class="image-placeholder-box page2-custom-box" id="borrowerImagePlaceholderPage2">(ภาพผู้กู้)</div>
+                <div class="image-placeholder-box page2-custom-box" id="assetImagePlaceholderPage2">(ภาพสินทรัพย์)</div>
+                <div class="image-placeholder-box page2-custom-box" id="idCardImagePlaceholderPage2">(ภาพบัตรประชาชนผู้กู้)</div>
+            </div>
+        </div>
+    </div>
+    <!-- ADDED: Bottom Left Stamp -->
+    <img src="https://lh3.googleusercontent.com/d/1La9wSE566UoWv9-Y1_sFF8Mtq0dp6Zph" alt="Company Seal" class="page-bottom-stamp-2">
+</div>
+
+<!-- ======= หน้า 3: สัญญาเช่าซื้อ (รายละเอียด) ======= -->
+
+<div class="page-container" id="productDetailsSheet">
+    <div class="page-stamp" style="top: 10mm; right: 15mm;">ต้นฉบับ</div> <!-- Stamp for Page 3 -->
+    <!-- ชื่อเรื่อง -->
+    <h1 class="page3-main-title">สัญญาเช่าซื้อ</h1>
+
+    <!-- เลขที่สัญญา -->
+
+    <div class="page3-header-info">
+        เลขที่สัญญา : <span id="p3_contract_number_header"></span>
+    </div>
+
+    <!-- คำนำสัญญา -->
+
+    <div class="page3-contract-intro">
+        <p style="padding-left: 10mm;">สัญญานี้ทำขึ้นเมื่อวันที่ <span id="p3_contract_made_date" class="dotted-underline" style="min-width:60mm;"></span> ณ NO1MONEY+ by บริษัท โอเอ นัมเบอร์ วัน จำกัด</p>
+        <p class="office-address">สำนักงานตั้งอยู่ที่ บริษัทโอเคนัมเบอร์วันจำกัด (สำนักงานใหญ่) เซ็นเตอร์วัน ชั้น 2 ห้อง 2019 เลขที่ 1 แขวงถนนพญาไท เขตราชเทวี กทม. 10400</p>
+        <p>ระหว่าง <span id="p3_applicant_name_intro" class="dotted-underline" style="min-width:60mm;"></span> ที่อยู่ <span id="p3_applicant_address_intro" class="dotted-underline" style="min-width:90mm;"></span>
+            <span>โทรศัพท์ <span id="p3_applicant_phone_intro" class="dotted-underline" style="min-width:40mm;"></span> </หp>
+        </p>
+        <p>ซึ่งต่อไปในสัญญานี้เรียกว่า <span class="bold-text">ผู้กู้</span> ฝ่ายหนึ่ง กับ NO1MONEY+ by บริษัท โอเอ นัมเบอร์ วัน จำกัด </p>
+        <p>ซึ่งต่อไปในสัญญานี้เรียกว่า <span class="bold-text">เจ้าของ</span> อีกฝ่ายหนึ่งทั้งสองฝ่ายได้ตกลงทำสัญญากัน ปรากฏข้อความดังต่อไปนี้</p>
+    </div>
+
+    <!-- ตาราง 2x2 -->
+    <table class="page3-details-table">
+        <thead>
+            <tr>
+                <th>รายละเอียดหลักประกันสัญญา</th>
+                <th>เงื่อนไขในสัญญา</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p><span class="label-text">Model:</span> <span id="p3_model"></span></p>
+                    <p><span class="label-text">Brand:</span> <span id="p3_brand"></span></p>
+                    <p><span class="label-text">Capacity:</span> <span id="p3_capacity"></span></p>
+                    <p><span class="label-text">Color:</span> <span id="p3_color"></span></p>
+                    <p><span class="label-text">S/N:</span> <span id="p3_sn"></span></p>
+                    <p><span class="label-text">IMEI/MEID:</span> <span id="p3_imei"></span></p>
+                    <p><span class="label-text">Account ID:</span> <span id="p3_account_id"></span></p>
+                    <p><span class="label-text">Password:</span> <span id="p3_password"></span></p>
+                    <p><span class="label-text">Warranty:</span> <span id="p3_warranty"></span></p>
+                </td>
+                <td>
+                    <p><span class="label-text">เงินทำสัญญา:</span> <span id="p3_contract_amount"></span></p>
+                    <p><span class="label-text">ดอกเบี้ย:</span> <span id="p3_interest_rate"></span></p>
+                    <p><span class="label-text">ค่าบริการ/รอบ:</span> <span id="p3_installment_amount"></span></p>
+                    <p><span class="label-text">ค่าธรรมเนียมทำสัญญา:</span> <span id="p3_contract_fee"></span></p>
+                    <p><span class="label-text">ค่าแนะนำ:</span> <span id="p3_referral_fee"></span></p>
+                    <p><span class="label-text">วันครบกำหนด:</span> <span id="p3_first_payment_date"  style="min-width: 40mm; display: inline-block !important;"></span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ข้อความผูกพัน -->
+
+    <div class="page3-agreement-text">
+        <p><span class="bold-text">ผู้กู้</span> ตกลงยินยอมผูกพันตามข้อกำหนด และเงื่อนไขต่าง ๆ ตามสัญญา และเอกสารแนบท้ายสัญญา ถือเป็นส่วนหนึ่งของสัญญาฉบับนี้ด้วย</p>
+        <p>สัญญาฉบับนี้ทำขึ้นโดยมีข้อความตรงกัน มอบไว้ให้เป็นหลักฐานแก่คู่สัญญาทั้งสองฝ่าย และผู้ค้ำประกัน ได้อ่านและเข้าใจในรายละเอียดแล้ว จึงได้ลงลายมือชื่อ และประทับตราสำคัญไว้เป็นหลักฐานต่อหน้าพยาน</p>
+    </div>
+
+    <!-- ช่องเซ็นชื่อ 2×2 -->
+
+    <div class="signature-grid page3-signature-grid">
+        <!-- Page 3 Applicant Signature Block -->
+        <div class="signature-block" id="p3_applicant_signature_block">
+            <div class="signature-line-container">
+                <!-- JS inserts applicant signature image here -->
+                ลงชื่อ <span class="signature-line"></span> ผู้กู้
+            </div>
+            <div class="signature-name" id="p3_signature_applicant_name">( ........................................ )</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <!-- Corrected static signature URL -->
+                <img src="https://lh3.googleusercontent.com/d/1V0o52cJVmuq2blCb0gd4oLUz4kV35u7S"
+                     alt="ลายเซ็น เจ้าของ" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> เจ้าของ
+            </div>
+            <div class="signature-name">(นายวีระพงษ์ พลเสนา)</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <img src="https://lh3.googleusercontent.com/d/1chu9CAGnLl3c3oXui7i1aoXAUN6nSbbz"
+                     alt="ลายเซ็น พยาน" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <div class="signature-name">(นายพิชชากรณ์ ลำทา)</div>
+            <div class="signature-title-text">กรรมการผู้จัดการ</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line-container">
+                <img src="https://lh3.googleusercontent.com/d/1vuAfGHVD9L2bQZ475dh7S8dddIskMjAL"
+                     alt="ลายเซ็น นพดล ลาภตระกูล" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <div class="signature-name">(นายนพดล ลาภตระกูล)</div>
+        </div>
+    </div>
+    <!-- ADDED: Bottom Left Stamp -->
+    <img src="https://lh3.googleusercontent.com/d/1La9wSE566UoWv9-Y1_sFF8Mtq0dp6Zph" alt="Company Seal" class="page-bottom-stamp-3">
+</div>
+
+<!-- ======= หน้า 4: สัญญาซื้อขาย ======= -->
+
+<div class="page-container" id="salesSheet">
+    <div class="page-stamp" style="top: 10mm; right: 15mm;">ต้นฉบับ</div> <!-- Stamp for Page 4 -->
+     <header class="doc-header">
+        <div class="title-box">
+            <div class="main-title" style="font-size: 14pt;">สัญญาซื้อขาย</div>
+        </div>
+        <!-- Date line - Positioned by Page 4 specific CSS -->
+        <div class="contract-info">
+             สัญญานี้ทำขึ้นที่ บริษัท โอเค นันเบอร์ วัน จำกัด<br>
+             วันที่ <span id="p4_contract_made_date_day" class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+             เดือน <span id="p4_contract_made_date_month" class="dotted-underline" style="min-width:45mm; text-align:center;"></span>
+             พ.ศ. <span id="p4_contract_made_date_year" class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+        </div>
+    </header>
+
+    <!-- Adjusted Intro Phrasing for Page 4 based on user text -->
+    <div class="page3-contract-intro">
+        <p style="padding-left: 10mm;">สัญญาฉบับนี้ทำขึ้นระหว่าง<span id="p4_seller_name_intro" class="dotted-underline"></span> ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ขาย</span> ฝ่ายหนึ่ง</p>
+        <!-- บรรทัดสำหรับข้อมูลผู้ซื้อ - แก้ไข HTML ตามคำขอ: ลบ span id="p4_buyer_info_intro" ออก -->
+        <p class="no-indent" id="p4_buyer_paragraph">กับ  ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ซื้อ</span></p>
+        <p>อีกฝ่ายหนึ่ง คู่สัญญาทั้งสองฝ่ายได้ตกลงทำสัญญานี้ โดยมีเงื่อนไขรายละเอียดต่อไปนี้:</p>
+    </div>
+
+    <div class="clauses" id="salesClausesContainer">
+        <!-- ข้อ 1 - Adjusted layout to match user text -->
+        <p style="padding-left: 10mm;"><strong>ข้อ 1.</strong> ผู้ขายตกลงขาย และผู้ซื้อตกลงซื้อสินค้าของผู้ขาย คือ <span id="p4_product_description" class="dotted-underline" style="min-width:100mm;"></span></p>
+        <p>
+            หมายเลขตัวเครื่อง <span id="p4_imei" class="dotted-underline" style="min-width:40mm;"></span>
+            S/N <span id="p4_sn" class="dotted-underline" style="min-width:40mm;"></span>
+            จำนวน <span id="p4_quantity" class="dotted-underline" style="min-width:10mm; text-align:center;">1</span> เครื่อง
+        </p>
+        <p>
+            รวมเป็นเงิน <span id="p4_total_amount" class="dotted-underline" style="min-width:30mm; text-align:center;"></span> บาท (<span id="p4_total_amount_text" class="dotted-underline" style="min-width:30mm; text-align:center;"></span>) โดยผู้ซื้อได้รับสินค้าที่ซื้อขายดังกล่าวแล้ว และผู้ขายได้รับเงินเรียบร้อยแล้ว
+        </p>
+        <!-- ข้อ 2 - Adjusted text -->
+         <p style="padding-left: 10mm;"><strong>ข้อ 2.</strong> หากคู่สัญญาฝ่ายหนึ่งฝ่ายใดผิดสัญญา ให้อีกฝ่ายหนึ่งมีสิทธิบอกเลิกสัญญา และมีสิทธิเรียกร้องค่าเสียหายจากฝ่ายที่ผิดสัญญาได้ตามความเป็นจริง</p>
+    </div>
+
+    <!-- Concluding Text - Adjusted text -->
+    <div id="salesConcludingText">
+         <p class="no-indent">สัญญาฉบับนี้ทำขึ้นเป็นสองฉบับ มีข้อความถูกต้องตรงกัน คู่สัญญาต่างยึดถือไว้ฝ่ายละฉบับ และทั้งสองฝ่ายได้ศึกษาเข้าใจข้อความในสัญญาดีโดยตลอดแล้ว จึงได้ลงลายมือชื่อ และประทับตราสำคัญไว้เป็นหลักฐานต่อหน้าพยาน</p>
+    </div>
+
+    <!-- Signatures - Roles updated -->
+    <div class="signature-grid page3-signature-grid">
+         <!-- Seller Signature Block (This is the Applicant/Borrower in this scenario) -->
+         <div class="signature-block" id="p4_seller_signature_block"> <!-- Added ID -->
+             <div class="signature-line-container">
+                 <!-- JS inserts applicant signature image here -->
+                 ลงชื่อ <span class="signature-line"></span> ผู้ขาย
+             </div>
+             <div class="signature-name" id="p4_signature_seller_name">( ........................................ )</div> <!-- Added ID -->
+         </div>
+         <!-- Buyer Signature Block (This is VP in this scenario) -->
+         <div class="signature-block" id="p4_buyer_signature_block">
+             <div class="signature-line-container">
+                <!-- Static signature URL -->
+                <img src="https://lh3.googleusercontent.com/d/1V0o52cJVmuq2blCb0gd4oLUz4kV35u7S" alt="ลายเซ็น ผู้ซื้อ" class="signature-image"> <!-- Static image -->
+                ลงชื่อ <span class="signature-line"></span> ผู้ซื้อ
+             </div>
+             <div class="signature-name" id="p4_signature_buyer_name">( ........................................ )</div> <!-- Added ID -->
+             <div class="signature-title-text">ประธานเจ้าหน้าที่บริหาร</div> <!-- Add title text for VP -->
+         </div>
+         <!-- Witness blocks remain the same -->
+         <div class="signature-block">
+             <div class="signature-line-container">
+                 <img src="https://lh3.googleusercontent.com/d/1chu9CAGnLl3c3oXui7i1aoXAUN6nSbbz" alt="ลายเซ็น พยาน" class="signature-image">
+                 ลงชื่อ <span class="signature-line"></span> พยาน
+             </div>
+             <div class="signature-name">(นายพิชชากรณ์ ลำทา)</div>
+             <div class="signature-title-text">กรรมการผู้จัดการ</div>
+         </div>
+         <div class="signature-block">
+             <div class="signature-line-container">
+                <img src="https://lh3.googleusercontent.com/d/1vuAfGHVD9L2bQZ475dh7S8dddIskMjAL" alt="ลายเซ็น นพดล ลาภตระกูล" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+             </div>
+             <div class="signature-name">(นายนพดล ลาภตระกูล)</div>
+         </div>
+    </div>
+    <!-- ADDED: Bottom Left Stamp -->
+    <img src="https://lh3.googleusercontent.com/d/1La9wSE566UoWv9-Y1_sFF8Mtq0dp6Zph" alt="Company Seal" class="page-bottom-stamp-4">
+</div>
+
+<!-- ======= หน้า 5: หนังสือรับสภาพหนี้ ======= -->
+<div class="page-container" id="acknowledgementSheet">
+    <div class="page-stamp" style="top: 10mm; right: 15mm;">ต้นฉบับ</div> <!-- Stamp for Page 5 -->
+    <!-- Reusing page3-main-title style for consistency -->
+    <h1 class="page3-main-title">หนังสือรับสภาพหนี้</h1>
+
+    <!-- Reusing page3-contract-intro style for intro paragraphs -->
+    <div class="page5-contract-intro" style="margin-top: 10mm; margin-bottom: 5mm;"> <!-- Add some top margin -->
+        <p>หนังสือนี้ทำขึ้นที่ บริษัท โอเค นัมเบอร์ วัน จำกัด</p>
+        <p>วันที่ <span id="ack_date_day" class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+           เดือน <span id="ack_date_month" class="dotted-underline" style="min-width:45mm; text-align:center;"></span>
+           พ.ศ. <span id="ack_date_year" class="dotted-underline" style="min-width:25mm; text-align:center;"></span>
+        </p>
+    </div>
+
+
+    <!-- Main Body Text - Reusing clauses style -->
+    <div class="clauses">
+        <!-- Paragraph with embedded dotted underlines for debtor info -->
+        <p class="no-indent" >
+            <span style="padding-left: 10mm;">โดยหนังสือฉบับนี้ข้าพเจ้า <span id="ack_debtor_name" class="dotted-underline"></span></span>
+            อายุ <span id="ack_debtor_age" class="dotted-underline" style="text-align: center;"></span> ปี <br>
+            อยู่บ้านเลขที่ <span id="ack_debtor_house_no" class="dotted-underline"></span>
+            ขอทำหนังสือฉบับนี้ไว้ให้แก่นายวีระพงษ์ พลเสนา ในนามตัวแทนของบริษัท โอเค นัม เบอร์ วัน จำกัด อยู่บ้านเลขที่ 1 ห้อง 2019 ถนน ราชวิถี ตรอก /ซอย เลิศปัญญา แขวง (ตำบล) ถนนพญาไท เขต (อำเภอ) ราชเทวี จังหวัด กรุงเทพมหานคร
+            เพื่อเป็นหลักฐานแสดงว่า ข้าพเจ้าตกลงยินยอมชดใช้ค่าเสียหาย กรณีไม่สามารถชำระหนี้เช่าซื้อสินทรัพย์จาก
+            นายวีระพงษ์ พลเสนา ในนามตัวแทนของบริษัท โอเค นัมเบอร์ วัน จำกัด เป็นเงินรวมทั้งสิ้น
+            <span id="ack_total_amount_numeric" class="dotted-underline" style="text-align: center;"></span> บาท
+            (<span id="ack_total_amount_text" class="dotted-underline" style="text-align: center;"></span>)
+        </p>
+         <!-- ADDED: Paragraph for payment period dates -->
+       <!-- เพิ่ม id="ack_payment_period_paragraph" เข้าไปในแท็ก p -->
+        <p id="ack_payment_period_paragraph">
+            โดยข้าพเจ้าตกลงที่จะทำการชำระหนี้ดังกล่าวโดยมีกำหนดเวลาในการชำระหนี้ตั้งแต่วันที่
+            <span id="ack_start_date" class="dotted-underline" style="text-align: center;"></span> 
+        </p>
+         <!-- Paragraph for interest clause -->
+        <p>
+            <span style="padding-left: 10mm;">
+                หากข้าพเจ้าผิดนัดไม่ชำระเงินจำนวนดังกล่าวภายในกำหนดเวลาดังกล่าวแล้ว ข้าพเจ้าต้องเสียดอกเบี้ยในอัตราร้อยละ 15 ต่อปี ของต้นเงินจำนวนดังกล่าวรวมตลอดทั้งค่าเสียหายต่างๆ อันอาจจะมีขึ้นเพราะการที่ข้าพเจ้าไม่ปฏิบัติตามหนังสือรับสภาพหนี้ฉบับนี้ทุกประการ
+            </span>
+        </p>
+        <!-- Concluding paragraph before signatures -->
+        <p>
+            <span style="padding-left: 10mm;">
+                ข้าพเจ้าได้อ่านและเข้าใจในหนังสือรับสภาพหนี้ฉบับนี้ด้วยดีโดยตลอดแล้วเห็นว่าถูกต้องตรงตามเจตนารมณ์ของข้าพเจ้า จึงได้ลงลายมือชื่อไว้เป็นสำคัญต่อหน้าพยาน
+            </span>
+        </p>
+    </div>
+
+    <!-- Signatures - Reusing signature-grid and signature-block styles -->
+     <div class="signature-grid page3-signature-grid" style="margin-top: 10mm;"> <!-- Increased top margin for visual separation -->
+        <!-- ผู้รับสภาพหนี้ (Debtor) - This is the Applicant -->
+        <div class="signature-block" id="ack_debtor_signature_block">
+            <div class="signature-line-container">
+                <!-- JS inserts applicant signature image here -->
+                ลงชื่อ <span class="signature-line"></span> ผู้รับสภาพหนี้
+            </div>
+             <!-- Signature name placeholder for JS -->
+            <div class="signature-name" id="ack_signature_debtor_name">( ........................................ )</div>
+        </div>
+        <!-- เจ้าของหนี้ (Creditor) - This is VP -->
+        <div class="signature-block" id="ack_creditor_signature_block">
+            <div class="signature-line-container">
+                <!-- Static VP signature image -->
+                <img src="https://lh3.googleusercontent.com/d/1V0o52cJVmuq2blCb0gd4oLUz4kV35u7S" alt="ลายเซ็น เจ้าของหนี้" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> เจ้าของหนี้
+            </div>
+            <!-- Static name -->
+            <div class="signature-name">( นายวีระพงษ์ พลเสนา )</div>
+            <!-- Optional: Add title text for VP if needed -->
+            <!-- <div class="signature-title-text">ประธานเจ้าหน้าที่บริหาร</div> -->
+        </div>
+        <!-- พยาน 1 -->
+        <div class="signature-block">
+            <div class="signature-line-container">
+                 <!-- Static Witness 1 signature image -->
+                 <img src="https://lh3.googleusercontent.com/d/1chu9CAGnLl3c3oXui7i1aoXAUN6nSbbz" alt="ลายเซ็น พยาน 1" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <!-- Static name -->
+            <div class="signature-name">(นายพิชชากรณ์ ลำทา)</div>
+             <!-- Optional: Add title text if needed -->
+             <!-- <div class="signature-title-text">กรรมการผู้จัดการ</div> -->
+        </div>
+        <!-- พยาน 2 -->
+        <div class="signature-block">
+            <div class="signature-line-container">
+                 <!-- Static Witness 2 signature image -->
+                 <img src="https://lh3.googleusercontent.com/d/1vuAfGHVD9L2bQZ475dh7S8dddIskMjAL" alt="ลายเซ็น พยาน 2" class="signature-image">
+                ลงชื่อ <span class="signature-line"></span> พยาน
+            </div>
+            <!-- Static name -->
+            <div class="signature-name">(นายนพดล ลาภตระกูล)</div>
+        </div>
+     </div>
+     <!-- ADDED: Bottom Left Stamp -->
+    <img src="https://lh3.googleusercontent.com/d/1La9wSE566UoWv9-Y1_sFF8Mtq0dp6Zph" alt="Company Seal" class="page-bottom-stamp-4">
+</div>
+
+<div class="print-button-container">
+    <button class="print-button" id="approveContractButton">อนุมัติสัญญา</button>
+    <!-- เพิ่มองค์ประกอบสำหรับแสดงสถานะ -->
+    <div id="approvalStatus" style="margin-top: 10px; font-weight: bold;"></div>
+</div>
+
+<!-- Modal for PIN Confirmation -->
+<div id="pinConfirmationModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <h2>ยืนยันการอนุมัติสัญญา</h2>
+        <p>แน่ใจแล้วใช่ไหม?</p>
+        <div class="pin-input-container">
+            <label for="approverPin">รหัสส่วนตัวของผู้อนุมัติ:</label>
+            <input type="password" id="approverPin" name="approverPin" autocomplete="off">
+            <p id="pinErrorMessage" style="color: red; display: none;"></p>
+        </div>
+        <div class="modal-actions">
+            <button id="confirmApprovalPinButton" class="print-button">ยืนยัน</button>
+            <button id="cancelApprovalPinButton" class="print-button" style="background-color: #6c757d;">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentDocumentId = null;
+    let loadedContractData = null;
+    let currentApproverName = null;
+    let currentApproverId = null;
+
+    // Modal elements
+    let pinConfirmationModal, approverPinInput, confirmApprovalPinButton, cancelApprovalPinButton, pinErrorMessage;
+    let approvalLoadingOverlay; // For the "Approving..." overlay
+    const GENERATE_BILLS_API_URL = 'https://mg-icloud.vercel.app/api/generateBills'; // <<< เพิ่มบรรทัดนี้
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+    // ย้าย showAlert มาไว้ตรงนี้ เพื่อให้ทุกฟังก์ชันเข้าถึงได้
+    function showAlert(type, message) {
+        const alertTypes = {
+            success: { icon: 'check-circle-fill', class: 'success' },
+            error: { icon: 'exclamation-triangle-fill', class: 'danger' },
+            warning: { icon: 'exclamation-triangle-fill', class: 'warning' },
+            info: { icon: 'info-circle-fill', class: 'info' }
+        };
+        const alertConfig = alertTypes[type] || alertTypes.info;
+        const alertHTML = `
+            <div class="alert alert-${alertConfig.class} alert-dismissible fade show d-flex align-items-center shadow-lg" role="alert" style="min-width:300px;">
+                <i class="bi bi-${alertConfig.icon} me-3 fs-4"></i>
+                <div>${message}</div>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+
+        const alertContainer = document.getElementById('alertContainer');
+        if (!alertContainer) {
+            // ใน refinancepdf.html ไม่มี alertContainer, ต้องสร้างมันขึ้นมา
+            // หรือเปลี่ยนไปใช้ window.alert ชั่วคราว
+            console.error("Alert container not found. Appending to body. Please add <div id='alertContainer' style='position:fixed;top:10px;right:10px;z-index:10000;'></div> to your HTML.");
+            const tempAlertContainer = document.createElement('div');
+            tempAlertContainer.id = 'alertContainer';
+            tempAlertContainer.style.cssText = 'position:fixed;top:10px;right:10px;z-index:10000;';
+            document.body.appendChild(tempAlertContainer);
+            // หลังจากสร้างแล้วเรียกตัวเองใหม่
+            showAlert(type, message); 
+            return;
+        }
+        const alertElementWrapper = document.createElement('div');
+        alertElementWrapper.innerHTML = alertHTML;
+        const alertElement = alertElementWrapper.firstChild;
+        alertContainer.appendChild(alertElement);
+
+        setTimeout(() => {
+            const bsAlert = bootstrap.Alert.getInstance(alertElement);
+            if (bsAlert) {
+                bsAlert.close();
+            } else if (alertElement && alertElement.parentElement) {
+                alertElement.remove();
+            }
+        }, 5000);
+    }
+    // --- END GLOBAL HELPER FUNCTIONS ---
+
+
+    function bahtText(num) {
+        if (num === null || num === undefined || isNaN(num)) return "";
+        num = parseFloat(num);
+        if (isNaN(num)) return "";
+        const num_arr = String(num.toFixed(2)).split(".");
+        let num_int = num_arr[0];
+        let num_dec = num_arr[1];
+        const txt_num = ["ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"];
+        const txt_rank = ["", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน"];
+        function convertIntegerSegment(numStrSegment) {
+          let text = "";
+          let len = numStrSegment.length;
+          if (len === 0 || numStrSegment.match(/^0+$/)) return "";
+          for (let i = 0; i < len; i++) {
+            const digit = parseInt(numStrSegment[i]);
+            const rank = len - 1 - i;
+            if (digit === 0 && rank !== 0) continue;
+            let digitText = txt_num[digit];
+            let placeText = txt_rank[rank];
+            if (digit === 1 && rank === 1) digitText = "";
+            if (digit === 2 && rank === 1) digitText = "ยี่";
+            if (digit === 1 && rank === 0 && len > 1) {
+              if (parseInt(numStrSegment[len - 2]) > 0) digitText = "เอ็ด";
+              else digitText = "หนึ่ง";
+            } else if (digit === 1 && rank === 0 && len === 1) digitText = "หนึ่ง";
+            if (digit === 0 && rank === 0 && len > 1) continue;
+            text += digitText + placeText;
+          }
+          return text;
+        }
+        let integerText = "";
+        let tempIntStr = num_int;
+        const intLen = tempIntStr.length;
+        let millionCounter = 0;
+        for (let i = 0; i < intLen; i += 6) {
+          const start = Math.max(0, intLen - 6 - i);
+          const end = intLen - i;
+          const chunk = tempIntStr.substring(start, end);
+          let chunkText = convertIntegerSegment(chunk);
+          if (chunkText !== "") {
+            if (millionCounter > 0) integerText = chunkText + "ล้าน".repeat(millionCounter) + integerText;
+            else integerText = chunkText;
+          }
+          millionCounter++;
+        }
+        let satangText = "";
+        let decInt = parseInt(num_dec);
+        if (decInt === 0) satangText = "ถ้วน";
+        else {
+          let decStr = num_dec;
+          let s1 = parseInt(decStr[0]);
+          let s2 = parseInt(decStr[1]);
+          if (s1 > 0) {
+            if (s1 === 1) satangText += "สิบ";
+            else if (s1 === 2) satangText += "ยี่สิบ";
+            else satangText += txt_num[s1] + "สิบ";
+          }
+          if (s2 > 0) {
+            if (s2 === 1 && s1 > 0) satangText += "เอ็ด";
+            else if (s2 === 1 && s1 === 0) satangText += "หนึ่ง";
+            else satangText += txt_num[s2];
+          }
+          if (satangText !== "") satangText += "สตางค์";
+        }
+        if (num_int === "0" && decInt === 0) return "ศูนย์บาทถ้วน";
+        else if (num_int === "0" && decInt > 0) return satangText;
+        else {
+          let result = integerText + "บาท";
+          if (satangText === "ถ้วน") result += "ถ้วน";
+          else if (satangText !== "") result += satangText;
+          return result;
+        }
+    }
+
+    function formatThaiDateWithFullText(dateObj) {
+        if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) return "วันที่ ............ เดือน ........................ พ.ศ. ..........";
+        const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+        return `${dateObj.getDate()} เดือน ${thaiMonths[dateObj.getMonth()]} พ.ศ. ${dateObj.getFullYear() + 543}`;
+    }
+
+    function formatDateParts(dateObj) {
+        if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) return { day: "....................", month: "........................................", year: "....................." };
+        const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+        return { day: String(dateObj.getDate()).padStart(2, " "), month: thaiMonths[dateObj.getMonth()], year: String(dateObj.getFullYear() + 543) };
+    }
+
+    function formatThaiDateFull(dateObj) {
+        if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) return "............................................................";
+        const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+        return `${dateObj.getDate()} ${thaiMonths[dateObj.getMonth()]} ${dateObj.getFullYear() + 543}`;
+    }
+
+    function formatCurrency(value) {
+        const number = parseFloat(value);
+        return isNaN(number) ? "0.00" : number.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function extractValue(obj) {
+        if (typeof obj === "string") {
+          try {
+            if (obj.length > 0 && !/^\d+$/.test(obj) && (obj.includes("T") || obj.includes("-") || obj.includes("/"))) {
+              const date = new Date(obj);
+              if (!isNaN(date.getTime())) return date;
+            }
+            return obj;
+          } catch (e) { return obj; }
+        }
+        if (obj && typeof obj === "object") {
+          if (obj.$date !== undefined || obj.date !== undefined) {
+            try {
+              const dateVal = obj.$date !== undefined ? (typeof obj.$date === "object" && obj.$date.$numberLong !== undefined ? parseInt(obj.$date.$numberLong) : obj.$date) : obj.date;
+              const date = new Date(dateVal);
+              return !isNaN(date.getTime()) ? date : null;
+            } catch (e) { return null; }
+          }
+          if (obj.$numberInt !== undefined || obj.$numberLong !== undefined) {
+            try { return parseFloat(obj.$numberInt !== undefined ? obj.$numberInt : obj.$numberLong); } catch (e) { return null; }
+          }
+          if (obj.$oid !== undefined) return obj.$oid;
+        }
+        return obj;
+    }
+
+    function setText(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (element) element.textContent = value;
+    }
+
+    function setHTML(elementId, html) {
+        const element = document.getElementById(elementId);
+        if (element) element.innerHTML = html;
+    }
+
+    function addApplicantSignature(signatureBlockId, imageUrl, altText) {
+        const signatureBlock = document.getElementById(signatureBlockId);
+        if (!signatureBlock) return;
+        const sigLineContainer = signatureBlock.querySelector(".signature-line-container");
+        if (!sigLineContainer) return;
+        let targetClass = "signature-image";
+        if (signatureBlockId === "borrowerSignatureBlock" || signatureBlockId === "ack_debtor_signature_block") {
+            targetClass = "applicant-signature-image";
+        }
+        const existingImg = sigLineContainer.querySelector("img.applicant-signature-image, img.signature-image");
+        if (imageUrl && !existingImg) {
+          const img = document.createElement("img");
+          img.src = imageUrl;
+          img.alt = altText;
+          img.className = targetClass;
+          const lineElement = sigLineContainer.querySelector(".signature-line");
+          if (lineElement) sigLineContainer.insertBefore(img, lineElement);
+          else sigLineContainer.appendChild(img);
+        }
+    }
+
+    function showApprovalLoading() {
+        if (approvalLoadingOverlay) approvalLoadingOverlay.style.display = 'flex';
+    }
+    function hideApprovalLoading() {
+        if (approvalLoadingOverlay) approvalLoadingOverlay.style.display = 'none';
+    }
+
+    function showPinModal() {
+        currentApproverName = null; 
+        currentApproverId = null;
+        if (pinConfirmationModal) {
+            if(approverPinInput) approverPinInput.value = '';
+            if(pinErrorMessage) pinErrorMessage.style.display = 'none';
+            if(confirmApprovalPinButton) {
+                confirmApprovalPinButton.disabled = false;
+                confirmApprovalPinButton.textContent = 'ยืนยัน';
+            }
+            pinConfirmationModal.style.display = 'flex';
+            if(approverPinInput) approverPinInput.focus();
+        }
+    }
+
+    function hidePinModal() {
+        if (pinConfirmationModal) {
+            pinConfirmationModal.style.display = 'none';
+        }
+    }
+
+    async function handlePinConfirmation() {
+        const enteredPin = approverPinInput.value;
+        if (enteredPin === "") {
+            pinErrorMessage.textContent = "กรุณากรอกรหัส";
+            pinErrorMessage.style.display = 'block';
+            approverPinInput.focus();
+            return;
+        }
+
+        pinErrorMessage.style.display = 'none';
+        confirmApprovalPinButton.disabled = true;
+        confirmApprovalPinButton.textContent = 'กำลังตรวจสอบ...';
+        currentApproverName = null; 
+        currentApproverId = null;
+
+        try {
+            const apiUrl = `https://adminregister.vercel.app/api/index?staffId=${encodeURIComponent(enteredPin)}`;
+            const response = await fetch(apiUrl);
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.message === "Staff ID found." && result.data && result.data.fullName) {
+                    currentApproverName = result.data.fullName; 
+                    currentApproverId = enteredPin; 
+                    hidePinModal();
+                    proceedWithActualApproval();
+                } else {
+                    pinErrorMessage.textContent = "รหัสไม่ถูกต้อง หรือไม่พบข้อมูลผู้ใช้งาน";
+                    pinErrorMessage.style.display = 'block';
+                    approverPinInput.value = '';
+                    approverPinInput.focus();
+                }
+            } else {
+                let errorDetails = "รหัสไม่ถูกต้อง หรือไม่พบข้อมูลผู้ใช้งาน";
+                try {
+                    const errorResult = await response.json();
+                    if (errorResult && errorResult.details) {
+                        errorDetails = errorResult.details;
+                    }
+                } catch (e) {
+                    errorDetails = response.statusText || errorDetails;
+                }
+                pinErrorMessage.textContent = errorDetails;
+                pinErrorMessage.style.display = 'block';
+                approverPinInput.value = '';
+                approverPinInput.focus();
+            }
+        } catch (error) {
+            console.error("Error validating PIN via API:", error);
+            pinErrorMessage.textContent = "เกิดข้อผิดพลาดในการเชื่อมต่อเพื่อตรวจสอบรหัส กรุณาลองใหม่";
+            pinErrorMessage.style.display = 'block';
+        } finally {
+            if (pinConfirmationModal.style.display === 'flex') {
+                 confirmApprovalPinButton.disabled = false;
+                 confirmApprovalPinButton.textContent = 'ยืนยัน';
+            }
+        }
+    }
+
+    async function loadContractData() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        loadingOverlay.classList.remove('hidden');
+
+        // Initialize modal elements
+        pinConfirmationModal = document.getElementById('pinConfirmationModal');
+        approverPinInput = document.getElementById('approverPin');
+        confirmApprovalPinButton = document.getElementById('confirmApprovalPinButton');
+        cancelApprovalPinButton = document.getElementById('cancelApprovalPinButton');
+        pinErrorMessage = document.getElementById('pinErrorMessage');
+        approvalLoadingOverlay = document.getElementById('approvalLoadingOverlay'); // << Initialize new overlay
+
+        if (confirmApprovalPinButton) confirmApprovalPinButton.addEventListener('click', handlePinConfirmation);
+        if (cancelApprovalPinButton) cancelApprovalPinButton.addEventListener('click', hidePinModal);
+
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id");
+        currentDocumentId = id;
+
+        if (!id) {
+          setHTML("contractSheet", "<h1>กรุณาระบุ ID ของสัญญาใน URL (เช่น ?id=YOUR_ID)</h1>");
+          document.querySelectorAll(".page-container:not(#contractSheet)").forEach(s => s.style.display = "none");
+          const btnContainer = document.querySelector(".print-button-container");
+          if (btnContainer) btnContainer.style.display = "none";
+          loadingOverlay.classList.add('hidden');
+          return;
+        }
+
+        try {
+          const apiUrl = `https://mg-icloud.vercel.app/api/submitRefinance?id=${id}`;
+          const res = await fetch(apiUrl);
+          if (!res.ok) {
+            const errorBody = await res.text();
+            let errMsg = `HTTP error! status: ${res.status}, ${res.statusText}`;
+            try { const json = JSON.parse(errorBody); errMsg += `: ${json.details || json.error}`; }
+            catch (e) { errMsg += `: ${errorBody.substring(0, 100)}...`; }
+            throw new Error(errMsg);
+          }
+          const rawData = await res.json();
+          if (!rawData || Object.keys(rawData).length === 0) throw new Error("ไม่พบข้อมูลสำหรับ ID นี้");
+
+          const data = {
+            _id: extractValue(rawData._id),
+            submitted_at: extractValue(rawData.submitted_at),
+            contract_number: rawData.contract_number || null,
+            line_user_id: rawData.line_user_id || null,
+            applicant_info: {},
+            address_info: {},
+            apple_device_info: {},
+            product_refinance_info: {},
+            document_urls: rawData.document_urls || {},
+          };
+
+          ["applicant_info", "address_info", "apple_device_info", "product_refinance_info"].forEach(key => {
+              if (rawData[key]) {
+                  for (const subKey in rawData[key]) {
+                      // *** จุดที่แก้ไข/เพิ่ม: ตรวจสอบและข้าม product_image ใน product_refinance_info ***
+                      if (key === 'product_refinance_info' && subKey === 'product_image') {
+                          console.warn(`[Frontend] Skipping copy of product_refinance_info.product_image from rawData.`);
+                          data[key][subKey] = null; // หรือจะ `continue;` เพื่อข้ามการคัดลอกฟิลด์นี้ไปเลยก็ได้
+                                                    // การตั้งค่าเป็น null จะทำให้มั่นใจว่าฟิลด์นี้ไม่มีค่าใดๆ หากถูกอ้างอิง
+                          continue; // ข้ามไปฟิลด์ถัดไป
+                      }
+                      // ********************************************************************************
+                      data[key][subKey] = extractValue(rawData[key][subKey]);
+                  }
+              }
+          });
+          if (rawData.document_urls) {
+            ["asset_image_url", "signature_image_url", "borrower_image_url", "id_card_image_url"].forEach(urlKey => {
+                if(rawData.document_urls[urlKey]) data.document_urls[urlKey] = rawData.document_urls[urlKey];
+            });
+          }
+
+          let finalContractNumber = data.contract_number;
+          const submittedAtDate = data.submitted_at instanceof Date && !isNaN(data.submitted_at.getTime()) ? data.submitted_at : new Date();
+
+          if (!finalContractNumber) {
+            const countRes = await fetch("https://mg-icloud.vercel.app/api/submitRefinance?count=contacts");
+            if (!countRes.ok) throw new Error(`ไม่สามารถดึงข้อมูลเลขที่สัญญาได้ (Error: ${countRes.status})`);
+            const countData = await countRes.json();
+            const currentCount = countData.count !== undefined ? parseInt(countData.count, 10) : NaN;
+            if (!isNaN(currentCount)) {
+              finalContractNumber = `NML-${String(submittedAtDate.getMonth() + 1).padStart(2, "0")}${String(submittedAtDate.getFullYear()).slice(-2)}-${String(currentCount + 1).padStart(3, "0")}`;
+            } else {
+              finalContractNumber = "NML-ERR-FMT";
+            }
+          }
+          data.contract_number = finalContractNumber;
+
+          window.loadedContractData = data;
+
+          setText("contractNumberDisplay", finalContractNumber);
+          setText("p3_contract_number_header", finalContractNumber);
+
+          setText("submittedDateDisplay", formatThaiDateWithFullText(submittedAtDate));
+          const stampPlaceholder = document.getElementById("stampPlaceholder");
+          if (stampPlaceholder) {
+            const qrImg = document.createElement("img");
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(finalContractNumber)}`;
+            qrImg.alt = `QR Code ${finalContractNumber}`; qrImg.classList.add("qr-code-image");
+            stampPlaceholder.innerHTML = ""; stampPlaceholder.appendChild(qrImg);
+          }
+
+
+          const appInfo = data.applicant_info || {};
+          const applicantFullName = `${appInfo.name_title_custom || appInfo.name_title || ""} ${appInfo.fullname || "........................."}`.trim();
+          setText("borrowerName", `( ${applicantFullName} )`);
+          addApplicantSignature("borrowerSignatureBlock", data.document_urls?.signature_image_url, "ลายเซ็นผู้กู้");
+
+          const consentSheet = document.getElementById("consentSheet");
+          if (consentSheet) {
+            const consentDateParts = formatDateParts(submittedAtDate);
+            const dateLineP2 = consentSheet.querySelector("#consentClausesContainerPage2 > p:first-of-type");
+            if (dateLineP2) dateLineP2.innerHTML = `วันที่ทำหนังสือให้ความยินยอม วันที่ <span class="dotted-underline" style="min-width:25mm; text-align:center;">${consentDateParts.day}</span> เดือน <span class="dotted-underline" style="min-width:45mm; text-align:center;">${consentDateParts.month}</span> พ.ศ. <span class="dotted-underline" style="min-width:25mm; text-align:center;">${consentDateParts.year}</span>`;
+            setText("consentApplicantNamePage2", applicantFullName || "...");
+            setText("consentApplicantIdPage2", appInfo.id_card_number || "...");
+            setText("consentApplicantNameSignaturePage2", applicantFullName || "...");
+            const sigContainerP2 = document.getElementById("consentApplicantSignatureLineContainer");
+            if (sigContainerP2 && data.document_urls?.signature_image_url) {
+              if (!sigContainerP2.querySelector(".signature-image-p2.applicant-signature")) {
+                const imgP2 = document.createElement("img"); imgP2.src = data.document_urls.signature_image_url; imgP2.alt = "ลายเซ็นผู้ให้ความยินยอม"; imgP2.className = "signature-image-p2 applicant-signature";
+                const dottedLine = sigContainerP2.querySelector(".dotted-line-element");
+                if (dottedLine) sigContainerP2.insertBefore(imgP2, dottedLine); else sigContainerP2.appendChild(imgP2);
+              }
+            }
+             ["borrowerImagePlaceholderPage2", "assetImagePlaceholderPage2", "idCardImagePlaceholderPage2"].forEach(phId => {
+                const ph = document.getElementById(phId); let imgUrl, alt, defText;
+                if (phId === "borrowerImagePlaceholderPage2") { imgUrl = data.document_urls.borrower_image_url; alt = "ผู้กู้"; defText = "(ภาพผู้กู้)";}
+                else if (phId === "assetImagePlaceholderPage2") { imgUrl = data.document_urls.asset_image_url; alt = "สินทรัพย์"; defText = "(ภาพสินทรัพย์)"; }
+                else { imgUrl = data.document_urls.id_card_image_url; alt = "บัตร ปชช."; defText = "(ภาพบัตร ปชช.)"; }
+                if (ph) ph.innerHTML = imgUrl ? `<img src="${imgUrl}" alt="${alt}" class="placeholder-image">` : defText;
+            });
+          }
+
+          const productDetailsSheet = document.getElementById("productDetailsSheet");
+            if (productDetailsSheet) {
+            setText("p3_contract_made_date", formatThaiDateFull(submittedAtDate));
+            setText("p3_applicant_name_intro", applicantFullName);
+            const addr = data.address_info || {};
+            setText("p3_applicant_address_intro", addr.registered_address || "............................................................");
+            setText("p3_applicant_phone_intro", appInfo.phone || ".........................");
+            const prod = data.product_refinance_info || {}; const appleDev = data.apple_device_info || {};
+            setText("p3_model", prod.product_model || "-"); setText("p3_brand", prod.product_type || "-");
+            setText("p3_capacity", prod.storage || "-"); setText("p3_color", prod.color || "-");
+            setText("p3_sn", prod.serial_number || "-"); setText("p3_imei", prod.imei || "-");
+            setText("p3_account_id", appleDev.apple_id || "-"); setText("p3_password", appleDev.apple_password || "-");
+            setText("p3_warranty", prod.warranty || "-");
+            setText("p3_contract_amount", prod.refinance_price != null ? `${formatCurrency(prod.refinance_price)} บาท` : "0.00 บาท");
+            setText("p3_interest_rate", prod.interest_rate != null ? `${parseFloat(prod.interest_rate).toFixed(2)}%` : "0.00%");
+            setText("p3_installments_count", prod.installments != null ? `${prod.installments} งวด` : "0 งวด");
+            setText("p3_installment_amount", prod.monthly_payment != null ? `${formatCurrency(prod.monthly_payment)} บาท` : "0.00 บาท");
+            setText("p3_contract_fee", prod.contract_fee != null ? `${formatCurrency(prod.contract_fee)} บาท` : "0.00 บาท");
+            setText("p3_service_fee", prod.service_fee != null ? `${formatCurrency(prod.service_fee)} บาท` : "0.00 บาท");
+            setText("p3_insurance_fee", prod.insurance_fee != null ? `${formatCurrency(prod.insurance_fee)} บาท` : "0.00 บาท");
+            setText("p3_referral_fee", prod.referral_fee != null ? `${formatCurrency(prod.referral_fee)} บาท` : "0.00 บาท");
+            const firstPaymentDateP3 = prod.first_payment_date instanceof Date && !isNaN(prod.first_payment_date.getTime()) ? prod.first_payment_date : null;
+            setText("p3_first_payment_date", formatThaiDateFull(firstPaymentDateP3));
+            let lastPaymentDateP3 = null;
+            if (firstPaymentDateP3 && typeof prod.installments === "number" && prod.installments > 0) {
+              lastPaymentDateP3 = new Date(firstPaymentDateP3); lastPaymentDateP3.setMonth(lastPaymentDateP3.getMonth() + prod.installments - 1);
+            }
+            setText("p3_last_payment_date", formatThaiDateFull(lastPaymentDateP3));
+            setText("p3_signature_applicant_name", `( ${applicantFullName} )`);
+            addApplicantSignature("p3_applicant_signature_block", data.document_urls?.signature_image_url, "ลายเซ็นผู้กู้");
+          }
+
+          const salesSheet = document.getElementById("salesSheet");
+            if (salesSheet) {
+            const salesDateParts = formatDateParts(submittedAtDate);
+            setText("p4_contract_made_date_day", salesDateParts.day); setText("p4_contract_made_date_month", salesDateParts.month); setText("p4_contract_made_date_year", salesDateParts.year);
+            setText("p4_seller_name_intro", applicantFullName || "...............................................");
+            const buyerParagraph = salesSheet.querySelector("#p4_buyer_paragraph");
+            if (buyerParagraph) {
+              const buyerInfoString = `นายวีระพงษ์ พลเสนา ในนามตัวแทนของบริษัท โอเค นัน เบอร์ วัน จำกัด อยู่บ้านเลขที่ 1 ห้อง 2019 ถนน ราชวิถี ตรอก /ซอย เลิศปัญญา แขวง (ตำบล) ถนนพญาไท เขต (อำเภอ) ราชเทวี จังหวัด กรุงเทพมหานคร โทรศัพท์ติดต่อหมายเลข 085-0088806`;
+              buyerParagraph.innerHTML = `กับ ${buyerInfoString} ซึ่งต่อไปในสัญญานี้จะเรียกว่า <span class="bold-text">ผู้ซื้อ</span>`;
+            }
+            const prodP4 = data.product_refinance_info || {}; const appleDevP4 = data.apple_device_info || {};
+            const productDescriptionP4 = [prodP4.product_type, prodP4.product_model, prodP4.storage ? `${prodP4.storage} GB` : null, prodP4.color].filter(p => p && p.trim() !== "").join(" ");
+            setText("p4_product_description", productDescriptionP4 || "...............................................");
+            setText("p4_imei", appleDevP4.imei || prodP4.imei || "-"); setText("p4_sn", prodP4.serial_number || "-"); setText("p4_quantity", "1");
+            const numericAmountP4 = parseFloat(prodP4.refinance_price);
+            setText("p4_total_amount", !isNaN(numericAmountP4) ? formatCurrency(numericAmountP4) : "0.00");
+            setText("p4_total_amount_text", !isNaN(numericAmountP4) ? bahtText(numericAmountP4) : "...............................................");
+            setText("p4_signature_seller_name", `( ${applicantFullName} )`); setText("p4_signature_buyer_name", `( นายวีระพงษ์ พลเสนา )`);
+            addApplicantSignature("p4_seller_signature_block", data.document_urls?.signature_image_url, "ลายเซ็นผู้ขาย");
+          }
+
+          const acknowledgementSheet = document.getElementById("acknowledgementSheet");
+            if (acknowledgementSheet) {
+            const ackDateParts = formatDateParts(submittedAtDate);
+            setText("ack_date_day", ackDateParts.day); setText("ack_date_month", ackDateParts.month); setText("ack_date_year", ackDateParts.year);
+            const appInfoAck = data.applicant_info || {}; const addrAck = data.address_info || {}; const prodInfoAck = data.product_refinance_info || {};
+            setText("ack_debtor_name", applicantFullName || "...............................................");
+            setText("ack_debtor_age", appInfoAck.age != null && !isNaN(appInfoAck.age) ? String(appInfoAck.age) : "......");
+            setText("ack_debtor_house_no", addrAck.registered_address || ".........................");
+            const totalAmountAck = prodInfoAck.refinance_price;
+            setText("ack_total_amount_numeric", totalAmountAck != null ? formatCurrency(totalAmountAck) : "0.00");
+            setText("ack_total_amount_text", totalAmountAck != null ? bahtText(totalAmountAck) : "...............................................");
+            const firstPaymentDateAck = prodInfoAck.first_payment_date instanceof Date && !isNaN(prodInfoAck.first_payment_date.getTime()) ? prodInfoAck.first_payment_date : null;
+            let lastPaymentDateAck = null;
+            if (firstPaymentDateAck && typeof prodInfoAck.installments === "number" && prodInfoAck.installments > 0) {
+              lastPaymentDateAck = new Date(firstPaymentDateAck); lastPaymentDateAck.setMonth(lastPaymentDateAck.getMonth() + prodInfoAck.installments - 1);
+            }
+            setText("ack_start_date", formatThaiDateFull(firstPaymentDateAck));
+            setText("ack_end_date", formatThaiDateFull(lastPaymentDateAck));
+            setText("ack_signature_debtor_name", `( ${applicantFullName} )`);
+            addApplicantSignature("ack_debtor_signature_block", data.document_urls?.signature_image_url, "ลายเซ็นผู้รับสภาพหนี้");
+          }
+
+
+          const originalPageIds = ["contractSheet", "consentSheet", "productDetailsSheet", "salesSheet", "acknowledgementSheet"];
+          const printBtnContainer = document.querySelector(".print-button-container");
+          originalPageIds.forEach(pageId => {
+            const originalPage = document.getElementById(pageId);
+            if (originalPage) {
+              const clonedPage = originalPage.cloneNode(true);
+              clonedPage.id = pageId + "_copy";
+              const stampEl = clonedPage.querySelector(".page-stamp");
+              if (stampEl) stampEl.textContent = "คู่ฉบับ";
+              if (printBtnContainer) document.body.insertBefore(clonedPage, printBtnContainer);
+              else document.body.appendChild(clonedPage);
+            }
+          });
+
+          const approveButton = document.getElementById('approveContractButton');
+          if (approveButton) {
+            approveButton.addEventListener('click', showPinModal);
+            approveButton.disabled = false;
+          }
+          loadingOverlay.classList.add('hidden');
+
+        } catch (error) {
+          console.error("Error in loadContractData:", error);
+          const firstPage = document.getElementById("contractSheet") || document.body.children[0];
+          if (firstPage) setHTML(firstPage.id || 'contractSheet', `<h1>Error loading: ${error.message}</h1>`);
+          document.querySelectorAll(".page-container:not(#" + (firstPage ? firstPage.id : 'contractSheet') + ")").forEach(s => s.style.display = "none");
+          const btnContainer = document.querySelector(".print-button-container");
+          if (btnContainer) btnContainer.style.display = "none";
+          const statusDiv = document.getElementById('approvalStatus');
+          if (statusDiv) statusDiv.textContent = `Error: ${error.message}`;
+          loadingOverlay.classList.add('hidden');
+        }
+    }
+
+
+
+    async function proceedWithActualApproval() {
+        const approveButton = document.getElementById('approveContractButton');
+        const approvalStatusDiv = document.getElementById('approvalStatus');
+
+        if (!currentDocumentId) {
+            if (approvalStatusDiv) approvalStatusDiv.textContent = "Error: Document ID missing.";
+            return;
+        }
+        if (!window.loadedContractData) {
+            if (approvalStatusDiv) approvalStatusDiv.textContent = "Error: Contract data not loaded.";
+            return;
+        }
+        if (!currentApproverName || !currentApproverId) {
+             if (approvalStatusDiv) approvalStatusDiv.textContent = 'Error: Approver information is missing. Please re-enter PIN.';
+            return;
+        }
+
+        showApprovalLoading(); // Show "Approving..." overlay
+        approveButton.disabled = true;
+        approveButton.textContent = 'Processing...'; // Though this will be covered by overlay
+        if (approvalStatusDiv) approvalStatusDiv.textContent = ''; // Clear previous status messages
+
+        try {
+            // 1. (Optional but good practice) Update status to indicate processing
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังอัปเดตสถานะสัญญา...';
+            // อาจจะส่งสถานะเป็น 'pending_approval' หรือ 'processing' ชั่วคราว
+            const initialStatusUpdateSuccess = await updateContractStatus(currentDocumentId, 'pending_approval');
+            if (!initialStatusUpdateSuccess) throw new Error('Failed to set initial contract status.');
+            
+            // 2. Generate PDF Blobs (ไฟล์ PDF ที่ยังไม่ได้อัปโหลด)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังสร้างเอกสาร PDF ต้นฉบับ...';
+            const originalPageIds = ["contractSheet", "consentSheet", "productDetailsSheet", "salesSheet", "acknowledgementSheet"];
+            const originalPdfBlob = await generatePdfForPages(originalPageIds, `${currentDocumentId}_ต้นฉบับ.pdf`);
+
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังสร้างเอกสาร PDF คู่ฉบับ...';
+            const copyPageIds = originalPageIds.map(id => id + "_copy");
+            const copyPdfBlob = await generatePdfForPages(copyPageIds, `${currentDocumentId}_คู่ฉบับ.pdf`);
+
+            // ***************************************************************
+            // ****** จุดที่ต้องแก้ไข: เลื่อนการอัปโหลด PDF มาไว้ตรงนี้ ******
+            // ***************************************************************
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'กำลังอัปโหลดเอกสาร PDF ไปยังเซิร์ฟเวอร์...';
+            const uploadSuccess = await sendPdfsToApi(currentDocumentId, originalPdfBlob, copyPdfBlob);
+            if (!uploadSuccess) throw new Error('Failed to upload PDFs.');
+            // ***************************************************************
+
+            // 3. Generate Bills (ตอนนี้ PDF URL ล่าสุดควรจะถูกบันทึกใน DB แล้ว)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'อัปโหลด PDF แล้ว. กำลังสร้างบิลและส่ง LINE...';
+            const billGenerationSuccess = await generateBillsForContract(window.loadedContractData); // เรียกฟังก์ชันใหม่
+            if (!billGenerationSuccess) throw new Error('Failed to generate bills.');
+
+            // 4. Final Status Update (เมื่อทุกอย่างสำเร็จ)
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'บิลถูกสร้างแล้ว. กำลังอนุมัติสัญญาขั้นสุดท้าย...';
+            const finalStatusUpdateSuccess = await updateContractStatus(currentDocumentId, 'approved'); // อัปเดตเป็น 'approved'
+            if (!finalStatusUpdateSuccess) throw new Error('Failed to finalize contract status.');
+
+            if (approvalStatusDiv) approvalStatusDiv.textContent = 'ดำเนินการอนุมัติสำเร็จ กำลังเปลี่ยนหน้า...';
+            // Redirect after a short delay to allow user to see the success message briefly
+            setTimeout(() => {
+                window.location.href = 'e-kyc-crud.html';
+            }, 1500); // 1.5 second delay
+
+        } catch (error) {
+            console.error("Error during approval process:", error);
+            if (approvalStatusDiv) approvalStatusDiv.textContent = `Error: ${error.message}`;
+            approveButton.disabled = false;
+            approveButton.textContent = 'อนุมัติสัญญา (ลองใหม่)'; // เปลี่ยนปุ่มกลับไปให้กดได้
+            hideApprovalLoading(); // Hide overlay on error
+        }
+        // Do NOT hide approvalLoadingOverlay here on success, as we are redirecting.
+    }
+
+    async function updateContractStatus(docId, status) {
+        const apiUrl = `https://mg-icloud.vercel.app/api/updateIcloudStatus`;
+        const lineUserId = window.loadedContractData?.line_user_id || null;
+        const contractNumber = window.loadedContractData?.contract_number || null;
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: docId,
+                    status: status,
+                    action: "updateStatus",
+                    line_user_id: lineUserId,
+                    contract_number: contractNumber,
+                    approver_name: currentApproverName, 
+                    approver_id: currentApproverId     
+                }),
+            });
+            if (!response.ok) {
+                const errorData = await response.text();
+                let detailMessage = `Server error (${response.status}) while updating status.`;
+                try { const errJson = JSON.parse(errorData); detailMessage = errJson.details || errJson.error || detailMessage; }
+                catch (e) { if (errorData && errorData.length < 200 && errorData.length > 0) detailMessage = errorData; }
+                throw new Error(detailMessage);
+            }
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+    // --- NEW generateBillsForContract function (outside DOMContentLoaded scope) ---
+    async function generateBillsForContract(contractData) {
+        // ดึงข้อมูลที่จำเป็นจาก loadedContractData
+        const contract_number = contractData.contract_number;
+        const line_user_id = contractData.line_user_id;
+        const first_payment_date_obj = contractData.product_refinance_info?.first_payment_date;
+        const installments = contractData.product_refinance_info?.installments;
+        const monthly_payment = contractData.product_refinance_info?.monthly_payment;
+
+        // ตรวจสอบความถูกต้องของข้อมูล (บางส่วนอาจถูกตรวจสอบใน Backend แล้ว แต่เช็ค Frontend ช่วยได้)
+        // ตรวจสอบ Date object และค่าอื่นๆ
+        if (!contract_number || !line_user_id || !(first_payment_date_obj instanceof Date) || isNaN(first_payment_date_obj.getTime()) || installments == null || isNaN(parseInt(installments)) || monthly_payment == null || isNaN(parseFloat(monthly_payment))) {
+            console.error("Missing or invalid data for bill generation:", { contract_number, line_user_id, first_payment_date_obj, installments, monthly_payment });
+            showAlert('error', 'ข้อมูลไม่ครบถ้วนสำหรับการสร้างบิล (วันที่, จำนวนงวด, หรือค่างวดไม่ถูกต้อง)');
+            return false;
+        }
+
+        try {
+            const response = await fetch(GENERATE_BILLS_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contract_number: contract_number,
+                    line_user_id: line_user_id,
+                    // ส่ง Date object เป็น ISO string เพราะ Backend API คาดหวัง ISO string ที่ new Date() parse ได้
+                    first_payment_date: first_payment_date_obj.toISOString(), 
+                    installments: parseInt(installments), // Ensure integer
+                    monthly_payment: parseFloat(monthly_payment) // Ensure float
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                const errorDetails = result.details || result.error || `HTTP error ${response.status}`;
+                throw new Error(`สร้างบิลล้มเหลว: ${errorDetails}`);
+            }
+
+            console.log('Bill generation successful:', result);
+            showAlert('success', `สร้างบิล ${result.inserted_count} รายการสำหรับสัญญา ${result.contract_number} เรียบร้อย!`);
+            return true;
+
+        } catch (error) {
+            console.error('Error during bill generation:', error);
+            showAlert('error', `เกิดข้อผิดพลาดในการสร้างบิล: ${error.message}`);
+            return false;
+        }
+    }
+    // --- END NEW generateBillsForContract function ---
+
+    async function generatePdfForPages(pageElementIds, fileName) {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true,
+            compress: true
+        });
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        for (let i = 0; i < pageElementIds.length; i++) {
+            const pageElement = document.getElementById(pageElementIds[i]);
+            if (!pageElement) {
+                console.warn(`Element ${pageElementIds[i]} not found for PDF generation.`);
+                continue;
+            }
+
+            const printBtnCont = document.querySelector('.print-button-container');
+            let origDispBtn = '';
+            if (printBtnCont) {
+                origDispBtn = printBtnCont.style.display;
+                printBtnCont.style.display = 'none';
+            }
+            // const loadingOverlay = document.getElementById('loadingOverlay'); // Initial loading
+            // let loadingOverlayHidden = loadingOverlay.classList.contains('hidden');
+            // if (!loadingOverlayHidden) loadingOverlay.classList.add('hidden');
+
+
+            const canvas = await html2canvas(pageElement, {
+                scale: 1.5,
+                useCORS: true,
+                logging: false,
+                width: pageElement.offsetWidth,
+                height: pageElement.offsetHeight,
+                windowWidth: pageElement.scrollWidth,
+                windowHeight: pageElement.scrollHeight,
+                onclone: (clonedDoc) => {
+                    const cl = clonedDoc.getElementById(pageElement.id);
+                    if (cl) {
+                        cl.style.boxShadow = 'none';
+                        cl.style.margin = '0';
+                        cl.style.padding = '5mm 10mm';
+                        cl.style.width = '210mm';
+                        cl.style.minHeight = '297mm';
+                        cl.style.background = '#fff';
+                    }
+                    clonedDoc.body.style.width = 'auto';
+                    clonedDoc.body.style.height = 'auto';
+                    clonedDoc.documentElement.style.width = 'auto';
+                    clonedDoc.documentElement.style.height = 'auto';
+                }
+            });
+
+            if (printBtnCont) {
+                printBtnCont.style.display = origDispBtn;
+            }
+            // if (!loadingOverlayHidden) loadingOverlay.classList.remove('hidden');
+
+
+            const imgData = canvas.toDataURL('image/jpeg', 1.5);
+
+            if (i > 0) {
+                pdf.addPage();
+            }
+
+            let imgW = pdfWidth;
+            let imgH = (canvas.height * imgW) / canvas.width;
+
+            if (imgH > pdfHeight) {
+                imgH = pdfHeight;
+                imgW = (canvas.width * imgH) / canvas.height;
+            }
+
+            const x = (pdfWidth - imgW) / 2;
+            const y = (pdfHeight - imgH) / 2;
+
+            pdf.addImage(imgData, 'JPEG', x, y, imgW, imgH, undefined, 'FAST');
+
+        }
+        return pdf.output('blob');
+    }
+
+    async function sendPdfsToApi(docId, originalPdfBlob, copyPdfBlob) {
+        const apiUrl = `https://mg-icloud.vercel.app/api/uploadContractPdfs`;
+        const formData = new FormData();
+        formData.append('id', docId);
+        formData.append('originalPdf', originalPdfBlob, `${docId}_ต้นฉบับ.pdf`);
+        formData.append('copyPdf', copyPdfBlob, `${docId}_คู่ฉบับ.pdf`);
+        try {
+            const response = await fetch(apiUrl, { method: 'POST', body: formData });
+            if (!response.ok) {
+                const errorData = await response.text();
+                let detailMsg = `Server error (${response.status}) while uploading PDFs.`;
+                try { const errJson = JSON.parse(errorData); detailMsg = errJson.details || errJson.error || detailMsg; }
+                catch (e) { if (errorData && errorData.length < 200 && errorData.length > 0) detailMsg = errorData; }
+                throw new Error(detailMsg);
+            }
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+</script>
+</body>
+</html>
