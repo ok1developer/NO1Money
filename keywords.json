@@ -3,7 +3,7 @@
       "fullname", "full_name", "your-name", "customername", "recipient_name", "cardholder", "ชื่อ-สกุล", "ชื่อผู้รับ", "ชื่อบนบัตร"
     ],
     "firstName": [
-      "firstname", "first_name", "fname", "givenname", "ชื่อจริง", "ชื่อ"
+      "firstname", "first_name", "fname", "givenname", "ชื่อจริง", "ชื่อ" , "input-name"
     ],
     "lastName": [
       "lastname", "last_name", "lname", "surname", "familyname", "นามสกุล"
