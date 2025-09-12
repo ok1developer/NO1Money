@@ -3,10 +3,10 @@
       "fullname", "full_name", "your-name", "customername", "recipient_name", "cardholder", "ชื่อ-สกุล", "ชื่อผู้รับ", "ชื่อบนบัตร"
     ],
     "firstName": [
-      "firstname", "first_name", "fname", "givenname", "ชื่อจริง", "ชื่อ" , "input-name"
+      "firstname", "first_name", "fname", "givenname", "ชื่อจริง", "ชื่อ" , "input-name","firstName"
     ],
     "lastName": [
-      "lastname", "last_name", "lname", "surname", "familyname", "นามสกุล"
+      "lastname", "last_name", "lname", "surname", "familyname", "นามสกุล" ,"lastName"
     ],
     "fixedPassword": [
       "password", "pass", "pwd", "secret", "รหัสผ่าน", "พาสเวิร์ด"
@@ -15,9 +15,9 @@
       "email", "e-mail", "useremail", "username", "mail", "อีเมล", "อีเมล์", "user", "login", "user_id", "login_id"
     ],
     "phone": [
-      "phone", "tel", "mobile", "contact_number", "telephone", "phone_number", "เบอร์", "โทรศัพท์", "มือถือ", "เบอร์ติดต่อ"
+      "phone", "tel", "mobile", "contact_number", "telephone", "phone_number", "เบอร์", "โทรศัพท์", "มือถือ", "เบอร์ติดต่อ","phoneNumber"
     ],
     "nationalId": [
-      "idcard", "nationalid", "national_id", "citizenid", "citizen_id", "personal_id", "pid", "taxid", "เลขบัตร", "บัตรประชาชน", "เลขประจำตัว", "เลข13หลัก"
+      "idcard", "nationalid", "national_id", "citizenid", "citizen_id", "personal_id", "pid", "taxid", "เลขบัตร", "บัตรประชาชน", "เลขประจำตัว", "เลข13หลัก","identificationNumber"
     ]
   }
