@@ -731,6 +731,15 @@
   {
     "สินค้า": "iPhone",
     "รุ่น": "iPhone 12",
+    "สี": "ม่วง",
+    "ความจุ": "128GB",
+    "รูป": "https://lh3.googleusercontent.com/d/1LZ-mEgsXmx_YNjEwTtaUa4hL0kKIyHKN",
+    "ดาวน์": "",
+    "": ""
+  },
+  {
+    "สินค้า": "iPhone",
+    "รุ่น": "iPhone 12",
     "สี": "ดำ",
     "ความจุ": "256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1hWuoa6EY0JoYIaXcT6AeRO71vkB2Loid",
@@ -771,6 +780,15 @@
     "ความจุ": "256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1UlAes1fRitwuvNYUAvutlK8gdsSDaGCa",
     "ดาวน์": 35,
+    "": ""
+  },
+  {
+    "สินค้า": "iPhone",
+    "รุ่น": "iPhone 12",
+    "สี": "ม่วง",
+    "ความจุ": "256GB",
+    "รูป": "https://lh3.googleusercontent.com/d/1LZ-mEgsXmx_YNjEwTtaUa4hL0kKIyHKN",
+    "ดาวน์": "",
     "": ""
   },
   {
@@ -16056,8 +16074,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1NFODcnOCkszeQng2Qo2RH33-_auVsZnU",
@@ -16065,8 +16083,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1XlADOsCZss_qqjQ3D5vQ2E5Cypcbevq4",
@@ -16074,8 +16092,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ฟ้า",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1uFTHXpXmuZ4KOBhhlAgwAo9fVB39BNiT",
@@ -16083,8 +16101,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1NFODcnOCkszeQng2Qo2RH33-_auVsZnU",
@@ -16092,8 +16110,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1XlADOsCZss_qqjQ3D5vQ2E5Cypcbevq4",
@@ -16101,8 +16119,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ฟ้า",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1uFTHXpXmuZ4KOBhhlAgwAo9fVB39BNiT",
@@ -16110,8 +16128,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1NFODcnOCkszeQng2Qo2RH33-_auVsZnU",
@@ -16119,8 +16137,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ขาว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1XlADOsCZss_qqjQ3D5vQ2E5Cypcbevq4",
@@ -16128,8 +16146,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ฟ้า",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1uFTHXpXmuZ4KOBhhlAgwAo9fVB39BNiT",
@@ -16137,8 +16155,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ดำ",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1NFODcnOCkszeQng2Qo2RH33-_auVsZnU",
@@ -16146,8 +16164,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ขาว",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1XlADOsCZss_qqjQ3D5vQ2E5Cypcbevq4",
@@ -16155,8 +16173,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Pro",
     "สี": "ฟ้า",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1uFTHXpXmuZ4KOBhhlAgwAo9fVB39BNiT",
@@ -16164,8 +16182,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1RMYjmfwyymStxQ0baApk_Hk6jXPW2jB8",
@@ -16173,8 +16191,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ชมพู",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1diI87QWlEX_v0pDkRv87Azi7xeHreQpn",
@@ -16182,8 +16200,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1SS0_BU6WRfS47wVrvRT5w5C_VP5WGtNE",
@@ -16191,8 +16209,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ดำ",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1RMYjmfwyymStxQ0baApk_Hk6jXPW2jB8",
@@ -16200,8 +16218,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ชมพู",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1diI87QWlEX_v0pDkRv87Azi7xeHreQpn",
@@ -16209,8 +16227,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ขาว",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1SS0_BU6WRfS47wVrvRT5w5C_VP5WGtNE",
@@ -16218,8 +16236,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1RMYjmfwyymStxQ0baApk_Hk6jXPW2jB8",
@@ -16227,8 +16245,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ชมพู",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1diI87QWlEX_v0pDkRv87Azi7xeHreQpn",
@@ -16236,8 +16254,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1SS0_BU6WRfS47wVrvRT5w5C_VP5WGtNE",
@@ -16245,8 +16263,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1RMYjmfwyymStxQ0baApk_Hk6jXPW2jB8",
@@ -16254,8 +16272,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ชมพู",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1diI87QWlEX_v0pDkRv87Azi7xeHreQpn",
@@ -16263,8 +16281,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8",
     "สี": "ขาว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1SS0_BU6WRfS47wVrvRT5w5C_VP5WGtNE",
@@ -16272,8 +16290,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3x",
     "สี": "ฟ้า",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/17kZsdigHsFeX5F2_mj1KZsmv6H3mFr8_",
@@ -16281,8 +16299,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3x",
     "สี": "ม่วง",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1D5erfGo-tYbktO1sR5aGdpHcmJDAwpv5",
@@ -16290,8 +16308,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3x",
     "สี": "ฟ้า",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/17kZsdigHsFeX5F2_mj1KZsmv6H3mFr8_",
@@ -16299,8 +16317,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3x",
     "สี": "ม่วง",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1D5erfGo-tYbktO1sR5aGdpHcmJDAwpv5",
@@ -16308,8 +16326,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ชมพู",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fKcouzN2IZdxSk_GKettT3a7wV2R2G9f",
@@ -16317,8 +16335,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "น้ำตาล",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JnXvi3Hw1yROhAsT1J-iElTetw_v6vZN",
@@ -16326,8 +16344,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ขาว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/10AwzMGhqvsp95m3i6m7siELeT8nezKDR",
@@ -16335,8 +16353,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ชมพู",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fKcouzN2IZdxSk_GKettT3a7wV2R2G9f",
@@ -16344,8 +16362,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "น้ำตาล",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JnXvi3Hw1yROhAsT1J-iElTetw_v6vZN",
@@ -16353,8 +16371,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/10AwzMGhqvsp95m3i6m7siELeT8nezKDR",
@@ -16362,8 +16380,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ชมพู",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fKcouzN2IZdxSk_GKettT3a7wV2R2G9f",
@@ -16371,8 +16389,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "น้ำตาล",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JnXvi3Hw1yROhAsT1J-iElTetw_v6vZN",
@@ -16380,8 +16398,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/10AwzMGhqvsp95m3i6m7siELeT8nezKDR",
@@ -16389,8 +16407,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "น้ำตาล",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1g1suxILPVST9dtQvitPJ05mGc5dGFEzg",
@@ -16398,8 +16416,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "ทอง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/18zrVHvjXf9VdrzDKHM_aOBAsrUG_r7An",
@@ -16407,8 +16425,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y0Qa9jN7Yxb9ltEUVJzeKpnU2H-nfROZ",
@@ -16416,8 +16434,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "น้ำตาล",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1g1suxILPVST9dtQvitPJ05mGc5dGFEzg",
@@ -16425,8 +16443,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "ทอง",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/18zrVHvjXf9VdrzDKHM_aOBAsrUG_r7An",
@@ -16434,8 +16452,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 Pro",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y0Qa9jN7Yxb9ltEUVJzeKpnU2H-nfROZ",
@@ -16443,8 +16461,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "ส้ม",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -16452,8 +16470,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -16461,8 +16479,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "ส้ม",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -16470,8 +16488,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -16479,8 +16497,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "ส้ม",
     "ความจุ": "8/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -16488,8 +16506,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "เขียว",
     "ความจุ": "8/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -16497,8 +16515,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "ส้ม",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -16506,8 +16524,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F",
     "สี": "เขียว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -16515,8 +16533,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "น้ำเงิน",
     "ความจุ": "3/32GB",
     "รูป": "https://lh3.googleusercontent.com/d/1N9fYu9M-YO9stoIalgeKtuG2EwpRA3v8",
@@ -16524,8 +16542,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "ขาว",
     "ความจุ": "3/32GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TTJRGib1K8Fd5wuWfRQTRLa9p9JsWH6b",
@@ -16533,8 +16551,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "น้ำเงิน",
     "ความจุ": "4/32GB",
     "รูป": "https://lh3.googleusercontent.com/d/1N9fYu9M-YO9stoIalgeKtuG2EwpRA3v8",
@@ -16542,8 +16560,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "ขาว",
     "ความจุ": "4/32GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TTJRGib1K8Fd5wuWfRQTRLa9p9JsWH6b",
@@ -16551,8 +16569,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "น้ำเงิน",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1N9fYu9M-YO9stoIalgeKtuG2EwpRA3v8",
@@ -16560,8 +16578,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "ขาว",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TTJRGib1K8Fd5wuWfRQTRLa9p9JsWH6b",
@@ -16569,8 +16587,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "น้ำเงิน",
     "ความจุ": "4/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1N9fYu9M-YO9stoIalgeKtuG2EwpRA3v8",
@@ -16578,8 +16596,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A16",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A16",
     "สี": "ขาว",
     "ความจุ": "4/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TTJRGib1K8Fd5wuWfRQTRLa9p9JsWH6b",
@@ -16587,8 +16605,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A60",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A60",
     "สี": "ฟ้า",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ikjQeR4UzUWxqohA9X0LS4Lei0U1MHQ8",
@@ -16596,8 +16614,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A60",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A60",
     "สี": "ม่วง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1gUkE-F2YBmecY0IbvnyaX_mDin44repZ",
@@ -16605,8 +16623,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A60",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A60",
     "สี": "ฟ้า",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ikjQeR4UzUWxqohA9X0LS4Lei0U1MHQ8",
@@ -16614,8 +16632,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A60",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A60",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1gUkE-F2YBmecY0IbvnyaX_mDin44repZ",
@@ -16623,8 +16641,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ม่วง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1h60NC1g4eJJgDWfVE0TDOZC0ix-qkqMC",
@@ -16632,8 +16650,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1sT22xHzeOIcOSHlsZFf0Plrf0QaoOdti",
@@ -16641,8 +16659,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ม่วง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1h60NC1g4eJJgDWfVE0TDOZC0ix-qkqMC",
@@ -16650,8 +16668,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1sT22xHzeOIcOSHlsZFf0Plrf0QaoOdti",
@@ -16659,8 +16677,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1h60NC1g4eJJgDWfVE0TDOZC0ix-qkqMC",
@@ -16668,8 +16686,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3 Pro",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1sT22xHzeOIcOSHlsZFf0Plrf0QaoOdti",
@@ -16677,8 +16695,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "ดำ",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1KSImQzrUIHJMBTGVid-dj4QXNRUUZ0EC",
@@ -16686,8 +16704,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "น้ำเงิน",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1F9an9cSbbeIZPBVXsCpFNx6XXuIh_f9b",
@@ -16695,8 +16713,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1KSImQzrUIHJMBTGVid-dj4QXNRUUZ0EC",
@@ -16704,8 +16722,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "น้ำเงิน",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1F9an9cSbbeIZPBVXsCpFNx6XXuIh_f9b",
@@ -16713,8 +16731,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1KSImQzrUIHJMBTGVid-dj4QXNRUUZ0EC",
@@ -16722,8 +16740,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A54",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A54",
     "สี": "น้ำเงิน",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1F9an9cSbbeIZPBVXsCpFNx6XXuIh_f9b",
@@ -16731,8 +16749,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/17R_z-L0axRBo2ff-mv0q7EY3vZFjN6hz",
@@ -16740,8 +16758,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3",
     "สี": "ขาว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1nLbQlmo6ChxR-s6oVPXlkzjdQAEmX_Gw",
@@ -16749,8 +16767,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/17R_z-L0axRBo2ff-mv0q7EY3vZFjN6hz",
@@ -16758,8 +16776,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A3",
     "สี": "ขาว",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1nLbQlmo6ChxR-s6oVPXlkzjdQAEmX_Gw",
@@ -16767,8 +16785,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A18",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A18",
     "สี": "ดำ",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1rwjIl675CYJPheHObRD-LkfUGCxT6qwC",
@@ -16776,8 +16794,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A18",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A18",
     "สี": "ฟ้า",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1MHLZdliNHtUbOtjeggDUTk8ltqyvcyfS",
@@ -16785,8 +16803,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A18",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A18",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1rwjIl675CYJPheHObRD-LkfUGCxT6qwC",
@@ -16794,8 +16812,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A18",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A18",
     "สี": "ฟ้า",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1MHLZdliNHtUbOtjeggDUTk8ltqyvcyfS",
@@ -16803,8 +16821,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1GHAemAgAocJAL1Ik9Cq10F9hgqB3AMwi",
@@ -16812,8 +16830,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำเงิน",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/174c4zKJ9tsjUeK_jtEAWh2DDOIS-U4bD",
@@ -16821,8 +16839,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำตาล",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1mEE5IQfefsPVpITfhbzC-CYGSLhLFGPT",
@@ -16830,8 +16848,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "ดำ",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1GHAemAgAocJAL1Ik9Cq10F9hgqB3AMwi",
@@ -16839,8 +16857,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำเงิน",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/174c4zKJ9tsjUeK_jtEAWh2DDOIS-U4bD",
@@ -16848,8 +16866,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำตาล",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1mEE5IQfefsPVpITfhbzC-CYGSLhLFGPT",
@@ -16857,8 +16875,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1GHAemAgAocJAL1Ik9Cq10F9hgqB3AMwi",
@@ -16866,8 +16884,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำเงิน",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/174c4zKJ9tsjUeK_jtEAWh2DDOIS-U4bD",
@@ -16875,8 +16893,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7 Ultra",
     "สี": "น้ำตาล",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1mEE5IQfefsPVpITfhbzC-CYGSLhLFGPT",
@@ -16884,8 +16902,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ทอง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1v2YfT07_FRQMSqleyAq4TLqYEAr6CXwY",
@@ -16893,8 +16911,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ayLQXZT9Cs0M5xw7UwFc1lDBV9DkQjan",
@@ -16902,8 +16920,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ทอง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1v2YfT07_FRQMSqleyAq4TLqYEAr6CXwY",
@@ -16911,8 +16929,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ayLQXZT9Cs0M5xw7UwFc1lDBV9DkQjan",
@@ -16920,8 +16938,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ทอง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1v2YfT07_FRQMSqleyAq4TLqYEAr6CXwY",
@@ -16929,8 +16947,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ayLQXZT9Cs0M5xw7UwFc1lDBV9DkQjan",
@@ -16938,8 +16956,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A78",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A78",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/14x2EgzxZ_LB0JFWlBSRrAlVjU4462DtC",
@@ -16947,8 +16965,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A78",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A78",
     "สี": "เขียว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fwNJQQc431NxjllLayDe2H_C7opFskUM",
@@ -16956,8 +16974,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A78",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A78",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/14x2EgzxZ_LB0JFWlBSRrAlVjU4462DtC",
@@ -16965,8 +16983,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A78",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A78",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fwNJQQc431NxjllLayDe2H_C7opFskUM",
@@ -16974,8 +16992,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1T4OzUnzWVMps8P_Uojbdjgd9BKdTjH7C",
@@ -16983,8 +17001,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เทา",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1R8A5AWZM7IZRMNb8q0wq-Zfkniw-VY2x",
@@ -16992,8 +17010,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1T4OzUnzWVMps8P_Uojbdjgd9BKdTjH7C",
@@ -17001,8 +17019,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เทา",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1R8A5AWZM7IZRMNb8q0wq-Zfkniw-VY2x",
@@ -17010,8 +17028,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1T4OzUnzWVMps8P_Uojbdjgd9BKdTjH7C",
@@ -17019,8 +17037,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11",
     "สี": "เทา",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1R8A5AWZM7IZRMNb8q0wq-Zfkniw-VY2x",
@@ -17028,8 +17046,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A38",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A38",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1uvii-avATv_9RA5pbdbW3_o8D1lZZDUG",
@@ -17037,8 +17055,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A38",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A38",
     "สี": "ทอง",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1FjFWpNyOgcTMxY7MKQM4gg6zeXoarTc2",
@@ -17046,8 +17064,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A38",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A38",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1uvii-avATv_9RA5pbdbW3_o8D1lZZDUG",
@@ -17055,8 +17073,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A38",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A38",
     "สี": "ทอง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1FjFWpNyOgcTMxY7MKQM4gg6zeXoarTc2",
@@ -17064,8 +17082,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10",
     "สี": "เทา",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1M3Z8VNnqQsUyrxuSbrueYhQ-_3LymKRa",
@@ -17073,8 +17091,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10",
     "สี": "น้ำเงิน",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1cT6Dp6n5mLio5b6nS4259nJyBVIMZ2B5",
@@ -17082,8 +17100,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10",
     "สี": "เทา",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1M3Z8VNnqQsUyrxuSbrueYhQ-_3LymKRa",
@@ -17091,8 +17109,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10",
     "สี": "น้ำเงิน",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1cT6Dp6n5mLio5b6nS4259nJyBVIMZ2B5",
@@ -17100,8 +17118,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-8tmDPH067JMKztZ3TIkuicZnqN-iTQ-",
@@ -17109,8 +17127,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "เขียว",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y2k-BGPMX8OQIvT08YWklUmuUcqTVWUO",
@@ -17118,8 +17136,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-8tmDPH067JMKztZ3TIkuicZnqN-iTQ-",
@@ -17127,8 +17145,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y2k-BGPMX8OQIvT08YWklUmuUcqTVWUO",
@@ -17136,8 +17154,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-8tmDPH067JMKztZ3TIkuicZnqN-iTQ-",
@@ -17145,8 +17163,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A58 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A58 4G",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y2k-BGPMX8OQIvT08YWklUmuUcqTVWUO",
@@ -17154,8 +17172,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 F",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Y3tM6NV8eOWuipTrNOXzRewZTtxK67lx",
@@ -17163,8 +17181,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 F",
     "สี": "ฟ้า",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1lfw4P94CKmU2rFn-NkCTcpFXD1qFRz8x",
@@ -17172,8 +17190,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 F",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JLh1QhzbEpAJEfk_27wxXTk5C1DA0kee",
@@ -17181,8 +17199,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1U_LWsRrfruRNu2MoNfPFHrg7BODKSpxC",
@@ -17190,8 +17208,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "เขียว",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1X_tXGprWAjMzJRAgBhHkFWNfVy5xg0f4",
@@ -17199,8 +17217,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ทอง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1bsDTVkU6auWvXWXfYJd0tFBwoJdYnOo7",
@@ -17208,8 +17226,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1U_LWsRrfruRNu2MoNfPFHrg7BODKSpxC",
@@ -17217,8 +17235,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1X_tXGprWAjMzJRAgBhHkFWNfVy5xg0f4",
@@ -17226,8 +17244,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ทอง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1bsDTVkU6auWvXWXfYJd0tFBwoJdYnOo7",
@@ -17235,8 +17253,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1U_LWsRrfruRNu2MoNfPFHrg7BODKSpxC",
@@ -17244,8 +17262,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1X_tXGprWAjMzJRAgBhHkFWNfVy5xg0f4",
@@ -17253,8 +17271,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A57",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A57",
     "สี": "ทอง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1bsDTVkU6auWvXWXfYJd0tFBwoJdYnOo7",
@@ -17262,8 +17280,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/11Hllfg0RE85djfQDFHSFYoYP0HybZt7q",
@@ -17271,8 +17289,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27",
     "สี": "ส้ม",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/18GZQtr_LaCmkYDMLRfr1kTrIKOz9OtgQ",
@@ -17280,8 +17298,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11Hllfg0RE85djfQDFHSFYoYP0HybZt7q",
@@ -17289,8 +17307,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27",
     "สี": "ส้ม",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/18GZQtr_LaCmkYDMLRfr1kTrIKOz9OtgQ",
@@ -17298,8 +17316,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27 Pro+",
     "สี": "น้ำเงิน",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1jMl8sQQV_8kOshPZryQWBigLne0bMDSZ",
@@ -17307,8 +17325,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo F27 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO F27 Pro+",
     "สี": "น้ำเงิน",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1jMl8sQQV_8kOshPZryQWBigLne0bMDSZ",
@@ -17316,8 +17334,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17",
     "สี": "น้ำเงิน",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JRRKoxMGS9uUe7YpTk49l8lX9rTqxloT",
@@ -17325,8 +17343,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17",
     "สี": "ดำ",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1eJLM1DbxS0BNEtf1Fteyv2snU5NUUday",
@@ -17334,8 +17352,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17",
     "สี": "น้ำเงิน",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1JRRKoxMGS9uUe7YpTk49l8lX9rTqxloT",
@@ -17343,8 +17361,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17",
     "สี": "ดำ",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1eJLM1DbxS0BNEtf1Fteyv2snU5NUUday",
@@ -17352,8 +17370,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A77s",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A77s",
     "สี": "ส้ม",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1UV_S2lwUh3M0onHT9eLsBQkHYyCn9KFs",
@@ -17361,8 +17379,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A77s",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A77s",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1U5iuD4gCC2fHPH8_l0LSKq-x8pIHS3-v",
@@ -17370,8 +17388,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "น้ำเงิน",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DK_I7QCy19h0uybI6WslQW5ZEOTzwWLl",
@@ -17379,8 +17397,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "ดำ",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wbEmgmUiZvc_n_qRLfaK-teq6JsV9che",
@@ -17388,8 +17406,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "เขียว",
     "ความจุ": "4/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1vTlbpVo2pdhC7DzcoJ_asBCVC-ZB5it8",
@@ -17397,8 +17415,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "น้ำเงิน",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DK_I7QCy19h0uybI6WslQW5ZEOTzwWLl",
@@ -17406,8 +17424,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wbEmgmUiZvc_n_qRLfaK-teq6JsV9che",
@@ -17415,8 +17433,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "เขียว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1vTlbpVo2pdhC7DzcoJ_asBCVC-ZB5it8",
@@ -17424,8 +17442,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "น้ำเงิน",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DK_I7QCy19h0uybI6WslQW5ZEOTzwWLl",
@@ -17433,8 +17451,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wbEmgmUiZvc_n_qRLfaK-teq6JsV9che",
@@ -17442,8 +17460,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A55 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A55 4G",
     "สี": "เขียว",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1vTlbpVo2pdhC7DzcoJ_asBCVC-ZB5it8",
@@ -17451,8 +17469,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 Pro",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1l3jlZveXXuWfaYuO914koH4zSzRg3mua",
@@ -17460,8 +17478,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 Pro",
     "สี": "เทา",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DcE7EaSJWZPw0I4IQXk5nPDu9ePU6BgA",
@@ -17469,8 +17487,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 Pro",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1l3jlZveXXuWfaYuO914koH4zSzRg3mua",
@@ -17478,8 +17496,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 11 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 11 Pro",
     "สี": "เทา",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DcE7EaSJWZPw0I4IQXk5nPDu9ePU6BgA",
@@ -17487,8 +17505,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/16-31FOJiNpdy3QDRGGM-MmGRP6TFwtva",
@@ -17496,8 +17514,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "เขียว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1j4BS2U1K7Xh5GHq9TTay9gsnvHFSVioX",
@@ -17505,8 +17523,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ม่วง",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1EWokgwd8DNeIQd45jSSJU_TEHc-nZODH",
@@ -17514,8 +17532,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/16-31FOJiNpdy3QDRGGM-MmGRP6TFwtva",
@@ -17523,8 +17541,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "เขียว",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1j4BS2U1K7Xh5GHq9TTay9gsnvHFSVioX",
@@ -17532,8 +17550,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ม่วง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1EWokgwd8DNeIQd45jSSJU_TEHc-nZODH",
@@ -17541,8 +17559,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/16-31FOJiNpdy3QDRGGM-MmGRP6TFwtva",
@@ -17550,8 +17568,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1j4BS2U1K7Xh5GHq9TTay9gsnvHFSVioX",
@@ -17559,8 +17577,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A79",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A79",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1EWokgwd8DNeIQd45jSSJU_TEHc-nZODH",
@@ -17568,8 +17586,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10 Pro",
     "สี": "เทา",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1n2E3tAtLX2DHvpTLtNIkZd73JTGVTUA4",
@@ -17577,8 +17595,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10 Pro",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1BefSU4IhPLD67F_cfre582GjP8be2XXK",
@@ -17586,8 +17604,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10 Pro",
     "สี": "เทา",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1n2E3tAtLX2DHvpTLtNIkZd73JTGVTUA4",
@@ -17595,8 +17613,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 10 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 10 Pro",
     "สี": "ม่วง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1BefSU4IhPLD67F_cfre582GjP8be2XXK",
@@ -17604,8 +17622,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8T 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8T 5G",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1NnL_Ae0sPA7z6Kiu8tLwmbL7GxextdV3",
@@ -17613,8 +17631,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8T 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8T 5G",
     "สี": "ทอง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1dB4JzNcxaTzNg8tBVtgRjtvsIWjP_iqC",
@@ -17622,8 +17640,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8T 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8T 5G",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1NnL_Ae0sPA7z6Kiu8tLwmbL7GxextdV3",
@@ -17631,8 +17649,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8T 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8T 5G",
     "สี": "ทอง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1dB4JzNcxaTzNg8tBVtgRjtvsIWjP_iqC",
@@ -17640,8 +17658,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/11GNWbn4dW1DuSd90aYL31JH9UA8TsyRf",
@@ -17649,8 +17667,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "น้ำเงิน",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1IG3guZneGxkfHJ_vHjmxR1vKnRCGgSji",
@@ -17658,8 +17676,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/11GNWbn4dW1DuSd90aYL31JH9UA8TsyRf",
@@ -17667,8 +17685,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "น้ำเงิน",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1IG3guZneGxkfHJ_vHjmxR1vKnRCGgSji",
@@ -17676,8 +17694,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11GNWbn4dW1DuSd90aYL31JH9UA8TsyRf",
@@ -17685,8 +17703,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A96",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A96",
     "สี": "น้ำเงิน",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1IG3guZneGxkfHJ_vHjmxR1vKnRCGgSji",
@@ -17694,8 +17712,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12x",
     "สี": "เขียว",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Hw8Z0xfZYBaVxTA1SCivylRHRM0i8eow",
@@ -17703,8 +17721,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12x",
     "สี": "ม่วง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wtFapIFRqNDTAhJsARcrcFUU9_xcX5LS",
@@ -17712,8 +17730,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12x",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Hw8Z0xfZYBaVxTA1SCivylRHRM0i8eow",
@@ -17721,8 +17739,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12x",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wtFapIFRqNDTAhJsARcrcFUU9_xcX5LS",
@@ -17730,8 +17748,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1YOOkdE5Io5V3w770CQ5bMVhexSj01EPe",
@@ -17739,8 +17757,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1AAh_krNXaxPTZsryMCh3QoQBaRiLPswY",
@@ -17748,8 +17766,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "น้ำตาล",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LKduBq6O9lyF2FF5XraUZyZ2XtP0q0AK",
@@ -17757,8 +17775,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "ดำ",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1YOOkdE5Io5V3w770CQ5bMVhexSj01EPe",
@@ -17766,8 +17784,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "เขียว",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1AAh_krNXaxPTZsryMCh3QoQBaRiLPswY",
@@ -17775,8 +17793,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "น้ำตาล",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LKduBq6O9lyF2FF5XraUZyZ2XtP0q0AK",
@@ -17784,8 +17802,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1YOOkdE5Io5V3w770CQ5bMVhexSj01EPe",
@@ -17793,8 +17811,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "เขียว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1AAh_krNXaxPTZsryMCh3QoQBaRiLPswY",
@@ -17802,8 +17820,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X6 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X6 Pro",
     "สี": "น้ำตาล",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LKduBq6O9lyF2FF5XraUZyZ2XtP0q0AK",
@@ -17811,8 +17829,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8 Pro",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LHF8jyFzTn5EIojcXBeEP38neDLbtNT3",
@@ -17820,8 +17838,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8 Pro",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1QTSnaIo94uZbQp5D8ypt3SN5KolDG9eG",
@@ -17829,8 +17847,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8 Pro",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LHF8jyFzTn5EIojcXBeEP38neDLbtNT3",
@@ -17838,8 +17856,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 8 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 8 Pro",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1QTSnaIo94uZbQp5D8ypt3SN5KolDG9eG",
@@ -17847,8 +17865,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A80",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A80",
     "สี": "ดำ",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/14uCGEaFxvAM5okN5ENsdLSaTnGlp3T6w",
@@ -17856,8 +17874,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A80",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A80",
     "สี": "ม่วง",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ZiyfusmjArxooMCb2jMjOC9GFEMwZTA6",
@@ -17865,8 +17883,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A80",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A80",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/14uCGEaFxvAM5okN5ENsdLSaTnGlp3T6w",
@@ -17874,8 +17892,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A80",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A80",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ZiyfusmjArxooMCb2jMjOC9GFEMwZTA6",
@@ -17883,8 +17901,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TyQU3qKt6DAoqp_GT7DcGRubCQ1BGRnN",
@@ -17892,8 +17910,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำตาล",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1VVpFMcVhxufYLt3TxU3OjMvMwS1YPTTH",
@@ -17901,8 +17919,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ม่วง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1G0wiAaYYCO1p1NP73jQ0z2Y5U3e-d0vU",
@@ -17910,8 +17928,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำเงิน",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1c8LEslCkI821VIFdcc_QHXxtZSSPfLkT",
@@ -17919,8 +17937,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ดำ",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TyQU3qKt6DAoqp_GT7DcGRubCQ1BGRnN",
@@ -17928,8 +17946,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำตาล",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1VVpFMcVhxufYLt3TxU3OjMvMwS1YPTTH",
@@ -17937,8 +17955,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ม่วง",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1G0wiAaYYCO1p1NP73jQ0z2Y5U3e-d0vU",
@@ -17946,8 +17964,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำเงิน",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1c8LEslCkI821VIFdcc_QHXxtZSSPfLkT",
@@ -17955,8 +17973,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TyQU3qKt6DAoqp_GT7DcGRubCQ1BGRnN",
@@ -17964,8 +17982,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำตาล",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1VVpFMcVhxufYLt3TxU3OjMvMwS1YPTTH",
@@ -17973,8 +17991,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ม่วง",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1G0wiAaYYCO1p1NP73jQ0z2Y5U3e-d0vU",
@@ -17982,8 +18000,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำเงิน",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1c8LEslCkI821VIFdcc_QHXxtZSSPfLkT",
@@ -17991,8 +18009,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ดำ",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1TyQU3qKt6DAoqp_GT7DcGRubCQ1BGRnN",
@@ -18000,8 +18018,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำตาล",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1VVpFMcVhxufYLt3TxU3OjMvMwS1YPTTH",
@@ -18009,8 +18027,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "ม่วง",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1G0wiAaYYCO1p1NP73jQ0z2Y5U3e-d0vU",
@@ -18018,8 +18036,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X7",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X7",
     "สี": "น้ำเงิน",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1c8LEslCkI821VIFdcc_QHXxtZSSPfLkT",
@@ -18027,8 +18045,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A98",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A98",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1keFjw0ICyvbM1KNEFPsQBElyTp4iZdvr",
@@ -18036,8 +18054,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A98",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A98",
     "สี": "ฟ้า",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-15YxsjSjdfEYWz-ylMIssZQbv7bGZbz",
@@ -18045,8 +18063,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "เทา",
     "ความจุ": "12/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1xpxOBXB7E_lvjJ18IrlbAvGftSo9PiTD",
@@ -18054,8 +18072,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "ม่วง",
     "ความจุ": "12/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/13gcuNV3OvytPb3Hr2L-mklgu2cVtpB4m",
@@ -18063,8 +18081,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "เทา",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1xpxOBXB7E_lvjJ18IrlbAvGftSo9PiTD",
@@ -18072,8 +18090,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "ม่วง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/13gcuNV3OvytPb3Hr2L-mklgu2cVtpB4m",
@@ -18081,8 +18099,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "เทา",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1xpxOBXB7E_lvjJ18IrlbAvGftSo9PiTD",
@@ -18090,8 +18108,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "ม่วง",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/13gcuNV3OvytPb3Hr2L-mklgu2cVtpB4m",
@@ -18099,8 +18117,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "เทา",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1xpxOBXB7E_lvjJ18IrlbAvGftSo9PiTD",
@@ -18108,8 +18126,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno10 Pro+",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno10 Pro+",
     "สี": "ม่วง",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/13gcuNV3OvytPb3Hr2L-mklgu2cVtpB4m",
@@ -18117,8 +18135,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1pFVXvO_fo1XKNVbrE5fRCsd9l87tMNhZ",
@@ -18126,8 +18144,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ขาว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fg2U6Biw9RNpT6kpCls9_4YZd5la9xoI",
@@ -18135,8 +18153,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1pFVXvO_fo1XKNVbrE5fRCsd9l87tMNhZ",
@@ -18144,8 +18162,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fg2U6Biw9RNpT6kpCls9_4YZd5la9xoI",
@@ -18153,8 +18171,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1pFVXvO_fo1XKNVbrE5fRCsd9l87tMNhZ",
@@ -18162,8 +18180,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo K12 Plus",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO K12 Plus",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fg2U6Biw9RNpT6kpCls9_4YZd5la9xoI",
@@ -18171,8 +18189,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F 4G",
     "สี": "ส้ม",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -18180,8 +18198,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F 4G",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -18189,8 +18207,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F 4G",
     "สี": "ส้ม",
     "ความจุ": "8/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1d3cSTxe_XnrZDl9rWkBw-GavHLHUomXO",
@@ -18198,8 +18216,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 12 F 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 12 F 4G",
     "สี": "เขียว",
     "ความจุ": "8/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1loXUX3H943OY3waETuokv7hwpLL9uprT",
@@ -18207,8 +18225,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17k",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17k",
     "สี": "น้ำเงิน",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DrZmwiYZK0Z5-0ohlmJmW2TnMjmec_sP",
@@ -18216,8 +18234,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A17k",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A17k",
     "สี": "ทอง",
     "ความจุ": "3/64GB",
     "รูป": "https://lh3.googleusercontent.com/d/18ZSL8-2UuLaz1-7o3MAHh9hx4lSLECAh",
@@ -18225,8 +18243,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ดำ",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Bv6AjGh2v5CkN_xfLVJDyaUwrGv9Hqle",
@@ -18234,8 +18252,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ทอง",
     "ความจุ": "16/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HgMw_d9vDiYB1DM6xxWSzhB1qvHJacyh",
@@ -18243,8 +18261,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Bv6AjGh2v5CkN_xfLVJDyaUwrGv9Hqle",
@@ -18252,8 +18270,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ทอง",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HgMw_d9vDiYB1DM6xxWSzhB1qvHJacyh",
@@ -18261,8 +18279,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Bv6AjGh2v5CkN_xfLVJDyaUwrGv9Hqle",
@@ -18270,8 +18288,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ทอง",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HgMw_d9vDiYB1DM6xxWSzhB1qvHJacyh",
@@ -18279,8 +18297,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ดำ",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1Bv6AjGh2v5CkN_xfLVJDyaUwrGv9Hqle",
@@ -18288,8 +18306,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3",
     "สี": "ทอง",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1HgMw_d9vDiYB1DM6xxWSzhB1qvHJacyh",
@@ -18297,8 +18315,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ทอง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1vUUmUPk5cQ37sKMayLW9EpiIjLE3SU_-",
@@ -18306,8 +18324,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ชมพู",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fy3O1Os2GjCQ3QumeHHnaVhPWpjE9QJp",
@@ -18315,8 +18333,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-7YDQZmmgoiOCwFDkKpNkZYf4VfXyH9Y",
@@ -18324,8 +18342,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ทอง",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1vUUmUPk5cQ37sKMayLW9EpiIjLE3SU_-",
@@ -18333,8 +18351,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ชมพู",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fy3O1Os2GjCQ3QumeHHnaVhPWpjE9QJp",
@@ -18342,8 +18360,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N3 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N3 Flip",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1-7YDQZmmgoiOCwFDkKpNkZYf4VfXyH9Y",
@@ -18351,8 +18369,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ddMPpPf7yc6UqSnzYVvLRlGvzrjQzt5Z",
@@ -18360,8 +18378,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1MKAWxT78ecgttfmWQircUdQuElaSfzHJ",
@@ -18369,8 +18387,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1hh6b0VEDX098a0lgQO_v8cdkffFhcwQR",
@@ -18378,8 +18396,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1ddMPpPf7yc6UqSnzYVvLRlGvzrjQzt5Z",
@@ -18387,8 +18405,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "เขียว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1MKAWxT78ecgttfmWQircUdQuElaSfzHJ",
@@ -18396,8 +18414,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2",
     "สี": "ขาว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1hh6b0VEDX098a0lgQO_v8cdkffFhcwQR",
@@ -18405,8 +18423,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ดำ",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11L2jglXGT7zBcF22BOd1eOBhPqR8bJcN",
@@ -18414,8 +18432,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ม่วง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HIyQT6NmKYOjvQbmucS7P-mE7P6F1gcu",
@@ -18423,8 +18441,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ทอง",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/17dBexsQ8Hhp5XNy1DsKQv84B1KLMZdyB",
@@ -18432,8 +18450,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11L2jglXGT7zBcF22BOd1eOBhPqR8bJcN",
@@ -18441,8 +18459,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ม่วง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HIyQT6NmKYOjvQbmucS7P-mE7P6F1gcu",
@@ -18450,8 +18468,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ทอง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/17dBexsQ8Hhp5XNy1DsKQv84B1KLMZdyB",
@@ -18459,8 +18477,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/11L2jglXGT7zBcF22BOd1eOBhPqR8bJcN",
@@ -18468,8 +18486,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ม่วง",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1HIyQT6NmKYOjvQbmucS7P-mE7P6F1gcu",
@@ -18477,8 +18495,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N2 Flip",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N2 Flip",
     "สี": "ทอง",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/17dBexsQ8Hhp5XNy1DsKQv84B1KLMZdyB",
@@ -18486,8 +18504,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13",
     "สี": "น้ำเงิน",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1zNGuVfDlV8TytdFHVWvynRMYW8_z1Whu",
@@ -18495,8 +18513,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1oIR3B2ACWDGTwzdnbZroRxqnNNm--wHz",
@@ -18504,8 +18522,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13",
     "สี": "น้ำเงิน",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1zNGuVfDlV8TytdFHVWvynRMYW8_z1Whu",
@@ -18513,8 +18531,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1oIR3B2ACWDGTwzdnbZroRxqnNNm--wHz",
@@ -18522,8 +18540,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno Pro 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno Pro 13",
     "สี": "เทา",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qp_s2I-mwyOPy8-MVeS9MwZ9HYdEFTkd",
@@ -18531,8 +18549,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno Pro 13",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno Pro 13",
     "สี": "ม่วง",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1_SgJZVpbzmLmaRnN3xecKCp1NhkDg9-8",
@@ -18540,8 +18558,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "น้ำเงิน",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Hrd9BEwVnlh4x5UP1iOQ-M0hOpoWXAtA",
@@ -18549,8 +18567,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "เทา",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1EoCFJeJ2wdEAZKsgFIP9cXOQELv0Vu9g",
@@ -18558,8 +18576,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "ม่วง",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LsmMEG3OQIn-OSnbWn8p6eWDBtc6USoK",
@@ -18567,8 +18585,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "น้ำเงิน",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Hrd9BEwVnlh4x5UP1iOQ-M0hOpoWXAtA",
@@ -18576,8 +18594,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "เทา",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1EoCFJeJ2wdEAZKsgFIP9cXOQELv0Vu9g",
@@ -18585,8 +18603,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 13F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 13F",
     "สี": "ม่วง",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1LsmMEG3OQIn-OSnbWn8p6eWDBtc6USoK",
@@ -18594,8 +18612,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 5G",
     "สี": "ชมพู",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
@@ -18603,8 +18621,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 5G",
     "สี": "น้ำตาล",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1teQE85kFeEGLi5OM61xSDSV8tdqMYgjv",
@@ -18612,8 +18630,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 5G",
     "สี": "ชมพู",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
@@ -18621,8 +18639,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 5G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 5G",
     "สี": "น้ำตาล",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1teQE85kFeEGLi5OM61xSDSV8tdqMYgjv",
@@ -18630,8 +18648,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 4G",
     "สี": "ชมพู",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
@@ -18639,8 +18657,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 4G",
     "สี": "น้ำตาล",
     "ความจุ": "8/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OOQdpEv2xzIvtabuxd5fedPNdBs06Jz-",
@@ -18648,8 +18666,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 4G",
     "สี": "ชมพู",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
@@ -18657,8 +18675,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5 Pro 4G",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 4G",
     "สี": "น้ำตาล",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OOQdpEv2xzIvtabuxd5fedPNdBs06Jz-",
@@ -18666,8 +18684,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ดำ",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DO0RMPlxRj5w5ezj1KWGR8HwmNLgnmwH",
@@ -18675,8 +18693,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/16j4DExYp4WAfhGmQkjOLL-Jw-4CehSQ_",
@@ -18684,8 +18702,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ชมพู",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1M8K0zx9WfJWNxmIVwPMQSH78hklWDhbX",
@@ -18693,8 +18711,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1DO0RMPlxRj5w5ezj1KWGR8HwmNLgnmwH",
@@ -18702,8 +18720,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ขาว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/16j4DExYp4WAfhGmQkjOLL-Jw-4CehSQ_",
@@ -18711,8 +18729,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ชมพู",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1M8K0zx9WfJWNxmIVwPMQSH78hklWDhbX",
@@ -18720,8 +18738,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ดำ",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1DO0RMPlxRj5w5ezj1KWGR8HwmNLgnmwH",
@@ -18729,8 +18747,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ขาว",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/16j4DExYp4WAfhGmQkjOLL-Jw-4CehSQ_",
@@ -18738,8 +18756,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find X8 Ultra",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find X8 Ultra",
     "สี": "ชมพู",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1M8K0zx9WfJWNxmIVwPMQSH78hklWDhbX",
@@ -18747,8 +18765,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N5",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N5",
     "สี": "ดำ",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1Fju3vtCjZPE3n5m6r8d61eyXq_LeNI4W",
@@ -18756,8 +18774,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N5",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N5",
     "สี": "ขาว",
     "ความจุ": "16/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1M52i38jR_ALAZOHwAVVnXrMCIlr3h2bj",
@@ -18765,8 +18783,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N5",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N5",
     "สี": "ดำ",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1Fju3vtCjZPE3n5m6r8d61eyXq_LeNI4W",
@@ -18774,8 +18792,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Find N5",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Find N5",
     "สี": "ขาว",
     "ความจุ": "16/1TB",
     "รูป": "https://lh3.googleusercontent.com/d/1M52i38jR_ALAZOHwAVVnXrMCIlr3h2bj",
@@ -18783,8 +18801,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5x",
     "สี": "ขาว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1fxLwC1kMejZ1swL0OS0obGgbyZO7l1tz",
@@ -18792,8 +18810,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo A5x",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5x",
     "สี": "น้ำเงิน",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1plK5ydMJa20-h0FwO-3AGO18DbDe5FvG",
@@ -18801,8 +18819,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Pad SE",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Pad SE",
     "สี": "น้ำเงิน",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1TWkCzYE_lacmePGouQsAYwLmpw1fAfP9",
@@ -18810,8 +18828,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Pad SE",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Pad SE",
     "สี": "ขาว",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1FIY9lvh2NVoX72Yn5Xa1Ufks35YqNf8B",
@@ -18819,8 +18837,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ชมพู",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/13FdT5j_wdHzG8ZsFqkefjHDRJaQ127_G",
@@ -18828,8 +18846,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "เขียว",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11aTV1CrBlr6uyh2Xk3dFQliDluthgw_t",
@@ -18837,8 +18855,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ฟ้า",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wO07b0tvvO49RxB0T4P_iuXFDQFenwRm",
@@ -18846,8 +18864,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ชมพู",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/13FdT5j_wdHzG8ZsFqkefjHDRJaQ127_G",
@@ -18855,8 +18873,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "เขียว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/11aTV1CrBlr6uyh2Xk3dFQliDluthgw_t",
@@ -18864,8 +18882,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ฟ้า",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wO07b0tvvO49RxB0T4P_iuXFDQFenwRm",
@@ -18873,8 +18891,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ชมพู",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/13FdT5j_wdHzG8ZsFqkefjHDRJaQ127_G",
@@ -18882,8 +18900,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "เขียว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/11aTV1CrBlr6uyh2Xk3dFQliDluthgw_t",
@@ -18891,8 +18909,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14F",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14F",
     "สี": "ฟ้า",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wO07b0tvvO49RxB0T4P_iuXFDQFenwRm",
@@ -18900,8 +18918,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "ขาว",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wZRzuKbIS5AxH0RcNde9wcDf9TuoeSea",
@@ -18909,8 +18927,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "เขียวเข้ม",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1hwivf92H8NFzLHZyGgxeDblsIj5pxnmb",
@@ -18918,8 +18936,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "เขียวอ่อน",
     "ความจุ": "12/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/16kBT7slVGDrHAnOQ2Ft0qr1LQCaeJXuI",
@@ -18927,8 +18945,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1wZRzuKbIS5AxH0RcNde9wcDf9TuoeSea",
@@ -18936,8 +18954,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "เขียวเข้ม",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1hwivf92H8NFzLHZyGgxeDblsIj5pxnmb",
@@ -18945,8 +18963,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14",
     "สี": "เขียวอ่อน",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/16kBT7slVGDrHAnOQ2Ft0qr1LQCaeJXuI",
@@ -18954,8 +18972,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14 Pro",
     "สี": "ขาว",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1h4WAvU31EFykAE87sezpBL8nhrE4RZjE",
@@ -18963,8 +18981,8 @@
     "": ""
   },
   {
-    "สินค้า": "Oppo",
-    "รุ่น": "Oppo Reno 14 Pro",
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO Reno 14 Pro",
     "สี": "ดำ",
     "ความจุ": "12/512GB",
     "รูป": "https://lh3.googleusercontent.com/d/1PzqSzOhFRw7WEUUui-2EZjqETfLFBkT3",
