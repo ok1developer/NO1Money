@@ -18641,18 +18641,9 @@
   {
     "สินค้า": "OPPO",
     "รุ่น": "OPPO A5 Pro 5G",
-    "สี": "น้ำตาล",
+    "สี": "ฟ้า",
     "ความจุ": "8/256GB",
-    "รูป": "https://lh3.googleusercontent.com/d/1teQE85kFeEGLi5OM61xSDSV8tdqMYgjv",
-    "ดาวน์": "",
-    "": ""
-  },
-  {
-    "สินค้า": "OPPO",
-    "รุ่น": "OPPO A5 Pro 4G",
-    "สี": "ชมพู",
-    "ความจุ": "8/128GB",
-    "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
+    "รูป": "https://lh3.googleusercontent.com/d/1jdgnQS8Ok0zTCuZNkN2M6Bn0GJSMrdVl",
     "ดาวน์": "",
     "": ""
   },
@@ -18661,16 +18652,16 @@
     "รุ่น": "OPPO A5 Pro 4G",
     "สี": "น้ำตาล",
     "ความจุ": "8/128GB",
-    "รูป": "https://lh3.googleusercontent.com/d/1OOQdpEv2xzIvtabuxd5fedPNdBs06Jz-",
+    "รูป": "https://lh3.googleusercontent.com/d/1N8q8-k_sze28WNb5xNFbgcj46Q3NsIiI",
     "ดาวน์": "",
     "": ""
   },
   {
     "สินค้า": "OPPO",
     "รุ่น": "OPPO A5 Pro 4G",
-    "สี": "ชมพู",
-    "ความจุ": "8/256GB",
-    "รูป": "https://lh3.googleusercontent.com/d/1qmC49lxBzVBVRNf1Wfmh4OIPIr0KLFz2",
+    "สี": "ฟ้า",
+    "ความจุ": "8/128GB",
+    "รูป": "https://lh3.googleusercontent.com/d/1jdgnQS8Ok0zTCuZNkN2M6Bn0GJSMrdVl",
     "ดาวน์": "",
     "": ""
   },
@@ -18678,6 +18669,15 @@
     "สินค้า": "OPPO",
     "รุ่น": "OPPO A5 Pro 4G",
     "สี": "น้ำตาล",
+    "ความจุ": "8/256GB",
+    "รูป": "https://lh3.googleusercontent.com/d/1N8q8-k_sze28WNb5xNFbgcj46Q3NsIiI",
+    "ดาวน์": "",
+    "": ""
+  },
+  {
+    "สินค้า": "OPPO",
+    "รุ่น": "OPPO A5 Pro 4G",
+    "สี": "ฟ้า",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OOQdpEv2xzIvtabuxd5fedPNdBs06Jz-",
     "ดาวน์": "",
@@ -33022,7 +33022,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ดำ",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qA2cHuTHR6BPcbyFppUIDTaxZQW6n4K8",
@@ -33031,7 +33031,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "แดง",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/14JYL6Nlsw4uLi6oad2PfoSWkfcEG07ZR",
@@ -33040,7 +33040,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ม่วง",
     "ความจุ": "4/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OX2tpGXBNyjRfkkAdd-tJAcX5ZAFkhtI",
@@ -33049,7 +33049,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ดำ",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qA2cHuTHR6BPcbyFppUIDTaxZQW6n4K8",
@@ -33058,7 +33058,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "แดง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/14JYL6Nlsw4uLi6oad2PfoSWkfcEG07ZR",
@@ -33067,7 +33067,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ม่วง",
     "ความจุ": "6/128GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OX2tpGXBNyjRfkkAdd-tJAcX5ZAFkhtI",
@@ -33076,7 +33076,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ดำ",
     "ความจุ": "6/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1qA2cHuTHR6BPcbyFppUIDTaxZQW6n4K8",
@@ -33085,7 +33085,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "แดง",
     "ความจุ": "6/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/14JYL6Nlsw4uLi6oad2PfoSWkfcEG07ZR",
@@ -33094,7 +33094,7 @@
   },
   {
     "สินค้า": "Vivo",
-    "รุ่น": "Vivo V21d",
+    "รุ่น": "Vivo Y21d",
     "สี": "ม่วง",
     "ความจุ": "6/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1OX2tpGXBNyjRfkkAdd-tJAcX5ZAFkhtI",
@@ -33485,6 +33485,24 @@
     "สี": "เทา",
     "ความจุ": "8/256GB",
     "รูป": "https://lh3.googleusercontent.com/d/1KfxHMqgOdpd-Q83DjxpoqCNC_zSGKif0",
+    "ดาวน์": "",
+    "": ""
+  },
+  {
+    "สินค้า": "Vivo",
+    "รุ่น": "Vivo Y39 5G",
+    "สี": "น้ำเงิน",
+    "ความจุ": "8/256GB",
+    "รูป": "",
+    "ดาวน์": "",
+    "": ""
+  },
+  {
+    "สินค้า": "Vivo",
+    "รุ่น": "Vivo Y39 5G",
+    "สี": "ม่วง",
+    "ความจุ": "8/256GB",
+    "รูป": "",
     "ดาวน์": "",
     "": ""
   }
